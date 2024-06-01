@@ -1,0 +1,36 @@
+
+
+import { Form } from '@formily/core';
+import { IRecursionFieldProps, ISchemaFieldProps, SchemaReactComponents } from '@formily/react';
+import React, { PropsWithChildren } from 'react';
+
+export interface ISchemaComponentContext {
+  scope?: any;
+  components?: SchemaReactComponents;
+  refresh?: () => void;
+  reset?: () => void;
+  designable?: boolean;
+  setDesignable?: (value: boolean) => void;
+  SchemaField?: React.FC<ISchemaFieldProps>;
+  distributed?: boolean;
+}
+
+export interface ISchemaComponentProvider {
+  designable?: boolean;
+  onDesignableChange?: (value: boolean) => void;
+  form?: Form;
+  scope?: any;
+  components?: SchemaReactComponents;
+  children?: React.ReactNode;
+}
+
+export interface IRecursionComponentProps extends IRecursionFieldProps {
+  scope?: any;
+  components?: SchemaReactComponents;
+}
+
+export interface ISchemaComponentOptionsProps extends PropsWithChildren {
+  scope?: any;
+  components?: SchemaReactComponents;
+  inherit?: boolean;
+}
