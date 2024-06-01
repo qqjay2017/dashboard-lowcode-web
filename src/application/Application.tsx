@@ -16,6 +16,7 @@ import { compose, normalizeContainer } from "./utils";
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { AppSchemaComponentProvider } from "./AppSchemaComponentProvider";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 export type ComponentAndProps<T = any> = [ComponentType, T];
 
 export class Application {
@@ -69,6 +70,15 @@ export class Application {
   }
 
   private addDefaultProviders() {
+    this.use(QueryClientProvider, {
+      client: new QueryClient({
+        defaultOptions: {
+          queries: {
+            retry: false,
+          },
+        },
+      }),
+    });
     this.use(APIClientProvider, { apiClient: this.apiClient });
 
     this.use(GlobalThemeProvider);
