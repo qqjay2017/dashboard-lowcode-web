@@ -37,6 +37,7 @@ export const ProjectAttendanceAnaTable = ({
       className={css`
         width: 100%;
         height: 100%;
+        overflow: hidden;
       `}
     >
       <DataTable
@@ -49,17 +50,17 @@ export const ProjectAttendanceAnaTable = ({
           {
             accessorKey: "attendanceNum",
             header: () => "项目出勤人数",
-            size: 80,
+            size: 110,
           },
           {
             accessorKey: "manageAttendanceNum",
             header: () => "管理出勤人数",
-            size: 80,
+            size: 110,
           },
           {
             accessorKey: "attendanceRate",
             header: () => "出勤率",
-            size: 60,
+            size: 110,
             cell: (info) => {
               return `${info.getValue() || 0}%`;
             },
