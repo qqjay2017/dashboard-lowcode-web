@@ -148,6 +148,7 @@ export const ChartIndex = () => {
             width: calc(100% - 200px);
             background-color: rgb(243, 244, 250);
             overflow: hidden auto;
+            padding-bottom: 80px;
           `}
         >
           <CreateBtnWrap>
