@@ -234,7 +234,7 @@ module.exports = {
         { from: /^\/report/, to: "/report/index.html" },
       ],
     },
-    port: 9527,
+    port: 9522,
     open: false,
     hot: true,
     proxy: [

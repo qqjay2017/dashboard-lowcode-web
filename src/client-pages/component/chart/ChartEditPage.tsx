@@ -10,7 +10,7 @@ import Decimal from "decimal.js";
 
 import { defaultChartTemplate } from "./consts";
 
-import { chartMockData } from "./chartMockData";
+import { chartMockData, chartMockDataOptions } from "./chartMockData";
 import { ChartEditRight } from "./ChartEditRight";
 import type { MonacoEditorHandles } from "@/schema-component";
 import { MonacoEditor } from "@/schema-component";
@@ -43,7 +43,7 @@ export const ChartEditPage = () => {
     isDarkTheme,
     themeProvider,
   });
-  const handleCompileTemplate = (template = "") => {
+  const handleCompileTemplate = (template = "", mockDataType = "") => {
     if (!template) {
       app.message.warning("图表模版内容为空,请输入");
       return false;
@@ -51,7 +51,7 @@ export const ChartEditPage = () => {
     try {
       const handlebarsTemplate = Handlebars.compile(template);
       const { chartListData, totalNum } = chartListDataFormat(
-        chartMockData[chartMockDataType] || [],
+        chartMockData[mockDataType || chartMockDataType] || [],
       );
 
       const handlebarsStr = handlebarsTemplate({
@@ -138,10 +138,16 @@ export const ChartEditPage = () => {
         url: `${apiBase}/chart/${id}`,
       })
       .then((res) => {
-        const chartDt = get(res, "data.data");
+        const chartDt = get(res, "data.data", {}) || {};
+        const type = chartDt.type;
+        const isPie = type === "pie";
+        if (isPie) {
+          setChartMockDataType("pieData");
+        }
+
         const template = chartDt.template || defaultChartTemplate;
         setTemplate(template);
-        handleCompileTemplate(template);
+        handleCompileTemplate(template, isPie ? "pieData" : "");
       });
   }, [id]);
 
@@ -214,12 +220,7 @@ export const ChartEditPage = () => {
               className={css`
                 width: 150px;
               `}
-              options={[
-                {
-                  label: "标准图表数据",
-                  value: "standard",
-                },
-              ]}
+              options={chartMockDataOptions}
               onChange={(e) => {
                 setChartMockDataType(e);
               }}
