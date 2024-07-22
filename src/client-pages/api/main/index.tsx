@@ -94,7 +94,6 @@ export const ApiMain = () => {
                 title: "标识码",
                 dataIndex: "id",
                 width: 160,
-                ellipsis: true,
                 render: (_, record) => {
                   return (
                     <Space>
