@@ -20,6 +20,9 @@ export const ChartListItem = ({
       className={css`
         width: 270px;
         margin: 16px;
+        &:hover {
+          box-shadow: rgba(29, 41, 57, 0.14) 0px 6px 18px;
+        }
       `}
     >
       <div
