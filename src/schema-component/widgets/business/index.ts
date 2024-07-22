@@ -1,5 +1,4 @@
 export * from "./projectBudget";
-export * from "./ProjectTypePercent";
 
 export * from "./ProjectAttendanceDataAna";
 export * from "./ProjectAttendanceAnaTable";

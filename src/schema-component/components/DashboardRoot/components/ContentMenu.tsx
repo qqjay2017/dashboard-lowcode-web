@@ -278,9 +278,11 @@ export const ContentMenu = memo(() => {
           width: calc(100% - 130px);
           height: 100%;
           padding: 10px;
-          display: flex;
+          overflow: hidden auto;
+
+          /* display: flex;
           flex-direction: column;
-          align-items: center;
+          align-items: center; */
         `}
       >
         {get(

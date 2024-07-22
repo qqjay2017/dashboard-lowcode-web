@@ -12,7 +12,6 @@ import {
   ProjectAttendanceDataAna,
   ProjectBudget,
   ProjectSelect,
-  ProjectTypePercent,
   QuarterSelect,
   SmartHelmet,
   Statistic,
@@ -32,7 +31,6 @@ export class DashboardBuildinPlugin extends Plugin {
       Header1,
       Header5,
       ProjectBudget,
-      ProjectTypePercent,
       HeaderMenu,
 
       ProjectAttendanceDataAna,

@@ -26,7 +26,7 @@ import { defaultBreakpoints, flexible } from "../utils";
 
 import { useBreakpoints, useRowProperties } from "../hooks";
 import { allThemeNameMap } from "../../../../dashboard-themes";
-import { useDashboardRootStyle } from "../styles";
+import { useDashboardRootStyle, useScrollBarStyle } from "../styles";
 
 import { DashboardRootContext, DesignPageConext } from "../context";
 
@@ -43,7 +43,7 @@ import { ContentMenu, SidebarBtnElementDragOverlay } from "./ContentMenu";
 import { Selectable } from "./Selectable";
 import { CanvasSetting } from "./CanvasSetting";
 import { fontStyle } from "./style";
-import { cn, sizeFormat } from "@/utils";
+import { cn, cx, sizeFormat } from "@/utils";
 import { useSchemaComponentContext } from "@/schema-component/hooks";
 
 const viewWidth = 3840;
@@ -263,6 +263,14 @@ const DashboardRootMain = observer(
         flexible(1300);
       }
     }, [designWidth, isPc]);
+
+    const injectToken = {
+      ...themeToken,
+      ...themeDarkOrLightToken,
+    };
+    const { styles: scrollBarStyle } = useScrollBarStyle({
+      thumbColor: injectToken.thumbColor,
+    });
     return (
       <DesignPageConext.Provider
         value={{
@@ -279,8 +287,7 @@ const DashboardRootMain = observer(
               themeAssetsPath: `${themeProvider}-${
                 isDarkTheme ? "dark" : "light"
               }`,
-              ...themeToken,
-              ...themeDarkOrLightToken,
+              ...injectToken,
             },
           }}
         >
@@ -300,10 +307,13 @@ const DashboardRootMain = observer(
               }}
             >
               <div
-                className={cn(css`
-                  width: 100vw;
-                  height: 100vh;
-                `)}
+                className={cx(
+                  css`
+                    width: 100vw;
+                    height: 100vh;
+                  `,
+                  scrollBarStyle,
+                )}
               >
                 <DesignPageHeader />
                 <div
@@ -347,7 +357,7 @@ const DashboardRootMain = observer(
                     {/* 画布滚动容器 */}
                     <div
                       ref={scrollAreaRef}
-                      className={css`
+                      className={cx(css`
                         user-select: none;
                         height: calc(100% - 40px);
                         width: 100%;
@@ -355,7 +365,7 @@ const DashboardRootMain = observer(
                         overflow: auto;
                         scrollbar-color: rgba(144, 146, 152, 0.3) transparent;
                         scrollbar-width: thin;
-                      `}
+                      `)}
                     >
                       {/* 最大的画布 */}
                       <div
