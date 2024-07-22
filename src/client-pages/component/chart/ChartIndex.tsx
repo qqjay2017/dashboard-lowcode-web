@@ -5,7 +5,7 @@ import { get } from "lodash-es";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 import { LuDatabase } from "react-icons/lu";
-import type { IChartTypeItem } from "./consts";
+
 import { allChartType, defaultChartTemplate } from "./consts";
 import { ChartTypeItem } from "./ChartTypeItem";
 import { createChartSchema } from "./createChartSchema";
