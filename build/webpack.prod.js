@@ -26,7 +26,7 @@ const resolve = (name) => {
 };
 
 
-const _target = "https://uat.kxgcc.com";
+const _target = "http://qzjg.kxgcc.com:30251";
 module.exports = {
   mode: NODE_ENV,
   devtool: isProduct ? false : "inline-source-map",

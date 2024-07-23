@@ -19,7 +19,7 @@ export const useClassicFrame5Style = createStyles(
       .nodeContent5RendererTitle {
         height: 100%;
         color: var(--secondary);
-        padding-left: 0.4rem;
+        padding-left: 0.16rem;
         display: flex;
         align-items: center;
         justify-content: flex-start;

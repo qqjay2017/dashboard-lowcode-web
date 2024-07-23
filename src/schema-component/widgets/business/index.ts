@@ -7,3 +7,5 @@ export * from "./KeyPersonArrived";
 
 export * from "./SmartHelmet";
 export * from "./EmploymentCreditMng";
+
+export * from "./ProjectDesc";

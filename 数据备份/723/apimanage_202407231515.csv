@@ -1,8 +1,8 @@
 "id","createdAt","updateAt","name","description","url","method","groupId","baseNameId","originId","headers","isMock","mockJson"
-"11ccf73e-36f4-431f-a755-8be78f25607e","2024-07-19 02:12:07.191","2024-07-19 02:12:07.191",质量安全检查统计,"",/bg/v1/safety/check,GET,,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,"[{""id"":""xrKcrAgawZ3fLRHHMwsSq"",""headerKey"":""system-id"",""headerValue"":""167096554103328853""}]",0,{}
-"122782c6-7446-46d1-9441-096973ce10ef","2024-07-19 02:12:07.191","2024-07-19 02:12:07.191",项目状态统计,"",/bg/v1/trace/project,GET,,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,[],0,{}
-"29bdd449-9cca-4169-a9e7-9575b89b66a6","2024-07-19 02:12:07.191","2024-07-19 02:12:07.191",项目数量区域统计,"",/bg/v1/project/map/1/100000,GET,,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,"[{""id"":""oHUteJ3boa_dSDNrFdHLp"",""headerKey"":""system-id"",""headerValue"":""167096554103328853""}]",0,{}
-"3dfdd700-ac8f-4342-be3b-d60a11260adb","2024-07-21 00:46:25.311","2024-07-21 00:46:25.311",项目出勤情况分析MOCK,"",/projectAttendance,POST,be5601bf-d35d-4f34-8715-23e3e01995ab,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,[],1,"{
+"11ccf73e-36f4-431f-a755-8be78f25607e","2024-07-22 01:16:13.286","2024-07-22 01:16:13.286",质量安全检查统计,"",/bg/v1/safety/check,GET,,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,"[{""id"":""xrKcrAgawZ3fLRHHMwsSq"",""headerKey"":""system-id"",""headerValue"":""167096554103328853""}]",0,{}
+"122782c6-7446-46d1-9441-096973ce10ef","2024-07-22 01:16:13.286","2024-07-22 01:16:13.286",项目状态统计,"",/bg/v1/trace/project,GET,,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,[],0,{}
+"29bdd449-9cca-4169-a9e7-9575b89b66a6","2024-07-22 01:16:13.286","2024-07-22 01:16:13.286",项目数量区域统计,"",/bg/v1/project/map/1/100000,GET,,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,"[{""id"":""oHUteJ3boa_dSDNrFdHLp"",""headerKey"":""system-id"",""headerValue"":""167096554103328853""}]",0,{}
+"3dfdd700-ac8f-4342-be3b-d60a11260adb","2024-07-22 01:16:13.286","2024-07-22 01:16:13.286",项目出勤情况分析MOCK,"",/projectAttendance,POST,be5601bf-d35d-4f34-8715-23e3e01995ab,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,[],1,"{
     ""code"": 200,
     ""data"": [
     {
@@ -154,8 +154,8 @@
     }
 ]
 }"
-"4851df01-fcd1-46ab-931e-7a0a74ccef93","2024-07-19 02:12:07.191","2024-07-19 02:12:07.191",测试api新建,测试api新建,/fsdff/453123,GET,,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,[],1,"{""a"":123}"
-"617bd9be-ca7c-4a55-b5ab-7f3a301b0560","2024-07-21 00:44:29.939","2024-07-21 00:44:29.939",项目考勤数据分析mock,"",/projectClocking,POST,be5601bf-d35d-4f34-8715-23e3e01995ab,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,[],1,"{
+"4851df01-fcd1-46ab-931e-7a0a74ccef93","2024-07-22 01:16:13.286","2024-07-22 01:16:13.286",测试api新建,测试api新建,/fsdff/453123,GET,,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,[],1,"{""a"":123}"
+"617bd9be-ca7c-4a55-b5ab-7f3a301b0560","2024-07-22 01:16:13.287","2024-07-22 01:16:13.287",项目考勤数据分析mock,"",/projectClocking,POST,be5601bf-d35d-4f34-8715-23e3e01995ab,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,[],1,"{
     ""code"": 200,
     ""data"": {
         ""projectNum"": ""5"",
@@ -167,28 +167,25 @@
         ""unClockUserNum"": 12
     }
 }"
-"65ae965c-1cdc-4b17-afe1-926ab28ee776","2024-07-19 02:12:07.191","2024-07-20 00:59:43.855",项目驾驶舱菜单,"",/kx-cockpit/menu,GET,,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,[],1,"{
+"65ae965c-1cdc-4b17-afe1-926ab28ee776","2024-07-22 01:16:13.286","2024-07-22 07:07:57.451",项目驾驶舱菜单,"",/kx-cockpit/menu,GET,,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,[],1,"{
     ""code"": 200,
     ""data"": [
         {
             ""label"": ""指挥中心"",
             ""shareURL"": ""29eeac82-726d-435c-ba09-61541290c332""
         },
+       
         {
             ""label"": ""人员信息管理"",
-            ""shareURL"": ""4a99eb1e-2d7d-4ea7-8dbb-31096c97c68e""
-        },
-        {
-            ""label"": ""人员信息管理"",
-            ""shareURL"": """",
+            ""shareURL"": ""4a99eb1e-2d7d-4ea7-8dbb-31096c97c68e"",
             ""children"": [
                 {
-                    ""label"": ""劳务信息"",
-                    ""shareURL"": """"
+                    ""label"": ""人员信息管理"",
+                    ""shareURL"": ""4a99eb1e-2d7d-4ea7-8dbb-31096c97c68e""
                 },
                 {
                     ""label"": ""智能安全帽"",
-                    ""shareURL"": ""d58b1b81-501a-4684-9cc8-a97fdc09dc41""
+                    ""shareURL"": """"
                 }
             ]
         },
@@ -206,7 +203,7 @@
         },
         {
             ""label"": ""施工质量管理"",
-            ""shareURL"": ""4a99eb1e-2d7d-4ea7-8dbb-31096c97c68e""
+            ""shareURL"": """"
         },
         {
             ""label"": ""施工安全管理"",
@@ -222,10 +219,10 @@
         }
     ]
 }"
-"72dedd0d-3d87-497f-9fa8-88bfc7fa6f3a","2024-07-19 02:12:07.192","2024-07-19 02:12:07.192",项目类别,"",/bg/v1/project/type,GET,,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,"[{""id"":""14zNZ_1h5tjysqtpL2UQs"",""headerKey"":""system-id"",""headerValue"":""167096554103328853""}]",0,{}
-"74340e09-5e9d-45b0-805f-72f3a4673539","2024-07-19 02:12:07.191","2024-07-19 02:12:07.191",项目预算,"",/bg/v1/fee/budget,GET,,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,[],0,{}
-"7af6a3aa-15dd-446b-8ae9-050f685e3058","2024-07-19 02:12:07.191","2024-07-19 02:12:07.191",安全检查,"",/bg/v1/safety/check,GET,,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,"[{""id"":""9Wv4lyuI9XtUmtvJyLyhC"",""headerKey"":""system-id"",""headerValue"":""167096554103328853""}]",0,{}
-"81fa5e46-5eae-4d54-a318-c1dfa90ccf1d","2024-07-20 12:47:06.478","2024-07-20 12:47:06.478",参建人员分布统计mock,"",/cjry,POST,be5601bf-d35d-4f34-8715-23e3e01995ab,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,[],1,"{
+"72dedd0d-3d87-497f-9fa8-88bfc7fa6f3a","2024-07-22 01:16:13.287","2024-07-22 01:16:13.287",项目类别,"",/bg/v1/project/type,GET,,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,"[{""id"":""14zNZ_1h5tjysqtpL2UQs"",""headerKey"":""system-id"",""headerValue"":""167096554103328853""}]",0,{}
+"74340e09-5e9d-45b0-805f-72f3a4673539","2024-07-22 01:16:13.286","2024-07-22 01:16:13.286",项目预算,"",/bg/v1/fee/budget,GET,,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,[],0,{}
+"7af6a3aa-15dd-446b-8ae9-050f685e3058","2024-07-22 01:16:13.286","2024-07-22 01:16:13.286",安全检查,"",/bg/v1/safety/check,GET,,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,"[{""id"":""9Wv4lyuI9XtUmtvJyLyhC"",""headerKey"":""system-id"",""headerValue"":""167096554103328853""}]",0,{}
+"81fa5e46-5eae-4d54-a318-c1dfa90ccf1d","2024-07-22 01:16:13.286","2024-07-22 01:16:13.286",参建人员分布统计mock,"",/cjry,POST,be5601bf-d35d-4f34-8715-23e3e01995ab,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,[],1,"{
     ""code"": 200,
     ""data"": {
         ""constructionTotal"": 175,
@@ -257,7 +254,7 @@
         ]
     }
 }"
-"86445281-fc02-4451-957f-f0d582ab28fa","2024-07-21 06:01:06.066","2024-07-21 06:01:06.066",智能安全帽MOCK,"",/applicationAnalysis,POST,be5601bf-d35d-4f34-8715-23e3e01995ab,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,[],1,"{
+"86445281-fc02-4451-957f-f0d582ab28fa","2024-07-22 01:16:13.286","2024-07-22 01:16:13.286",智能安全帽MOCK,"",/applicationAnalysis,POST,be5601bf-d35d-4f34-8715-23e3e01995ab,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,[],1,"{
     ""code"": 200,
     ""data"": {
         ""safetyProject"": {
@@ -322,7 +319,7 @@
         ]
     }
 }"
-"8648f7e2-8dbd-4958-86b4-3f5b0b676c94","2024-07-21 06:03:38.487","2024-07-21 06:03:38.487",未处理预警,"",/warnList,POST,be5601bf-d35d-4f34-8715-23e3e01995ab,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,[],1,"{
+"8648f7e2-8dbd-4958-86b4-3f5b0b676c94","2024-07-22 01:16:13.286","2024-07-22 01:16:13.286",未处理预警,"",/warnList,POST,be5601bf-d35d-4f34-8715-23e3e01995ab,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,[],1,"{
     ""code"": 200,
     ""data"": [
         {
@@ -337,7 +334,7 @@
         }
     ]
 }"
-"867a399c-57fb-4701-b701-1e4165297c8a","2024-07-19 02:12:07.192","2024-07-19 02:12:07.192",预警分析,"",/bg/v1/project/progress/warn,GET,,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,"[{""id"":""MYULJj1n4UVUqSkjj3dHm"",""headerKey"":""system-id"",""headerValue"":""167096554103328853""},{""id"":""JUpiJ7HbyZHYiTO9IcOFx"",""headerKey"":""depend-method"",""headerValue"":""GET""},{""id"":""3Pi0kZOpvCavmsnJi38eV"",""headerKey"":""depend-uri"",""headerValue"":""/api/bg/v1/fee/budget""}]",1,"{
+"867a399c-57fb-4701-b701-1e4165297c8a","2024-07-22 01:16:13.287","2024-07-22 01:16:13.287",预警分析,"",/bg/v1/project/progress/warn,GET,,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,"[{""id"":""MYULJj1n4UVUqSkjj3dHm"",""headerKey"":""system-id"",""headerValue"":""167096554103328853""},{""id"":""JUpiJ7HbyZHYiTO9IcOFx"",""headerKey"":""depend-method"",""headerValue"":""GET""},{""id"":""3Pi0kZOpvCavmsnJi38eV"",""headerKey"":""depend-uri"",""headerValue"":""/api/bg/v1/fee/budget""}]",1,"{
     ""code"": 200,
     ""message"": ""success."",
     ""data"": {
@@ -387,8 +384,8 @@
     },
     ""validErrors"": null
 }"
-"9825fa27-ea25-4e4a-8cab-c45c82bf8c53","2024-07-19 02:12:07.191","2024-07-19 02:12:07.191",项目数量统计,"",/bg/v1/trace/project,GET,,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,[],0,{}
-ae060448-a558-411b-a87e-ca60b21a9ecb,"2024-07-21 05:57:40.864","2024-07-21 05:57:40.864",关键人员今日到岗MOCK,"",/keyPersonnel,POST,be5601bf-d35d-4f34-8715-23e3e01995ab,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,[],1,"{
+"9825fa27-ea25-4e4a-8cab-c45c82bf8c53","2024-07-22 01:16:13.286","2024-07-22 01:16:13.286",项目数量统计,"",/bg/v1/trace/project,GET,,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,[],0,{}
+ae060448-a558-411b-a87e-ca60b21a9ecb,"2024-07-22 01:16:13.286","2024-07-22 01:16:13.286",关键人员今日到岗MOCK,"",/keyPersonnel,POST,be5601bf-d35d-4f34-8715-23e3e01995ab,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,[],1,"{
     ""code"": 200,
     ""data"": [
         {
@@ -411,7 +408,7 @@ ae060448-a558-411b-a87e-ca60b21a9ecb,"2024-07-21 05:57:40.864","2024-07-21 05:57
         }
     ]
 }"
-ae9a44fa-b634-44aa-bba8-873fed9275c3,"2024-07-21 14:44:53.337","2024-07-21 14:44:53.337",用工信用管理MOCK,"用工信用管理
+ae9a44fa-b634-44aa-bba8-873fed9275c3,"2024-07-22 01:16:13.286","2024-07-22 01:16:13.286",用工信用管理MOCK,"用工信用管理
 ",/workerList,POST,be5601bf-d35d-4f34-8715-23e3e01995ab,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,[],1,"{
     ""code"":200,
     ""data"":[
@@ -489,8 +486,8 @@ ae9a44fa-b634-44aa-bba8-873fed9275c3,"2024-07-21 14:44:53.337","2024-07-21 14:44
     }
 ]
 }"
-c17594bf-c8fe-4020-924d-e8d00f451764,"2024-07-19 02:12:07.191","2024-07-19 02:12:07.191",项目进度,"",/bg/v1/project/progress/num,GET,,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,[],0,{}
-c91334f6-a710-4a98-ae21-84ebd1f6697e,"2024-07-20 13:45:28.346","2024-07-20 13:45:28.346", 合规风险预警分析玫瑰图,"",/hgfxyj,POST,be5601bf-d35d-4f34-8715-23e3e01995ab,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,[],1,"{
+c17594bf-c8fe-4020-924d-e8d00f451764,"2024-07-22 01:16:13.286","2024-07-22 01:16:13.286",项目进度,"",/bg/v1/project/progress/num,GET,,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,[],0,{}
+c91334f6-a710-4a98-ae21-84ebd1f6697e,"2024-07-22 01:16:13.286","2024-07-22 01:16:13.286", 合规风险预警分析玫瑰图,"",/hgfxyj,POST,be5601bf-d35d-4f34-8715-23e3e01995ab,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,[],1,"{
     ""code"": 200,
     ""data"": [
         {
@@ -519,6 +516,6 @@ c91334f6-a710-4a98-ae21-84ebd1f6697e,"2024-07-20 13:45:28.346","2024-07-20 13:45
         }
     ]
 }"
-ca4e7c9f-6371-4aee-bead-2eae5094e8e5,"2024-07-19 02:12:07.191","2024-07-19 02:12:07.191",测试请求,测试请求,/qerrt/123,POST,,,,[],0,{}
-ea7539fe-5623-40ea-be91-b7d90963262f,"2024-07-19 02:12:07.191","2024-07-19 02:12:07.191",质量检查,"",/bg/v1/quality/check,GET,,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,"[{""id"":""U6h6PnqkMZFC_Ra-9qewY"",""headerKey"":""system-id"",""headerValue"":""167096554103328853""}]",0,{}
-f51a7812-ff9e-424f-91d8-5499ce2df512,"2024-07-19 02:12:07.191","2024-07-19 02:12:07.191",人员信息,"",/bg/v1/worker/company,GET,,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,"[{""id"":""MtknbCa_PpMttjJkKiRQ4"",""headerKey"":""system-id"",""headerValue"":""167096554103328853""},{""id"":""zXuRYh8rvD9wXRRSZMZPR"",""headerKey"":""depend-method"",""headerValue"":""GET""},{""id"":""LmAS1PBj2GCyn2Fl1MJyH"",""headerKey"":""depend-uri"",""headerValue"":""/api/bg/v1/fee/budget""}]",0,{}
+ca4e7c9f-6371-4aee-bead-2eae5094e8e5,"2024-07-22 01:16:13.286","2024-07-22 01:16:13.286",测试请求,测试请求,/qerrt/123,POST,,,,[],0,{}
+ea7539fe-5623-40ea-be91-b7d90963262f,"2024-07-22 01:16:13.286","2024-07-22 01:16:13.286",质量检查,"",/bg/v1/quality/check,GET,,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,"[{""id"":""U6h6PnqkMZFC_Ra-9qewY"",""headerKey"":""system-id"",""headerValue"":""167096554103328853""}]",0,{}
+f51a7812-ff9e-424f-91d8-5499ce2df512,"2024-07-22 01:16:13.286","2024-07-22 01:16:13.286",人员信息,"",/bg/v1/worker/company,GET,,b0aed06b-0d16-424c-a7c8-ecd1e66a3e6c,,"[{""id"":""MtknbCa_PpMttjJkKiRQ4"",""headerKey"":""system-id"",""headerValue"":""167096554103328853""},{""id"":""zXuRYh8rvD9wXRRSZMZPR"",""headerKey"":""depend-method"",""headerValue"":""GET""},{""id"":""LmAS1PBj2GCyn2Fl1MJyH"",""headerKey"":""depend-uri"",""headerValue"":""/api/bg/v1/fee/budget""}]",0,{}

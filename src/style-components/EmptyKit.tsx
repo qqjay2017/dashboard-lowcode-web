@@ -36,12 +36,7 @@ export const EmptyKit = ({
               line-height: 0.24rem;
               font-size: 0.24rem;
               color: ${token.textPrimary};
-              position: absolute;
-              z-index: 20;
-              left: 50%;
-              top: 50%;
-              margin-left: -0.12rem;
-              top: -0.12rem;
+
               animation: spin 1s linear infinite;
 
               @keyframes spin {

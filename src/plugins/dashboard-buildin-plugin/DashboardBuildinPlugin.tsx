@@ -11,6 +11,7 @@ import {
   ProjectAttendanceAnaTable,
   ProjectAttendanceDataAna,
   ProjectBudget,
+  ProjectDesc,
   ProjectSelect,
   QuarterSelect,
   SmartHelmet,
@@ -21,6 +22,7 @@ import {
 export class DashboardBuildinPlugin extends Plugin {
   async load(): Promise<void> {
     this.app.addComponents({
+      ProjectDesc,
       EmploymentCreditMng,
       SmartHelmet,
       KeyPersonArrived,
