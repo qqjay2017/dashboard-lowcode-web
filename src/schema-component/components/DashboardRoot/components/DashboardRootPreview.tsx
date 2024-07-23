@@ -92,7 +92,6 @@ export const DashboardRootPreview = ({
 
   return (
     <DesignPageConext.Provider
-      key={breakpoint}
       value={{
         designZoom,
         setDesignZoom,
@@ -133,7 +132,7 @@ export const DashboardRootPreview = ({
                     position: relative;
                     background-size: cover;
                     overflow-x: hidden;
-                    overflow-y: auto;
+                    overflow-y: ${isPc ? "hidden" : "auto"};
                   `,
                   scrollBarStyle,
                 )}
@@ -142,7 +141,7 @@ export const DashboardRootPreview = ({
                   className={css`
                     width: 100%;
                     height: 100%;
-                    min-height: 44vw;
+                    min-height: 800px;
                   `}
                 >
                   <div

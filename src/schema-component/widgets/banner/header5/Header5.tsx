@@ -24,10 +24,11 @@ import type { DataSourceBindType } from "@/schema-component/types";
 
 interface Header5Props extends PropsWithChildren {
   title?: string;
+  subTitle?: string;
   dataSource?: DataSourceBindType;
 }
 
-export const Header5 = ({ title, dataSource }: Header5Props) => {
+export const Header5 = ({ title, dataSource, subTitle }: Header5Props) => {
   const { reportId } = useReportId();
   const { isPc } = useDashboardRoot();
 
@@ -37,6 +38,7 @@ export const Header5 = ({ title, dataSource }: Header5Props) => {
     `/assets/schema-component/header5/${token.themeAssetsPath}/bg.png`,
   );
   const titleStr = useStrHandlebars(title);
+  const subTitleStr = useStrHandlebars(subTitle);
   const { data, isLoading } = useDataBindFetch(dataSource);
   const menuList: HeaderMenuItemType[] = get(data, "data.data", []) || [];
   const { ref, width = 0 } = useResizeObserver<HTMLDivElement>();
@@ -73,7 +75,7 @@ export const Header5 = ({ title, dataSource }: Header5Props) => {
         `}
       >
         {/* 左标题 */}
-        {isPc && (
+        {!!(isPc && titleStr) && (
           <div
             className={css`
               z-index: 10;
@@ -106,6 +108,23 @@ export const Header5 = ({ title, dataSource }: Header5Props) => {
                 }}
               ></GradientTitle>
             </div>
+          </div>
+        )}
+        {!!(isPc && subTitleStr) && (
+          <div
+            className={css`
+              z-index: 11;
+              position: absolute;
+              width: 23%;
+              left: 0.24rem;
+              top: 58%;
+              height: 0.26rem;
+              font-size: 0.22rem;
+              line-height: 0.26rem;
+              color: #c3f4ff;
+            `}
+          >
+            {subTitleStr}
           </div>
         )}
 

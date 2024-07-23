@@ -1,23 +1,19 @@
 import { useCallback, useMemo, useState } from "react";
 import useResizeObserver from "use-resize-observer";
 
-
-
 import { debounce } from "lodash-es";
-
-
 
 import { defaultBreakpoints, getBreakpointFromWidth } from "../utils";
 import type { BreakpointKey, Breakpoints } from "../../PositionDecorator/types";
 
 export const useBreakpoints = (
-
   breakpoints: Breakpoints = defaultBreakpoints,
   wait = 800,
-  reff?: any
+  reff?: any,
 ) => {
-
-  const [breakpoint, setBreakpoint] = useState<BreakpointKey>('desktop');
+  const [breakpoint, setBreakpoint] = useState<BreakpointKey>(
+    "" as BreakpointKey,
+  );
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
   // 防抖
@@ -27,17 +23,17 @@ export const useBreakpoints = (
       setHeight(height);
       setBreakpoint(getBreakpointFromWidth(breakpoints, width) || "desktop");
     },
-    [breakpoints]
+    [breakpoints],
   );
 
   const onResize = useMemo(
     () => debounce(setSize, wait, { leading: true }),
-    [wait, setSize]
+    [wait, setSize],
   );
   const { ref } = useResizeObserver({
     ref: reff || undefined,
     onResize,
   });
 
-  return { breakpoint, width, height, ref, };
+  return { breakpoint, width, height, ref };
 };

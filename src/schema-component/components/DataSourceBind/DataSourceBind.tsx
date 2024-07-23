@@ -26,10 +26,10 @@ export const DataSourceBind = observer(
       (item) => {
         return {
           ...item,
-          label: (item?.group?.name || "") + item.name,
+          label: (item?.group || "") + item.name,
           value: item.id,
         };
-      }
+      },
     );
     return (
       <>
@@ -121,5 +121,5 @@ export const DataSourceBind = observer(
         )}
       </>
     );
-  }
+  },
 );

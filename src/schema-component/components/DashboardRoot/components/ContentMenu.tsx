@@ -15,7 +15,7 @@ export type ElementsType = "ClassicFrame" | "Statistic";
 
 const SubMenuItemCom = ({ subMenuItem }: { subMenuItem: SubMenuItems }) => {
   const draggable = useDraggable({
-    id: `designer-btn-${subMenuItem.type}`,
+    id: `designer-btn-${subMenuItem.type}-${subMenuItem.id}`,
     data: {
       ...subMenuItem,
       type: subMenuItem.type,
@@ -326,6 +326,7 @@ export function SidebarBtnElementDragOverlay({
     >
       <img
         className={css`
+          object-fit: cover;
           width: ${w * 80}px;
           height: ${h * 45}px;
         `}

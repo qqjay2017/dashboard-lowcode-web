@@ -6,7 +6,7 @@ import React, { useCallback, useContext, useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { SchemaComponentContext } from "../context";
 import type { ISchemaComponentProvider } from "../types";
-import { useUpdate } from "..";
+import { useBreakpoints, useUpdate } from "..";
 import { SchemaComponentOptions } from "./SchemaComponentOptions";
 import { useSchemaOptionsContext } from "./useSchemaOptionsContext";
 
@@ -55,6 +55,7 @@ Schema.registerCompiler(Registry.compile);
 export const SchemaComponentProvider: React.FC<ISchemaComponentProvider> = (
   props,
 ) => {
+  const { width, breakpoint } = useBreakpoints(undefined, 500, document.body);
   const { pathname } = useLocation();
   const { designable, onDesignableChange, components, children } = props;
   const ctx = useContext(SchemaComponentContext);
@@ -62,7 +63,10 @@ export const SchemaComponentProvider: React.FC<ISchemaComponentProvider> = (
   const refresh = useUpdate();
   const [formId, setFormId] = useState(uid());
 
-  const form = useMemo(() => props.form || createForm(), [formId, pathname]);
+  const form = useMemo(
+    () => props.form || createForm(),
+    [formId, pathname, breakpoint, width],
+  );
 
   const scope = useMemo(() => {
     return { ...props.scope, randomString };
@@ -87,13 +91,19 @@ export const SchemaComponentProvider: React.FC<ISchemaComponentProvider> = (
     setFormId(uid());
   }, []);
 
+  if (!width || !breakpoint) {
+    return null;
+  }
+
   return (
     <SchemaComponentContext.Provider
+      key={breakpoint}
       value={{
         formId,
         scope,
         components,
         reset,
+        breakpoint,
         refresh: () => {
           refresh();
         },

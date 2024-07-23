@@ -1,10 +1,12 @@
-
-
-import type { Form } from '@formily/core';
-import type { IRecursionFieldProps, ISchemaFieldProps, SchemaReactComponents } from '@formily/react';
-import type { PropsWithChildren } from 'react';
-import type React from 'react';
-
+import type { Form } from "@formily/core";
+import type {
+  IRecursionFieldProps,
+  ISchemaFieldProps,
+  SchemaReactComponents,
+} from "@formily/react";
+import type { PropsWithChildren } from "react";
+import type React from "react";
+import type { BreakpointKey } from "./components/PositionDecorator/types";
 
 export interface ISchemaComponentContext {
   formId?: string;
@@ -16,6 +18,7 @@ export interface ISchemaComponentContext {
   setDesignable?: (value: boolean) => void;
   SchemaField?: React.FC<ISchemaFieldProps>;
   distributed?: boolean;
+  breakpoint?: BreakpointKey;
 }
 
 export interface ISchemaComponentProvider {
@@ -38,7 +41,6 @@ export interface ISchemaComponentOptionsProps extends PropsWithChildren {
   inherit?: boolean;
 }
 
-
 export interface DataSourceBindType {
   dataSourceId?: string;
 
@@ -47,20 +49,18 @@ export interface DataSourceBindType {
   beforeScript?: string;
 }
 
-
 export type JSXComponent =
   | keyof JSX.IntrinsicElements
-  | React.JSXElementConstructor<any>
-
+  | React.JSXElementConstructor<any>;
 
 export interface SchemaQueryType {
   quarterSelect?: {
     queryType?: string;
     quarterId?: string;
     quarterName?: string;
-  },
+  };
   projectSelect?: {
     id: string;
     name: string;
-  }
+  };
 }
