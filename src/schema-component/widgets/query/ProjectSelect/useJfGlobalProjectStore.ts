@@ -4,30 +4,29 @@ import { createJSONStorage, persist } from "zustand/middleware";
 import quarterOfYear from "dayjs/plugin/quarterOfYear";
 import type { QuarterItemType } from "../QuarterSelect";
 
-dayjs.extend(quarterOfYear)
+dayjs.extend(quarterOfYear);
 interface ProjectState {
   projectId: string;
   projectName: string;
   projectCode: string;
   project?: any | null;
-  quarter: QuarterItemType,
+  quarter: QuarterItemType;
   setQuarter: (qua: QuarterItemType) => void;
   setProject: (pro: any) => void;
-
 }
 export const useJfGlobalProjectStore = create<ProjectState>()(
   persist(
     (set) => ({
       quarter: {
-        quarterId: `${dayjs().get('year')}${dayjs().quarter()}`,
-        quarterName: `${dayjs().get('year')}年${dayjs().quarter()}季度`,
+        quarterId: `${dayjs().get("year")}${dayjs().quarter()}`,
+        quarterName: `${dayjs().get("year")}年${dayjs().quarter()}季度`,
       },
       projectId: "",
       projectName: "",
       projectCode: "",
       project: null,
 
-      setProject: (pro) =>
+      setProject: (pro = {}) =>
         set((state) => ({
           ...state,
           projectId: pro.projectId || pro.id,
@@ -36,19 +35,20 @@ export const useJfGlobalProjectStore = create<ProjectState>()(
           project:
             state.project?.id && state.project.id === pro.id
               ? {
-                ...state.project,
-                ...pro,
-              }
+                  ...state.project,
+                  ...pro,
+                }
               : pro,
         })),
-      setQuarter: (qua) => set((state) => ({
-        ...state,
-        quarter: qua
-      })),
+      setQuarter: (qua) =>
+        set((state) => ({
+          ...state,
+          quarter: qua,
+        })),
     }),
     {
       name: "jf-project-storage",
       storage: createJSONStorage(() => sessionStorage),
-    }
-  )
+    },
+  ),
 );

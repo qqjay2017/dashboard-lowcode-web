@@ -15,7 +15,9 @@ import type { SchemComponentWithDataSourceProps } from "@/types";
 import { EmptyKit } from "@/style-components";
 
 export const ProjectDesc = ({ query }: SchemComponentWithDataSourceProps) => {
-  const { projectId } = useQueryToBusParams(query);
+  const busParams = useQueryToBusParams(query);
+
+  const projectId = busParams?.projectId;
 
   const { data, isLoading } = useFetchProjectDt(projectId);
   const projectDt = get(data, "data.data");
