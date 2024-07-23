@@ -3,10 +3,10 @@ import { FormProvider, Schema } from "@formily/react";
 import { uid } from "@formily/shared";
 import React, { useCallback, useContext, useMemo, useState } from "react";
 
-import { useUpdate } from "ahooks";
 import { useLocation } from "react-router-dom";
 import { SchemaComponentContext } from "../context";
 import type { ISchemaComponentProvider } from "../types";
+import { useUpdate } from "..";
 import { SchemaComponentOptions } from "./SchemaComponentOptions";
 import { useSchemaOptionsContext } from "./useSchemaOptionsContext";
 

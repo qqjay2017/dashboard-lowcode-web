@@ -22,15 +22,14 @@ const ChartEditRightMain = ({
   return (
     <div
       className={css`
-        width: 50%;
-        max-width: calc(100% - 400px);
-        height: 100%;
+        width: 450px;
+        height: calc(100vh - 80px);
       `}
     >
       <div
         className={css`
-          width: 100%;
-          height: 50%;
+          width: 450px;
+          height: 288px;
           border-bottom: 1px solid #dcdfe6;
         `}
       >
@@ -44,7 +43,7 @@ const ChartEditRightMain = ({
       <div
         className={css`
           width: 100%;
-          height: 50%;
+          height: calc(100% - 288px);
         `}
       >
         {/*  出码 */}

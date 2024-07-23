@@ -1,18 +1,17 @@
 import { css } from "@emotion/css";
 import dayjs from "dayjs";
 import { memo, useEffect, useState } from "react";
+// import { useFullscreen } from "react-use";
 
-import { useFullscreen } from "ahooks";
 import { AiOutlineFullscreen, AiOutlineFullscreenExit } from "react-icons/ai";
 import { week } from "./consts";
 
 export const HeaderClock = memo(() => {
   const [dateValue, setDateValue] = useState(new Date());
-  const [isFullscreen, { toggleFullscreen }] = useFullscreen(
-    document.getElementById("root"),
-    {},
-  );
-
+  // const [show, toggle] = useToggle(false);
+  const isFullscreen = false;
+  // const isFullscreen = useFullscreen(document.getElementById("root"), true, {});
+  const toggleFullscreen = () => {};
   useEffect(() => {
     const interval = setInterval(() => setDateValue(new Date()), 1000);
 

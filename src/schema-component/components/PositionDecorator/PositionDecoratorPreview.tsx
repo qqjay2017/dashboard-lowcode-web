@@ -3,7 +3,6 @@ import { useMemo } from "react";
 import { useField } from "@formily/react";
 import { useDashboardRoot } from "../DashboardRoot";
 
-import { useScrollBarStyle } from "../DashboardRoot/styles";
 import type { PositionDecoratorOptions } from "./types";
 import { cn, eidToElementId, sizeFormat } from "@/utils";
 

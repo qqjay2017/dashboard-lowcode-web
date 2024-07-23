@@ -155,18 +155,18 @@ export const ChartEditPage = () => {
     return null;
   }
   return (
-    <Spin spinning={spinning}>
-      <div
-        className={css`
-          width: 100vw;
-          height: calc(100vh - 50px);
-          display: flex;
-        `}
-      >
+    <div
+      className={css`
+        width: 100vw;
+        height: calc(100vh - 50px);
+        display: flex;
+      `}
+    >
+      <Spin spinning={spinning}>
         <div
           className={css`
             min-width: 400px;
-            width: 50%;
+            width: calc(100vw - 450px);
             height: 100%;
             border-right: 1px solid #dcdfe6;
           `}
@@ -243,7 +243,7 @@ export const ChartEditPage = () => {
           <div
             className={css`
               width: 100%;
-              height: calc(100% - 30px);
+              height: calc(100vh - 80px);
             `}
           >
             <MonacoEditor
@@ -252,19 +252,21 @@ export const ChartEditPage = () => {
               value={template}
               onChange={setTemplate}
               height="100%"
+              wordWrap="on"
             />
           </div>
         </div>
-        <ChartEditRight
-          chartOption={chartOption}
-          chartOptionStr={chartOptionStr}
-          setChartOptionStr={setChartOptionStr}
-          chartOptionEditorRef={chartOptionEditorRef}
-          isDarkTheme={isDarkTheme}
-          themeProvider={themeProvider}
-        />
-      </div>
-    </Spin>
+      </Spin>
+
+      <ChartEditRight
+        chartOption={chartOption}
+        chartOptionStr={chartOptionStr}
+        setChartOptionStr={setChartOptionStr}
+        chartOptionEditorRef={chartOptionEditorRef}
+        isDarkTheme={isDarkTheme}
+        themeProvider={themeProvider}
+      />
+    </div>
   );
 };
 

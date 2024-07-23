@@ -6,9 +6,10 @@ import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 import { get } from "lodash-es";
-import { useUpdateDashboard } from "../../../hooks/useUpdateDashboard";
+
 import { useSchemaOptionsContext } from "@/schema-component/core";
 import { useReportShare } from "@/hooks";
+import { useUpdateDashboard } from "@/schema-component";
 
 export const DesignPageHeader = () => {
   // const { reset, refresh } = useSchemaComponentContext();

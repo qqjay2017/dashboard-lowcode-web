@@ -1,14 +1,6 @@
-import type { ISchema } from '@formily/react'
-
-import { dashboardRootFormSchema } from './setting-schema';
-
-
-
-
+import type { ISchema } from "@formily/react";
+import { dashboardRootFormSchema } from "@/schema-component";
 
 export const allComponentTypeSettingSchema: Record<string, ISchema> = {
-
-    "DashboardRoot": dashboardRootFormSchema,
-
-
-}
+  DashboardRoot: dashboardRootFormSchema,
+};

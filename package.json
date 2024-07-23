@@ -28,7 +28,6 @@
     "@tanstack/react-query": "^5.40.0",
     "@tanstack/react-table": "^8.19.2",
     "@types/node": "^20.14.9",
-    "ahooks": "^3.8.0",
     "antd": "^5.19.2",
     "antd-style": "^3.6.2",
     "axios": "^1.7.2",
@@ -58,6 +57,7 @@
     "react-moveable": "^0.56.0",
     "react-router-dom": "^6.23.1",
     "react-selecto": "^1.26.3",
+    "react-use": "^17.5.1",
     "tailwind-merge": "^2.4.0",
     "use-resize-observer": "^9.1.0",
     "zustand": "^4.5.4"

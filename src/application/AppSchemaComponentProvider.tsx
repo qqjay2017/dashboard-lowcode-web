@@ -1,4 +1,5 @@
-import { useLocalStorageState } from "ahooks";
+import { useLocalStorage } from "react-use";
+
 import React from "react";
 import { SchemaComponentProvider } from "../schema-component/core";
 import type { ISchemaComponentProvider } from "../schema-component/types";
@@ -13,11 +14,9 @@ const getKeyByName = (name) => {
 const SchemaComponentProviderWithLocalStorageState: React.FC<
   ISchemaComponentProvider & { appName?: string }
 > = (props) => {
-  const [designable, setDesignable] = useLocalStorageState(
+  const [designable, setDesignable] = useLocalStorage(
     getKeyByName(props.appName),
-    {
-      defaultValue: !!props.designable,
-    }
+    !!props.designable,
   );
   return (
     <SchemaComponentProvider
@@ -31,7 +30,7 @@ const SchemaComponentProviderWithLocalStorageState: React.FC<
 };
 
 export const AppSchemaComponentProvider: React.FC<ISchemaComponentProvider> = (
-  props
+  props,
 ) => {
   if (typeof props.designable === "boolean") {
     return <SchemaComponentProvider {...props} />;

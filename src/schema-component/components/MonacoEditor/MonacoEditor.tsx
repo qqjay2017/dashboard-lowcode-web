@@ -1,5 +1,4 @@
 import Editor, { loader } from "@monaco-editor/react";
-
 import { forwardRef, useImperativeHandle, useRef } from "react";
 
 import type { FormItemComponentProps } from "../../../types";
@@ -12,6 +11,7 @@ interface MonacoEditorProps extends FormItemComponentProps {
   height?: string;
   scrollBeyondLastLine?: boolean;
   defaultValue?: string;
+  wordWrap?: "off" | "on" | "wordWrapColumn" | "bounded";
 }
 
 loader.config({
@@ -40,6 +40,7 @@ export const MonacoEditor = forwardRef<MonacoEditorHandles, MonacoEditorProps>(
       height = "300px",
       scrollBeyondLastLine = false,
       defaultValue,
+      wordWrap = "off",
     },
     reff,
   ) => {
@@ -71,6 +72,7 @@ export const MonacoEditor = forwardRef<MonacoEditorHandles, MonacoEditorProps>(
           formatOnType: true,
           formatOnPaste: true,
           automaticLayout: true,
+          wordWrap,
           readOnly,
           scrollbar: {
             alwaysConsumeMouseWheel: false,

@@ -1,10 +1,7 @@
 import type { ISchema } from "@formily/react";
-import { getCompomentTypeInfoSchema } from "@/schema-component/components/DashboardRoot/setting-schema";
-import { getDataSourceBindSchema } from "@/schema-component/components";
+import getDataSourceBindSchema from "../../getDataSourceBindSchema";
 
-
-
-
+import getCompomentTypeInfoSchema from "../../getCompomentTypeInfoSchema";
 export const settingSchema: ISchema = getCompomentTypeInfoSchema({
-    ...getDataSourceBindSchema()
-})
+  ...getDataSourceBindSchema(),
+});

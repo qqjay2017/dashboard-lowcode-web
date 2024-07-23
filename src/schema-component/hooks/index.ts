@@ -9,3 +9,5 @@ export * from "./useStrHandlebars";
 export * from "./useQueryToBusParams";
 export * from "./useFrameSizeStyle";
 export * from "./useAutoScroll";
+
+export * from "./useUpdate";

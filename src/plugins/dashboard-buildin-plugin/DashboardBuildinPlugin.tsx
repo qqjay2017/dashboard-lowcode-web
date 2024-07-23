@@ -15,7 +15,6 @@ import {
   ProjectSelect,
   QuarterSelect,
   SmartHelmet,
-  Statistic,
   UnprocessedWarningList,
 } from "../../schema-component";
 
@@ -29,7 +28,7 @@ export class DashboardBuildinPlugin extends Plugin {
       UnprocessedWarningList,
       ClassicFrame,
       ClassicFrame5,
-      Statistic,
+
       Header1,
       Header5,
       ProjectBudget,

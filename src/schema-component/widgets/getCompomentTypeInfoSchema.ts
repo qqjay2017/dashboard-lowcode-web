@@ -1,10 +1,4 @@
-import type { ISchema } from "@formily/react";
-import getDataSourceBindSchema from "../getDataSourceBindSchema";
-
-function getCompomentTypeInfoSchema(
-  properties: any = {},
-  properties2: any = {},
-) {
+function getCompomentTypeInfoSchema(properties = {}, properties2 = {}): any {
   return {
     type: "object",
     properties: {
@@ -50,6 +44,4 @@ function getCompomentTypeInfoSchema(
   };
 }
 
-export const settingSchema: ISchema = getCompomentTypeInfoSchema({
-  ...getDataSourceBindSchema(),
-});
+export default getCompomentTypeInfoSchema;

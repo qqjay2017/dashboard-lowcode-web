@@ -14,13 +14,13 @@ const NODE_ENV =
   process.env.NODE_ENV === "production" ? "production" : "development";
 const isProduct = NODE_ENV === "production";
 const publicPath = isProduct ? "/dashboard/" : "/";
- const CDN_LIST = isProduct?[
-  "unpkg/react.production.min.js",
-  "unpkg/react-dom.production.min.js",
+ const CDN_LIST =  [
+  isProduct ? "unpkg/react.production.min.js": "unpkg/react.development.js",
+ isProduct ? "unpkg/react-dom.production.min.js": "unpkg/react-dom.development.js",
   "unpkg/handlebars.js",
   "unpkg/html2canvas.min.js",
   "unpkg/echarts.min.js"
-].map(url=>publicPath+url):[]
+].map(url=>publicPath+url);
 const resolve = (name) => {
   return path.join(__dirname, name);
 };
@@ -75,7 +75,7 @@ module.exports = {
                   cssPropOptimization: true,
                 },
               ],
-              !isProduct  && require.resolve('react-refresh/babel')
+              // !isProduct  && require.resolve('react-refresh/babel')
             ].filter(Boolean),
           },
         },
@@ -132,8 +132,7 @@ module.exports = {
       },
     ],
   },
-  optimization: isProduct
-    ? {
+  optimization: {
         splitChunks: {
           chunks: "all",
 
@@ -185,16 +184,15 @@ module.exports = {
           }),
         ],
       }
-    : {},
-  externals: isProduct
-    ? {
+   ,
+  externals : {
       handlebars:"Handlebars",
         react: "React",
         "react-dom": "ReactDOM",
         html2canvas: "html2canvas",
         echarts: "echarts",
       }
-    : {},
+   ,
   plugins: [
     // new MonacoWebpackPlugin(),
     new CleanWebpackPlugin(),
@@ -225,7 +223,7 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: isProduct ?  "[name].[contenthash].css":"[name].css",
     }),
-    !isProduct && new ReactRefreshWebpackPlugin()
+    // !isProduct && new ReactRefreshWebpackPlugin()
   ].filter(Boolean),
   devServer: {
     historyApiFallback: {

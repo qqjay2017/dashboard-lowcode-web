@@ -3,12 +3,11 @@ import {
   Header1MenuItem,
   HeaderMenuMenuItem,
   ProjectBudgetMenuItem,
-  StatisticMenuItem,
 } from "../../widgets";
 
 const subMenuItems0 = [ClassicFrameMenuItem];
 
-const subMenuItems2 = [StatisticMenuItem];
+const subMenuItems2 = [];
 
 const subMenuItems3 = [Header1MenuItem, HeaderMenuMenuItem];
 
