@@ -160,6 +160,7 @@ export const DashboardRootPreview = ({
                         width: 100%;
                         height: ${dheight};
                         position: relative;
+                        min-height: 100vh;
                       `,
                       rootStyle.styles,
                       className,
