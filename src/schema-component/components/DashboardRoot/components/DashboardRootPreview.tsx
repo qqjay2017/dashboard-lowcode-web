@@ -33,7 +33,11 @@ export const DashboardRootPreview = ({
   } = props;
 
   const [designZoom, setDesignZoom] = useState(1);
-  const { breakpoint, width, height, ref } = useBreakpoints(breakpoints, 300);
+  const { breakpoint, width, height } = useBreakpoints(
+    breakpoints,
+    300,
+    document.body,
+  );
   const rootStyle = useDashboardRootStyle({
     themeProvider,
     isDarkTheme,
@@ -147,7 +151,6 @@ export const DashboardRootPreview = ({
                   <div
                     // {...otherProps}
                     id="DashboardRoot"
-                    ref={ref}
                     className={cn(
                       fontStyle,
                       css`
