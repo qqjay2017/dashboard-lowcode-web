@@ -3,13 +3,14 @@ import { AuthContextProvider } from "./AuthContextProvider";
 export class KxgcAuthPlugin extends Plugin {
   async afterAdd(): Promise<void> {
     try {
-      const envJson = await fetch(`/component-shared-center/env.json`).then(
-        (r) => r.json()
-      );
+      const res = await fetch(`/component-shared-center/env.json`);
+      if (res.ok) {
+        const envJson = await res.json();
 
-      Object.entries(envJson).forEach(([a, b]) => {
-        window[a] = b;
-      });
+        Object.entries(envJson).forEach(([a, b]) => {
+          window[a] = b;
+        });
+      }
     } catch (error) {
       console.error(error, "error");
     }

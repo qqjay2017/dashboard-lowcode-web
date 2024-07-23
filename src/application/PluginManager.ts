@@ -1,18 +1,21 @@
+import type { Application } from "./Application";
+import type { Plugin } from "./Plugin";
 
-import type { Application } from './Application';
-import type { Plugin } from './Plugin';
-
-
-export interface PluginOptions<T = any> { name?: string; packageName?: string; config?: T }
-export type PluginType<Opts = any> = typeof Plugin | [typeof Plugin, PluginOptions<Opts>];
+export interface PluginOptions<T = any> {
+  name?: string;
+  packageName?: string;
+  config?: T;
+}
+export type PluginType<Opts = any> =
+  | typeof Plugin
+  | [typeof Plugin, PluginOptions<Opts>];
 export interface PluginData {
   name: string;
   packageName: string;
   version: string;
   url: string;
-  type: 'local' | 'upload' | 'npm';
+  type: "local" | "upload" | "npm";
 }
-
 
 export class PluginManager {
   protected pluginInstances: Map<typeof Plugin, Plugin> = new Map();
@@ -33,42 +36,45 @@ export class PluginManager {
    */
   async init(_plugins: PluginType[]) {
     await this.initStaticPlugins(_plugins);
-
   }
 
   private async initStaticPlugins(_plugins: PluginType[] = []) {
     for await (const plugin of _plugins) {
-      const pluginClass = Array.isArray(plugin) ? plugin[0] : plugin;
-      const opts = Array.isArray(plugin) ? plugin[1] : undefined;
-      await this.add(pluginClass, opts);
+      try {
+        const pluginClass = Array.isArray(plugin) ? plugin[0] : plugin;
+        const opts = Array.isArray(plugin) ? plugin[1] : undefined;
+        await this.add(pluginClass, opts);
+      } catch (error) {}
     }
   }
 
-
-
   async add<T = any>(plugin: typeof Plugin, opts: PluginOptions<T> = {}) {
-    const instance = this.getInstance(plugin, opts);
+    try {
+      const instance = this.getInstance(plugin, opts);
 
-    this.pluginInstances.set(plugin, instance);
+      this.pluginInstances.set(plugin, instance);
 
-    if (opts.name) {
-      this.pluginsAliases[opts.name] = instance;
-    }
+      if (opts.name) {
+        this.pluginsAliases[opts.name] = instance;
+      }
 
-    if (opts.packageName) {
-      this.pluginsAliases[opts.packageName] = instance;
-    }
+      if (opts.packageName) {
+        this.pluginsAliases[opts.packageName] = instance;
+      }
 
-    await instance.afterAdd();
+      await instance.afterAdd();
+    } catch (error) {}
   }
 
   get<T extends typeof Plugin>(PluginClass: T): InstanceType<T>;
   get<T extends {}>(name: string): T;
   get(nameOrPluginClass: any) {
-    if (typeof nameOrPluginClass === 'string') {
+    if (typeof nameOrPluginClass === "string") {
       return this.pluginsAliases[nameOrPluginClass];
     }
-    return this.pluginInstances.get(nameOrPluginClass.default || nameOrPluginClass);
+    return this.pluginInstances.get(
+      nameOrPluginClass.default || nameOrPluginClass,
+    );
   }
 
   private getInstance<T>(PluginParam: typeof Plugin, opts?: T) {
