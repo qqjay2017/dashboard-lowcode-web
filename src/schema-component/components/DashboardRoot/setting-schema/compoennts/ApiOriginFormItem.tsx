@@ -2,7 +2,7 @@ import { css } from "@emotion/css";
 import { Button, Select } from "antd";
 import { get } from "lodash-es";
 import type { ISchema } from "@formily/react";
-import type { APiWrap} from "@/api-client";
+import type { APiWrap } from "@/api-client";
 import { useAPIClient, useQuery } from "@/api-client";
 
 import type { FormItemComponentProps } from "@/types";
@@ -43,13 +43,12 @@ export const ApiOriginFormItem = ({
         method: "get",
       }),
   });
-  
 
   const options = (get(data, "data.data", []) || []).map((item) => {
     return {
       ...item,
       label: item.origin,
-      value: item.id,
+      value: item.origin,
     };
   });
 
@@ -80,7 +79,7 @@ export const ApiOriginFormItem = ({
               {
                 title: "新建域名",
               },
-              createApiOriginSchema
+              createApiOriginSchema,
             );
             dialog
               .forOpen((payload, next) => {

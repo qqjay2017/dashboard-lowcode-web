@@ -31,7 +31,7 @@ export const ApiMain = () => {
       ...item,
       label: item.name,
       text: item.name,
-      value: item.id,
+      value: item.name,
     };
   });
   const dataSource = get(data, "data.data", []) || [];
@@ -128,28 +128,20 @@ export const ApiMain = () => {
               {
                 title: "分组",
 
-                dataIndex: "group.name",
+                dataIndex: "group",
                 filters: groupFilterOptions,
-                render: (_, row) => {
-                  return get(row, "group.name");
-                },
+
                 onFilter: (value, record) => {
-                  return record?.group?.id === value;
+                  return record?.group === value;
                 },
               },
               {
                 title: "域名",
-                dataIndex: "origin.origin",
-                render: (_, row) => {
-                  return get(row, "origin.origin");
-                },
+                dataIndex: "origin",
               },
               {
                 title: "前缀",
-                dataIndex: "baseName.baseName",
-                render: (_, row) => {
-                  return get(row, "baseName.baseName");
-                },
+                dataIndex: "baseName",
               },
               {
                 title: "url",

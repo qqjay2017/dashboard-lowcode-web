@@ -2,7 +2,7 @@ import { css } from "@emotion/css";
 import { Button, Select } from "antd";
 import { get } from "lodash-es";
 import type { ISchema } from "@formily/react";
-import type { APiWrap} from "@/api-client";
+import type { APiWrap } from "@/api-client";
 import { useAPIClient, useQuery } from "@/api-client";
 
 import type { FormItemComponentProps } from "@/types";
@@ -48,7 +48,7 @@ export const ApiBaseNameFormItem = ({
     return {
       ...item,
       label: item.baseName,
-      value: item.id,
+      value: item.baseName,
     };
   });
 
@@ -79,7 +79,7 @@ export const ApiBaseNameFormItem = ({
               {
                 title: "新建前缀",
               },
-              createApiBaseNameSchema
+              createApiBaseNameSchema,
             );
             dialog
               .forOpen((payload, next) => {

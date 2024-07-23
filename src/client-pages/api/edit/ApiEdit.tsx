@@ -54,16 +54,10 @@ export const ApiEdit = () => {
         ? `${apiBase}/api-manage/edit/${id}`
         : `${apiBase}/api-manage/create`,
       data: {
-        originId: null,
-        baseNameId: null,
-        groupId: null,
-
         ...values,
         headers: JSON.stringify(values.headers || []),
         url: (values.url || "").trim(),
-        baseName: undefined,
-        group: undefined,
-        origin: undefined,
+
         mockJson: values.mockJson || "{}",
       },
     });

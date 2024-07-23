@@ -4,7 +4,7 @@ import { Button, Select } from "antd";
 
 import type { ISchema } from "@formily/react";
 import { get } from "lodash-es";
-import type { APiWrap} from "@/api-client";
+import type { APiWrap } from "@/api-client";
 import { useAPIClient } from "@/api-client";
 
 import { apiBase } from "@/utils";
@@ -40,7 +40,7 @@ export const ApiGroupFormItem = ({
     return {
       ...item,
       label: item.name,
-      value: item.id,
+      value: item.name,
     };
   });
 
@@ -70,7 +70,7 @@ export const ApiGroupFormItem = ({
               {
                 title: "新建分组",
               },
-              createApiGroupSchema
+              createApiGroupSchema,
             );
             dialog
               .forOpen((payload, next) => {

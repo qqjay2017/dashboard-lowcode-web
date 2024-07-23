@@ -204,3 +204,8 @@ yarn add @babel/core @babel/preset-env babel-loader @babel/preset-react -D
   }
 }
 ```
+
+```
+ SQL 错误 [1452] [23000]: Cannot add or update a child row: a
+  foreign key constraint fails (`dashboard`.`apimanage`, CONSTRAINT `ApiManage_groupId_fkey` FOREIGN KEY (`groupId`) REFERENCES `apigroup` (`id`) ON DELETE SET NULL ON UPDATE CASCADE)
+```
