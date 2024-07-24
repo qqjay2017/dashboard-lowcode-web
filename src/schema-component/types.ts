@@ -41,19 +41,19 @@ export interface ISchemaComponentOptionsProps extends PropsWithChildren {
   inherit?: boolean;
 }
 
-export interface DataSourceBindType {
+export type DataSourceBindType = {
   dataSourceId?: string;
 
   dataSourceName?: string;
   afterScript?: string;
   beforeScript?: string;
-}
+} | null;
 
 export type JSXComponent =
   | keyof JSX.IntrinsicElements
   | React.JSXElementConstructor<any>;
 
-export interface SchemaQueryType {
+export type SchemaQueryType = {
   quarterSelect?: {
     queryType?: string;
     quarterId?: string;
@@ -63,4 +63,4 @@ export interface SchemaQueryType {
     id: string;
     name: string;
   };
-}
+} | null;

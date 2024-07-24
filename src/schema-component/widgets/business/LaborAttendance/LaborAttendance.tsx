@@ -1,11 +1,18 @@
 import { css } from "@emotion/css";
 import { useState } from "react";
+
+import { get } from "lodash-es";
 import { getSchemeWrap } from "./getSchemeWrap";
 import { menuItem } from "./menuItem";
 import { settingSchema } from "./settingSchema";
 import { RecentDateSelect } from "./RecentDateSelect";
-import { useFrameSizeStyle, useQueryToBusParams } from "@/schema-component";
-import { EmptyKit } from "@/style-components";
+import {
+  ChartTemplateWithOutData,
+  useDataBindFetch,
+  useFrameSizeStyle,
+  useQueryToBusParams,
+} from "@/schema-component";
+
 import type { SchemComponentWithDataSourceProps } from "@/types";
 
 export const LaborAttendance = ({
@@ -14,6 +21,18 @@ export const LaborAttendance = ({
   const [tabValue, setTabValue] = useState<string>("1");
   const { headStyle, bodyStyle } = useFrameSizeStyle();
   const queryParams = useQueryToBusParams(query);
+  const { data: dataRes } = useDataBindFetch(
+    {
+      dataSourceId: "38a353fc-d871-40ec-957a-69073e7128bc",
+    },
+    {
+      ...queryParams,
+      dateType: tabValue,
+    },
+  );
+
+  const busData = get(dataRes, "data.data");
+
   return (
     <>
       <div
@@ -34,20 +53,22 @@ export const LaborAttendance = ({
           overflow: hidden hidden;
         `}
       >
-        <EmptyKit>
-          <div
-            className={css`
-              width: 100%;
-              min-height: 100%;
-            `}
-          >
-            123
-          </div>
-        </EmptyKit>
+        <div
+          className={css`
+            width: 100%;
+            height: 100%;
+          `}
+        >
+          <ChartTemplateWithOutData
+            chartId="38"
+            dataSource={null}
+            query={null}
+            busData={busData}
+          />
+        </div>
       </div>
     </>
   );
-  return <div>LaborAttendance</div>;
 };
 
 LaborAttendance.displayName = "LaborAttendance";

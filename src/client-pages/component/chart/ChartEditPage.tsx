@@ -20,6 +20,7 @@ import {
   chartListDataFormat,
   findItemByName,
   getTotalNum,
+  percentToDisplay,
 } from "@/utils";
 import { useApp } from "@/application";
 import { useCustomThemeToken } from "@/dashboard-themes";
@@ -63,6 +64,7 @@ export const ChartEditPage = () => {
         "chartListData",
         "token",
         "busData",
+
         "chartHelps",
         `option=null;${handlebarsStr};return option||{};`,
       );
@@ -76,11 +78,13 @@ export const ChartEditPage = () => {
             ...customThemeToken,
           },
           {},
+
           {
             Decimal,
             get,
             getTotalNum,
             findItemByName,
+            percentToDisplay,
             getPercent,
             chartListDataFormat,
             totalNum,

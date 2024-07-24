@@ -1,5 +1,6 @@
 import { get } from "lodash-es";
 import { useMemo } from "react";
+import type { DataSourceBindType } from "../types";
 import { useQuery, useReqApiProxy } from "@/api-client";
 
 /**
@@ -7,7 +8,10 @@ import { useQuery, useReqApiProxy } from "@/api-client";
  * @param dataSource
  * @returns
  */
-export const useDataBindFetch = (dataSource, requestData?: any) => {
+export const useDataBindFetch = (
+  dataSource: DataSourceBindType,
+  requestData?: any,
+) => {
   const { request } = useReqApiProxy();
   const { data, ...rest } = useQuery({
     queryKey: [

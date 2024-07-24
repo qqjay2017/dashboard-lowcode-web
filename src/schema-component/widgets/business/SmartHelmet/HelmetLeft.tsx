@@ -7,6 +7,7 @@ import {
 } from "./style";
 import type { SafetyProjectType } from "./types";
 import { CountItem } from "./CountItem";
+import { percentToDisplay } from "@/utils";
 
 export function HelmetLeft({
   safetyProject,
@@ -19,7 +20,7 @@ export function HelmetLeft({
         <NumLabel
           label="应用项目数"
           showColon={false}
-          value={`${Decimal.mul(safetyProject.applicationRate || 0, 100).toFixed(1)}%`}
+          value={`${percentToDisplay(safetyProject.applicationRate).percentDisplay}`}
         />
         <CountItem count={safetyProject.applicationItemNum} unit="个" />
       </HelmetLeftTopWrap>
@@ -27,7 +28,7 @@ export function HelmetLeft({
         <NumLabel
           label="监测人员数"
           showColon={false}
-          value={`${Decimal.mul(safetyProject.monitoringRate || 0, 100).toFixed(1)}%`}
+          value={`${percentToDisplay(safetyProject.monitoringRate).percentDisplay}`}
         />
         <CountItem count={safetyProject.monitoringPersonnelNum} unit="人" />
       </HelmetLeftBottompWrap>

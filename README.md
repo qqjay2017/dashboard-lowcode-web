@@ -209,3 +209,41 @@ yarn add @babel/core @babel/preset-env babel-loader @babel/preset-react -D
  SQL 错误 [1452] [23000]: Cannot add or update a child row: a
   foreign key constraint fails (`dashboard`.`apimanage`, CONSTRAINT `ApiManage_groupId_fkey` FOREIGN KEY (`groupId`) REFERENCES `apigroup` (`id`) ON DELETE SET NULL ON UPDATE CASCADE)
 ```
+
+## 根据图表id渲染组件
+
+```jsx
+<ChartTemplateWithOutData
+  chartId="38"
+  dataSource={null}
+  query={null}
+  busData={busData}
+/>
+```
+
+## 根据图表id渲染组件,并注入接口id
+
+```jsx
+<ChartTemplateWithOutData
+  chartId="38"
+  dataSource={{
+    dataSourceId: "38a353fc-d871-40ec-957a-69073e7128bc",
+  }}
+  query={null}
+  busData={busData}
+/>
+```
+
+## 使用接口id请求接口
+
+```
+const { data: dataRes } = useDataBindFetch(
+  {
+    dataSourceId: "38a353fc-d871-40ec-957a-69073e7128bc",
+  },
+  {
+    ...queryParams,
+    dateType: tabValue,
+  },
+);
+```
