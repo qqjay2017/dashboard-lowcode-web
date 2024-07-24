@@ -46,7 +46,7 @@ export const DashboardMain = () => {
         {list.map((dashboard, index) => (
           <FormCard
             dashboard={dashboard}
-            key={dashboard.id + index}
+            key={`${dashboard.id}-${index}`}
             refetch={refetch}
           ></FormCard>
         ))}

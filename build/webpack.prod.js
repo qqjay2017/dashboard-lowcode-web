@@ -3,8 +3,9 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
-// const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
-const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+
+
+const WebpackBar = require("webpackbar");
 
 
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -75,7 +76,7 @@ module.exports = {
                   cssPropOptimization: true,
                 },
               ],
-              // !isProduct  && require.resolve('react-refresh/babel')
+
             ].filter(Boolean),
           },
         },
@@ -177,12 +178,12 @@ module.exports = {
             // },
           },
         },
-        minimize: true,
-        minimizer: [
+        minimize: isProduct,
+        minimizer:isProduct? [
           new TerserPlugin({
             parallel: true,
           }),
-        ],
+        ]:[],
       }
    ,
   externals : {
@@ -194,7 +195,7 @@ module.exports = {
       }
    ,
   plugins: [
-    // new MonacoWebpackPlugin(),
+   
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: "/build/index.html",
@@ -223,7 +224,12 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: isProduct ?  "[name].[contenthash].css":"[name].css",
     }),
-    // !isProduct && new ReactRefreshWebpackPlugin()
+
+     new WebpackBar({
+     
+
+    }),
+    
   ].filter(Boolean),
   devServer: {
     historyApiFallback: {
