@@ -27,7 +27,7 @@ export function AiotTypeChange({
             <TabsTrigger2
               value="1"
               className={css`
-            color: ${token.textCommon};
+              color: ${token.textCommon};
           `}
             >
               近7天
@@ -54,7 +54,6 @@ export function AiotTypeChange({
       <div className={css`
     width:1.5rem;
     height:0.3rem;
-
    `}
       >
         <Select

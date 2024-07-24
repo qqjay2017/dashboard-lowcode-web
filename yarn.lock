@@ -80,7 +80,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@antfu/eslint-config@npm:^2.23.2":
+"@antfu/eslint-config@npm:^2.22.0":
   version: 2.23.2
   resolution: "@antfu/eslint-config@npm:2.23.2"
   dependencies:
@@ -5847,7 +5847,7 @@ __metadata:
   resolution: "dashboard-web@workspace:."
   dependencies:
     "@ant-design/icons": "npm:^5.3.7"
-    "@antfu/eslint-config": "npm:^2.23.2"
+    "@antfu/eslint-config": "npm:^2.22.0"
     "@babel/core": "npm:^7.24.9"
     "@babel/preset-env": "npm:^7.24.8"
     "@babel/preset-react": "npm:^7.24.7"
