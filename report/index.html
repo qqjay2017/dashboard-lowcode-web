@@ -9,8 +9,9 @@
     <meta http-equiv="Cache" content="no-cache" />
 
     <style>
-      html,body {
-        background-color: rgba(0, 0, 0, 0.8);
+     
+      .ant-app {
+         background-color: var( --node-content-bg , rgba(0, 0, 0, 0.8) );
       }
     </style>
      <%  htmlWebpackPlugin.options.CDN_LIST.forEach(function(item){ %>
