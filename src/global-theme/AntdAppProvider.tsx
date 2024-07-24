@@ -29,6 +29,7 @@ const AntdAppProvider = ({ children }: { children: React.ReactNode }) => {
     <App
       style={{
         height: "100%",
+        backgroundColor: "var( --node-content-bg , rgba(0, 0, 0, 0.5) )",
       }}
     >
       <AppInner>{children}</AppInner>

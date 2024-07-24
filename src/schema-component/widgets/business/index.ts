@@ -11,3 +11,5 @@ export * from "./EmploymentCreditMng";
 export * from "./ProjectDesc";
 
 export * from "./LaborAttendance";
+
+export * from "./AiotMonitorBlock";

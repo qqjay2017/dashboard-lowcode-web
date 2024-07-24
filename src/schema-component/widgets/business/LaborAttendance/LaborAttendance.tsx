@@ -41,6 +41,7 @@ export const LaborAttendance = ({
           display: flex;
           align-items: center;
           justify-content: flex-end;
+             padding-right:0.16rem;
         `}
       >
         <RecentDateSelect value={tabValue} onChange={setTabValue} />
@@ -49,7 +50,7 @@ export const LaborAttendance = ({
         style={bodyStyle}
         className={css`
           width: 100%;
-          padding: 0.16rem;
+          padding: 0.14rem 0.16rem;
           overflow: hidden hidden;
         `}
       >

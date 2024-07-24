@@ -1722,6 +1722,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@dprint/formatter@npm:^0.3.0":
+  version: 0.3.0
+  resolution: "@dprint/formatter@npm:0.3.0"
+  checksum: 81532946d7fe99e77d9566eec18203bbf32bd95b0c6621575062e1270d79b48fc5b8e1d6f65b796a3dcbc88e09166729aa7063b4e9a00a3df4b4d71057fae57c
+  languageName: node
+  linkType: hard
+
+"@dprint/markdown@npm:^0.17.1":
+  version: 0.17.1
+  resolution: "@dprint/markdown@npm:0.17.1"
+  checksum: 6c3c42289f67341344b7a5ae27f1d48a3e14fdda14f2580ba53018d180fb66de19a047efa2d5b0b14d5ae7a9de2d62d421c473a56f29ed2ea20d72ad42036d32
+  languageName: node
+  linkType: hard
+
+"@dprint/toml@npm:^0.6.2":
+  version: 0.6.2
+  resolution: "@dprint/toml@npm:0.6.2"
+  checksum: 3af26e5a881600578a0ba12303a572302acd391d90d5cfc18b20dcf7db6989db04a4f1f59e90433faec1a8fc1d20fa477d3e31a54cc86eddbd62c9a3e16fa71a
+  languageName: node
+  linkType: hard
+
 "@egjs/agent@npm:^2.2.1":
   version: 2.4.3
   resolution: "@egjs/agent@npm:2.4.3"
@@ -5871,7 +5892,9 @@ __metadata:
     echarts-for-react: "npm:^3.0.2"
     embla-carousel-react: "npm:^8.1.6"
     eslint: "npm:^9.7.0"
+    eslint-plugin-format: "npm:^0.1.2"
     eslint-plugin-react-hooks: "npm:^4.6.2"
+    eslint-plugin-react-refresh: "npm:^0.4.9"
     espree: "npm:^9.6.1"
     handlebars: "npm:^4.7.8"
     html-webpack-plugin: "npm:^5.6.0"
@@ -6487,6 +6510,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"eslint-formatting-reporter@npm:^0.0.0":
+  version: 0.0.0
+  resolution: "eslint-formatting-reporter@npm:0.0.0"
+  dependencies:
+    prettier-linter-helpers: "npm:^1.0.0"
+  peerDependencies:
+    eslint: ">=8.40.0"
+  checksum: 0d3d95af52f9eca53f723343bf361ac7930e829902581cc81a384a47c5a84a192cb21c3dda97755a287676ee369d16baf53791573ad85f19c176ac9e87d68131
+  languageName: node
+  linkType: hard
+
 "eslint-import-resolver-node@npm:^0.3.9":
   version: 0.3.9
   resolution: "eslint-import-resolver-node@npm:0.3.9"
@@ -6504,6 +6538,13 @@ __metadata:
   peerDependencies:
     eslint: "*"
   checksum: 8bd810d05002077c513fd9499ba35d0d6899093dbb5438d9766b79a6578139875be13fd1300dc98637c0e058720c29881a721ddb74c2b7dbb81e3c31055f86bc
+  languageName: node
+  linkType: hard
+
+"eslint-parser-plain@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "eslint-parser-plain@npm:0.1.0"
+  checksum: 495387421215da8514929601b2742cd1fbe09b40461dd098487e30054a21f6788d58eab82ce72ba9aae17a544c549a3ce9f0e2a9632b3817e7370ebb607d8720
   languageName: node
   linkType: hard
 
@@ -6551,6 +6592,23 @@ __metadata:
   peerDependencies:
     eslint: ">=4.19.1"
   checksum: f9e3f245ed4cb69523f5d86529dca572eb2a41778f09e922d95a2e85ad364e636d4b642f0409e11a2d17d63d8617ef2c67d9a1c62cdc437b247ff5d209450457
+  languageName: node
+  linkType: hard
+
+"eslint-plugin-format@npm:^0.1.2":
+  version: 0.1.2
+  resolution: "eslint-plugin-format@npm:0.1.2"
+  dependencies:
+    "@dprint/formatter": "npm:^0.3.0"
+    "@dprint/markdown": "npm:^0.17.1"
+    "@dprint/toml": "npm:^0.6.2"
+    eslint-formatting-reporter: "npm:^0.0.0"
+    eslint-parser-plain: "npm:^0.1.0"
+    prettier: "npm:^3.3.2"
+    synckit: "npm:^0.9.0"
+  peerDependencies:
+    eslint: ^8.40.0 || ^9.0.0
+  checksum: da63a3630aeb505f36c3f41d6665b091c9cc4c1d4009dc56bc6d7cb643ad816124a06c9284d249720ec1a76a997d6b8fa23e897f93f59f4e97c23de088e822ce
   languageName: node
   linkType: hard
 
@@ -6786,6 +6844,15 @@ __metadata:
     typescript:
       optional: true
   checksum: e685f7e7d2c6803a361aa170d9a769e70229e8556504714dd69b39721b87cb1d25b3ed8634294ee6510bb3ef1534bc84eb8a2e17675aca3186f88d9754caa03a
+  languageName: node
+  linkType: hard
+
+"eslint-plugin-react-refresh@npm:^0.4.9":
+  version: 0.4.9
+  resolution: "eslint-plugin-react-refresh@npm:0.4.9"
+  peerDependencies:
+    eslint: ">=7"
+  checksum: 3a2fd8f0d3ee8c5c41aa6a3b609542e4dbed707ba2a8196853864afeb91a9db0eed11ec08ea4ecb4d25e6cb824a08e5a5ba9a307a6a4ec998a6a9922535ff78a
   languageName: node
   linkType: hard
 
@@ -7259,6 +7326,13 @@ __metadata:
   version: 3.1.3
   resolution: "fast-deep-equal@npm:3.1.3"
   checksum: 5f83fabf1f0bac0df5117e881ee15756dc8a9ee48c8020ed63cb84a7935d78c338dc0982b3b7b6ad0792905f5ef0c35293db9cae2f3208a6f09071c43887a02f
+  languageName: node
+  linkType: hard
+
+"fast-diff@npm:^1.1.2":
+  version: 1.3.0
+  resolution: "fast-diff@npm:1.3.0"
+  checksum: 424cdf4f5f335fd33bcb4dd6e676746e351c3ed326db6f2ae2920937d224fa36064d7cfdac7521154153a3489b8f8cb59dad27778d127a680b658b7cd70a544e
   languageName: node
   linkType: hard
 
@@ -10358,7 +10432,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^3.0.1":
+"prettier-linter-helpers@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "prettier-linter-helpers@npm:1.0.0"
+  dependencies:
+    fast-diff: "npm:^1.1.2"
+  checksum: e9b17d00ae7f7ec97a905050a2887e3fc9c9bcf94a91a7e24a9e33392df0b7355d8002d8f0d81ffafe4c11716bf973975cca065fec90fa15ec36a98e0a1db624
+  languageName: node
+  linkType: hard
+
+"prettier@npm:^3.0.1, prettier@npm:^3.3.2":
   version: 3.3.3
   resolution: "prettier@npm:3.3.3"
   bin:
@@ -12602,7 +12685,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"synckit@npm:^0.9.1":
+"synckit@npm:^0.9.0, synckit@npm:^0.9.1":
   version: 0.9.1
   resolution: "synckit@npm:0.9.1"
   dependencies:

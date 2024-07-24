@@ -1,5 +1,6 @@
 import { Plugin } from "../../application";
 import {
+  AiotMonitorBlock,
   ChartTemplate,
   ClassicFrame,
   ClassicFrame5,
@@ -18,6 +19,7 @@ import {
   SmartHelmet,
   UnprocessedWarningList,
 } from "../../schema-component";
+
 
 export class DashboardBuildinPlugin extends Plugin {
   async load(): Promise<void> {
@@ -41,6 +43,7 @@ export class DashboardBuildinPlugin extends Plugin {
       QuarterSelect,
       ProjectSelect,
       ChartTemplate,
+      AiotMonitorBlock,
     });
   }
 }
