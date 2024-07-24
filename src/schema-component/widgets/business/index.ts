@@ -9,3 +9,5 @@ export * from "./SmartHelmet";
 export * from "./EmploymentCreditMng";
 
 export * from "./ProjectDesc";
+
+export * from "./LaborAttendance";

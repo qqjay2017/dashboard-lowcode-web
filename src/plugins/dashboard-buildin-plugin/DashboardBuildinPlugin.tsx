@@ -8,6 +8,7 @@ import {
   Header5,
   HeaderMenu,
   KeyPersonArrived,
+  LaborAttendance,
   ProjectAttendanceAnaTable,
   ProjectAttendanceDataAna,
   ProjectBudget,
@@ -21,6 +22,7 @@ import {
 export class DashboardBuildinPlugin extends Plugin {
   async load(): Promise<void> {
     this.app.addComponents({
+      LaborAttendance,
       ProjectDesc,
       EmploymentCreditMng,
       SmartHelmet,
