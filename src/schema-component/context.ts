@@ -1,7 +1,5 @@
+import { createContext } from 'react'
+import type { ISchemaComponentContext } from './types'
 
-
-import { createContext } from 'react';
-import type { ISchemaComponentContext } from './types';
-
-export const SchemaComponentContext = createContext<ISchemaComponentContext>({});
-SchemaComponentContext.displayName = 'SchemaComponentContext.Provider';
+export const SchemaComponentContext = createContext<ISchemaComponentContext>({})
+SchemaComponentContext.displayName = 'SchemaComponentContext.Provider'

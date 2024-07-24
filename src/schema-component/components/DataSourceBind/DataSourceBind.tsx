@@ -1,55 +1,55 @@
-import { Button, Modal, Select } from "antd";
-import { DatabaseOutlined } from "@ant-design/icons";
-import { useState } from "react";
-import { css } from "@emotion/css";
-import { get } from "lodash-es";
-import { IoIosRefresh, IoMdAdd } from "react-icons/io";
+import { Button, Modal, Select } from 'antd'
+import { DatabaseOutlined } from '@ant-design/icons'
+import { useState } from 'react'
+import { css } from '@emotion/css'
+import { get } from 'lodash-es'
+import { IoIosRefresh, IoMdAdd } from 'react-icons/io'
 
-import { observer } from "@formily/react";
-import { CardItem } from "../CardItem";
-import { useRequest } from "../../../api-client";
-import type { FormItemComponentProps } from "../../../types";
-import { MonacoEditor } from "../MonacoEditor";
-import { FuncText } from "./FuncText";
-import { apiBase } from "@/utils";
+import { observer } from '@formily/react'
+import { CardItem } from '../CardItem'
+import { useRequest } from '../../../api-client'
+import type { FormItemComponentProps } from '../../../types'
+import { MonacoEditor } from '../MonacoEditor'
+import { FuncText } from './FuncText'
+import { apiBase } from '@/utils'
 
 interface DataSourceBindProps extends FormItemComponentProps {}
 
 export const DataSourceBind = observer(
   ({ value, onChange }: DataSourceBindProps) => {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
 
     const { data, refetch } = useRequest(`${apiBase}/api-manage/list`, {
-      method: "GET",
-    });
-    const dataSourceApiOptions = (get(data, "data.data", []) || []).map(
+      method: 'GET',
+    })
+    const dataSourceApiOptions = (get(data, 'data.data', []) || []).map(
       (item) => {
         return {
           ...item,
-          label: (item?.group || "") + item.name,
+          label: (item?.group || '') + item.name,
           value: item.id,
-        };
+        }
       },
-    );
+    )
     return (
       <>
         <Button
           icon={<DatabaseOutlined />}
           onClick={() => {
-            setOpen(true);
+            setOpen(true)
           }}
         >
-          {value?.dataSourceName || "配置数据源"}
+          {value?.dataSourceName || '配置数据源'}
         </Button>
         {open && (
           <Modal
             open={open}
-            width={"80vw"}
+            width="80vw"
             onOk={() => {
-              setOpen(false);
+              setOpen(false)
             }}
             onCancel={() => {
-              setOpen(false);
+              setOpen(false)
             }}
             title="配置数据源"
           >
@@ -63,8 +63,8 @@ export const DataSourceBind = observer(
                 <Select
                   value={value?.dataSourceId}
                   onChange={(e, option: any) => {
-                    value.dataSourceId = e;
-                    value.dataSourceName = option?.label || "";
+                    value.dataSourceId = e
+                    value.dataSourceName = option?.label || ''
                     //   onChange && onChange(v=)
                   }}
                   className={css`
@@ -76,22 +76,22 @@ export const DataSourceBind = observer(
                   icon={<IoMdAdd />}
                   type="link"
                   onClick={() => {
-                    window.open("/dashboard/api/edit");
+                    window.open('/dashboard/api/edit')
                   }}
                 />
                 <Button
                   icon={<IoIosRefresh />}
                   type="link"
                   onClick={() => {
-                    refetch();
+                    refetch()
                   }}
                 />
               </CardItem>
               <CardItem title="请求前执行">
                 <MonacoEditor
-                  value={value?.beforeScript || ""}
+                  value={value?.beforeScript || ''}
                   onChange={(e) => {
-                    value.beforeScript = e;
+                    value.beforeScript = e
                   }}
                 />
               </CardItem>
@@ -104,13 +104,13 @@ export const DataSourceBind = observer(
                 >
                   <FuncText
                     indent={10}
-                    text={`function afterScript ( apiRes , context) {`}
+                    text="function afterScript ( apiRes , context) {"
                   />
 
                   <MonacoEditor
-                    value={value?.afterScript || ""}
+                    value={value?.afterScript || ''}
                     onChange={(e) => {
-                      value.afterScript = e;
+                      value.afterScript = e
                     }}
                   />
                   <FuncText indent={10} text={`   }`} />
@@ -120,6 +120,6 @@ export const DataSourceBind = observer(
           </Modal>
         )}
       </>
-    );
+    )
   },
-);
+)

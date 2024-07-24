@@ -1,4 +1,4 @@
-```tsx
+```
 <Selecto
                   ref={selectoRef}
                   dragContainer={"#DashboardRoot"}
@@ -47,5 +47,5 @@
                     }
                     setTargets(selected);
                   }}
-                /> 
+                />
                 ```

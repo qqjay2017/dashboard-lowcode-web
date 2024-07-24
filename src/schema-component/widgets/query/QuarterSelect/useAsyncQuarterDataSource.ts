@@ -1,12 +1,7 @@
-
-
-
-
-export const useAsyncQuarterDataSource = (cur) => (field) => {
-
+export function useAsyncQuarterDataSource(cur) {
+  return (field) => {
     if (field?.componentProps?.defaultCurrentQuarter && cur) {
-        field.value = cur
+      field.value = cur
     }
-
-
+  }
 }

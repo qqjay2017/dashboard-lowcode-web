@@ -1,11 +1,11 @@
-import { css } from "@emotion/css";
-import { HelmetRightScrollWrap, HelmetRightWrap, RightLabel } from "./style";
-import { AnaItem } from "./AnaItem";
+import { css } from '@emotion/css'
+import { HelmetRightScrollWrap, HelmetRightWrap, RightLabel } from './style'
+import { AnaItem } from './AnaItem'
 
 export function HelmetRight({
   applicationAnalysis = [],
 }: {
-  applicationAnalysis?: any[];
+  applicationAnalysis?: any[]
 }) {
   return (
     <HelmetRightWrap>
@@ -18,10 +18,10 @@ export function HelmetRight({
           `}
         >
           {applicationAnalysis.map((ana, index) => {
-            return <AnaItem key={index} {...ana} />;
+            return <AnaItem key={index} {...ana} />
           })}
         </div>
       </HelmetRightScrollWrap>
     </HelmetRightWrap>
-  );
+  )
 }

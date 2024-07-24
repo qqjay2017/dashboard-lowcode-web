@@ -1,3 +1,3 @@
 export function isRootAddress(address = '') {
-    return address === 'dashboardRoot'
+  return address === 'dashboardRoot'
 }

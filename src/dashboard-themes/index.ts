@@ -1,6 +1,3 @@
-
-
-
 import customed from './themes/customed.json'
 import dark from './themes/dark.json'
 import chalk from './themes/chalk.json'
@@ -20,55 +17,53 @@ export * from './TechnologyBlue'
 export * from './RomanRed'
 export * from './hooks'
 
-
-
 export const allThemes = [
-    {
-        name: "technologyBlue",
-        zhName: "科技蓝",
-        token: technologyBlueToken,
-        dark: technologyBlueDarkToken,
-        light: technologyBlueLightToken,
-        colors: dark.color,
+  {
+    name: 'technologyBlue',
+    zhName: '科技蓝',
+    token: technologyBlueToken,
+    dark: technologyBlueDarkToken,
+    light: technologyBlueLightToken,
+    colors: dark.color,
 
-    },
-    // {
-    //     name: "romanRed",
-    //     zhName: "罗马红",
-    //     token: romanRedToken,
-    //     dark: romaDarkToken,
-    //     light: romaLightToken,
-    //     colors: roma.color,
+  },
+  // {
+  //     name: "romanRed",
+  //     zhName: "罗马红",
+  //     token: romanRedToken,
+  //     dark: romaDarkToken,
+  //     light: romaLightToken,
+  //     colors: roma.color,
 
-    // },
-    {
-        name: "green",
-        zhName: "复古绿",
-        token: greenToken,
-        dark: greenDarkToken,
-        light: greenLightToken,
-        colors: walden.color,
+  // },
+  {
+    name: 'green',
+    zhName: '复古绿',
+    token: greenToken,
+    dark: greenDarkToken,
+    light: greenLightToken,
+    colors: walden.color,
 
-    },
+  },
 
 ]
 
 export const allThemeNameMap = allThemes.reduce((memo, cur) => {
-    memo[cur.name] = cur
-    return memo;
+  memo[cur.name] = cur
+  return memo
 }, {})
 
 export const chartColors = {
-    dark,
-    customed,
-    macarons,
-    walden,
-    purplePassion,
-    vintage,
-    chalk,
-    westeros,
-    wonderland,
-    essos,
-    shine,
-    roma
+  dark,
+  customed,
+  macarons,
+  walden,
+  purplePassion,
+  vintage,
+  chalk,
+  westeros,
+  wonderland,
+  essos,
+  shine,
+  roma,
 }

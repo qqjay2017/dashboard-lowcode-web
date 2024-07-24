@@ -1,8 +1,8 @@
-import { css } from "@emotion/css";
-import type { PropsWithChildren } from "react";
-import React from "react";
+import { css } from '@emotion/css'
+import type { PropsWithChildren } from 'react'
+import React from 'react'
 
-export const FormButtonGroupWrap = ({ children }: PropsWithChildren) => {
+export function FormButtonGroupWrap({ children }: PropsWithChildren) {
   return (
     <div
       className={css`
@@ -17,5 +17,5 @@ export const FormButtonGroupWrap = ({ children }: PropsWithChildren) => {
     >
       {children}
     </div>
-  );
-};
+  )
+}

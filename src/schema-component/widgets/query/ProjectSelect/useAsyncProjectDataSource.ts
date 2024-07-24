@@ -1,9 +1,6 @@
-
-
-
-
-export const useAsyncProjectDataSource = (projectList, firstProject) => (field) => {
+export function useAsyncProjectDataSource(projectList, firstProject) {
+  return (field) => {
     field.dataSource = projectList
     field.value = firstProject
-
+  }
 }

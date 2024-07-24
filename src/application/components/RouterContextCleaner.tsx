@@ -1,6 +1,6 @@
-import type { FC, ReactNode } from "react";
-import React from "react";
-import { UNSAFE_LocationContext, UNSAFE_RouteContext } from "react-router-dom";
+import type { FC, ReactNode } from 'react'
+import React from 'react'
+import { UNSAFE_LocationContext, UNSAFE_RouteContext } from 'react-router-dom'
 
 export const RouterContextCleaner: FC<{ children?: ReactNode }> = React.memo(
   (props) => {
@@ -16,7 +16,7 @@ export const RouterContextCleaner: FC<{ children?: ReactNode }> = React.memo(
           {props.children}
         </UNSAFE_LocationContext.Provider>
       </UNSAFE_RouteContext.Provider>
-    );
-  }
-);
-RouterContextCleaner.displayName = "RouterContextCleaner";
+    )
+  },
+)
+RouterContextCleaner.displayName = 'RouterContextCleaner'

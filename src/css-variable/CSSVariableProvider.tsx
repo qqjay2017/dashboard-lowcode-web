@@ -1,89 +1,89 @@
-import { TinyColor } from "@ctrl/tinycolor";
-import { useEffect } from "react";
-import { defaultTheme } from "../global-theme";
-import { useToken } from "../style";
+import { TinyColor } from '@ctrl/tinycolor'
+import { useEffect } from 'react'
+import { defaultTheme } from '../global-theme'
+import { useToken } from '../style'
 
-export const CSSVariableProvider = ({ children }) => {
-  const { token } = useToken();
+export function CSSVariableProvider({ children }) {
+  const { token } = useToken()
 
-  const colorBgScrollTrack = token.colorFillTertiary;
+  const colorBgScrollTrack = token.colorFillTertiary
   const colorBgScrollBar = new TinyColor(token.colorFill)
     .onBackground(token.colorFillSecondary)
-    .toHexShortString();
+    .toHexShortString()
   const colorBgScrollBarHover = new TinyColor(token.colorFill)
     .onBackground(token.colorFill)
-    .toHexShortString();
+    .toHexShortString()
   const colorBgScrollBarActive = new TinyColor(token.colorFill)
     .onBackground(token.colorFill)
     .onBackground(token.colorFill)
-    .toHexShortString();
+    .toHexShortString()
 
   useEffect(() => {
-    document.body.style.setProperty("--nb-spacing", `${token.marginLG}px`);
+    document.body.style.setProperty('--nb-spacing', `${token.marginLG}px`)
     document.body.style.setProperty(
-      "--nb-designer-offset",
-      `${token.marginXS}px`
-    );
+      '--nb-designer-offset',
+      `${token.marginXS}px`,
+    )
     document.body.style.setProperty(
-      "--nb-header-height",
-      `${token.sizeXXL - 2}px`
-    );
-    document.body.style.setProperty("--nb-box-bg", token.colorBgLayout);
-    document.body.style.setProperty("--nb-box-bg", token.colorBgLayout);
+      '--nb-header-height',
+      `${token.sizeXXL - 2}px`,
+    )
+    document.body.style.setProperty('--nb-box-bg', token.colorBgLayout)
+    document.body.style.setProperty('--nb-box-bg', token.colorBgLayout)
     document.body.style.setProperty(
-      "--controlHeightLG",
-      `${token.controlHeightLG}px`
-    );
+      '--controlHeightLG',
+      `${token.controlHeightLG}px`,
+    )
     document.body.style.setProperty(
-      "--paddingContentVerticalSM",
-      `${token.paddingContentVerticalSM}px`
-    );
-    document.body.style.setProperty("--marginSM", `${token.marginSM}px`);
-    document.body.style.setProperty("--colorInfoBg", token.colorInfoBg);
-    document.body.style.setProperty("--colorInfoBorder", token.colorInfoBorder);
-    document.body.style.setProperty("--colorWarningBg", token.colorWarningBg);
+      '--paddingContentVerticalSM',
+      `${token.paddingContentVerticalSM}px`,
+    )
+    document.body.style.setProperty('--marginSM', `${token.marginSM}px`)
+    document.body.style.setProperty('--colorInfoBg', token.colorInfoBg)
+    document.body.style.setProperty('--colorInfoBorder', token.colorInfoBorder)
+    document.body.style.setProperty('--colorWarningBg', token.colorWarningBg)
     document.body.style.setProperty(
-      "--colorWarningBorder",
-      token.colorWarningBorder
-    );
-    document.body.style.setProperty("--colorText", token.colorText);
+      '--colorWarningBorder',
+      token.colorWarningBorder,
+    )
+    document.body.style.setProperty('--colorText', token.colorText)
     document.body.style.setProperty(
-      "--colorPrimaryText",
-      token.colorPrimaryText
-    );
+      '--colorPrimaryText',
+      token.colorPrimaryText,
+    )
     document.body.style.setProperty(
-      "--colorPrimaryTextActive",
-      token.colorPrimaryTextActive
-    );
+      '--colorPrimaryTextActive',
+      token.colorPrimaryTextActive,
+    )
     document.body.style.setProperty(
-      "--colorPrimaryTextHover",
-      token.colorPrimaryTextHover
-    );
-    document.body.style.setProperty("--colorBgScrollTrack", colorBgScrollTrack);
-    document.body.style.setProperty("--colorBgScrollBar", colorBgScrollBar);
+      '--colorPrimaryTextHover',
+      token.colorPrimaryTextHover,
+    )
+    document.body.style.setProperty('--colorBgScrollTrack', colorBgScrollTrack)
+    document.body.style.setProperty('--colorBgScrollBar', colorBgScrollBar)
     document.body.style.setProperty(
-      "--colorBgScrollBarHover",
-      colorBgScrollBarHover
-    );
+      '--colorBgScrollBarHover',
+      colorBgScrollBarHover,
+    )
     document.body.style.setProperty(
-      "--colorBgScrollBarActive",
-      colorBgScrollBarActive
-    );
+      '--colorBgScrollBarActive',
+      colorBgScrollBarActive,
+    )
     document.body.style.setProperty(
-      "--colorSettings",
-      token.colorSettings || defaultTheme.token.colorSettings
-    );
+      '--colorSettings',
+      token.colorSettings || defaultTheme.token.colorSettings,
+    )
     document.body.style.setProperty(
-      "--colorBgSettingsHover",
-      token.colorBgSettingsHover
-    );
+      '--colorBgSettingsHover',
+      token.colorBgSettingsHover,
+    )
     document.body.style.setProperty(
-      "--colorBorderSettingsHover",
-      token.colorBorderSettingsHover
-    );
+      '--colorBorderSettingsHover',
+      token.colorBorderSettingsHover,
+    )
 
     // 设置登录页面的背景色
-    document.body.style.setProperty("background-color", token.colorBgContainer);
+    document.body.style.setProperty('background-color', token.colorBgContainer)
   }, [
     colorBgScrollBar,
     colorBgScrollBarActive,
@@ -108,11 +108,11 @@ export const CSSVariableProvider = ({ children }) => {
     token.marginXS,
     token.paddingContentVerticalSM,
     token.sizeXXL,
-  ]);
+  ])
 
-  return children;
-};
+  return children
+}
 
-CSSVariableProvider.displayName = "CSSVariableProvider";
+CSSVariableProvider.displayName = 'CSSVariableProvider'
 
-export default CSSVariableProvider;
+export default CSSVariableProvider

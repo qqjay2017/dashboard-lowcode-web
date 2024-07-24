@@ -1,4 +1,4 @@
 export interface QuarterItemType {
-    quarterId: string;
-    quarterName: string
+  quarterId: string
+  quarterName: string
 }

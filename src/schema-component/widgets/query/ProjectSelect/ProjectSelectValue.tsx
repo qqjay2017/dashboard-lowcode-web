@@ -1,21 +1,21 @@
-import { css } from "@emotion/css";
-import { forwardRef } from "react";
-import { useToken } from "@/style";
-import { cn } from "@/utils";
+import { css } from '@emotion/css'
+import { forwardRef } from 'react'
+import { useToken } from '@/style'
+import { cn } from '@/utils'
 
-const arrowImg = `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAASCAYAAABIB77kAAAAAXNSR0IArs4c6QAAAO9JREFUSEu91M0RgjAQBeC3jh7UsQca4UAFlmIJhBIsxQo40Ag9OOpBx5XgEHAgPwsZuULyZcPbJfz5oc6r7nx6ES7ZluqYZygfnKwZx3RHZ71vC1Y3zsFQRKifK2SxUI1t3iiZkTSSSvdUUId1VcVCfzCzORRVV1Yg5MNrXIpOYhpgFN8rjYi6sPRAqg9NBNSHmdCYpC5AQ7AROPd6Q7FJUIpKMCsYikoxJ+hD9XvT1MOeYhQ6jbZpZVJq+8DWMm1b6QkiwLwVutI7OqCnsn7YBE7qqUrN0kAsuEJnpQJMDI6CJMRmgQYF4Eqj7U99ANQ/yn6JLeLZAAAAAElFTkSuQmCC`;
+const arrowImg = `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAASCAYAAABIB77kAAAAAXNSR0IArs4c6QAAAO9JREFUSEu91M0RgjAQBeC3jh7UsQca4UAFlmIJhBIsxQo40Ag9OOpBx5XgEHAgPwsZuULyZcPbJfz5oc6r7nx6ES7ZluqYZygfnKwZx3RHZ71vC1Y3zsFQRKifK2SxUI1t3iiZkTSSSvdUUId1VcVCfzCzORRVV1Yg5MNrXIpOYhpgFN8rjYi6sPRAqg9NBNSHmdCYpC5AQ7AROPd6Q7FJUIpKMCsYikoxJ+hD9XvT1MOeYhQ6jbZpZVJq+8DWMm1b6QkiwLwVutI7OqCnsn7YBE7qqUrN0kAsuEJnpQJMDI6CJMRmgQYF4Eqj7U99ANQ/yn6JLeLZAAAAAElFTkSuQmCC`
 
 export const ProjectSelectValue = forwardRef<
   HTMLDivElement,
   {
-    value?: string;
-    children?: any;
-    placeholder?: string;
-    open?: boolean;
-    className?: string;
+    value?: string
+    children?: any
+    placeholder?: string
+    open?: boolean
+    className?: string
   }
 >(({ children, value, placeholder, open, className, ...props }, ref) => {
-  const { token } = useToken();
+  const { token } = useToken()
   return (
     <div
       ref={ref}
@@ -67,9 +67,9 @@ export const ProjectSelectValue = forwardRef<
           transform-origin: center center;
 
           transition: all 0.5s;
-          transform: ${open ? "rotate(180deg)" : "rotate(0deg)"};
+          transform: ${open ? 'rotate(180deg)' : 'rotate(0deg)'};
         `}
       />
     </div>
-  );
-});
+  )
+})

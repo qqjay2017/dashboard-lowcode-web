@@ -1,28 +1,28 @@
-import { BASE_URL } from "./env";
-import { DesignPage } from "@/client-pages/design-page";
+import { BASE_URL } from './env'
+import { DesignPage } from '@/client-pages/design-page'
 
-import { Application } from "@/application/Application";
+import { Application } from '@/application/Application'
 import {
   AntdV5Plugin,
   DashboardBuildinPlugin,
   DashboardDesignerPlugin,
   KxgcAuthPlugin,
-} from "@/plugins";
+} from '@/plugins'
 
-import { DashboardLayout } from "@/client-pages/DashboardLayout";
+import { DashboardLayout } from '@/client-pages/DashboardLayout'
 
-import { NavigateHome } from "@/client-pages/home-list/NavigateHome";
+import { NavigateHome } from '@/client-pages/home-list/NavigateHome'
 
-import { HomeMain } from "@/client-pages/home";
-import { DashboardMain } from "@/client-pages/dashboard";
+import { HomeMain } from '@/client-pages/home'
+import { DashboardMain } from '@/client-pages/dashboard'
 import {
   ChartEditPage,
   ChartIndex,
   ComponentMain,
-} from "@/client-pages/component";
-import { AssetsMain } from "@/client-pages/assets";
-import { ApiEdit, ApiMagic, ApiMain } from "@/client-pages/api";
-import { PluginMain } from "@/client-pages/plugin";
+} from '@/client-pages/component'
+import { AssetsMain } from '@/client-pages/assets'
+import { ApiEdit, ApiMagic, ApiMain } from '@/client-pages/api'
+import { PluginMain } from '@/client-pages/plugin'
 
 const application = new Application({
   providers: [],
@@ -36,85 +36,85 @@ const application = new Application({
   components: {},
 
   router: {
-    type: "browser",
-    basename: BASE_URL || "/",
+    type: 'browser',
+    basename: BASE_URL || '/',
     routes: {
-      root: {
-        path: "/",
+      'root': {
+        path: '/',
         Component: NavigateHome,
       },
-      home: {
-        path: "/home",
+      'home': {
+        path: '/home',
         Component: DashboardLayout,
       },
-      "home.main": {
-        path: "/home/main",
+      'home.main': {
+        path: '/home/main',
         Component: HomeMain,
       },
-      dashboard: {
-        path: "/dashboard",
+      'dashboard': {
+        path: '/dashboard',
         Component: DashboardLayout,
       },
-      "dashboard.main": {
-        path: "/dashboard/main",
+      'dashboard.main': {
+        path: '/dashboard/main',
         Component: DashboardMain,
       },
 
-      component: {
-        path: "/component",
+      'component': {
+        path: '/component',
         Component: DashboardLayout,
       },
-      "component.main": {
-        path: "/component/main",
+      'component.main': {
+        path: '/component/main',
         Component: ComponentMain,
       },
-      "component.chart": {
-        path: "/component/chart",
+      'component.chart': {
+        path: '/component/chart',
         Component: ChartIndex,
       },
-      "component.chartEdit": {
-        path: "/component/chart-edit/:id",
+      'component.chartEdit': {
+        path: '/component/chart-edit/:id',
         Component: ChartEditPage,
       },
-      assets: {
-        path: "/assets",
+      'assets': {
+        path: '/assets',
         Component: DashboardLayout,
       },
-      "assets.main": {
-        path: "/assets/main",
+      'assets.main': {
+        path: '/assets/main',
         Component: AssetsMain,
       },
-      dapi: {
-        path: "/dapi",
+      'dapi': {
+        path: '/dapi',
         Component: DashboardLayout,
       },
-      "dapi.main": {
-        path: "/dapi/external-data",
+      'dapi.main': {
+        path: '/dapi/external-data',
         Component: ApiMain,
       },
-      "dapi.magic": {
-        path: "/dapi/magic-api",
+      'dapi.magic': {
+        path: '/dapi/magic-api',
         Component: ApiMagic,
       },
-      "dapi.edit": {
-        path: "/dapi/edit",
+      'dapi.edit': {
+        path: '/dapi/edit',
         Component: ApiEdit,
       },
-      plugin: {
-        path: "/plugin",
+      'plugin': {
+        path: '/plugin',
         Component: DashboardLayout,
       },
-      "plugin.main": {
-        path: "/plugin/main",
+      'plugin.main': {
+        path: '/plugin/main',
         Component: PluginMain,
       },
-      dashboarddesign: {
-        path: "/dashboard-design/:id",
+      'dashboarddesign': {
+        path: '/dashboard-design/:id',
         Component: DesignPage,
       },
     },
   },
-});
+})
 
-const App = application.getRootComponent();
-export default App;
+const App = application.getRootComponent()
+export default App

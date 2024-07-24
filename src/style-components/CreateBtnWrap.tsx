@@ -1,5 +1,5 @@
-import { css } from "@emotion/css";
-import type { PropsWithChildren } from "react";
+import { css } from '@emotion/css'
+import type { PropsWithChildren } from 'react'
 
 export function CreateBtnWrap({
   children,
@@ -19,5 +19,5 @@ export function CreateBtnWrap({
     >
       {children}
     </div>
-  );
+  )
 }

@@ -1,37 +1,38 @@
-import React, { useState } from "react";
-import { css } from "@emotion/css";
-import { get } from "lodash-es";
-import { getSchemeWrap } from "./getSchemeWrap";
-import { menuItem } from "./menuItem";
-import { settingSchema } from "./settingSchema";
-import { EmpTypeSelect } from "./EmpTypeSelect";
-import type { EmploymentType } from "./types";
-import { EmploymentItem } from "./EmploymentItem";
+import React, { useState } from 'react'
+import { css } from '@emotion/css'
+import { get } from 'lodash-es'
+import { getSchemeWrap } from './getSchemeWrap'
+import { menuItem } from './menuItem'
+import { settingSchema } from './settingSchema'
+import { EmpTypeSelect } from './EmpTypeSelect'
+import type { EmploymentType } from './types'
+import { EmploymentItem } from './EmploymentItem'
 import {
   useDataBindFetch,
   useFrameSizeStyle,
   useQueryToBusParams,
-} from "@/schema-component/hooks";
-import type { SchemComponentWithDataSourceProps } from "@/types";
-import { EmptyKit } from "@/style-components";
+} from '@/schema-component/hooks'
+import type { SchemComponentWithDataSourceProps } from '@/types'
+import { EmptyKit } from '@/style-components'
 
-export const EmploymentCreditMng = ({
+export function EmploymentCreditMng({
   dataSource,
   query,
-}: SchemComponentWithDataSourceProps) => {
-  const busParams = useQueryToBusParams(query);
-  const { data, isLoading } = useDataBindFetch(dataSource, busParams);
-  const { headStyle, bodyStyle } = useFrameSizeStyle();
-  const [tabValue, setTabValue] = useState<string>("1");
-  const list: EmploymentType[] = get(data, "data.data", []) || [];
+}: SchemComponentWithDataSourceProps) {
+  const busParams = useQueryToBusParams(query)
+  const { data, isLoading } = useDataBindFetch(dataSource, busParams)
+  const { headStyle, bodyStyle } = useFrameSizeStyle()
+  const [tabValue, setTabValue] = useState<string>('1')
+  const list: EmploymentType[] = get(data, 'data.data', []) || []
 
   const curWorkList = list.filter((w) => {
-    if (tabValue === "1") {
-      return w.status === 0 || w.status === "0" || !w.status;
-    } else {
-      return w.status && (w.status === 1 || w.status === "1");
+    if (tabValue === '1') {
+      return w.status === 0 || w.status === '0' || !w.status
     }
-  });
+    else {
+      return w.status && (w.status === 1 || w.status === '1')
+    }
+  })
   return (
     <>
       <div
@@ -60,16 +61,16 @@ export const EmploymentCreditMng = ({
             `}
           >
             {curWorkList.map((work, index) => {
-              return <EmploymentItem key={index} {...work} />;
+              return <EmploymentItem key={index} {...work} />
             })}
           </div>
         </EmptyKit>
       </div>
     </>
-  );
-};
+  )
+}
 
-EmploymentCreditMng.displayName = "EmploymentCreditMng";
-EmploymentCreditMng.schemaFn = getSchemeWrap;
-EmploymentCreditMng.menuItem = menuItem;
-EmploymentCreditMng.settingSchema = settingSchema;
+EmploymentCreditMng.displayName = 'EmploymentCreditMng'
+EmploymentCreditMng.schemaFn = getSchemeWrap
+EmploymentCreditMng.menuItem = menuItem
+EmploymentCreditMng.settingSchema = settingSchema

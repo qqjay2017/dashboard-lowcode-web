@@ -1,11 +1,11 @@
-import { css } from "@emotion/css";
-import type { PropsWithChildren } from "react";
-import React from "react";
+import { css } from '@emotion/css'
+import type { PropsWithChildren } from 'react'
+import React from 'react'
 
-export const FormSubmitBtnWrap = ({
+export function FormSubmitBtnWrap({
   children,
   className,
-}: PropsWithChildren<{ className?: string }>) => {
+}: PropsWithChildren<{ className?: string }>) {
   return (
     <div
       className={css`
@@ -21,5 +21,5 @@ export const FormSubmitBtnWrap = ({
     >
       {children}
     </div>
-  );
-};
+  )
+}

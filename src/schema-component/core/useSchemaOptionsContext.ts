@@ -1,7 +1,7 @@
-import { SchemaOptionsContext } from "@formily/react";
-import { useContext } from "react";
+import { SchemaOptionsContext } from '@formily/react'
+import { useContext } from 'react'
 
-export const useSchemaOptionsContext = () => {
-    const options = useContext(SchemaOptionsContext);
-    return options || {};
-};
+export function useSchemaOptionsContext() {
+  const options = useContext(SchemaOptionsContext)
+  return options || {}
+}

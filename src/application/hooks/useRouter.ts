@@ -1,11 +1,6 @@
+import { useApp } from './useApp'
 
-
-
-import { useApp } from './useApp';
-
-export const useRouter = () => {
-
-    const app = useApp();
-    return app?.router;
-
-  };
+export function useRouter() {
+  const app = useApp()
+  return app?.router
+}

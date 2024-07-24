@@ -1,13 +1,13 @@
-import { createStyles } from "antd-style";
-import { rs } from "../../../../utils/resolveStatic";
+import { createStyles } from 'antd-style'
+import { rs } from '../../../../utils/resolveStatic'
 
 export const useClassicFrameStyle = createStyles(
   ({ css, token }, { hasTitle }: { hasTitle?: boolean }) => {
-    const { themeProvider, isDarkTheme } = token;
+    const { themeProvider, isDarkTheme } = token
 
     const url = rs(
-      `/assets/schema-component/ClassicFrame/${themeProvider}-${isDarkTheme ? "dark" : "light"}/bg1.png`,
-    );
+      `/assets/schema-component/ClassicFrame/${themeProvider}-${isDarkTheme ? 'dark' : 'light'}/bg1.png`,
+    )
     return css`
       &.nodeContentRenderer {
         width: 100%;
@@ -61,7 +61,7 @@ export const useClassicFrameStyle = createStyles(
       }
 
       .nodeContentRendererContent {
-        height: ${hasTitle ? " calc(100% - 0.46rem)" : "100%"};
+        height: ${hasTitle ? ' calc(100% - 0.46rem)' : '100%'};
         position: relative;
       }
 
@@ -76,6 +76,6 @@ export const useClassicFrameStyle = createStyles(
         background-repeat: no-repeat;
         background-size: cover;
       }
-    `;
+    `
   },
-);
+)

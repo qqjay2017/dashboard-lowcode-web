@@ -5,16 +5,16 @@ import {
   WarnListItemPoint,
   WarnListItemTitle,
   WarnListItemWrap,
-} from "./styles";
+} from './styles'
 
 export function WarnListItem({
   title,
   details,
   date,
 }: {
-  title: string;
-  details: string;
-  date: string;
+  title: string
+  details: string
+  date: string
 }) {
   return (
     <WarnListItemWrap>
@@ -24,5 +24,5 @@ export function WarnListItem({
       <WarnListItemDetail>{details}</WarnListItemDetail>
       <WarnListItemDate>{date}</WarnListItemDate>
     </WarnListItemWrap>
-  );
+  )
 }

@@ -1,13 +1,11 @@
-import { css } from "@emotion/css";
-import useEmblaCarousel from "embla-carousel-react";
-import React, { memo, useEffect, useMemo } from "react";
-import useResizeObserver from "use-resize-observer";
-import type { HeaderMenuItemType } from "../HeaderMenu/types";
-import { Level1MenuItem } from "./Level1MenuItem";
-import { sizeFormat } from "@/utils";
-import { NextButton, PrevButton, usePrevNextButtons } from "@/ui";
-import { useReportId } from "@/schema-component";
-import { useReportShare } from "@/hooks";
+import { css } from '@emotion/css'
+import useEmblaCarousel from 'embla-carousel-react'
+import React, { memo, useEffect, useMemo } from 'react'
+import useResizeObserver from 'use-resize-observer'
+import type { HeaderMenuItemType } from '../HeaderMenu/types'
+import { Level1MenuItem } from './Level1MenuItem'
+import { sizeFormat } from '@/utils'
+import { NextButton, PrevButton, usePrevNextButtons } from '@/ui'
 
 export const Level1Menu = memo(
   ({
@@ -15,30 +13,32 @@ export const Level1Menu = memo(
     activeSubMenu,
     reportId,
   }: {
-    menuList: HeaderMenuItemType[];
-    activeSubMenu: any;
-    reportId: string;
+    menuList: HeaderMenuItemType[]
+    activeSubMenu: any
+    reportId: string
   }) => {
-    const { ref, width = 0 } = useResizeObserver<HTMLDivElement>();
+    const { ref, width = 0 } = useResizeObserver<HTMLDivElement>()
     const menuCount = useMemo(() => {
-      if (!width) return 0;
-      return Math.floor(width / 140);
-    }, [width]);
+      if (!width)
+        return 0
+      return Math.floor(width / 140)
+    }, [width])
 
     const [emblaRef, emblaApi] = useEmblaCarousel({
-      slidesToScroll: "auto",
-    });
+      slidesToScroll: 'auto',
+    })
 
     useEffect(() => {
       if (!emblaApi || !reportId || !menuCount) {
         //
-      } else {
+      }
+      else {
         setTimeout(() => {
-          const curIndex = activeSubMenu?.parent?.index || 0;
+          const curIndex = activeSubMenu?.parent?.index || 0
           if (curIndex > menuCount - 1) {
-            emblaApi.scrollTo(Math.floor(curIndex / menuCount));
+            emblaApi.scrollTo(Math.floor(curIndex / menuCount))
           }
-        }, 500);
+        }, 500)
       }
     }, [
       menuList.length,
@@ -46,14 +46,14 @@ export const Level1Menu = memo(
       menuCount,
       emblaApi,
       activeSubMenu?.parent?.index,
-    ]);
+    ])
 
     const {
       prevBtnDisabled,
       nextBtnDisabled,
       onPrevButtonClick,
       onNextButtonClick,
-    } = usePrevNextButtons(emblaApi);
+    } = usePrevNextButtons(emblaApi)
 
     return (
       <div
@@ -103,12 +103,12 @@ export const Level1Menu = memo(
                   >
                     <Level1MenuItem {...menu} reportId={reportId} />
                   </div>
-                );
+                )
               })}
             </div>
           </div>
         </div>
       </div>
-    );
+    )
   },
-);
+)

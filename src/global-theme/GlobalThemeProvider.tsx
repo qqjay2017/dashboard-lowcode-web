@@ -1,43 +1,44 @@
-import React, { useCallback, useMemo, useRef } from "react";
-import { ConfigProvider, theme as antdTheme } from "antd";
-import { cloneDeep } from "lodash-es";
-import type { ThemeConfig, ThemeItem } from "./type";
-import defaultTheme from "./defaultTheme";
-import { addCustomAlgorithmToTheme } from "./customAlgorithm";
-import { GlobalThemeContext } from "./useGlobalTheme";
-import compatOldTheme from "./compatOldTheme";
-export const GlobalThemeProvider = ({ children, theme: themeFromProps }) => {
+import React, { useCallback, useMemo, useRef } from 'react'
+import { ConfigProvider, theme as antdTheme } from 'antd'
+import { cloneDeep } from 'lodash-es'
+import type { ThemeConfig, ThemeItem } from './type'
+import defaultTheme from './defaultTheme'
+import { addCustomAlgorithmToTheme } from './customAlgorithm'
+import { GlobalThemeContext } from './useGlobalTheme'
+import compatOldTheme from './compatOldTheme'
+
+export function GlobalThemeProvider({ children, theme: themeFromProps }) {
   const [theme, setTheme] = React.useState<ThemeConfig>(
     themeFromProps || defaultTheme,
-  );
-  const currentSettingThemeRef = useRef<ThemeConfig>(null);
-  const currentEditingThemeRef = useRef<ThemeItem>(null);
+  )
+  const currentSettingThemeRef = useRef<ThemeConfig>(null)
+  const currentEditingThemeRef = useRef<ThemeItem>(null)
 
   const isDarkTheme = useMemo(() => {
-    const algorithm = theme?.algorithm;
+    const algorithm = theme?.algorithm
     if (Array.isArray(algorithm)) {
-      return algorithm.includes(antdTheme.darkAlgorithm);
+      return algorithm.includes(antdTheme.darkAlgorithm)
     }
-    return algorithm === antdTheme.darkAlgorithm;
-  }, [theme?.algorithm]);
+    return algorithm === antdTheme.darkAlgorithm
+  }, [theme?.algorithm])
 
   const setCurrentEditingTheme = useCallback((themeItem: ThemeItem) => {
     currentEditingThemeRef.current = themeItem
       ? cloneDeep(themeItem)
-      : themeItem;
-  }, []);
+      : themeItem
+  }, [])
 
   const getCurrentEditingTheme = useCallback(() => {
-    return currentEditingThemeRef.current;
-  }, []);
+    return currentEditingThemeRef.current
+  }, [])
 
   const setCurrentSettingTheme = useCallback((theme: ThemeConfig) => {
-    currentSettingThemeRef.current = theme ? cloneDeep(theme) : theme;
-  }, []);
+    currentSettingThemeRef.current = theme ? cloneDeep(theme) : theme
+  }, [])
 
   const getCurrentSettingTheme = useCallback(() => {
-    return currentSettingThemeRef.current;
-  }, []);
+    return currentSettingThemeRef.current
+  }, [])
 
   const value = useMemo(() => {
     return {
@@ -48,7 +49,7 @@ export const GlobalThemeProvider = ({ children, theme: themeFromProps }) => {
       setCurrentEditingTheme,
       getCurrentEditingTheme,
       isDarkTheme,
-    };
+    }
   }, [
     getCurrentEditingTheme,
     getCurrentSettingTheme,
@@ -56,7 +57,7 @@ export const GlobalThemeProvider = ({ children, theme: themeFromProps }) => {
     setCurrentEditingTheme,
     setCurrentSettingTheme,
     theme,
-  ]);
+  ])
 
   return (
     <GlobalThemeContext.Provider value={value}>
@@ -64,5 +65,5 @@ export const GlobalThemeProvider = ({ children, theme: themeFromProps }) => {
         {children}
       </ConfigProvider>
     </GlobalThemeContext.Provider>
-  );
-};
+  )
+}

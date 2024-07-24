@@ -1,16 +1,16 @@
-import { CountItemCount, CountItemUnit, CountItemWrap } from "./style";
+import { CountItemCount, CountItemUnit, CountItemWrap } from './style'
 
 export function CountItem({
   count,
-  unit = "",
+  unit = '',
 }: {
-  count?: string | number;
-  unit: string;
+  count?: string | number
+  unit: string
 }) {
   return (
     <CountItemWrap>
       <CountItemCount>{count || 0}</CountItemCount>
       <CountItemUnit>{unit}</CountItemUnit>
     </CountItemWrap>
-  );
+  )
 }

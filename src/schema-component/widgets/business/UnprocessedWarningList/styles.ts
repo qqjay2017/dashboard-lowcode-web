@@ -1,9 +1,9 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled'
 
 export const WarnListItemWrap = styled.div`
   padding-left: 0.3rem;
   position: relative;
-`;
+`
 
 export const WarnListItemTitle = styled.div`
   font-weight: 400;
@@ -11,7 +11,7 @@ export const WarnListItemTitle = styled.div`
   color: #c3d4e5;
   line-height: 0.16rem;
   text-align: left;
-`;
+`
 
 export const WarnListItemDetail = styled.div`
   font-weight: 400;
@@ -21,7 +21,7 @@ export const WarnListItemDetail = styled.div`
   text-align: left;
 
   margin-top: 0.08rem;
-`;
+`
 
 export const WarnListItemDate = styled.div`
   font-weight: 400;
@@ -32,7 +32,7 @@ export const WarnListItemDate = styled.div`
   padding-bottom: 0.14rem;
   text-align: left;
   color: #c3d4e5;
-`;
+`
 
 export const WarnListItemPoint = styled.div`
   width: 10px;
@@ -44,7 +44,7 @@ export const WarnListItemPoint = styled.div`
   z-index: 20;
 
   background-color: #ffc85e;
-`;
+`
 
 export const WarnListItemLine = styled.div`
   height: calc(100% - 0.05rem);
@@ -55,4 +55,4 @@ export const WarnListItemLine = styled.div`
   margin-left: -1px;
   bottom: -0.05rem;
   z-index: 19;
-`;
+`

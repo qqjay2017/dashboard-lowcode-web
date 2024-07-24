@@ -1,5 +1,5 @@
-import React from "react";
+import React from 'react'
 
-export const Hello = () => {
-  return <div>Hello</div>;
-};
+export function Hello() {
+  return <div>Hello</div>
+}

@@ -1,9 +1,8 @@
+import { useParams } from 'react-router-dom'
 
-import { useParams } from 'react-router-dom';
-
-export const useReportId = () => {
-    const { shareURL } = useParams();
-    return {
-        reportId: shareURL || ''
-    }
+export function useReportId() {
+  const { shareURL } = useParams()
+  return {
+    reportId: shareURL || '',
+  }
 }

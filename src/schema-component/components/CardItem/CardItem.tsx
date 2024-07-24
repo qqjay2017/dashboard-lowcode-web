@@ -1,17 +1,17 @@
-import { css } from "@emotion/css";
-import type { PropsWithChildren } from "react";
-import React from "react";
+import { css } from '@emotion/css'
+import type { PropsWithChildren } from 'react'
+import React from 'react'
 
 interface CardItemProps extends PropsWithChildren {
-  title?: string;
-  direction?: "row" | "column";
+  title?: string
+  direction?: 'row' | 'column'
 }
 
-export const CardItem = ({
+export function CardItem({
   children,
   title,
-  direction = "row",
-}: CardItemProps) => {
+  direction = 'row',
+}: CardItemProps) {
   return (
     <div
       className={css`
@@ -30,7 +30,7 @@ export const CardItem = ({
       </div>
       <div
         className={
-          direction === "column"
+          direction === 'column'
             ? css``
             : css`
                 display: flex;
@@ -42,5 +42,5 @@ export const CardItem = ({
         {children}
       </div>
     </div>
-  );
-};
+  )
+}

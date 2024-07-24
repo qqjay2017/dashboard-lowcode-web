@@ -1,4 +1,4 @@
-import { Plugin } from "../../application";
+import { Plugin } from '../../application'
 import {
   AiotMonitorBlock,
   ChartTemplate,
@@ -18,8 +18,7 @@ import {
   QuarterSelect,
   SmartHelmet,
   UnprocessedWarningList,
-} from "../../schema-component";
-
+} from '../../schema-component'
 
 export class DashboardBuildinPlugin extends Plugin {
   async load(): Promise<void> {
@@ -44,6 +43,6 @@ export class DashboardBuildinPlugin extends Plugin {
       ProjectSelect,
       ChartTemplate,
       AiotMonitorBlock,
-    });
+    })
   }
 }

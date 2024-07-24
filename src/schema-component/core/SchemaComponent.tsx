@@ -1,49 +1,47 @@
-import type { IRecursionFieldProps, ISchemaFieldProps } from "@formily/react";
-import { RecursionField, Schema } from "@formily/react";
-import { useContext, useMemo } from "react";
+import type { IRecursionFieldProps, ISchemaFieldProps } from '@formily/react'
+import { RecursionField, Schema } from '@formily/react'
+import { useContext, useMemo } from 'react'
 
-import { SchemaComponentContext } from "../context";
-import { useUpdate } from "../hooks";
-import { SchemaComponentOptions } from "./SchemaComponentOptions";
+import { SchemaComponentContext } from '../context'
+import { useUpdate } from '../hooks'
+import { SchemaComponentOptions } from './SchemaComponentOptions'
 
 interface SchemaComponentOnChange {
-  onChange?: (s: Schema) => void;
+  onChange?: (s: Schema) => void
 }
 
 function toSchema(schema?: any) {
   if (Schema.isSchemaInstance(schema)) {
-    return schema;
+    return schema
   }
   if (schema?.name) {
     return new Schema({
-      type: "object",
+      type: 'object',
       properties: {
         [schema.name]: schema,
       },
-    });
+    })
   }
-  return new Schema(schema);
+  return new Schema(schema)
 }
 
-const useMemoizedSchema = (schema) => {
-  return useMemo(() => toSchema(schema), []);
-};
+function useMemoizedSchema(schema) {
+  return useMemo(() => toSchema(schema), [])
+}
 
 interface DistributedProps {
   /**
    * 是否和父级隔离刷新
    * @default false
    */
-  distributed?: boolean;
+  distributed?: boolean
 }
 
-const RecursionSchemaComponent = (
-  props: ISchemaFieldProps & SchemaComponentOnChange & DistributedProps,
-) => {
-  const { components, scope, schema, distributed, ...others } = props;
-  const ctx = useContext(SchemaComponentContext);
-  const s = useMemo(() => toSchema(schema), [schema]);
-  const refresh = useUpdate();
+function RecursionSchemaComponent(props: ISchemaFieldProps & SchemaComponentOnChange & DistributedProps) {
+  const { components, scope, schema, distributed, ...others } = props
+  const ctx = useContext(SchemaComponentContext)
+  const s = useMemo(() => toSchema(schema), [schema])
+  const refresh = useUpdate()
 
   return (
     <SchemaComponentContext.Provider
@@ -51,11 +49,11 @@ const RecursionSchemaComponent = (
         ...ctx,
         distributed: ctx.distributed === false ? false : distributed,
         refresh: () => {
-          refresh();
+          refresh()
 
-          ctx.refresh?.();
+          ctx.refresh?.()
 
-          props.onChange?.(s);
+          props.onChange?.(s)
         },
       }}
     >
@@ -63,16 +61,14 @@ const RecursionSchemaComponent = (
         <RecursionField {...others} schema={s} />
       </SchemaComponentOptions>
     </SchemaComponentContext.Provider>
-  );
-};
+  )
+}
 
-export const RecursionSchemaComponentWrap = (
-  props: ISchemaFieldProps & SchemaComponentOnChange & DistributedProps,
-) => {
-  const { components, scope, schema, distributed } = props;
-  const ctx = useContext(SchemaComponentContext);
-  const s = useMemo(() => toSchema(schema), [schema]);
-  const refresh = useUpdate();
+export function RecursionSchemaComponentWrap(props: ISchemaFieldProps & SchemaComponentOnChange & DistributedProps) {
+  const { components, scope, schema, distributed } = props
+  const ctx = useContext(SchemaComponentContext)
+  const s = useMemo(() => toSchema(schema), [schema])
+  const refresh = useUpdate()
 
   return (
     <SchemaComponentContext.Provider
@@ -80,11 +76,11 @@ export const RecursionSchemaComponentWrap = (
         ...ctx,
         distributed: ctx.distributed === false ? false : distributed,
         refresh: () => {
-          refresh();
+          refresh()
 
-          ctx.refresh?.();
+          ctx.refresh?.()
 
-          props.onChange?.(s);
+          props.onChange?.(s)
         },
       }}
     >
@@ -92,26 +88,22 @@ export const RecursionSchemaComponentWrap = (
         {props.children}
       </SchemaComponentOptions>
     </SchemaComponentContext.Provider>
-  );
-};
+  )
+}
 
-const MemoizedSchemaComponent = (
-  props: ISchemaFieldProps & SchemaComponentOnChange & DistributedProps,
-) => {
-  const { schema, ...others } = props;
-  const s = useMemoizedSchema(schema);
-  return <RecursionSchemaComponent {...others} schema={s} />;
-};
+function MemoizedSchemaComponent(props: ISchemaFieldProps & SchemaComponentOnChange & DistributedProps) {
+  const { schema, ...others } = props
+  const s = useMemoizedSchema(schema)
+  return <RecursionSchemaComponent {...others} schema={s} />
+}
 
-export const SchemaComponent = (
-  props: (ISchemaFieldProps | IRecursionFieldProps) & {
-    memoized?: boolean;
-  } & SchemaComponentOnChange &
-    DistributedProps,
-) => {
-  const { memoized, ...others } = props;
+export function SchemaComponent(props: (ISchemaFieldProps | IRecursionFieldProps) & {
+  memoized?: boolean
+} & SchemaComponentOnChange &
+DistributedProps) {
+  const { memoized, ...others } = props
   if (memoized) {
-    return <MemoizedSchemaComponent {...others} />;
+    return <MemoizedSchemaComponent {...others} />
   }
-  return <RecursionSchemaComponent {...others} />;
-};
+  return <RecursionSchemaComponent {...others} />
+}

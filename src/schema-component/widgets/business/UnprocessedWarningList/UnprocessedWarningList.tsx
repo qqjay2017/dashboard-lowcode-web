@@ -1,25 +1,25 @@
-import React from "react";
-import { css } from "@emotion/css";
-import { get } from "lodash-es";
-import { getSchemeWrap } from "./getSchemeWrap";
-import { menuItem } from "./menuItem";
-import { settingSchema } from "./settingSchema";
-import type { UnprocessedWarningItem } from "./types";
-import { WarnListItem } from "./WarnListItem";
-import type { SchemComponentWithDataSourceProps } from "@/types";
+import React from 'react'
+import { css } from '@emotion/css'
+import { get } from 'lodash-es'
+import { getSchemeWrap } from './getSchemeWrap'
+import { menuItem } from './menuItem'
+import { settingSchema } from './settingSchema'
+import type { UnprocessedWarningItem } from './types'
+import { WarnListItem } from './WarnListItem'
+import type { SchemComponentWithDataSourceProps } from '@/types'
 import {
   useDataBindFetch,
   useQueryToBusParams,
-} from "@/schema-component/hooks";
-import { EmptyKit } from "@/style-components";
+} from '@/schema-component/hooks'
+import { EmptyKit } from '@/style-components'
 
-export const UnprocessedWarningList = ({
+export function UnprocessedWarningList({
   query,
   dataSource,
-}: SchemComponentWithDataSourceProps) => {
-  const busParams = useQueryToBusParams(query);
-  const { data, isLoading } = useDataBindFetch(dataSource, busParams);
-  const warnList: UnprocessedWarningItem[] = get(data, "data.data", []) || [];
+}: SchemComponentWithDataSourceProps) {
+  const busParams = useQueryToBusParams(query)
+  const { data, isLoading } = useDataBindFetch(dataSource, busParams)
+  const warnList: UnprocessedWarningItem[] = get(data, 'data.data', []) || []
   return (
     <div
       className={css`
@@ -33,7 +33,9 @@ export const UnprocessedWarningList = ({
           color: #ffd059;
           line-height: 0.12rem;
         `}
-      >{`未处理预警共计  ${warnList.length}  条`}</div>
+      >
+        {`未处理预警共计  ${warnList.length}  条`}
+      </div>
       <div
         className={css`
           width: 100%;
@@ -53,16 +55,16 @@ export const UnprocessedWarningList = ({
             `}
           >
             {warnList.map((w, index) => {
-              return <WarnListItem key={index} {...w} />;
+              return <WarnListItem key={index} {...w} />
             })}
           </div>
         </EmptyKit>
       </div>
     </div>
-  );
-};
+  )
+}
 
-UnprocessedWarningList.displayName = "UnprocessedWarningList";
-UnprocessedWarningList.schemaFn = getSchemeWrap;
-UnprocessedWarningList.menuItem = menuItem;
-UnprocessedWarningList.settingSchema = settingSchema;
+UnprocessedWarningList.displayName = 'UnprocessedWarningList'
+UnprocessedWarningList.schemaFn = getSchemeWrap
+UnprocessedWarningList.menuItem = menuItem
+UnprocessedWarningList.settingSchema = settingSchema

@@ -1,7 +1,7 @@
-import { css } from "@emotion/css";
-import React from "react";
+import { css } from '@emotion/css'
+import React from 'react'
 
-export const ApiMagic = () => {
+export function ApiMagic() {
   return (
     <iframe
       className={css`
@@ -11,5 +11,5 @@ export const ApiMagic = () => {
       `}
       src="https://magic-api.ssssssss.org.cn/magic/web/index.html"
     />
-  );
-};
+  )
+}

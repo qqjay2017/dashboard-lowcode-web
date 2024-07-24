@@ -1,5 +1,5 @@
-import type { EmploymentType } from "./types";
-import { CodeLine, EmploymentItemWrap, UserNameLine } from "./style";
+import type { EmploymentType } from './types'
+import { CodeLine, EmploymentItemWrap, UserNameLine } from './style'
 
 export function EmploymentItem({
   username,
@@ -27,5 +27,5 @@ export function EmploymentItem({
         {instructions}
       </CodeLine>
     </EmploymentItemWrap>
-  );
+  )
 }

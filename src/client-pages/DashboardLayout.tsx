@@ -1,9 +1,9 @@
-import { css } from "@emotion/css";
+import { css } from '@emotion/css'
 
-import { Outlet } from "react-router-dom";
-import { HomeMenu } from "./layout";
+import { Outlet } from 'react-router-dom'
+import { HomeMenu } from './layout'
 
-export const DashboardLayout = () => {
+export function DashboardLayout() {
   return (
     <div
       className={css`
@@ -21,5 +21,5 @@ export const DashboardLayout = () => {
         <Outlet />
       </div>
     </div>
-  );
-};
+  )
+}

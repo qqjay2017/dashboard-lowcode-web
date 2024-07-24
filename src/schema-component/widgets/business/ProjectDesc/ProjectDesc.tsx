@@ -1,30 +1,30 @@
-import React from "react";
-import { get } from "lodash-es";
-import { useFetchProjectDt } from "./useFetchProjectDt";
-import { getSchemeWrap } from "./getSchemeWrap";
-import { menuItem } from "./menuItem";
-import { settingSchema } from "./settingSchema";
+import React from 'react'
+import { get } from 'lodash-es'
+import { useFetchProjectDt } from './useFetchProjectDt'
+import { getSchemeWrap } from './getSchemeWrap'
+import { menuItem } from './menuItem'
+import { settingSchema } from './settingSchema'
 import {
   AutoScrollWrap,
   FitCoverImg,
   ProjectDescImgWrap,
   TextBgWrap,
-} from "./style";
-import { useAutoScroll, useQueryToBusParams } from "@/schema-component/hooks";
-import type { SchemComponentWithDataSourceProps } from "@/types";
-import { EmptyKit } from "@/style-components";
+} from './style'
+import { useAutoScroll, useQueryToBusParams } from '@/schema-component/hooks'
+import type { SchemComponentWithDataSourceProps } from '@/types'
+import { EmptyKit } from '@/style-components'
 
-export const ProjectDesc = ({ query }: SchemComponentWithDataSourceProps) => {
-  const busParams = useQueryToBusParams(query);
+export function ProjectDesc({ query }: SchemComponentWithDataSourceProps) {
+  const busParams = useQueryToBusParams(query)
 
-  const projectId = busParams?.projectId;
+  const projectId = busParams?.projectId
 
-  const { data, isLoading } = useFetchProjectDt(projectId);
-  const projectDt = get(data, "data.data");
+  const { data, isLoading } = useFetchProjectDt(projectId)
+  const projectDt = get(data, 'data.data')
 
-  const projectPicSrc = get(projectDt, "projectPics[0].fileSrcUrl");
-  const remark = get(projectDt, "remark");
-  const scrollRef = useAutoScroll(1, 80, !!remark);
+  const projectPicSrc = get(projectDt, 'projectPics[0].fileSrcUrl')
+  const remark = get(projectDt, 'remark')
+  const scrollRef = useAutoScroll(1, 80, !!remark)
 
   return (
     <EmptyKit loading={isLoading} empty={!projectId || !projectDt}>
@@ -35,10 +35,10 @@ export const ProjectDesc = ({ query }: SchemComponentWithDataSourceProps) => {
         </TextBgWrap>
       </ProjectDescImgWrap>
     </EmptyKit>
-  );
-};
+  )
+}
 
-ProjectDesc.displayName = "ProjectDesc";
-ProjectDesc.schemaFn = getSchemeWrap;
-ProjectDesc.menuItem = menuItem;
-ProjectDesc.settingSchema = settingSchema;
+ProjectDesc.displayName = 'ProjectDesc'
+ProjectDesc.schemaFn = getSchemeWrap
+ProjectDesc.menuItem = menuItem
+ProjectDesc.settingSchema = settingSchema

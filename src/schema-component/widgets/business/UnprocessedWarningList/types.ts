@@ -1,6 +1,6 @@
 export interface UnprocessedWarningItem {
-    "date": string;
-    "details": string;
-    "title": string;
+  date: string
+  details: string
+  title: string
 
 }

@@ -1,5 +1,5 @@
-import React from "react";
+import React from 'react'
 
-export const AssetsMain = () => {
-  return <div>assets</div>;
-};
+export function AssetsMain() {
+  return <div>assets</div>
+}

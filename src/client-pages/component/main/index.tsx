@@ -1,5 +1,5 @@
-import React from "react";
+import React from 'react'
 
-export const ComponentMain = () => {
-  return <div>index</div>;
-};
+export function ComponentMain() {
+  return <div>index</div>
+}

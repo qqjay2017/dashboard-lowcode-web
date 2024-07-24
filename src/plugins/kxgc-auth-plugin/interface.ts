@@ -1,4 +1,3 @@
-
 import type { Authing } from 'ljcoreauth'
 import type React from 'react'
 

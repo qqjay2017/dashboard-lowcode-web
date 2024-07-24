@@ -1,12 +1,12 @@
-import { get } from "lodash-es";
-import React from "react";
-import { useApp } from "@/application";
-import { useToken } from "@/style";
+import { get } from 'lodash-es'
+import React from 'react'
+import { useApp } from '@/application'
+import { useToken } from '@/style'
 
-export const ComponentTypeFormItem = ({ value = "" }: { value?: string }) => {
-  const app = useApp();
-  const { token } = useToken();
-  const zhName = get(app.components || {}, `${value}.menuItem.label`, "");
+export function ComponentTypeFormItem({ value = '' }: { value?: string }) {
+  const app = useApp()
+  const { token } = useToken()
+  const zhName = get(app.components || {}, `${value}.menuItem.label`, '')
   if (!zhName) {
     return (
       <div
@@ -16,7 +16,7 @@ export const ComponentTypeFormItem = ({ value = "" }: { value?: string }) => {
       >
         {value}
       </div>
-    );
+    )
   }
   return (
     <div
@@ -26,5 +26,5 @@ export const ComponentTypeFormItem = ({ value = "" }: { value?: string }) => {
     >
       {`${zhName}(${value})`}
     </div>
-  );
-};
+  )
+}

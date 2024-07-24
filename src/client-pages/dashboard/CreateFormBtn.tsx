@@ -1,22 +1,22 @@
-import { Button } from "antd";
-import { useNavigate } from "react-router-dom";
-import { get } from "lodash-es";
-import { createDashboardFormSchema } from "./schema/createDashboardFormSchema";
+import { Button } from 'antd'
+import { useNavigate } from 'react-router-dom'
+import { get } from 'lodash-es'
+import { createDashboardFormSchema } from './schema/createDashboardFormSchema'
 
 import {
   FormDialogPortal,
   dashboardRootWrap,
   useFormDialog,
-} from "@/schema-component";
-import { type APiWrap, useAPIClient } from "@/api-client";
+} from '@/schema-component'
+import { type APiWrap, useAPIClient } from '@/api-client'
 
-import { apiBase, getDesignSize } from "@/utils";
+import { apiBase, getDesignSize } from '@/utils'
 
-export const CreateFormBtn = () => {
-  const navigate = useNavigate();
-  const apiClient = useAPIClient();
+export function CreateFormBtn() {
+  const navigate = useNavigate()
+  const apiClient = useAPIClient()
 
-  const { getFormDialog } = useFormDialog();
+  const { getFormDialog } = useFormDialog()
   return (
     <FormDialogPortal>
       <Button
@@ -24,10 +24,10 @@ export const CreateFormBtn = () => {
         onClick={() => {
           const dialog = getFormDialog(
             {
-              title: "新建",
+              title: '新建',
             },
             createDashboardFormSchema,
-          );
+          )
           dialog
             .forConfirm(async (payload, next) => {
               const {
@@ -36,20 +36,20 @@ export const CreateFormBtn = () => {
                 themeProvider,
                 isDarkTheme,
                 designWidthEnum,
-              } = payload.values;
-              const { designWidth, designHeight } =
-                getDesignSize(designWidthEnum);
+              } = payload.values
+              const { designWidth, designHeight }
+                = getDesignSize(designWidthEnum)
               const res = await apiClient.request<any, APiWrap<{ id: number }>>(
                 {
                   url: `${apiBase}/dashboard`,
-                  method: "POST",
+                  method: 'POST',
                   data: {
-                    userId: "123",
+                    userId: '123',
                     name,
                     description,
                     content: JSON.stringify(
                       dashboardRootWrap({
-                        "x-component-props": {
+                        'x-component-props': {
                           designWidthEnum,
                           cols: 12,
                           rows: 12,
@@ -69,18 +69,18 @@ export const CreateFormBtn = () => {
                     ),
                   },
                 },
-              );
-              const id = get(res, "data.data.id");
+              )
+              const id = get(res, 'data.data.id')
               if (id) {
-                navigate(`/dashboard-design/${id}`);
+                navigate(`/dashboard-design/${id}`)
               }
-              next(payload);
+              next(payload)
             })
-            .open({});
+            .open({})
         }}
       >
         新建
       </Button>
     </FormDialogPortal>
-  );
-};
+  )
+}

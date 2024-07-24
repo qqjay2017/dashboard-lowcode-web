@@ -1,23 +1,22 @@
-import { css } from "@emotion/css";
-import React from "react";
-import { ConfigProvider } from "antd";
+import { css } from '@emotion/css'
+import React from 'react'
+import { ConfigProvider } from 'antd'
 
-import { ChartView } from "./ChartView";
-import { chartMockData } from "./chartMockData";
-import { MonacoEditor } from "@/schema-component";
-import { ThemeCSSVariableProvider } from "@/css-variable";
-import { useCustomThemeToken } from "@/dashboard-themes";
-import { useApp } from "@/application";
+import { ChartView } from './ChartView'
+import { MonacoEditor } from '@/schema-component'
+import { ThemeCSSVariableProvider } from '@/css-variable'
+import { useCustomThemeToken } from '@/dashboard-themes'
+import { useApp } from '@/application'
 
-const ChartEditRightMain = ({
+function ChartEditRightMain({
   chartOptionEditorRef,
   chartOptionStr,
   setChartOptionStr,
   chartOption,
   themeProvider,
   isDarkTheme,
-}) => {
-  const app = useApp();
+}) {
+  const app = useApp()
 
   return (
     <div
@@ -56,15 +55,15 @@ const ChartEditRightMain = ({
         />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export const ChartEditRight = (props) => {
-  const { isDarkTheme, themeProvider } = props;
+export function ChartEditRight(props) {
+  const { isDarkTheme, themeProvider } = props
   const customThemeToken = useCustomThemeToken({
     isDarkTheme,
     themeProvider,
-  });
+  })
   return (
     <ConfigProvider
       theme={{
@@ -75,5 +74,5 @@ export const ChartEditRight = (props) => {
         <ChartEditRightMain {...props} />
       </ThemeCSSVariableProvider>
     </ConfigProvider>
-  );
-};
+  )
+}

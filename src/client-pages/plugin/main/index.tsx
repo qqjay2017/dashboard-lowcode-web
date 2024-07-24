@@ -1,5 +1,5 @@
-import React from "react";
+import React from 'react'
 
-export const PluginMain = () => {
-  return <div>index</div>;
-};
+export function PluginMain() {
+  return <div>index</div>
+}

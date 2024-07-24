@@ -1,10 +1,11 @@
-import { css } from "@emotion/css";
-import React from "react";
-import type { IChartTypeItem } from "./consts";
-import { cx } from "@/utils";
+import { css } from '@emotion/css'
+import React from 'react'
+import type { IChartTypeItem } from './consts'
+import { cx } from '@/utils'
+
 interface IChartTypeItemProps extends IChartTypeItem {
-  onClick?: React.MouseEventHandler;
-  isActive?: boolean;
+  onClick?: React.MouseEventHandler
+  isActive?: boolean
 }
 const activeStyle = css`
   color: #23527c;
@@ -17,14 +18,14 @@ const activeStyle = css`
     right: 0;
     background-color: #5470c6;
   }
-`;
-export const ChartTypeItem = ({
+`
+export function ChartTypeItem({
   name,
   label,
   icon,
   onClick,
   isActive,
-}: IChartTypeItemProps) => {
+}: IChartTypeItemProps) {
   return (
     <div
       onClick={onClick}
@@ -47,7 +48,7 @@ export const ChartTypeItem = ({
             ${activeStyle}
           }
         `,
-        isActive ? activeStyle : "",
+        isActive ? activeStyle : '',
       )}
     >
       <div
@@ -68,5 +69,5 @@ export const ChartTypeItem = ({
         {label}
       </div>
     </div>
-  );
-};
+  )
+}

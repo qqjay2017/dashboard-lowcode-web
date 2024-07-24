@@ -1,23 +1,23 @@
-import { get } from "lodash-es";
+import { get } from 'lodash-es'
 
-import { useDashboardDt } from "./useDashboardDt";
+import { useDashboardDt } from './useDashboardDt'
 
-import { useAppSpin } from "@/application";
+import { useAppSpin } from '@/application'
 import {
   SchemaField2,
   useAsyncProjectDataSource,
   useAsyncQuarterDataSource,
   useProjectSelectScope,
-} from "@/schema-component";
+} from '@/schema-component'
 
-export const DesignPage = () => {
-  const { render } = useAppSpin();
+export function DesignPage() {
+  const { render } = useAppSpin()
 
-  const { data, isLoading } = useDashboardDt();
-  const schema = get(data, "data.data.content", "");
-  const projectSelectScope = useProjectSelectScope();
+  const { data, isLoading } = useDashboardDt()
+  const schema = get(data, 'data.data.content', '')
+  const projectSelectScope = useProjectSelectScope()
   if (!schema || isLoading || !projectSelectScope) {
-    return render();
+    return render()
   }
 
   return (
@@ -26,9 +26,9 @@ export const DesignPage = () => {
         ...projectSelectScope,
         useAsyncProjectDataSource,
         useAsyncQuarterDataSource,
-        dashboardDt: get(data, "data.data", {}) || {},
+        dashboardDt: get(data, 'data.data', {}) || {},
       }}
       schema={JSON.parse(schema)}
     />
-  );
-};
+  )
+}

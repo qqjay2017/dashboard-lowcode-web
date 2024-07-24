@@ -1,14 +1,14 @@
 export function dashboardRootWrap(inject: any) {
   return {
-    type: "void",
+    type: 'void',
     properties: {
       dashboardRoot: {
-        name: "dashboardRoot",
-        type: "void",
-        "x-component": "DashboardRoot",
-        "x-settings": "settings:root",
-        "x-settings-props": {},
-        "x-component-props": {
+        'name': 'dashboardRoot',
+        'type': 'void',
+        'x-component': 'DashboardRoot',
+        'x-settings': 'settings:root',
+        'x-settings-props': {},
+        'x-component-props': {
           cols: 12,
           rows: 12,
           rowheight: 80,
@@ -20,11 +20,11 @@ export function dashboardRootWrap(inject: any) {
             tablet: 500,
             mobile: 0,
           },
-          themeProvider: "technologyBlue",
+          themeProvider: 'technologyBlue',
           isDarkTheme: true,
         },
         ...inject,
       },
     },
-  };
+  }
 }

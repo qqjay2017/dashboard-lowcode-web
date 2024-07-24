@@ -1,8 +1,8 @@
 export interface IChartItem {
-    id: string;
-    name: string;
-    type: string;
-    description: string;
-    template: string;
-    coverThumbnail: string;
+  id: string
+  name: string
+  type: string
+  description: string
+  template: string
+  coverThumbnail: string
 }

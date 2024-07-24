@@ -1,15 +1,15 @@
-import type { HTMLAttributes, PropsWithChildren } from "react";
-import React, { memo, useEffect, useMemo, useRef, useState } from "react";
+import type { HTMLAttributes, PropsWithChildren } from 'react'
+import React, { memo, useEffect, useMemo, useRef, useState } from 'react'
 
 import {
   RecursionField,
   observer,
   useField,
   useFieldSchema,
-} from "@formily/react";
-import { ConfigProvider, theme } from "antd";
-import { css } from "@emotion/css";
-import type { Active } from "@dnd-kit/core";
+} from '@formily/react'
+import { ConfigProvider, theme } from 'antd'
+import { css } from '@emotion/css'
+import type { Active } from '@dnd-kit/core'
 import {
   DndContext,
   DragOverlay,
@@ -19,60 +19,60 @@ import {
   useDroppable,
   useSensor,
   useSensors,
-} from "@dnd-kit/core";
-import type Selecto from "react-selecto";
-import type Moveable from "react-moveable";
-import { defaultBreakpoints, flexible } from "../utils";
+} from '@dnd-kit/core'
+import type Selecto from 'react-selecto'
+import type Moveable from 'react-moveable'
+import { defaultBreakpoints, flexible } from '../utils'
 
-import { useBreakpoints, useRowProperties } from "../hooks";
-import { allThemeNameMap } from "../../../../dashboard-themes";
-import { useDashboardRootStyle, useScrollBarStyle } from "../styles";
+import { useBreakpoints, useRowProperties } from '../hooks'
+import { allThemeNameMap } from '../../../../dashboard-themes'
+import { useDashboardRootStyle, useScrollBarStyle } from '../styles'
 
-import { DashboardRootContext, DesignPageConext } from "../context";
+import { DashboardRootContext, DesignPageConext } from '../context'
 
-import { ThemeCSSVariableProvider } from "../../../../css-variable";
+import { ThemeCSSVariableProvider } from '../../../../css-variable'
 
-import { useInsertSchemaComponent } from "../../../hooks/useSaveAllFieldSchema";
-import { MoveableManage } from "./MoveableManage";
-import { DesignPageHeader } from "./DesignPageHeader";
+import { useInsertSchemaComponent } from '../../../hooks/useSaveAllFieldSchema'
+import { MoveableManage } from './MoveableManage'
+import { DesignPageHeader } from './DesignPageHeader'
 
-import { SchemaComponentSetting } from "./SchemaComponentSetting";
-import type { ElementsType } from "./ContentMenu";
-import { ContentMenu, SidebarBtnElementDragOverlay } from "./ContentMenu";
+import { SchemaComponentSetting } from './SchemaComponentSetting'
+import type { ElementsType } from './ContentMenu'
+import { ContentMenu, SidebarBtnElementDragOverlay } from './ContentMenu'
 
-import { Selectable } from "./Selectable";
-import { CanvasSetting } from "./CanvasSetting";
-import { fontStyle } from "./style";
-import { cn, cx, sizeFormat } from "@/utils";
-import { useSchemaComponentContext } from "@/schema-component/hooks";
+import { Selectable } from './Selectable'
+import { CanvasSetting } from './CanvasSetting'
+import { fontStyle } from './style'
+import { cn, cx, sizeFormat } from '@/utils'
+import { useSchemaComponentContext } from '@/schema-component/hooks'
 
-const viewWidth = 3840;
-const viewHeight = 2160;
+const viewWidth = 3840
+const viewHeight = 2160
 
-export const MemorizedRecursionField = memo(RecursionField);
-MemorizedRecursionField.displayName = "MemorizedRecursionField";
+export const MemorizedRecursionField = memo(RecursionField)
+MemorizedRecursionField.displayName = 'MemorizedRecursionField'
 
 export interface DashboardRootProps
   extends PropsWithChildren,
-    HTMLAttributes<any> {
-  cols?: number;
-  designable?: boolean;
-  distributed?: boolean;
-  designWidth?: number;
-  designHeight?: number;
+  HTMLAttributes<any> {
+  cols?: number
+  designable?: boolean
+  distributed?: boolean
+  designWidth?: number
+  designHeight?: number
   breakpoints?: {
-    showroom: number;
-    desktop: number;
-    tablet: number;
-    mobile: number;
-  };
-  themeProvider?: string;
-  rows?: 12;
-  rowheight?: 80;
-  dndContext?: any;
-  className?: string;
-  style?: React.CSSProperties;
-  isDarkTheme?: boolean;
+    showroom: number
+    desktop: number
+    tablet: number
+    mobile: number
+  }
+  themeProvider?: string
+  rows?: 12
+  rowheight?: 80
+  dndContext?: any
+  className?: string
+  style?: React.CSSProperties
+  isDarkTheme?: boolean
 }
 
 const DashboardRootMain = observer(
@@ -84,30 +84,30 @@ const DashboardRootMain = observer(
       cols = 12,
       rows = 12,
       rowheight: mobileRowHeight = 80,
-      themeProvider = "",
+      themeProvider = '',
       distributed,
       className,
       style,
       isDarkTheme,
 
       ...otherProps
-    } = props;
+    } = props
     const mousePosition = useRef({
       clientX: 0,
       clientY: 0,
-    });
-    const selectoRef = useRef<Selecto>(null);
-    const moveableRef = useRef<Moveable>(null);
-    const scrollAreaRef = useRef<HTMLDivElement>(null);
-    const [designZoom, setDesignZoom] = useState(1);
-    const { designable, formId } = useSchemaComponentContext();
+    })
+    const selectoRef = useRef<Selecto>(null)
+    const moveableRef = useRef<Moveable>(null)
+    const scrollAreaRef = useRef<HTMLDivElement>(null)
+    const [designZoom, setDesignZoom] = useState(1)
+    const { designable, formId } = useSchemaComponentContext()
     const { breakpoint, width, height, ref } = useBreakpoints(
       breakpoints,
       1400,
-    );
-    const isPc = breakpoint === "desktop" || breakpoint === "showroom";
-    const rowHeight = sizeFormat(height / rows);
-    const colWidth = cols && width ? sizeFormat(width / cols) : 0;
+    )
+    const isPc = breakpoint === 'desktop' || breakpoint === 'showroom'
+    const rowHeight = sizeFormat(height / rows)
+    const colWidth = cols && width ? sizeFormat(width / cols) : 0
 
     // const scale = useMemo(() => {
     //   let scale = 1;
@@ -128,19 +128,19 @@ const DashboardRootMain = observer(
     //   }
     //   return scale;
     // }, [designWidth, designHeight, width, height]);
-    const themeConfig = allThemeNameMap[themeProvider] || {};
-    const themeToken = themeConfig?.token || {};
+    const themeConfig = allThemeNameMap[themeProvider] || {}
+    const themeToken = themeConfig?.token || {}
 
-    const themeDarkOrLightToken = themeConfig?.[isDarkTheme ? "dark" : "light"];
+    const themeDarkOrLightToken = themeConfig?.[isDarkTheme ? 'dark' : 'light']
 
     const rootStyle = useDashboardRootStyle({
       themeProvider,
       isDarkTheme,
-    });
+    })
 
-    const fieldSchema = useFieldSchema();
+    const fieldSchema = useFieldSchema()
 
-    const blockItems = useRowProperties();
+    const blockItems = useRowProperties()
 
     const RenderBlockItems = useMemo(() => {
       return (
@@ -152,89 +152,89 @@ const DashboardRootMain = observer(
                 name={schema.name}
                 schema={schema}
               />
-            );
+            )
           })}
         </>
-      );
-    }, [blockItems?.length]);
+      )
+    }, [blockItems?.length])
 
     const handleViewPortFit = () => {
       if (!scrollAreaRef.current) {
-        return;
+        return
       }
       const { width, height } = document
-        .getElementById("viewPort")!
-        .getBoundingClientRect();
+        .getElementById('viewPort')!
+        .getBoundingClientRect()
 
-      scrollAreaRef.current.scrollLeft = (viewWidth - width) / 2;
+      scrollAreaRef.current.scrollLeft = (viewWidth - width) / 2
 
-      scrollAreaRef.current.scrollTop = (viewHeight - height) / 2;
-    };
+      scrollAreaRef.current.scrollTop = (viewHeight - height) / 2
+    }
 
-    const field = useField();
-    const { insertSchemaComponent } = useInsertSchemaComponent();
+    const field = useField()
+    const { insertSchemaComponent } = useInsertSchemaComponent()
     const droppable = useDroppable({
-      id: "designer-drop-area",
+      id: 'designer-drop-area',
 
       data: {
         address: field.address.toString(),
         isDesignerDropArea: true,
       },
-    });
+    })
 
     useDndMonitor({
       onDragStart(event) {},
       onDragMove: () => {
         const SidebarBtnElementDragOverlay = document.getElementById(
-          "SidebarBtnElementDragOverlay",
-        );
+          'SidebarBtnElementDragOverlay',
+        )
         if (!SidebarBtnElementDragOverlay) {
-          return false;
+          return false
         }
-        const { left, top } =
-          SidebarBtnElementDragOverlay.getBoundingClientRect();
+        const { left, top }
+          = SidebarBtnElementDragOverlay.getBoundingClientRect()
 
-        mousePosition.current.clientX = left;
-        mousePosition.current.clientY = top;
+        mousePosition.current.clientX = left
+        mousePosition.current.clientY = top
       },
       onDragEnd: (d) => {
         if (!d) {
-          return false;
+          return false
         }
-        const { over, active } = d;
-        const activeData = active?.data?.current;
+        const { over, active } = d
+        const activeData = active?.data?.current
 
         if (
-          !activeData ||
-          !activeData.type ||
-          !activeData.isDesignerBtnElement
+          !activeData
+          || !activeData.type
+          || !activeData.isDesignerBtnElement
         ) {
-          return false;
+          return false
         }
 
         setTimeout(() => {
-          const overData = over?.data?.current;
+          const overData = over?.data?.current
           if (!overData) {
-            return false;
+            return false
           }
-          const clientX = mousePosition.current.clientX;
-          const clientY = mousePosition.current.clientY;
+          const clientX = mousePosition.current.clientX
+          const clientY = mousePosition.current.clientY
 
           const x = sizeFormat(
             (clientX - over.rect.left) / colWidth / designZoom,
-          );
+          )
 
           const y = sizeFormat(
             (clientY - over.rect.top) / rowHeight / designZoom,
-          );
+          )
           const maxZIndex = fieldSchema.reduceProperties((memo, cur) => {
-            const curZIndex = cur["x-decorator-props"].zIndex || 0;
+            const curZIndex = cur['x-decorator-props'].zIndex || 0
             if (curZIndex > memo) {
-              memo = cur["x-decorator-props"].zIndex;
+              memo = cur['x-decorator-props'].zIndex
             }
-            return memo;
-          }, 0);
-          const zIndex = maxZIndex + 1;
+            return memo
+          }, 0)
+          const zIndex = maxZIndex + 1
 
           insertSchemaComponent({
             componentProps: activeData?.componentProps,
@@ -245,32 +245,34 @@ const DashboardRootMain = observer(
               y,
               zIndex,
             },
-          });
-        }, 100);
+          })
+        }, 100)
       },
-    });
+    })
 
     useEffect(() => {
-      handleViewPortFit();
-    }, [designZoom]);
+      handleViewPortFit()
+    }, [designZoom])
 
     useEffect(() => {
       if (isPc) {
-        flexible(designWidth);
-      } else if (breakpoint === "mobile") {
-        flexible(750);
-      } else if (breakpoint === "tablet") {
-        flexible(1300);
+        flexible(designWidth)
       }
-    }, [designWidth, isPc]);
+      else if (breakpoint === 'mobile') {
+        flexible(750)
+      }
+      else if (breakpoint === 'tablet') {
+        flexible(1300)
+      }
+    }, [designWidth, isPc])
 
     const injectToken = {
       ...themeToken,
       ...themeDarkOrLightToken,
-    };
+    }
     const { styles: scrollBarStyle } = useScrollBarStyle({
       thumbColor: injectToken.thumbColor,
-    });
+    })
     return (
       <DesignPageConext.Provider
         value={{
@@ -285,7 +287,7 @@ const DashboardRootMain = observer(
               isDarkTheme,
               themeProvider,
               themeAssetsPath: `${themeProvider}-${
-                isDarkTheme ? "dark" : "light"
+                isDarkTheme ? 'dark' : 'light'
               }`,
               ...injectToken,
             },
@@ -493,59 +495,59 @@ const DashboardRootMain = observer(
           </ThemeCSSVariableProvider>
         </ConfigProvider>
       </DesignPageConext.Provider>
-    );
+    )
   },
-);
+)
 
 export function DashboardRoot(props: DashboardRootProps) {
   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {
       distance: 10, // 10px
     },
-  });
+  })
 
   const touchSensor = useSensor(TouchSensor, {
     activationConstraint: {
       delay: 300,
       tolerance: 5,
     },
-  });
-  const sensors = useSensors(mouseSensor, touchSensor);
+  })
+  const sensors = useSensors(mouseSensor, touchSensor)
 
   return (
     <DndContext sensors={sensors}>
       <DashboardRootMain {...props} />
       <DragOverlayWrapper />
     </DndContext>
-  );
+  )
 }
 
 function DragOverlayWrapper() {
-  const [draggedItem, setDraggedItem] = useState<Active | null>(null);
+  const [draggedItem, setDraggedItem] = useState<Active | null>(null)
   useDndMonitor({
     onDragStart(event) {
-      setDraggedItem(event.active);
+      setDraggedItem(event.active)
     },
     onDragCancel(event) {
-      setDraggedItem(null);
+      setDraggedItem(null)
     },
     onDragEnd() {
-      setDraggedItem(null);
+      setDraggedItem(null)
     },
-  });
+  })
   if (!draggedItem) {
-    return null;
+    return null
   }
-  let node = <div>No drag overlay</div>;
-  const isDesignerBtnElement = draggedItem?.data?.current?.isDesignerBtnElement;
+  let node = <div>No drag overlay</div>
+  const isDesignerBtnElement = draggedItem?.data?.current?.isDesignerBtnElement
   if (isDesignerBtnElement) {
-    const type = draggedItem?.data?.current?.type as ElementsType;
+    const type = draggedItem?.data?.current?.type as ElementsType
     node = (
       <SidebarBtnElementDragOverlay
         elementType={type}
         {...draggedItem?.data?.current}
       />
-    );
+    )
   }
   return (
     <DragOverlay
@@ -556,5 +558,5 @@ function DragOverlayWrapper() {
     >
       {node}
     </DragOverlay>
-  );
+  )
 }

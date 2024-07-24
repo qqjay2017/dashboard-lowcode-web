@@ -1,11 +1,10 @@
-import { createStyles } from "antd-style";
-import { rs } from "@/utils";
+import { createStyles } from 'antd-style'
+import { rs } from '@/utils'
 
+export const useMenuItemStyle = createStyles(({ css, token }, { active }: { active?: boolean }) => {
+  const url = rs(`/assets/header-menu/${token.themeAssetsPath}/main-bg.png`)
 
-export const useMenuItemStyle = createStyles(({ css, token }, { active }: { active?: boolean; }) => {
-    const url = rs(`/assets/header-menu/${token.themeAssetsPath}/main-bg.png`)
-
-    return css`
+  return css`
     width:100%;
     height:100%;
     /* flex:0 0 auto; */

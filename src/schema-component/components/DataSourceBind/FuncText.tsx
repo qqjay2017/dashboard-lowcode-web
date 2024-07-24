@@ -1,13 +1,13 @@
-import { css } from "@emotion/css";
-import React from "react";
+import { css } from '@emotion/css'
+import React from 'react'
 
-export const FuncText = ({
-  text = "",
+export function FuncText({
+  text = '',
   indent = 0,
 }: {
-  text?: string;
-  indent?: number;
-}) => {
+  text?: string
+  indent?: number
+}) {
   return (
     <div
       className={css`
@@ -20,5 +20,5 @@ export const FuncText = ({
     >
       {text}
     </div>
-  );
-};
+  )
+}

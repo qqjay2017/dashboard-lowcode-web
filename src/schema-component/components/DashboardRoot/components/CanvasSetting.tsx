@@ -1,36 +1,36 @@
 // import React, { useEffect } from "react";
 
-import { ConfigProvider, Select, Slider } from "antd";
-import { css } from "@emotion/css";
+import { ConfigProvider, Select, Slider } from 'antd'
+import { css } from '@emotion/css'
 
-import { useEffect } from "react";
-import { useDashboardRoot } from "../hooks";
-import { useDesignPageConext } from "../context";
+import { useEffect } from 'react'
+import { useDashboardRoot } from '../hooks'
+import { useDesignPageConext } from '../context'
 
-export const CanvasSetting = () => {
-  const { designWidth } = useDashboardRoot();
-  const { designZoom, setDesignZoom } = useDesignPageConext();
-  const zoomFormatter = (designZoom) => `${(designZoom * 100).toFixed(0)}%`;
+export function CanvasSetting() {
+  const { designWidth } = useDashboardRoot()
+  const { designZoom, setDesignZoom } = useDesignPageConext()
+  const zoomFormatter = designZoom => `${(designZoom * 100).toFixed(0)}%`
   const fitZoom = () => {
-    const viewPort = document.getElementById("viewPort");
+    const viewPort = document.getElementById('viewPort')
     if (!viewPort) {
-      return false;
+      return false
     }
 
     setDesignZoom(
-      Math.min(viewPort.getBoundingClientRect().width / designWidth, 1)
-    );
-  };
+      Math.min(viewPort.getBoundingClientRect().width / designWidth, 1),
+    )
+  }
 
   useEffect(() => {
-    fitZoom();
-  }, []);
+    fitZoom()
+  }, [])
   return (
     <ConfigProvider
       theme={{
         components: {
           Slider: {
-            railBg: "rgba(255, 255, 255, 0.2)",
+            railBg: 'rgba(255, 255, 255, 0.2)',
           },
         },
       }}
@@ -67,39 +67,39 @@ export const CanvasSetting = () => {
           >
             <Select
               onSelect={(e) => {
-                if (e === "fit") {
-                  fitZoom();
-                  return;
+                if (e === 'fit') {
+                  fitZoom()
+                  return
                 }
-                if (typeof e === "number") {
-                  setDesignZoom(e);
+                if (typeof e === 'number') {
+                  setDesignZoom(e)
                 }
               }}
               style={{
-                width: "100%",
+                width: '100%',
               }}
               value={zoomFormatter(designZoom)}
               size="small"
               options={[
                 {
-                  label: "100%",
+                  label: '100%',
                   value: 1,
                 },
                 {
-                  label: "75%",
+                  label: '75%',
                   value: 0.75,
                 },
                 {
-                  label: "50%",
+                  label: '50%',
                   value: 0.5,
                 },
                 {
-                  label: "25%",
+                  label: '25%',
                   value: 0.25,
                 },
                 {
-                  label: "自适应",
-                  value: "fit",
+                  label: '自适应',
+                  value: 'fit',
                 },
               ]}
             />
@@ -118,15 +118,15 @@ export const CanvasSetting = () => {
                 formatter: zoomFormatter,
               }}
               onChange={(e) => {
-                setDesignZoom(e);
+                setDesignZoom(e)
               }}
               onChangeComplete={(e) => {
-                setDesignZoom(e);
+                setDesignZoom(e)
               }}
             />
           </div>
         </div>
       </div>
     </ConfigProvider>
-  );
-};
+  )
+}

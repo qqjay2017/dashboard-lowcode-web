@@ -1,12 +1,12 @@
-import { createStyles } from "antd-style";
-import { rs } from "@/utils";
+import { createStyles } from 'antd-style'
+import { rs } from '@/utils'
 
 export const useClassicFrame5Style = createStyles(
   ({ css, token }, { hasTitle }: { hasTitle?: boolean }) => {
-    const { themeProvider, isDarkTheme } = token;
+    const { themeProvider, isDarkTheme } = token
     const headerBgUrl = rs(
       `/assets/schema-component/ClassicFrame5/${token.themeAssetsPath}/bg1.png`,
-    );
+    )
 
     return css`
       &.nodeContent5Renderer {
@@ -49,9 +49,9 @@ export const useClassicFrame5Style = createStyles(
 
       .nodeContent5RendererContent {
         background: var(--node-content-bg);
-        height: ${hasTitle ? " calc(100% - 0.46rem)" : "100%"};
+        height: ${hasTitle ? ' calc(100% - 0.46rem)' : '100%'};
         position: relative;
       }
-    `;
+    `
   },
-);
+)

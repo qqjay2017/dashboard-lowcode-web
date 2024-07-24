@@ -1,19 +1,19 @@
-import { css } from "@emotion/css";
-import { createStyles } from "antd-style";
-import { memo, useMemo, useState } from "react";
-import { useDraggable } from "@dnd-kit/core";
-import { get, set } from "lodash-es";
-import { apiBase, cn } from "../../../../utils";
+import { css } from '@emotion/css'
+import { createStyles } from 'antd-style'
+import { memo, useMemo, useState } from 'react'
+import { useDraggable } from '@dnd-kit/core'
+import { get, set } from 'lodash-es'
+import { apiBase, cn } from '../../../../utils'
 
-import type { SubMenuItems } from "../allMenuItem";
-import { useApp } from "@/application";
-import { useRequest } from "@/api-client";
-import type { IChartItem } from "@/client-pages/component/chart/types";
-import { chartTypeNameMap } from "@/client-pages/component/chart/consts";
+import type { SubMenuItems } from '../allMenuItem'
+import { useApp } from '@/application'
+import { useRequest } from '@/api-client'
+import type { IChartItem } from '@/client-pages/component/chart/types'
+import { chartTypeNameMap } from '@/client-pages/component/chart/consts'
 
-export type ElementsType = "ClassicFrame" | "Statistic";
+export type ElementsType = 'ClassicFrame' | 'Statistic'
 
-const SubMenuItemCom = ({ subMenuItem }: { subMenuItem: SubMenuItems }) => {
+function SubMenuItemCom({ subMenuItem }: { subMenuItem: SubMenuItems }) {
   const draggable = useDraggable({
     id: `designer-btn-${subMenuItem.type}-${subMenuItem.id}`,
     data: {
@@ -21,7 +21,7 @@ const SubMenuItemCom = ({ subMenuItem }: { subMenuItem: SubMenuItems }) => {
       type: subMenuItem.type,
       isDesignerBtnElement: true,
     },
-  });
+  })
 
   return (
     <button
@@ -80,11 +80,12 @@ const SubMenuItemCom = ({ subMenuItem }: { subMenuItem: SubMenuItems }) => {
             width: 100%;
             height: 100%;
           `}
-        ></div>
+        >
+        </div>
       </div>
     </button>
-  );
-};
+  )
+}
 
 const useContentMenuStyles = createStyles(({ css, token }) => {
   return css`
@@ -95,58 +96,58 @@ const useContentMenuStyles = createStyles(({ css, token }) => {
       background-color: ${token.colorPrimaryActive};
       color: #fff;
     }
-  `;
-});
+  `
+})
 
 export const ContentMenu = memo(() => {
-  const app = useApp();
+  const app = useApp()
   const { data } = useRequest(`${apiBase}/chart`, {
-    method: "GET",
-  });
-  const chartTemplateList: IChartItem[] = get(data, "data.data", []) || [];
+    method: 'GET',
+  })
+  const chartTemplateList: IChartItem[] = get(data, 'data.data', []) || []
 
-  const [activeMenuItem, setActiveMenuItem] = useState(0);
-  const [activeMenuItem2, setActiveMenuItem2] = useState(0);
+  const [activeMenuItem, setActiveMenuItem] = useState(0)
+  const [activeMenuItem2, setActiveMenuItem2] = useState(0)
 
-  const { styles: contentMenuStyles } = useContentMenuStyles();
+  const { styles: contentMenuStyles } = useContentMenuStyles()
 
   const allMenuItem = useMemo(() => {
     return [
       ...Object.keys(app.components)
         .map((componentType) => {
-          return app.components[componentType]?.menuItem;
+          return app.components[componentType]?.menuItem
         })
         .filter(Boolean),
       ...chartTemplateList.map((t, index) => {
         return {
           id: `6-${t.type}${t.name}${t.id}`,
           label: t.name,
-          type: "ChartTemplate",
-          category1: "图表",
+          type: 'ChartTemplate',
+          category1: '图表',
           category2: chartTypeNameMap[t.type],
           previewBg: t.coverThumbnail,
           componentProps: {
             chartId: t.id,
           },
-        };
+        }
       }),
-    ];
-  }, [Object.keys(app.components).join(" "), chartTemplateList.length]);
+    ]
+  }, [Object.keys(app.components).join(' '), chartTemplateList.length])
 
   const menuList = useMemo(() => {
     const keysMap = allMenuItem.reduce((memo, cur) => {
       if (!memo[cur.category1]) {
-        memo[cur.category1] = {};
+        memo[cur.category1] = {}
       }
       if (!get(memo, `${cur.category1}.${cur.category2}`)) {
-        set(memo, `${cur.category1}.${cur.category2}`, []);
+        set(memo, `${cur.category1}.${cur.category2}`, [])
       }
       memo[cur.category1][cur.category2].push({
         ...cur,
-      });
-      return memo;
-    }, {});
-    const _menuList: any[] = [];
+      })
+      return memo
+    }, {})
+    const _menuList: any[] = []
     Object.keys(keysMap).forEach((lv1Keys, index) => {
       _menuList.push({
         index,
@@ -158,12 +159,12 @@ export const ContentMenu = memo(() => {
 
             label: lv2Keys,
             children: get(keysMap, `${lv1Keys}.${lv2Keys}`, []),
-          };
+          }
         }),
-      });
-    });
-    return _menuList;
-  }, [allMenuItem.length]);
+      })
+    })
+    return _menuList
+  }, [allMenuItem.length])
 
   return (
     <div
@@ -182,7 +183,7 @@ export const ContentMenu = memo(() => {
         `}
       >
         {menuList.map((menuItem, index) => {
-          const isActive = activeMenuItem === index;
+          const isActive = activeMenuItem === index
           return (
             <div
               key={`uic${menuItem.label}${menuItem.index}`}
@@ -194,8 +195,8 @@ export const ContentMenu = memo(() => {
             >
               <div
                 onClick={() => {
-                  setActiveMenuItem(index);
-                  setActiveMenuItem2(0);
+                  setActiveMenuItem(index)
+                  setActiveMenuItem2(0)
                 }}
                 className={cn(
                   css`
@@ -212,14 +213,14 @@ export const ContentMenu = memo(() => {
                     border-radius: 4px;
                   `,
                   contentMenuStyles,
-                  "menuItem",
-                  isActive ? "menuItemActive" : "",
+                  'menuItem',
+                  isActive ? 'menuItemActive' : '',
                 )}
               >
                 {menuItem.label}
               </div>
             </div>
-          );
+          )
         })}
       </div>
       <div
@@ -230,7 +231,7 @@ export const ContentMenu = memo(() => {
         `}
       >
         {(menuList[activeMenuItem]?.children || []).map((menuItem2, index) => {
-          const isActive = activeMenuItem2 === index;
+          const isActive = activeMenuItem2 === index
           return (
             <div
               key={menuItem2.label}
@@ -242,7 +243,7 @@ export const ContentMenu = memo(() => {
             >
               <div
                 onClick={() => {
-                  setActiveMenuItem2(index);
+                  setActiveMenuItem2(index)
                 }}
                 className={cn(
                   css`
@@ -262,14 +263,14 @@ export const ContentMenu = memo(() => {
                     line-height: 30px;
                   `,
                   contentMenuStyles,
-                  "menuItem",
-                  isActive ? "menuItemActive" : "",
+                  'menuItem',
+                  isActive ? 'menuItemActive' : '',
                 )}
               >
                 {menuItem2.label}
               </div>
             </div>
-          );
+          )
         })}
       </div>
       <div
@@ -295,26 +296,26 @@ export const ContentMenu = memo(() => {
               key={subMenuItem.id + subMenuItem.type}
               subMenuItem={subMenuItem}
             />
-          );
+          )
         })}
       </div>
     </div>
-  );
-});
+  )
+})
 
 export function SidebarBtnElementDragOverlay({
   elementType,
   previewBg,
 }: {
-  elementType: ElementsType;
-  previewBg?: string;
+  elementType: ElementsType
+  previewBg?: string
 }) {
-  const app = useApp();
-  const s = (app.getComponent(elementType) as any)?.schemaFn?.({});
-  const { w, h } = get(s, "x-decorator-props", {
+  const app = useApp()
+  const s = (app.getComponent(elementType) as any)?.schemaFn?.({})
+  const { w, h } = get(s, 'x-decorator-props', {
     w: 2,
     h: 1,
-  });
+  })
 
   return (
     <div
@@ -333,5 +334,5 @@ export function SidebarBtnElementDragOverlay({
         src={previewBg}
       />
     </div>
-  );
+  )
 }

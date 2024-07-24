@@ -1,19 +1,19 @@
-import { css } from "@emotion/css";
-import { Spin } from "antd";
-import type { PropsWithChildren } from "react";
-import React from "react";
-import { cn } from "@/utils";
+import { css } from '@emotion/css'
+import { Spin } from 'antd'
+import type { PropsWithChildren } from 'react'
+import React from 'react'
+import { cn } from '@/utils'
 
 interface ConetentSpinProps extends PropsWithChildren {
-  isLoading?: boolean;
-  className?: string;
+  isLoading?: boolean
+  className?: string
 }
 
-export const ConetentSpin = ({
+export function ConetentSpin({
   isLoading,
   className,
   children,
-}: ConetentSpinProps) => {
+}: ConetentSpinProps) {
   return (
     <div
       className={cn(
@@ -22,12 +22,13 @@ export const ConetentSpin = ({
           width: 100%;
           height: 100%;
           position: relative;
-        `
+        `,
       )}
     >
-      {isLoading ? (
-        <div
-          className={css`
+      {isLoading
+        ? (
+            <div
+              className={css`
             width: 100%;
             height: 100%;
             position: absolute;
@@ -38,12 +39,13 @@ export const ConetentSpin = ({
             align-items: center;
             justify-content: center;
           `}
-        >
-          <Spin spinning></Spin>
-        </div>
-      ) : (
-        children
-      )}
+            >
+              <Spin spinning></Spin>
+            </div>
+          )
+        : (
+            children
+          )}
     </div>
-  );
-};
+  )
+}

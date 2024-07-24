@@ -1,24 +1,24 @@
-import { DesignPage } from "../client-pages/design-page";
+import { DesignPage } from '../client-pages/design-page'
 
-import { Application } from "../application/Application";
+import { Application } from '../application/Application'
 import {
   AntdV5Plugin,
   DashboardBuildinPlugin,
   DashboardDesignerPlugin,
   KxgcAuthPlugin,
-} from "../plugins";
+} from '../plugins'
 
-import { DashboardLayout } from "../client-pages/DashboardLayout";
+import { DashboardLayout } from '../client-pages/DashboardLayout'
 
-import { NavigateHome } from "../client-pages/home-list/NavigateHome";
+import { NavigateHome } from '../client-pages/home-list/NavigateHome'
 
-import { HomeMain } from "@/client-pages/home";
-import { DashboardMain } from "@/client-pages/dashboard";
-import { ComponentMain } from "@/client-pages/component";
-import { AssetsMain } from "@/client-pages/assets";
-import { ApiEdit, ApiMain } from "@/client-pages/api";
-import { PluginMain } from "@/client-pages/plugin";
-import { BASE_URL } from "@/env";
+import { HomeMain } from '@/client-pages/home'
+import { DashboardMain } from '@/client-pages/dashboard'
+import { ComponentMain } from '@/client-pages/component'
+import { AssetsMain } from '@/client-pages/assets'
+import { ApiEdit, ApiMain } from '@/client-pages/api'
+import { PluginMain } from '@/client-pages/plugin'
+import { BASE_URL } from '@/env'
 
 const application = new Application({
   providers: [],
@@ -32,73 +32,73 @@ const application = new Application({
   components: {},
 
   router: {
-    type: "browser",
-    basename: BASE_URL || "/",
+    type: 'browser',
+    basename: BASE_URL || '/',
     routes: {
-      root: {
-        path: "/",
+      'root': {
+        path: '/',
         Component: NavigateHome,
       },
-      home: {
-        path: "/home",
+      'home': {
+        path: '/home',
         Component: DashboardLayout,
       },
-      "home.main": {
-        path: "/home/main",
+      'home.main': {
+        path: '/home/main',
         Component: HomeMain,
       },
-      dashboard: {
-        path: "/dashboard",
+      'dashboard': {
+        path: '/dashboard',
         Component: DashboardLayout,
       },
-      "dashboard.main": {
-        path: "/dashboard/main",
+      'dashboard.main': {
+        path: '/dashboard/main',
         Component: DashboardMain,
       },
-      component: {
-        path: "/component",
+      'component': {
+        path: '/component',
         Component: DashboardLayout,
       },
-      "component.main": {
-        path: "/component/main",
+      'component.main': {
+        path: '/component/main',
         Component: ComponentMain,
       },
-      assets: {
-        path: "/assets",
+      'assets': {
+        path: '/assets',
         Component: DashboardLayout,
       },
-      "assets.main": {
-        path: "/assets/main",
+      'assets.main': {
+        path: '/assets/main',
         Component: AssetsMain,
       },
-      api: {
-        path: "/api",
+      'api': {
+        path: '/api',
         Component: DashboardLayout,
       },
-      "api.main": {
-        path: "/api/main",
+      'api.main': {
+        path: '/api/main',
         Component: ApiMain,
       },
-      "api.edit": {
-        path: "/api/edit",
+      'api.edit': {
+        path: '/api/edit',
         Component: ApiEdit,
       },
-      plugin: {
-        path: "/plugin",
+      'plugin': {
+        path: '/plugin',
         Component: DashboardLayout,
       },
-      "plugin.main": {
-        path: "/plugin/main",
+      'plugin.main': {
+        path: '/plugin/main',
         Component: PluginMain,
       },
-      design: {
-        path: "/dashboard-design/:id",
+      'design': {
+        path: '/dashboard-design/:id',
         Component: DesignPage,
       },
     },
   },
-});
+})
 
-const App = application.getRootComponent();
+const App = application.getRootComponent()
 
-export default App;
+export default App

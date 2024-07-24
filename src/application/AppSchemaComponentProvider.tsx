@@ -1,15 +1,15 @@
-import { useLocalStorage } from "react-use";
+import { useLocalStorage } from 'react-use'
 
-import React from "react";
-import { SchemaComponentProvider } from "../schema-component/core";
-import type { ISchemaComponentProvider } from "../schema-component/types";
+import React from 'react'
+import { SchemaComponentProvider } from '../schema-component/core'
+import type { ISchemaComponentProvider } from '../schema-component/types'
 
-const getKeyByName = (name) => {
+function getKeyByName(name) {
   if (!name) {
-    return "nocobase_designable".toUpperCase();
+    return 'nocobase_designable'.toUpperCase()
   }
-  return `nocobase_${name}_designable`.toUpperCase();
-};
+  return `nocobase_${name}_designable`.toUpperCase()
+}
 
 const SchemaComponentProviderWithLocalStorageState: React.FC<
   ISchemaComponentProvider & { appName?: string }
@@ -17,23 +17,23 @@ const SchemaComponentProviderWithLocalStorageState: React.FC<
   const [designable, setDesignable] = useLocalStorage(
     getKeyByName(props.appName),
     !!props.designable,
-  );
+  )
   return (
     <SchemaComponentProvider
       {...props}
       designable={designable}
       onDesignableChange={(value) => {
-        setDesignable(value);
+        setDesignable(value)
       }}
     />
-  );
-};
+  )
+}
 
 export const AppSchemaComponentProvider: React.FC<ISchemaComponentProvider> = (
   props,
 ) => {
-  if (typeof props.designable === "boolean") {
-    return <SchemaComponentProvider {...props} />;
+  if (typeof props.designable === 'boolean') {
+    return <SchemaComponentProvider {...props} />
   }
-  return <SchemaComponentProviderWithLocalStorageState {...props} />;
-};
+  return <SchemaComponentProviderWithLocalStorageState {...props} />
+}

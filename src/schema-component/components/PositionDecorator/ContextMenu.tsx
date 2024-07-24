@@ -2,21 +2,21 @@ import {
   ArrowDownOutlined,
   ArrowUpOutlined,
   DeleteOutlined,
-} from "@ant-design/icons";
-import type { AntdIconProps } from "@ant-design/icons/lib/components/AntdIcon";
-import { css } from "@emotion/css";
-import { useField, useFieldSchema } from "@formily/react";
-import { Popconfirm } from "antd";
-import type { FC } from "react";
-import { memo } from "react";
-import { useInsertSchemaComponent, useSaveAllFieldSchema } from "../../hooks";
+} from '@ant-design/icons'
+import type { AntdIconProps } from '@ant-design/icons/lib/components/AntdIcon'
+import { css } from '@emotion/css'
+import { useField, useFieldSchema } from '@formily/react'
+import { Popconfirm } from 'antd'
+import type { FC } from 'react'
+import { memo } from 'react'
+import { useInsertSchemaComponent, useSaveAllFieldSchema } from '../../hooks'
 import {
   dispatchFieldSchemaChange,
   dispatchInsert,
-} from "../DashboardRoot/utils";
-import { useDashboardRoot } from "../DashboardRoot";
+} from '../DashboardRoot/utils'
+import { useDashboardRoot } from '../DashboardRoot'
 
-const iconStyle = { cursor: "pointer", fontSize: 12, color: "#fff" };
+const iconStyle = { cursor: 'pointer', fontSize: 12, color: '#fff' }
 
 export interface SchemaSettingsIconProps extends AntdIconProps {
   // options: SchemaSettingOptions;
@@ -40,74 +40,74 @@ export const SchemaDeleteIcon: FC<SchemaSettingsIconProps> = memo(
       >
         {children}
       </div>
-    );
+    )
   },
-);
+)
 
-export const PositionContextMenu = () => {
-  const { saveLocalFieldState } = useSaveAllFieldSchema();
-  const { saveRemoteFieldSchema, refresh } = useInsertSchemaComponent();
-  const { rootFieldSchema, scale } = useDashboardRoot();
-  const field = useField();
-  const fieldSchema = useFieldSchema();
+export function PositionContextMenu() {
+  const { saveLocalFieldState } = useSaveAllFieldSchema()
+  const { saveRemoteFieldSchema, refresh } = useInsertSchemaComponent()
+  const { rootFieldSchema, scale } = useDashboardRoot()
+  const field = useField()
+  const fieldSchema = useFieldSchema()
   const confirm = () => {
     // 执行删除操作
 
     const fieldSchemaParent = fieldSchema.parent
       ? fieldSchema.parent
-      : rootFieldSchema;
+      : rootFieldSchema
 
-    fieldSchemaParent.removeProperty(fieldSchema.name);
+    fieldSchemaParent.removeProperty(fieldSchema.name)
 
     saveRemoteFieldSchema(rootFieldSchema).then(() => {
-      refresh && refresh();
-      dispatchInsert();
-    });
-  };
+      refresh && refresh()
+      dispatchInsert()
+    })
+  }
 
   const handleSetTop = () => {
     const fieldSchemaParent = fieldSchema.parent
       ? fieldSchema.parent
-      : rootFieldSchema;
+      : rootFieldSchema
 
     const maxZIndex = fieldSchemaParent.reduceProperties((memo, cur) => {
-      const curZIndex = cur["x-decorator-props"].zIndex || 0;
+      const curZIndex = cur['x-decorator-props'].zIndex || 0
       if (curZIndex > memo) {
-        memo = cur["x-decorator-props"].zIndex;
+        memo = cur['x-decorator-props'].zIndex
       }
-      return memo;
-    }, 0);
+      return memo
+    }, 0)
 
     saveLocalFieldState({
       address: field.address.toString(),
       schema: {
-        "x-decorator-props": {
+        'x-decorator-props': {
           zIndex: maxZIndex + 1,
         },
       },
-    });
+    })
     setTimeout(() => {
       saveRemoteFieldSchema(rootFieldSchema).then(() => {
-        dispatchFieldSchemaChange();
-      });
-    }, 100);
-  };
+        dispatchFieldSchemaChange()
+      })
+    }, 100)
+  }
 
   const handleSetDown = () => {
-    const curZIndex = fieldSchema["x-decorator-props"].zIndex || 1;
+    const curZIndex = fieldSchema['x-decorator-props'].zIndex || 1
 
     saveLocalFieldState({
       address: field.address.toString(),
       schema: {
-        "x-decorator-props": {
+        'x-decorator-props': {
           zIndex: curZIndex - 1,
         },
       },
-    });
+    })
     saveRemoteFieldSchema(rootFieldSchema).then(() => {
-      dispatchFieldSchemaChange();
-    });
-  };
+      dispatchFieldSchemaChange()
+    })
+  }
 
   return (
     <div
@@ -127,14 +127,14 @@ export const PositionContextMenu = () => {
     >
       <SchemaDeleteIcon
         onClick={() => {
-          handleSetDown();
+          handleSetDown()
         }}
       >
         <ArrowDownOutlined role="button" style={iconStyle} />
       </SchemaDeleteIcon>
       <SchemaDeleteIcon
         onClick={() => {
-          handleSetTop();
+          handleSetTop()
         }}
       >
         <ArrowUpOutlined role="button" style={iconStyle} />
@@ -150,5 +150,5 @@ export const PositionContextMenu = () => {
         </Popconfirm>
       </SchemaDeleteIcon>
     </div>
-  );
-};
+  )
+}

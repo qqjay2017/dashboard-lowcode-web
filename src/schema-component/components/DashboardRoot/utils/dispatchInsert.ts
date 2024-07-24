@@ -1,10 +1,7 @@
-
-
-export const dispatchInsert = () => {
-    return document.dispatchEvent(new CustomEvent("onInsert"));
+export function dispatchInsert() {
+  return document.dispatchEvent(new CustomEvent('onInsert'))
 }
 
-
-export const dispatchFieldSchemaChange = () => {
-    return document.dispatchEvent(new CustomEvent("dispatchFieldSchemaChange"));
+export function dispatchFieldSchemaChange() {
+  return document.dispatchEvent(new CustomEvent('dispatchFieldSchemaChange'))
 }

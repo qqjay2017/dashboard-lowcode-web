@@ -1,14 +1,14 @@
-import { css } from "@emotion/css";
-import { ConfigProvider } from "antd";
-import type { PropsWithChildren } from "react";
-import React, { useContext } from "react";
-import { FormSubmitBtnWrap } from "./FormSubmitBtnWrap";
+import { css } from '@emotion/css'
+import { ConfigProvider } from 'antd'
+import type { PropsWithChildren } from 'react'
+import React, { useContext } from 'react'
+import { FormSubmitBtnWrap } from './FormSubmitBtnWrap'
 
 interface FormContainerProps extends PropsWithChildren {
-  btns?: React.ReactElement[];
+  btns?: React.ReactElement[]
 }
-export const FormContainer = ({ children, btns }: FormContainerProps) => {
-  const { locale } = useContext(ConfigProvider.ConfigContext);
+export function FormContainer({ children, btns }: FormContainerProps) {
+  const { locale } = useContext(ConfigProvider.ConfigContext)
 
   return (
     <div
@@ -46,5 +46,5 @@ export const FormContainer = ({ children, btns }: FormContainerProps) => {
         </div>
       </ConfigProvider>
     </div>
-  );
-};
+  )
+}

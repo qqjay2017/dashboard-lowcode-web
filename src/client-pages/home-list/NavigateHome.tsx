@@ -1,6 +1,6 @@
-import React from "react";
-import { Navigate } from "react-router-dom";
+import React from 'react'
+import { Navigate } from 'react-router-dom'
 
-export const NavigateHome = () => {
-  return <Navigate to={"/home/main"} />;
-};
+export function NavigateHome() {
+  return <Navigate to="/home/main" />
+}

@@ -1,16 +1,15 @@
 import { useMemo } from 'react'
-import type { FeeListItem } from './getPieOption';
+import type { FeeListItem } from './getPieOption'
 import { getPieOption } from './getPieOption'
-import { useToken } from '@/style';
+import { useToken } from '@/style'
 
+export function useProjectBudgetOption(feeList: FeeListItem[]) {
+  const { token } = useToken()
 
-export const useProjectBudgetOption = (feeList: FeeListItem[]) => {
-    const { token } = useToken();
-
-    return useMemo(() => {
-        return getPieOption({
-            feeList,
-            chartColors: token.chartColors
-        });
-    }, [feeList.length]);
+  return useMemo(() => {
+    return getPieOption({
+      feeList,
+      chartColors: token.chartColors,
+    })
+  }, [feeList.length])
 }

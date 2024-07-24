@@ -1,4 +1,4 @@
-import { NumLabelLabel, NumLabelValue, NumLabelWrap } from "./styles";
+import { NumLabelLabel, NumLabelValue, NumLabelWrap } from './styles'
 
 export function NumLabel({
   label,
@@ -6,16 +6,16 @@ export function NumLabel({
   numColor,
   showColon = true,
 }: {
-  label: string;
-  value?: string | number;
-  numColor?: string;
-  showColon?: boolean;
+  label: string
+  value?: string | number
+  numColor?: string
+  showColon?: boolean
 }) {
   return (
     <NumLabelWrap>
       <NumLabelLabel>
         {label}
-        {`${showColon ? ":" : ""}`}
+        {`${showColon ? ':' : ''}`}
       </NumLabelLabel>
       <NumLabelValue
         style={
@@ -29,5 +29,5 @@ export function NumLabel({
         {value}
       </NumLabelValue>
     </NumLabelWrap>
-  );
+  )
 }

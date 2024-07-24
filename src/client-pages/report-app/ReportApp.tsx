@@ -1,12 +1,12 @@
-import { Application } from "../../application";
-import { PreviewPage } from "../preview-page";
+import { Application } from '../../application'
+import { PreviewPage } from '../preview-page'
 import {
   AntdV5Plugin,
   DashboardBuildinPlugin,
   KxgcAuthPlugin,
-} from "@/plugins";
+} from '@/plugins'
 
-import { isProduct } from "@/env";
+import { isProduct } from '@/env'
 
 const application = new Application({
   providers: [],
@@ -15,17 +15,17 @@ const application = new Application({
   components: {},
 
   router: {
-    basename: isProduct ? "/dashboard-report" : "/report",
-    type: "browser",
+    basename: isProduct ? '/dashboard-report' : '/report',
+    type: 'browser',
     routes: {
       preview: {
-        path: "/:shareURL",
+        path: '/:shareURL',
         Component: PreviewPage,
       },
     },
   },
-});
+})
 
-const App = application.getRootComponent();
+const App = application.getRootComponent()
 
-export default App;
+export default App

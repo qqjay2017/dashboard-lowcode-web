@@ -1,4 +1,5 @@
-import type { ISchema } from "@formily/react";
+import type { ISchema } from '@formily/react'
 
-import getCompomentTypeInfoSchema from "../../getCompomentTypeInfoSchema";
-export const settingSchema: ISchema = getCompomentTypeInfoSchema();
+import getCompomentTypeInfoSchema from '../../getCompomentTypeInfoSchema'
+
+export const settingSchema: ISchema = getCompomentTypeInfoSchema()

@@ -1,6 +1,5 @@
-import { css } from "@emotion/css";
-import { useToken } from "@/style";
-
+import { css } from '@emotion/css'
+import { useToken } from '@/style'
 
 export function ZjxmsRightItem({
   label,
@@ -8,12 +7,12 @@ export function ZjxmsRightItem({
   unit,
   countColor,
 }: {
-  label: string;
-  count?: any;
-  unit: string;
-  countColor: string;
+  label: string
+  count?: any
+  unit: string
+  countColor: string
 }) {
-  const { token } = useToken();
+  const { token } = useToken()
   return (
     <div
       className={css`
@@ -44,9 +43,9 @@ export function ZjxmsRightItem({
           color: countColor,
         }}
       >
-        {count || "0"}
+        {count || '0'}
         {unit}
       </div>
     </div>
-  );
+  )
 }

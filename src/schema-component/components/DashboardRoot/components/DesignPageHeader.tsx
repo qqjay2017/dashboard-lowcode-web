@@ -1,50 +1,51 @@
-import { css } from "@emotion/css";
-import { Button, Space, message } from "antd";
-import html2canvas from "html2canvas";
+import { css } from '@emotion/css'
+import { Button, Space, message } from 'antd'
+import html2canvas from 'html2canvas'
 
-import { FaArrowLeft } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { FaArrowLeft } from 'react-icons/fa'
+import { useNavigate } from 'react-router-dom'
 
-import { get } from "lodash-es";
+import { get } from 'lodash-es'
 
-import { useSchemaOptionsContext } from "@/schema-component/core";
-import { useReportShare } from "@/hooks";
-import { useUpdateDashboard } from "@/schema-component";
+import { useSchemaOptionsContext } from '@/schema-component/core'
+import { useReportShare } from '@/hooks'
+import { useUpdateDashboard } from '@/schema-component'
 
-export const DesignPageHeader = () => {
+export function DesignPageHeader() {
   // const { reset, refresh } = useSchemaComponentContext();
-  const { reportShare } = useReportShare();
-  const { scope } = useSchemaOptionsContext();
-  const name = get(scope, "dashboardDt.name");
-  const shareURL = get(scope, "dashboardDt.shareURL");
-  const navigate = useNavigate();
-  const { updateDashboard } = useUpdateDashboard();
+  const { reportShare } = useReportShare()
+  const { scope } = useSchemaOptionsContext()
+  const name = get(scope, 'dashboardDt.name')
+  const shareURL = get(scope, 'dashboardDt.shareURL')
+  const navigate = useNavigate()
+  const { updateDashboard } = useUpdateDashboard()
 
   const handleGenThumb = async () => {
-    const r = document.getElementById("DashboardRootWrap");
+    const r = document.getElementById('DashboardRootWrap')
     if (!r) {
-      return false;
+      return false
     }
 
     // const { width, height } = r.getBoundingClientRect();
     try {
       const canvas = await html2canvas(r, {
         scale: 1,
-      });
+      })
 
-      const data = canvas.toDataURL("image/webp", 0.6);
+      const data = canvas.toDataURL('image/webp', 0.6)
       if (data) {
         await updateDashboard({
           coverThumbnail: data,
-        });
-        return message.success("发布成功");
+        })
+        return message.success('发布成功')
       }
-      message.error("生成失败");
-    } catch (error) {
-      console.error(error, "error");
-      message.error("生成失败");
+      message.error('生成失败')
     }
-  };
+    catch (error) {
+      console.error(error, 'error')
+      message.error('生成失败')
+    }
+  }
   return (
     <div
       className={css`
@@ -68,7 +69,7 @@ export const DesignPageHeader = () => {
       >
         <div
           onClick={() => {
-            navigate("/dashboard/main");
+            navigate('/dashboard/main')
           }}
           className={css`
             color: #fff;
@@ -95,14 +96,14 @@ export const DesignPageHeader = () => {
             max-width: 230px;
           `}
         >
-          {name || "驾驶舱配置"}
+          {name || '驾驶舱配置'}
         </div>
       </div>
       <Space>
         {/* <Button onClick={(e) => {}}>测试</Button> */}
         <Button
           onClick={() => {
-            handleGenThumb();
+            handleGenThumb()
           }}
         >
           发布
@@ -112,12 +113,12 @@ export const DesignPageHeader = () => {
           onClick={() => {
             reportShare(shareURL, {
               isHref: false,
-            });
+            })
           }}
         >
           预览
         </Button>
       </Space>
     </div>
-  );
-};
+  )
+}

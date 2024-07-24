@@ -1,18 +1,17 @@
-import Decimal from "decimal.js";
-import { NumLabel } from "./NumLabel";
+import { NumLabel } from './NumLabel'
 import {
   HelmetLeftBottompWrap,
   HelmetLeftTopWrap,
   HelmetLeftWrap,
-} from "./style";
-import type { SafetyProjectType } from "./types";
-import { CountItem } from "./CountItem";
-import { percentToDisplay } from "@/utils";
+} from './style'
+import type { SafetyProjectType } from './types'
+import { CountItem } from './CountItem'
+import { percentToDisplay } from '@/utils'
 
 export function HelmetLeft({
   safetyProject,
 }: {
-  safetyProject: SafetyProjectType;
+  safetyProject: SafetyProjectType
 }) {
   return (
     <HelmetLeftWrap>
@@ -33,5 +32,5 @@ export function HelmetLeft({
         <CountItem count={safetyProject.monitoringPersonnelNum} unit="人" />
       </HelmetLeftBottompWrap>
     </HelmetLeftWrap>
-  );
+  )
 }

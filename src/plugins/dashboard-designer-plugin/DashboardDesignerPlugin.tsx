@@ -1,4 +1,4 @@
-import { Plugin } from "../../application";
+import { Plugin } from '../../application'
 
 import {
   ApiBaseNameFormItem,
@@ -12,12 +12,12 @@ import {
   DepFieldSetFormItem,
   JsonInput,
   PositionDecoratorFormItem,
-} from "@/schema-component";
+} from '@/schema-component'
 import {
   ColorTypeSelect,
   DesignWidthEnumSelect,
   IsDarkThemeSelect,
-} from "@/schema-settings";
+} from '@/schema-settings'
 
 /**
  * 设计器相关的插件,浏览的时候不需要用到
@@ -39,6 +39,6 @@ export class DashboardDesignerPlugin extends Plugin {
       IsDarkThemeSelect,
       DataSourceBind,
       DesignWidthEnumSelect,
-    });
+    })
   }
 }

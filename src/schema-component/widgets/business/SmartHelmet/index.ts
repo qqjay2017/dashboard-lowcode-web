@@ -1,1 +1,1 @@
-export * from "./SmartHelmet";
+export * from './SmartHelmet'

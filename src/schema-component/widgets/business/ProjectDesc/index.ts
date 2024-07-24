@@ -1,1 +1,1 @@
-export * from "./ProjectDesc";
+export * from './ProjectDesc'

@@ -1,7 +1,7 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState } from 'react'
 
-export const useUpdate = () => {
-  const [, setState] = useState({});
+export function useUpdate() {
+  const [, setState] = useState({})
 
-  return useCallback(() => setState({}), []);
-};
+  return useCallback(() => setState({}), [])
+}

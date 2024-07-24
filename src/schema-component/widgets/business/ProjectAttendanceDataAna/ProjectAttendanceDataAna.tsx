@@ -1,37 +1,37 @@
-import { css } from "@emotion/css";
-import { get } from "lodash-es";
-import { ZjxmsRightItem } from "./ZjxmsRightItem";
-import { getSchemeWrap } from "./getSchemeWrap";
-import { menuItem } from "./menuItem";
-import { settingSchema } from "./settingSchema";
-import { getPercent } from "@/schema-component/utils";
-import { useToken } from "@/style";
+import { css } from '@emotion/css'
+import { get } from 'lodash-es'
+import { ZjxmsRightItem } from './ZjxmsRightItem'
+import { getSchemeWrap } from './getSchemeWrap'
+import { menuItem } from './menuItem'
+import { settingSchema } from './settingSchema'
+import { getPercent } from '@/schema-component/utils'
+import { useToken } from '@/style'
 
-import { rs } from "@/utils";
-import type { SchemComponentWithDataSourceProps } from "@/types";
+import { rs } from '@/utils'
+import type { SchemComponentWithDataSourceProps } from '@/types'
 import {
   useDataBindFetch,
   useQueryToBusParams,
-} from "@/schema-component/hooks";
+} from '@/schema-component/hooks'
 
 interface ClockingData {
-  projectNum?: number;
-  allUserProjectNum?: number;
-  sectionUserProjectNum?: number;
-  unUserProjectNum?: number;
-  allUserNum?: number;
-  clockUserNum?: number;
-  unClockUserNum?: number;
+  projectNum?: number
+  allUserProjectNum?: number
+  sectionUserProjectNum?: number
+  unUserProjectNum?: number
+  allUserNum?: number
+  clockUserNum?: number
+  unClockUserNum?: number
 }
 
-export const ProjectAttendanceDataAna = ({
+export function ProjectAttendanceDataAna({
   query,
   dataSource,
-}: SchemComponentWithDataSourceProps) => {
-  const { token } = useToken();
-  const queryParams = useQueryToBusParams(query);
-  const { data: dataRes } = useDataBindFetch(dataSource, queryParams);
-  const clocking: ClockingData = get(dataRes, "data.data", {}) || {};
+}: SchemComponentWithDataSourceProps) {
+  const { token } = useToken()
+  const queryParams = useQueryToBusParams(query)
+  const { data: dataRes } = useDataBindFetch(dataSource, queryParams)
+  const clocking: ClockingData = get(dataRes, 'data.data', {}) || {}
 
   return (
     <div
@@ -62,7 +62,7 @@ export const ProjectAttendanceDataAna = ({
             background-position: center bottom;
           `}
           style={{
-            backgroundImage: `url( ${rs("/assets/personInfoMng/zjxms.png")} )`,
+            backgroundImage: `url( ${rs('/assets/personInfoMng/zjxms.png')} )`,
           }}
         >
           <div
@@ -93,7 +93,9 @@ export const ProjectAttendanceDataAna = ({
               color: #fff;
               text-shadow: 2px 2px 10px ${token.textPrimary};
             `}
-          >{`${clocking?.projectNum || 0}个`}</div>
+          >
+            {`${clocking?.projectNum || 0}个`}
+          </div>
         </div>
 
         <div
@@ -109,25 +111,25 @@ export const ProjectAttendanceDataAna = ({
         >
           {[
             {
-              label: "全员打卡项目数",
+              label: '全员打卡项目数',
               count: clocking.allUserProjectNum || 0,
-              unit: "个",
+              unit: '个',
               countColor: token.textNumBlue,
             },
             {
-              label: "部分打卡项目数",
+              label: '部分打卡项目数',
               count: clocking.sectionUserProjectNum || 0,
-              unit: "个",
+              unit: '个',
               countColor: token.textNumGreen,
             },
             {
-              label: "未打卡项目数",
+              label: '未打卡项目数',
               count: clocking.unUserProjectNum || 0,
-              unit: "个",
+              unit: '个',
               countColor: token.textNumRed,
             },
             {
-              label: "未打卡项目占比",
+              label: '未打卡项目占比',
               count: getPercent(
                 clocking.unUserProjectNum,
                 clocking?.projectNum,
@@ -135,43 +137,43 @@ export const ProjectAttendanceDataAna = ({
                   fixed: 0,
                 },
               ),
-              unit: "%",
+              unit: '%',
               countColor: token.textNumGreen,
             },
             {
-              label: "应打卡人数",
+              label: '应打卡人数',
               count: clocking.allUserNum || 0,
-              unit: "人",
+              unit: '人',
               countColor: token.textNumBlue,
             },
             {
-              label: "已打卡人数",
+              label: '已打卡人数',
               count: clocking.clockUserNum || 0,
-              unit: "人",
+              unit: '人',
               countColor: token.textNumGreen,
             },
             {
-              label: "未打卡人数",
+              label: '未打卡人数',
               count: clocking.unClockUserNum || 0,
-              unit: "人",
+              unit: '人',
               countColor: token.textNumRed,
             },
             {
-              label: "打卡人数占比",
+              label: '打卡人数占比',
               count: getPercent(clocking.clockUserNum, clocking.allUserNum, {}),
-              unit: "%",
+              unit: '%',
               countColor: token.textNumGreen,
             },
           ].map((item, index) => {
-            return <ZjxmsRightItem key={item.label + index} {...item} />;
+            return <ZjxmsRightItem key={item.label + index} {...item} />
           })}
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-ProjectAttendanceDataAna.displayName = "ProjectAttendanceDataAna";
-ProjectAttendanceDataAna.schemaFn = getSchemeWrap;
-ProjectAttendanceDataAna.menuItem = menuItem;
-ProjectAttendanceDataAna.settingSchema = settingSchema;
+ProjectAttendanceDataAna.displayName = 'ProjectAttendanceDataAna'
+ProjectAttendanceDataAna.schemaFn = getSchemeWrap
+ProjectAttendanceDataAna.menuItem = menuItem
+ProjectAttendanceDataAna.settingSchema = settingSchema

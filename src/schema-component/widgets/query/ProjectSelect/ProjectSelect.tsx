@@ -1,27 +1,27 @@
-import { css } from "@emotion/css";
-import { useState } from "react";
-import { connect, mapProps, useField } from "@formily/react";
-import { getSchemeWrap } from "./getSchemeWrap";
-import { menuItem } from "./menuItem";
-import { settingSchema } from "./settingSchema";
-import { ProjectSelectValue } from "./ProjectSelectValue";
-import { useJfGlobalProjectStore } from "./useJfGlobalProjectStore";
-import type { FormItemComponentProps } from "@/types";
-import { Select, SelectContent, SelectItem, SelectTrigger } from "@/ui";
-import { sizeFormat } from "@/utils";
-import { useDashboardRoot } from "@/schema-component";
+import { css } from '@emotion/css'
+import { useState } from 'react'
+import { connect, mapProps, useField } from '@formily/react'
+import { getSchemeWrap } from './getSchemeWrap'
+import { menuItem } from './menuItem'
+import { settingSchema } from './settingSchema'
+import { ProjectSelectValue } from './ProjectSelectValue'
+import { useJfGlobalProjectStore } from './useJfGlobalProjectStore'
+import type { FormItemComponentProps } from '@/types'
+import { Select, SelectContent, SelectItem, SelectTrigger } from '@/ui'
+import { sizeFormat } from '@/utils'
+import { useDashboardRoot } from '@/schema-component'
 
-const ProjectSelectMain = ({
+function ProjectSelectMain({
   value,
   onChange,
   dataSource = [],
   ...props
-}: FormItemComponentProps) => {
-  const { setProject } = useJfGlobalProjectStore();
-  const [open, setOpen] = useState(false);
-  const { colWidth } = useDashboardRoot();
-  const { decoratorProps } = useField();
-  const w = decoratorProps?.w || 0;
+}: FormItemComponentProps) {
+  const { setProject } = useJfGlobalProjectStore()
+  const [open, setOpen] = useState(false)
+  const { colWidth } = useDashboardRoot()
+  const { decoratorProps } = useField()
+  const w = decoratorProps?.w || 0
 
   return (
     <div
@@ -35,12 +35,12 @@ const ProjectSelectMain = ({
         onOpenChange={setOpen}
         value={value?.id}
         onValueChange={(e) => {
-          const findProject = dataSource.find((pro) => pro.id === e);
+          const findProject = dataSource.find(pro => pro.id === e)
           if (!findProject) {
-            return false;
+            return false
           }
-          setProject(findProject);
-          onChange(findProject);
+          setProject(findProject)
+          onChange(findProject)
         }}
       >
         <SelectTrigger asChild>
@@ -68,13 +68,13 @@ const ProjectSelectMain = ({
                   {project.name}
                 </div>
               </SelectItem>
-            );
+            )
           })}
         </SelectContent>
       </Select>
     </div>
-  );
-};
+  )
+}
 
 export const ProjectSelect = connect(
   ProjectSelectMain,
@@ -82,14 +82,14 @@ export const ProjectSelect = connect(
     return {
       dataSource: field.dataSource,
       ...props,
-    };
+    }
   }),
-);
+)
 
-ProjectSelect.displayName = "ProjectSelect";
+ProjectSelect.displayName = 'ProjectSelect'
 // @ts-expect-error
-ProjectSelect.schemaFn = getSchemeWrap;
+ProjectSelect.schemaFn = getSchemeWrap
 // @ts-expect-error
-ProjectSelect.menuItem = menuItem;
+ProjectSelect.menuItem = menuItem
 // @ts-expect-error
-ProjectSelect.settingSchema = settingSchema;
+ProjectSelect.settingSchema = settingSchema

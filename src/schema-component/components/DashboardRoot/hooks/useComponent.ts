@@ -1,15 +1,14 @@
+import { SchemaOptionsContext } from '@formily/react'
+import { get } from 'lodash-es'
+import { useContext } from 'react'
 
-import { SchemaOptionsContext } from '@formily/react';
-import { get } from 'lodash-es';
-import { useContext } from 'react';
-
-export const useComponent = (component: any, defaults?: any) => {
-  const { components } = useContext(SchemaOptionsContext);
+export function useComponent(component: any, defaults?: any) {
+  const { components } = useContext(SchemaOptionsContext)
   if (!component) {
-    return defaults;
+    return defaults
   }
   if (typeof component !== 'string') {
-    return component;
+    return component
   }
-  return get(components, component) || defaults;
-};
+  return get(components, component) || defaults
+}

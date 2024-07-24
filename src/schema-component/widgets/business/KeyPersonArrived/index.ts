@@ -1,1 +1,1 @@
-export * from "./KeyPersonArrived";
+export * from './KeyPersonArrived'

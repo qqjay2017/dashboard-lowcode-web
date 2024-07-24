@@ -1,21 +1,20 @@
-import { css } from "@emotion/css";
-import { forwardRef } from "react";
-import { useToken } from "@/style";
-import { cn } from "@/utils";
-import { baseSelectValueArrowImg } from "@/ui";
-
+import { css } from '@emotion/css'
+import { forwardRef } from 'react'
+import { useToken } from '@/style'
+import { cn } from '@/utils'
+import { baseSelectValueArrowImg } from '@/ui'
 
 export const QuaterSelectValue = forwardRef<
   HTMLDivElement,
   {
-    value?: string;
-    children?: any;
-    placeholder?: string;
-    open?: boolean;
-    className?: string;
+    value?: string
+    children?: any
+    placeholder?: string
+    open?: boolean
+    className?: string
   }
 >(({ children, value, placeholder, open, className, ...props }, ref) => {
-  const { token } = useToken();
+  const { token } = useToken()
   return (
     <div
       ref={ref}
@@ -81,5 +80,5 @@ export const QuaterSelectValue = forwardRef<
         }}
       />
     </div>
-  );
-});
+  )
+})

@@ -1,15 +1,15 @@
-import { Spin } from "antd";
+import { Spin } from 'antd'
 
-export const AppSpin = () => {
+export function AppSpin() {
   return (
     <Spin
       style={{
-        position: "fixed",
-        top: "50%",
-        left: "50%",
+        position: 'fixed',
+        top: '50%',
+        left: '50%',
         fontSize: 72,
-        transform: "translate(-50%, -50%)",
+        transform: 'translate(-50%, -50%)',
       }}
     />
-  );
-};
+  )
+}

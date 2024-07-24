@@ -1,27 +1,27 @@
-import ReactECharts from "echarts-for-react";
+import ReactECharts from 'echarts-for-react'
 
-import { get } from "lodash-es";
-import { css } from "@emotion/css";
+import { get } from 'lodash-es'
+import { css } from '@emotion/css'
 
-import type { FeeListItem } from "./getPieOption";
+import type { FeeListItem } from './getPieOption'
 
-import { ProjectBudgetSchemeWrap } from "./ProjectBudgetSchemeWrap";
-import { ProjectBudgetMenuItem } from "./ProjectBudgetMenuItem";
-import { ProjectBudgetSettingSchema } from "./ProjectBudgetSettingSchema";
-import { useProjectBudgetOption } from "./useProjectBudgetOption";
-import { ConetentSpin, CountTo } from "@/schema-component/components";
-import { useToken } from "@/style";
-import { useRequest } from "@/api-client";
+import { ProjectBudgetSchemeWrap } from './ProjectBudgetSchemeWrap'
+import { ProjectBudgetMenuItem } from './ProjectBudgetMenuItem'
+import { ProjectBudgetSettingSchema } from './ProjectBudgetSettingSchema'
+import { useProjectBudgetOption } from './useProjectBudgetOption'
+import { ConetentSpin, CountTo } from '@/schema-component/components'
+import { useToken } from '@/style'
+import { useRequest } from '@/api-client'
 
 export function ProjectBudget({ query }) {
-  const { token } = useToken();
+  const { token } = useToken()
 
   const { data, isLoading } = useRequest(`/api/bg/v1/fee/budget`, {
-    method: "GET",
-  });
-  const amount = get(data, "data.data.totalBudget", "0") || "0";
-  const feeList: FeeListItem[] = get(data, "data.data.feeList", []) || [];
-  const option = useProjectBudgetOption(feeList);
+    method: 'GET',
+  })
+  const amount = get(data, 'data.data.totalBudget', '0') || '0'
+  const feeList: FeeListItem[] = get(data, 'data.data.feeList', []) || []
+  const option = useProjectBudgetOption(feeList)
   // if (isLoading) {
   //   return null;
   // }
@@ -67,18 +67,18 @@ export function ProjectBudget({ query }) {
       >
         <ReactECharts
           style={{
-            width: "100%",
-            height: "100%",
+            width: '100%',
+            height: '100%',
           }}
           option={option}
         />
       </div>
     </ConetentSpin>
-  );
+  )
 }
 
-ProjectBudget.displayName = "ProjectBudget";
+ProjectBudget.displayName = 'ProjectBudget'
 
-ProjectBudget.schemaFn = ProjectBudgetSchemeWrap;
-ProjectBudget.menuItem = ProjectBudgetMenuItem;
-ProjectBudget.settingSchema = ProjectBudgetSettingSchema;
+ProjectBudget.schemaFn = ProjectBudgetSchemeWrap
+ProjectBudget.menuItem = ProjectBudgetMenuItem
+ProjectBudget.settingSchema = ProjectBudgetSettingSchema
