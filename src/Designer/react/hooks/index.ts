@@ -18,3 +18,6 @@ export * from './useOutline'
 export * from './useSelection'
 
 export * from './useOutlineDragon'
+
+export * from './useHistory'
+export * from './useScreen'

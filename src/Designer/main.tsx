@@ -1,5 +1,5 @@
 import { GlobalRegistry, createDesigner, createResource } from '@designable/core'
-import { CompositePanel, CompositePanelItem, Designer, HistoryWidget, OutlineTreeWidget, ResourceWidget, StudioPanel, Workbench } from './react/lib'
+import { CompositePanel, CompositePanelItem, Designer, DesignerToolsWidget, HistoryWidget, OutlineTreeWidget, ResourceWidget, StudioPanel, ToolbarPanel, ViewToolsWidget, ViewportPanel, Workbench, WorkspacePanel } from './react/lib'
 
 const Input = createResource({
   title: {
@@ -63,6 +63,16 @@ function Main() {
               <HistoryWidget />
             </CompositePanelItem>
           </CompositePanel>
+          <WorkspacePanel>
+            <ToolbarPanel>
+              <DesignerToolsWidget />
+              <ViewToolsWidget />
+            </ToolbarPanel>
+            <ViewportPanel>
+
+            </ViewportPanel>
+
+          </WorkspacePanel>
 
         </StudioPanel>
       </Workbench>

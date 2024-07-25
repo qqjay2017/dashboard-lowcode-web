@@ -6,6 +6,11 @@ import '../style/iconWidget.less'
 import '../style/resourceWidget.less'
 import '../style/outlineWidget.less'
 import '../style/historyWidget.less'
+import '../style/ghostWidget.less'
+import '../style/designerToolsWidget.less'
+import '../style/mobileSimulator.less'
+import '../style/pCSimulator.less'
+import '../style/responsiveSimulator.less'
 
 import './locales'
 

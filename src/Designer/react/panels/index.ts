@@ -1,3 +1,6 @@
 export * from './CompositePanel'
 export * from './CompositePanelItem'
 export * from './StudioPanel'
+export * from './WorkspacePanel'
+export * from './ToolbarPanel'
+export * from './ViewportPanel'
