@@ -175,25 +175,25 @@ export const ResponsiveSimulator: React.FC<IResponsiveSimulatorProps>
           <div
             ref={content}
             style={{
-              width: screen.width,
-              height: screen.height,
-              paddingRight: 15,
-              paddingBottom: 15,
+              width: 1920,
+              height: 1080,
+              paddingRight: 0,
+              paddingBottom: 0,
               position: 'relative',
               boxSizing: 'border-box',
               overflow: 'hidden',
             }}
           >
             {props.children}
-            <ResizeHandle type={ResizeHandleType.Resize}>
+            {/* <ResizeHandle type={ResizeHandleType.Resize}>
               <IconWidget infer="DragMove" style={{ pointerEvents: 'none' }} />
-            </ResizeHandle>
-            <ResizeHandle type={ResizeHandleType.ResizeHeight}>
+            </ResizeHandle> */}
+            {/* <ResizeHandle type={ResizeHandleType.ResizeHeight}>
               <IconWidget infer="Menu" style={{ pointerEvents: 'none' }} />
-            </ResizeHandle>
-            <ResizeHandle type={ResizeHandleType.ResizeWidth}>
+            </ResizeHandle> */}
+            {/* <ResizeHandle type={ResizeHandleType.ResizeWidth}>
               <IconWidget infer="Menu" style={{ pointerEvents: 'none' }} />
-            </ResizeHandle>
+            </ResizeHandle> */}
           </div>
         </div>
       </div>

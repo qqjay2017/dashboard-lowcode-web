@@ -1,12 +1,12 @@
 import type { PropsWithChildren } from 'react'
 import { useMemo } from 'react'
-import { useField } from '@formily/react'
+import { observer, useField } from '@formily/react'
 import { useDashboardRoot } from '../DashboardRoot'
 
 import type { PositionDecoratorOptions } from './types'
-import { cn, eidToElementId, sizeFormat } from '@/utils'
+import { cn, sizeFormat } from '@/utils'
 
-export function PositionDecoratorPreview(props: PropsWithChildren<PositionDecoratorOptions>) {
+export const PositionDecoratorPreview = observer((props: PropsWithChildren<PositionDecoratorOptions>) => {
   const {
     children,
     x = 0,
@@ -17,18 +17,20 @@ export function PositionDecoratorPreview(props: PropsWithChildren<PositionDecora
     style,
     padding = 12,
     className,
-  } = props
-  const field = useField()
 
-  const eid = field.address.toString()
-  const elementId = eidToElementId(eid)
+  } = props
+
+  // const field = useField()
+
+  // const eid = field?.address?.toString()
+  // const elementId = eidToElementId(eid)
   const { colWidth, rowHeight } = useDashboardRoot()
 
   const width = sizeFormat(colWidth * w)
   const height = sizeFormat(rowHeight * h)
   const styleMemo = useMemo(() => {
     const s: React.CSSProperties = {
-      ...style,
+      // ...style,
     }
     if (zIndex) {
       s.zIndex = zIndex
@@ -48,11 +50,17 @@ export function PositionDecoratorPreview(props: PropsWithChildren<PositionDecora
     }
 
     return s
-  }, [padding, style, zIndex])
+  }, [padding, zIndex])
+  const designerProps = props.nodeId
+    ? {
+        'data-designer-node-id': props.nodeId,
+      }
+    : {}
 
+  console.log(props.style, 'props style preview')
   return (
     <div
-      id={elementId}
+      // id={elementId}
       className={cn('positionDecoratorHandle', className)}
       style={{
         position: 'absolute',
@@ -60,14 +68,16 @@ export function PositionDecoratorPreview(props: PropsWithChildren<PositionDecora
         height,
         zIndex,
         padding: styleMemo.padding,
-        left: 0,
-        top: 0,
-        transform: `translate( ${sizeFormat(x * colWidth)}px,  ${sizeFormat(
+        left: sizeFormat(x * colWidth),
+        top: sizeFormat(
           y * rowHeight,
-        )}px )`,
+        ),
+        // transform: `translate( }px,  ${}px )`
+        ...style,
       }}
+      {...designerProps}
     >
       {children}
     </div>
   )
-}
+})

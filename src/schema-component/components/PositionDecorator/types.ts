@@ -43,6 +43,7 @@ export interface PositionDecoratorOptions {
   className?: string
   elementId?: string
   isSelected?: boolean
+  nodeId?: string
 }
 
 export interface SchemaToolbarProps extends PropsWithChildren {

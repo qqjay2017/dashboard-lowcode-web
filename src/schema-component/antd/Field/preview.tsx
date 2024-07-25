@@ -21,6 +21,8 @@ import { AllLocales } from '../locales'
 
 import { type DnFC, useComponents, useDesigner, useTreeNode } from '@/Designer/react/lib'
 
+import { PositionDecoratorPreview } from '@/schema-component/components'
+
 Schema.silent(true)
 
 const SchemaStateMap = {
@@ -99,19 +101,28 @@ function toDesignableFieldProps(schema: ISchema, components: any, nodeIdAttrName
     }
   })
 
-  if (!components.FormItem) {
-    components.FormItem = FormItem
+  if (!components.PositionDecorator) {
+    components.PositionDecorator = PositionDecoratorPreview
   }
   const decorator
     = schema['x-decorator'] && FormPath.getIn(components, schema['x-decorator'])
 
   const component
     = schema['x-component'] && FormPath.getIn(components, schema['x-component'])
+  // const _props = schema.props || {}
   const decoratorProps = schema['x-decorator-props'] || {}
   const componentProps = schema['x-component-props'] || {}
-
+  console.log(schema, 'schema')
   if (decorator) {
-    results.decorator = [decorator, toJS(decoratorProps)]
+    results.decorator = [decorator, toJS({
+      padding: [0, 0, 0, 0],
+      x: 6,
+      y: 6,
+      w: 3,
+      h: 3,
+      ...decoratorProps,
+
+    })]
   }
   if (component) {
     results.component = [component, toJS(componentProps)]

@@ -1653,7 +1653,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@designable/core@npm:1.0.0-beta.45, @designable/core@npm:^1.0.0-beta.45":
+"@designable/core@npm:1.0.0-beta.45":
   version: 1.0.0-beta.45
   resolution: "@designable/core@npm:1.0.0-beta.45"
   dependencies:
@@ -1680,7 +1680,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@designable/shared@npm:1.0.0-beta.45, @designable/shared@npm:^1.0.0-beta.45":
+"@designable/shared@npm:1.0.0-beta.45":
   version: 1.0.0-beta.45
   resolution: "@designable/shared@npm:1.0.0-beta.45"
   dependencies:
@@ -5924,9 +5924,7 @@ __metadata:
     "@babel/preset-react": "npm:^7.24.7"
     "@ctrl/tinycolor": "npm:^4.1.0"
     "@daybrush/utils": "npm:^1.13.0"
-    "@designable/core": "npm:^1.0.0-beta.45"
     "@designable/formily-transformer": "npm:^1.0.0-beta.45"
-    "@designable/shared": "npm:^1.0.0-beta.45"
     "@dnd-kit/core": "npm:^6.1.0"
     "@dnd-kit/modifiers": "npm:^7.0.0"
     "@dnd-kit/utilities": "npm:^3.2.2"
@@ -5965,6 +5963,8 @@ __metadata:
     dateformat: "npm:^5.0.3"
     dayjs: "npm:^1.11.11"
     decimal.js: "npm:^10.4.3"
+    designablecore: "npm:^2.0.3"
+    designableshared: "npm:^2.0.1"
     echarts: "npm:^5.5.1"
     echarts-for-react: "npm:^3.0.2"
     embla-carousel-react: "npm:^8.1.6"
@@ -6171,6 +6171,29 @@ __metadata:
     inherits: "npm:^2.0.1"
     minimalistic-assert: "npm:^1.0.0"
   checksum: 335cc347134955ab82c5c817e387f864378626541f89c148a836396be1c12475032f4da47430ff6930e14488c6ddfbf8efc7709fafda5e968943f3fbefd3f9f0
+  languageName: node
+  linkType: hard
+
+"designablecore@npm:^2.0.3":
+  version: 2.0.3
+  resolution: "designablecore@npm:2.0.3"
+  dependencies:
+    "@designable/shared": "npm:1.0.0-beta.45"
+    "@juggle/resize-observer": "npm:^3.3.1"
+  peerDependencies:
+    "@formily/json-schema": ^2.0.2
+    "@formily/path": ^2.0.2
+    "@formily/reactive": ^2.0.2
+  checksum: 259820b94e2418a33a7a5fe01f056346a5a877877daa21d5ec98a9d499fa4f5fbda535692bec720c257904cd78ef2c0a2a511d4aa2cd61e018ada16d5047399d
+  languageName: node
+  linkType: hard
+
+"designableshared@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "designableshared@npm:2.0.1"
+  dependencies:
+    requestidlecallback: "npm:^0.3.0"
+  checksum: facdc59d2d4576cd472cd0c476f5e9fb51030403d1ab408815e6bdc39cadf46498c553ca94d5a149433086445031921258420acd8ba48695fb575a674bf1d46d
   languageName: node
   linkType: hard
 

@@ -13,6 +13,7 @@ import { SettingsForm } from './react-settings-form'
 import { Input } from '@/schema-component/antd/Input'
 import { Field } from '@/schema-component/antd'
 import { DashboardRoot } from '@/schema-component/components/DashboardRoot2'
+import { PositionDecoratorPreview } from '@/schema-component'
 
 // import { MonacoInput } from './react-settings-form/MonacoInput'
 
@@ -114,7 +115,7 @@ function Main() {
           // }),
         ],
         rootComponentName: 'DashboardRoot',
-        defaultScreenType: ScreenType.PC,
+        defaultScreenType: ScreenType.Responsive,
 
       }),
     [],
@@ -145,7 +146,6 @@ function Main() {
                 {() => (
                   <ComponentTreeWidget
                     components={{
-
                       DashboardRoot,
                       Field,
                       Input,

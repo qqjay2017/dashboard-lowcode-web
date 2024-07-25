@@ -3,46 +3,54 @@ import { Input as FormilyInput } from '@formily/antd-v5'
 import { createBehavior, createResource } from '@designable/core'
 
 import { observer } from '@formily/react'
-import { createFieldSchema } from '../Field'
-import { AllSchemas } from '../schemas'
+import { get, set } from 'lodash-es'
+
 import { AllLocales } from '../locales'
 import type { DnFC } from '@/Designer/react/lib'
+import { PositionDecoratorPreview } from '@/schema-component'
 
 export const Input: DnFC<React.ComponentProps<typeof FormilyInput>>
   = observer((props) => {
+    const decoratorProps = props['x-decorator-props'] || {}
+    const nodeId = props['data-designer-node-id'] || ''
+    const style = props.style
+    console.log(props, 'props')
     return (
-      <div style={{
-        width: '100px',
-        height: '100px',
-        border: '1px solid red',
-      }}
-      >
-        <FormilyInput {...props} />
-      </div>
+      <PositionDecoratorPreview {...decoratorProps} nodeId={nodeId} style={style}>
+        <div style={{
+          width: '100%',
+          height: '100%',
+          border: '1px solid red',
+        }}
+        >
+          <FormilyInput value="123" />
+        </div>
+      </PositionDecoratorPreview>
     )
   })
 
 Input.Behavior = createBehavior(
   {
     name: 'Input',
-    extends: ['Field'],
+    // extends: ['Field'],
+
     selector: node => node.props['x-component'] === 'Input',
     designerProps: {
-      propsSchema: createFieldSchema(AllSchemas.Input),
+      // propsSchema: createFieldSchema(AllSchemas.Input),
       resizable: {
         width(node, element) {
           const width = Number(
-            node.props?.style?.width ?? element.getBoundingClientRect().width,
+            get(node, 'props.style.width') ?? element.getBoundingClientRect().width,
           )
-
+          console.log(node, width, 'node add width ')
           return {
             plus: () => {
-              node.props = node.props || {}
-              node.props.style = node.props.style || {}
-              node.props.style.width = width + 10
+              set(node, 'props.style.width', width + 10)
+              // node.props = node.props || {}
+              // node.props.style = node.props.style || {}
+              // node.props.style.width = width + 10
             },
             minus: () => {
-              debugger
               node.props = node.props || {}
               node.props.style = node.props.style || {}
               node.props.style.width = width - 10
@@ -88,7 +96,6 @@ Input.Behavior = createBehavior(
           const rect = element.getBoundingClientRect()
           return {
             translate: () => {
-              console.log(node, 'node')
               node.props = node.props || {}
               node.props.style = node.props.style || {}
               node.props.style.position = 'absolute'
@@ -110,11 +117,19 @@ Input.Resource = createResource(
     icon: 'InputSource',
     elements: [
       {
-        componentName: 'Field',
+        componentName: 'Input',
         props: {
           'type': 'string',
           'title': 'Input',
-          'x-decorator': 'FormItem',
+          'x-decorator': 'PositionDecorator',
+          'x-decorator-props': {
+            style: {},
+            padding: [16, 16, 16, 16],
+            w: 3,
+            h: 3,
+            x: 6,
+            y: 6,
+          },
           'x-component': 'Input',
         },
       },
