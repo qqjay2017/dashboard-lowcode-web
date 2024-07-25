@@ -397,6 +397,7 @@ const DashboardRootMain = observer(
                             transform: translateX(-50%) translateY(-50%);
                           `}
                         >
+
                           <div
                             className={css`
                               pointer-events: auto;

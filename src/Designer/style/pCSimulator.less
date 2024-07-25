@@ -8,4 +8,27 @@
   right: 0;
   bottom: 0;
   box-sizing: border-box;
+  width: 3840px;
+  height: 2160px;
+  &-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-origin: 50% 50%;
+    transform: translateX(-50%) translateY(-50%);
+  }
+  &-scroll {
+    user-select: none;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    overflow: auto;
+    scrollbar-color: rgba(144, 146, 152, 0.3) transparent;
+    scrollbar-width: thin;
+  }
+  &-pointerevents {
+    pointer-events: auto;
+    list-style: none;
+  }
+ 
 }

@@ -1,35 +1,35 @@
-import { ISchema } from '@formily/react'
+import type { ISchema } from '@formily/react'
 
 export const Input: ISchema & { TextArea?: ISchema } = {
   type: 'object',
   properties: {
     addonBefore: {
-      type: 'string',
+      'type': 'string',
       'x-decorator': 'FormItem',
       'x-component': 'Input',
     },
     addonAfter: {
-      type: 'string',
+      'type': 'string',
       'x-decorator': 'FormItem',
       'x-component': 'Input',
     },
     prefix: {
-      type: 'string',
+      'type': 'string',
       'x-decorator': 'FormItem',
       'x-component': 'Input',
     },
     suffix: {
-      type: 'string',
+      'type': 'string',
       'x-decorator': 'FormItem',
       'x-component': 'Input',
     },
     allowClear: {
-      type: 'boolean',
+      'type': 'boolean',
       'x-decorator': 'FormItem',
       'x-component': 'Switch',
     },
     bordered: {
-      type: 'boolean',
+      'type': 'boolean',
       'x-decorator': 'FormItem',
       'x-component': 'Switch',
       'x-component-props': {
@@ -37,18 +37,18 @@ export const Input: ISchema & { TextArea?: ISchema } = {
       },
     },
     maxLength: {
-      type: 'number',
+      'type': 'number',
       'x-decorator': 'FormItem',
       'x-component': 'NumberPicker',
     },
     placeholder: {
-      type: 'string',
+      'type': 'string',
       'x-decorator': 'FormItem',
       'x-component': 'Input',
     },
     size: {
-      type: 'string',
-      enum: ['large', 'small', 'middle', null],
+      'type': 'string',
+      'enum': ['large', 'small', 'middle', null],
       'x-decorator': 'FormItem',
       'x-component': 'Select',
       'x-component-props': {
@@ -62,7 +62,7 @@ Input.TextArea = {
   type: 'object',
   properties: {
     bordered: {
-      type: 'boolean',
+      'type': 'boolean',
       'x-decorator': 'FormItem',
       'x-component': 'Switch',
       'x-component-props': {
@@ -70,17 +70,17 @@ Input.TextArea = {
       },
     },
     maxLength: {
-      type: 'number',
+      'type': 'number',
       'x-decorator': 'FormItem',
       'x-component': 'NumberPicker',
     },
     placeholder: {
-      type: 'string',
+      'type': 'string',
       'x-decorator': 'FormItem',
       'x-component': 'Input',
     },
     autoSize: {
-      type: 'boolean',
+      'type': 'boolean',
       'x-decorator': 'FormItem',
       'x-component': 'Switch',
     },

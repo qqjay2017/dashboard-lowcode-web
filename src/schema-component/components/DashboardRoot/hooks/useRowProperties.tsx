@@ -16,6 +16,9 @@ export function useRowProperties(props?: {
   const fieldSchema = useFieldSchema()
 
   return useMemo<Schema[]>(() => {
+    if (!fieldSchema) {
+      return []
+    }
     if (props && !props.width) {
       return []
     }
@@ -195,7 +198,7 @@ export function useRowProperties(props?: {
     }
     return []
   }, [
-    Object.keys(fieldSchema.properties || {}).join(','),
+    Object.keys(fieldSchema?.properties || {}).join(','),
     props?.isPc,
     props?.breakpoint,
     props?.width,

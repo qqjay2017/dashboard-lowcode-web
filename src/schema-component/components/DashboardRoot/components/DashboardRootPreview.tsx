@@ -125,16 +125,16 @@ export function DashboardRootPreview({
           >
             <div
               className={cn(css`
-                width: 100vw;
-                height: 100vh;
+                width: 100%;
+                height: 100%;
               `)}
             >
               {/* 移动端滚动容器 */}
               <div
                 className={cx(
                   css`
-                    width: 100vw;
-                    height: 100vh;
+                    width: 100%;
+                    height: 100%;
                     position: relative;
                     background-size: cover;
                     overflow-x: hidden;
@@ -144,10 +144,11 @@ export function DashboardRootPreview({
                 )}
               >
                 <div
+                  id="dashboardRootMinHeight"
                   className={css`
                     width: 100%;
                     height: 100%;
-                    min-height: 800px;
+                    min-height: 500px;
                   `}
                 >
                   <div
@@ -165,7 +166,7 @@ export function DashboardRootPreview({
                         width: 100%;
                         height: ${dheight};
                         position: relative;
-                        min-height: 100vh;
+                        min-height: 100%;
                       `,
                       rootStyle.styles,
                       className,
