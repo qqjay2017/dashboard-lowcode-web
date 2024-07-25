@@ -47,16 +47,8 @@ export const PCSimulator: React.FC<IPCSimulatorProps> = (props) => {
             cls(`${prefix}-center`)
           }
         >
-          <div
-            className={
-              cls(`${prefix}-pointerevents`)
-            }
-          >
-            {props.children}
-          </div>
-
+          {props.children}
         </div>
-
       </div>
     </div>
   )

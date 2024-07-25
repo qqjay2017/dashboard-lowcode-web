@@ -14,6 +14,7 @@ export function useRowProperties(props?: {
   width?: number
 }) {
   const fieldSchema = useFieldSchema()
+  console.log(fieldSchema, 'fieldSchema useRowProperties')
 
   return useMemo<Schema[]>(() => {
     if (!fieldSchema) {

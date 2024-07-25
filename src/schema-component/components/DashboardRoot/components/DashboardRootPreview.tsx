@@ -29,8 +29,11 @@ export function DashboardRootPreview({
     className,
     style,
     isDarkTheme,
+
     ...otherProps
   } = props
+
+  console.log(children, 'otherProps props')
 
   const [designZoom, setDesignZoom] = useState(1)
   const { breakpoint, width, height } = useBreakpoints(
@@ -47,27 +50,27 @@ export function DashboardRootPreview({
   const isPc = breakpoint === 'desktop' || breakpoint === 'showroom'
   const rowHeight = isPc ? sizeFormat(height / rows) : 80
   const colWidth = cols && width ? sizeFormat(width / cols) : 0
-  const blockItems = useRowProperties({
-    isPc,
-    rowHeight,
-    colWidth,
-    breakpoint,
-    width,
-  })
+  // const blockItems = useRowProperties({
+  //   isPc,
+  //   rowHeight,
+  //   colWidth,
+  //   breakpoint,
+  //   width,
+  // })
 
-  const RenderBlockItems = useMemo(() => {
-    return (
-      <>
-        {blockItems.map((schema, index) => {
-          return (
-            <Fragment key={`${schema.name}${index}`}>
-              <MemorizedRecursionField name={schema.name} schema={schema} />
-            </Fragment>
-          )
-        })}
-      </>
-    )
-  }, [blockItems?.length])
+  // const RenderBlockItems = useMemo(() => {
+  //   return (
+  //     <>
+  //       {blockItems.map((schema, index) => {
+  //         return (
+  //           <Fragment key={`${schema.name}${index}`}>
+  //             <MemorizedRecursionField name={schema.name} schema={schema} />
+  //           </Fragment>
+  //         )
+  //       })}
+  //     </>
+  //   )
+  // }, [blockItems?.length])
   const customThemeToken = useCustomThemeToken({
     themeProvider,
     isDarkTheme,
@@ -85,12 +88,12 @@ export function DashboardRootPreview({
     }
   }, [designWidth, isPc, breakpoint])
 
-  const lastBlockItem
-    = blockItems[blockItems.length - 1]?.['x-decorator-props']
-  const totalHeight = lastBlockItem
-    ? (lastBlockItem.y + lastBlockItem.h + 0.5) * rowHeight
-    : '2000'
-  const dheight = isPc || !lastBlockItem ? '100%' : `${totalHeight}px`
+  // const lastBlockItem
+  //   = blockItems[blockItems.length - 1]?.['x-decorator-props']
+  // const totalHeight = lastBlockItem
+  //   ? (lastBlockItem.y + lastBlockItem.h + 0.5) * rowHeight
+  //   : '2000'
+  // const dheight = isPc || !lastBlockItem ? '100%' : `${totalHeight}px`
 
   const { styles: scrollBarStyle } = useScrollBarStyle({
     thumbColor: customThemeToken.token.thumbColor,
@@ -164,7 +167,7 @@ export function DashboardRootPreview({
                         line-height: 1;
                         color: #ccc;
                         width: 100%;
-                        height: ${dheight};
+                       
                         position: relative;
                         min-height: 100%;
                       `,
@@ -176,7 +179,7 @@ export function DashboardRootPreview({
                       ...style,
                     }}
                   >
-                    {width ? RenderBlockItems : null}
+                    {width ? children : null}
                   </div>
                 </div>
               </div>

@@ -1,14 +1,13 @@
 import { observer } from '@formily/react'
-import { createBehavior, createResource } from '@designable/core'
+import { createBehavior } from '@designable/core'
 import { css } from '@emotion/css'
 import { DashboardRootPreview } from '../DashboardRoot/components'
 import type { DnFC } from '@/Designer/react/types'
-import { AllLocales, AllSchemas } from '@/schema-component/antd'
+import { AllLocales } from '@/schema-component/antd'
 
 const designZoom = 0.5
 export const DashboardRoot: DnFC<React.ComponentProps<typeof DashboardRootPreview>> = observer(
-  (props) => {
-    const { designWidth = 1920, designHeight = 1080 } = props
+  ({ designWidth = 1920, designHeight = 1080, children, ...props }) => {
     return (
       <div
         className={css`
@@ -21,8 +20,10 @@ export const DashboardRoot: DnFC<React.ComponentProps<typeof DashboardRootPrevie
       >
         <DashboardRootPreview
           {...props}
+          designWidth={designWidth}
+          designHeight={designHeight}
         >
-          {props.children}
+          {children}
         </DashboardRootPreview>
       </div>
 
