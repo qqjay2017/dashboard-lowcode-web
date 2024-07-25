@@ -10,9 +10,8 @@ export const GhostWidget = observer(() => {
   const cursor = useCursor()
   const ref = useRef<HTMLDivElement>()
   const prefix = usePrefix('ghost')
-  console.log(designer, designer?.findMovingNodes)
-  // TODO findMovingNodes
-  const movingNodes = designer?.findMovingNodes?.()
+
+  const movingNodes = designer?.findDraggingNodes?.()
   const firstNode = movingNodes ? movingNodes[0] : null
   useEffect(
     () =>

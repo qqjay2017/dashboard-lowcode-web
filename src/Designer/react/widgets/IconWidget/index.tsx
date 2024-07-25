@@ -2,16 +2,14 @@ import React, { createContext, PropsWithChildren, useContext, useEffect, useRef 
 import { isStr, isFn, isObj, isPlainObj } from '@designable/shared'
 import { observer } from '@formily/reactive-react'
 import { Tooltip, TooltipProps } from 'antd'
-import { usePrefix,  } from '../../hooks'
+import { usePrefix, useRegistry, useTheme } from '../../hooks'
 import cls from 'classnames'
-
-// useRegistry
 
 
 const IconContext = createContext<IconProviderProps>(null)
 
 const isNumSize = (val: any) => /^[\d.]+$/.test(val)
-export interface IconProviderProps {
+export interface IconProviderProps extends PropsWithChildren{
   tooltip?: boolean
 }
 
@@ -30,17 +28,17 @@ export const IconWidget: React.FC<IIconWidgetProps> & {
   Provider?: React.FC<IconProviderProps>
   ShadowSVG?: React.FC<IShadowSVGProps>
 } = observer((props: React.PropsWithChildren<IIconWidgetProps>) => {
-  // const theme = useTheme()
+  const theme = useTheme()
   const context = useContext(IconContext)
-  // const registry = useRegistry()
+  const registry = useRegistry()
   const prefix = usePrefix('icon')
   const size = props.size || '1em'
   const height = props.style?.height || size
   const width = props.style?.width || size
-  const takeIcon = (infer: any) => {
+  const takeIcon = (infer: React.ReactNode) => {
+
     if (isStr(infer)) {
-      const finded = null
-      // registry.getDesignerIcon(infer)
+      const finded = registry.getDesignerIcon(infer)
       if (finded) {
         return takeIcon(finded)
       }
@@ -57,7 +55,7 @@ export const IconWidget: React.FC<IIconWidgetProps> & {
           height,
           width,
           fill: 'currentColor',
-          viewBox: (infer.props as any).viewBox || '0 0 1024 1024',
+          viewBox: infer.props.viewBox || '0 0 1024 1024',
           focusable: 'false',
           'aria-hidden': 'true',
         } as any)
@@ -77,10 +75,9 @@ export const IconWidget: React.FC<IIconWidgetProps> & {
       }
       return infer
     } else if (isPlainObj(infer)) {
-      // if (infer[theme]) {
-      //   return takeIcon(infer[theme])
-      // }else
-        if (infer['shadow']) {
+      if (infer[theme]) {
+        return takeIcon(infer[theme])
+      } else if (infer['shadow']) {
         return (
           <IconWidget.ShadowSVG
             width={width}
@@ -94,8 +91,8 @@ export const IconWidget: React.FC<IIconWidgetProps> & {
   }
   const renderTooltips = (children: React.ReactElement): React.ReactElement => {
     if (!isStr(props.infer) && context?.tooltip) return children as any
-    const tooltip:any =props.tooltip 
-      // || registry.getDesignerMessage(`icons.${props.infer}`)
+    const tooltip =
+      props.tooltip || registry.getDesignerMessage(`icons.${props.infer}`)
     if (tooltip) {
       const title =
         React.isValidElement(tooltip) || isStr(tooltip)
@@ -125,7 +122,7 @@ export const IconWidget: React.FC<IIconWidgetProps> & {
         cursor: props.onClick ? 'pointer' : props.style?.cursor,
       }}
     >
-      {takeIcon(props.infer)}
+      {takeIcon(props.infer as any)}
     </span>
   )
 })
@@ -145,8 +142,9 @@ IconWidget.ShadowSVG = (props) => {
   return <div ref={ref}></div>
 }
 
-IconWidget.Provider = (props:PropsWithChildren<any>) => {
+IconWidget.Provider = (props:PropsWithChildren) => {
   return (
     <IconContext.Provider value={props}>{props.children}</IconContext.Provider>
   )
 }
+

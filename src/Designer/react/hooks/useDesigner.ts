@@ -7,7 +7,7 @@ import { isFn, globalThisPolyfill } from '@designable/shared'
 
 
 type Engine2 = Engine & {
-  findMovingNodes:()=>any;
+  // findMovingNodes:()=>any;
 }
 
 export interface IEffects {

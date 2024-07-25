@@ -31,6 +31,7 @@ export const TextWidget: React.FC<ITextWidgetProps> = observer((props) => {
   const takeMessage = (token: any) => {
     if (!token)
       return
+
     const message = isStr(token)
       ? GlobalRegistry.getDesignerMessage(token)
       : token

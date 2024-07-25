@@ -2,9 +2,8 @@ import type { PropsWithChildren } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 import { isValid } from '@designable/shared'
 import cls from 'classnames'
-
-import { usePrefix } from '../hooks'
 import { IconWidget, TextWidget } from '../widgets'
+import { usePrefix } from '../hooks'
 import type { ICompositePanelItemProps } from './CompositePanelItem'
 import { CompositePanelItem } from './CompositePanelItem'
 

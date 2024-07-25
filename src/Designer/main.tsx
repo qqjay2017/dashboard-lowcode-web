@@ -1,7 +1,5 @@
 import { createDesigner, createResource } from '@designable/core'
-import { Designer, Workbench } from './react/containers'
-import { CompositePanel, CompositePanelItem, StudioPanel } from './react/panels'
-import { ResourceWidget } from './react/widgets'
+import { CompositePanel, CompositePanelItem, Designer, ResourceWidget, StudioPanel, Workbench } from './react/lib'
 
 const Input = createResource({
   title: {
@@ -24,6 +22,7 @@ const Input = createResource({
 })
 
 const engine = createDesigner()
+
 function Main() {
   return (
     <Designer engine={engine}>

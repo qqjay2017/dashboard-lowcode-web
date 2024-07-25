@@ -1,10 +1,13 @@
 import { useEffect, useRef } from 'react'
-import type { Engine } from '@designable/core'
+import { type Engine, GlobalRegistry } from '@designable/core'
 import { DesignerEngineContext } from '../context'
 import { useDesigner } from '../hooks'
 import type { IDesignerProps } from '../types'
 import { GhostWidget } from '../widgets'
+import * as icons from '../icons'
 import { Layout } from './Layout'
+
+GlobalRegistry.registerDesignerIcons(icons)
 
 export function Designer(props: IDesignerProps) {
   const { prefixCls = 'dn-', theme = 'light' } = props
