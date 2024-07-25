@@ -39,7 +39,7 @@ export const Workspace: React.FC<IWorkspaceProps> = ({
     oldId.current = workspace.id
     return workspace
   }, [id, designer])
-  console.log(workspace, 'workspaceworkspace')
+
   return (
     <WorkspaceContext.Provider value={workspace}>
       {props.children}

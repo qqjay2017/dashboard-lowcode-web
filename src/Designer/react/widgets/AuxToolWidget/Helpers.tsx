@@ -1,5 +1,5 @@
-import React, { useRef, useState, useLayoutEffect } from 'react'
-import { TreeNode } from '@designable/core'
+import React, { useLayoutEffect, useRef, useState } from 'react'
+import type { TreeNode } from '@designable/core'
 import { reaction } from '@formily/reactive'
 import cls from 'classnames'
 import { useDesigner, usePrefix, useViewport } from '../../hooks'
@@ -37,14 +37,16 @@ export const Helpers: React.FC<IHelpersProps> = ({ node, nodeRect }) => {
     const getYInViewport = (nodeRect: DOMRect, helpersRect: DOMRect) => {
       if (nodeRect.top - viewport.scrollY > helpersRect.height) {
         return 'top'
-      } else if (
-        viewport.isScrollTop &&
-        nodeRect.height + helpersRect.height > viewport.height
+      }
+      else if (
+        viewport.isScrollTop
+        && nodeRect.height + helpersRect.height > viewport.height
       ) {
         return 'inner-top'
-      } else if (
-        viewport.isScrollBottom &&
-        nodeRect.height + helpersRect.height > viewport.height
+      }
+      else if (
+        viewport.isScrollBottom
+        && nodeRect.height + helpersRect.height > viewport.height
       ) {
         return 'inner-bottom'
       }
@@ -57,9 +59,11 @@ export const Helpers: React.FC<IHelpersProps> = ({ node, nodeRect }) => {
       if (widthDelta >= 0) {
         if (nodeRect.x < widthDelta) {
           return 'left'
-        } else if (nodeRect.right + widthDelta > viewport.width) {
+        }
+        else if (nodeRect.right + widthDelta > viewport.width) {
           return 'right'
-        } else {
+        }
+        else {
           return 'center'
         }
       }
@@ -68,12 +72,14 @@ export const Helpers: React.FC<IHelpersProps> = ({ node, nodeRect }) => {
 
     const update = () => {
       const helpersRect = ref.current?.getBoundingClientRect()
-      if (!helpersRect || !nodeRect) return
-      if (unmountRef.current) return
+      if (!helpersRect || !nodeRect)
+        return
+      if (unmountRef.current)
+        return
       setPosition(
-        getYInViewport(nodeRect, helpersRect) +
-          '-' +
-          getXInViewport(nodeRect, helpersRect)
+        `${getYInViewport(nodeRect, helpersRect)
+          }-${
+          getXInViewport(nodeRect, helpersRect)}`,
       )
     }
 
@@ -91,11 +97,12 @@ export const Helpers: React.FC<IHelpersProps> = ({ node, nodeRect }) => {
       () => {
         clearTimeout(request)
         request = setTimeout(update, HELPER_DEBOUNCE_TIMEOUT)
-      }
+      },
     )
   }, [viewport, nodeRect])
 
-  if (!nodeRect || !node) return null
+  if (!nodeRect || !node)
+    return null
 
   return (
     <div
@@ -104,7 +111,7 @@ export const Helpers: React.FC<IHelpersProps> = ({ node, nodeRect }) => {
       })}
       ref={ref}
     >
-      <div className={cls(prefix + '-content')}>
+      <div className={cls(`${prefix}-content`)}>
         <Selector node={node} />
         {node?.allowClone() === false ? null : <Copy node={node} />}
         {node?.allowDrag() === false ? null : <DragHandler node={node} />}

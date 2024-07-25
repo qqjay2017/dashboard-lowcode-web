@@ -1,9 +1,9 @@
 import React from 'react'
-import { useCursor, usePrefix, useViewport } from '../../hooks'
 import { observer } from '@formily/reactive-react'
 import { CursorStatus, CursorType } from '@designable/core'
 import { calcRectByStartEndPoint } from '@designable/shared'
 import cls from 'classnames'
+import { useCursor, usePrefix, useViewport } from '../../hooks'
 
 export const FreeSelection = observer(() => {
   const cursor = useCursor()
@@ -22,7 +22,7 @@ export const FreeSelection = observer(() => {
       startDragPoint,
       currentPoint,
       viewport.scrollX - cursor.dragStartScrollOffset.scrollX,
-      viewport.scrollY - cursor.dragStartScrollOffset.scrollY
+      viewport.scrollY - cursor.dragStartScrollOffset.scrollY,
     )
     const baseStyle: React.CSSProperties = {
       position: 'absolute',
@@ -42,9 +42,10 @@ export const FreeSelection = observer(() => {
   }
 
   if (
-    cursor.status !== CursorStatus.Dragging ||
-    cursor.type !== CursorType.Selection
-  )
+    cursor.status !== CursorStatus.Dragging
+    || cursor.type !== CursorType.Selection
+  ) {
     return null
+  }
   return <div className={cls(prefix)} style={createSelectionStyle()}></div>
 })

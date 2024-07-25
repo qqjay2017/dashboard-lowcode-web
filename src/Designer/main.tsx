@@ -1,4 +1,4 @@
-import { GlobalRegistry, createBehavior, createDesigner, createResource } from '@designable/core'
+import { GlobalRegistry, ScreenType, createBehavior, createDesigner, createResource } from '@designable/core'
 import { Button, Space } from 'antd'
 import { observer } from '@formily/react'
 
@@ -11,7 +11,7 @@ import { ComponentTreeWidget, CompositePanel, CompositePanelItem, Designer, Desi
 
 import { SettingsForm } from './react-settings-form'
 import { Input } from '@/schema-component/antd/Input'
-import { Field, Form } from '@/schema-component/antd'
+import { Field } from '@/schema-component/antd'
 import { DashboardRoot } from '@/schema-component/components/DashboardRoot2'
 
 // import { MonacoInput } from './react-settings-form/MonacoInput'
@@ -114,6 +114,8 @@ function Main() {
           // }),
         ],
         rootComponentName: 'DashboardRoot',
+        defaultScreenType: ScreenType.PC,
+
       }),
     [],
   )
@@ -143,6 +145,7 @@ function Main() {
                 {() => (
                   <ComponentTreeWidget
                     components={{
+
                       DashboardRoot,
                       Field,
                       Input,

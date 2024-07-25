@@ -38,6 +38,7 @@ export const DroppableWidget: React.FC<IDroppableWidgetProps> = observer(
     const hasChildren = hasChildrenProp ?? target.children?.length > 0
     return (
       <div {...nodeId} className={className} style={style}>
+
         {hasChildren
           ? (
               props.children

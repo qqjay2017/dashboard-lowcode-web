@@ -1,16 +1,12 @@
-import React, { useEffect, useState, useRef } from 'react'
-import { TreeNode } from '@designable/core'
-import { useHover, useSelection, usePrefix } from '../../hooks'
-import { IconWidget } from '../IconWidget'
-import { NodeTitleWidget } from '../NodeTitleWidget'
+import React, { useEffect, useRef, useState } from 'react'
+import type { TreeNode } from '@designable/core'
 import { Button } from 'antd'
 import { observer } from '@formily/reactive-react'
+import { useHover, usePrefix, useSelection } from '../../hooks'
+import { IconWidget } from '../IconWidget'
+import { NodeTitleWidget } from '../NodeTitleWidget'
 
-const useMouseHover = <T extends { current: HTMLElement }>(
-  ref: T,
-  enter?: () => void,
-  leave?: () => void
-) => {
+function useMouseHover<T extends { current: HTMLElement }>(ref: T, enter?: () => void, leave?: () => void) {
   useEffect(() => {
     let timer = null
     let unmounted = false
@@ -18,10 +14,12 @@ const useMouseHover = <T extends { current: HTMLElement }>(
       const target: HTMLElement = e.target as any
       clearTimeout(timer)
       timer = setTimeout(() => {
-        if (unmounted) return
+        if (unmounted)
+          return
         if (ref?.current?.contains(target)) {
           enter && enter()
-        } else {
+        }
+        else {
           leave && leave()
         }
       }, 100)
@@ -53,7 +51,8 @@ export const Selector: React.FC<ISelectorProps> = observer(({ node }) => {
     }
     if (node === node.root) {
       return <IconWidget infer="Page" />
-    } else if (node.designerProps?.droppable) {
+    }
+    else if (node.designerProps?.droppable) {
       return <IconWidget infer="Container" />
     }
     return <IconWidget infer="Component" />
@@ -63,7 +62,7 @@ export const Selector: React.FC<ISelectorProps> = observer(({ node }) => {
     const parents = node.getParents()
     return (
       <div
-        className={prefix + '-menu'}
+        className={`${prefix}-menu`}
         style={{
           position: 'absolute',
           top: '100%',
@@ -100,13 +99,13 @@ export const Selector: React.FC<ISelectorProps> = observer(({ node }) => {
     },
     () => {
       setExpand(false)
-    }
+    },
   )
 
   return (
     <div ref={ref} className={prefix}>
       <Button
-        className={prefix + '-title'}
+        className={`${prefix}-title`}
         type="primary"
         onMouseEnter={() => {
           hover.setHover(node)

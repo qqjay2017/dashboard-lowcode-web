@@ -33,8 +33,6 @@ export function DashboardRootPreview({
     ...otherProps
   } = props
 
-  console.log(children, 'otherProps props')
-
   const [designZoom, setDesignZoom] = useState(1)
   const { breakpoint, width, height } = useBreakpoints(
     breakpoints,

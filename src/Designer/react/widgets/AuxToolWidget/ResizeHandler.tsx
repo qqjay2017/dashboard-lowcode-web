@@ -1,7 +1,7 @@
 import React from 'react'
 import cls from 'classnames'
+import type { TreeNode } from '@designable/core'
 import { useDesigner, usePrefix } from '../../hooks'
-import { TreeNode } from '@designable/core'
 
 export interface IResizeHandlerProps {
   node: TreeNode
@@ -17,7 +17,8 @@ export const ResizeHandler: React.FC<IResizeHandlerProps> = (props) => {
     }
   }
   const allowResize = props.node.allowResize()
-  if (!allowResize) return null
+  if (!allowResize)
+    return null
   const allowX = allowResize.includes('x')
   const allowY = allowResize.includes('y')
   return (

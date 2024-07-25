@@ -98,11 +98,13 @@ function toDesignableFieldProps(schema: ISchema, components: any, nodeIdAttrName
       results[fieldKey] = filterExpression(value)
     }
   })
+
   if (!components.FormItem) {
     components.FormItem = FormItem
   }
   const decorator
     = schema['x-decorator'] && FormPath.getIn(components, schema['x-decorator'])
+
   const component
     = schema['x-component'] && FormPath.getIn(components, schema['x-component'])
   const decoratorProps = schema['x-decorator-props'] || {}
@@ -141,6 +143,7 @@ export const Field: DnFC<ISchema> = observer((props) => {
     designer.props.nodeIdAttrName,
     node.id,
   )
+
   if (props.type === 'object') {
     return (
       <Container>
@@ -160,6 +163,7 @@ export const Field: DnFC<ISchema> = observer((props) => {
       </VoidField>
     )
   }
+  console.log(fieldProps, 'void fieldProps')
   return <InternalField {...fieldProps} name={node.id} />
 })
 

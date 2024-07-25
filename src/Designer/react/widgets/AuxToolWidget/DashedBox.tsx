@@ -1,11 +1,11 @@
 import React from 'react'
+import { observer } from '@formily/reactive-react'
 import {
   useHover,
   usePrefix,
-  useValidNodeOffsetRect,
   useSelection,
+  useValidNodeOffsetRect,
 } from '../../hooks'
-import { observer } from '@formily/reactive-react'
 
 export const DashedBox = observer(() => {
   const hover = useHover()
@@ -29,13 +29,16 @@ export const DashedBox = observer(() => {
     }
     return baseStyle
   }
-  if (!hover.node) return null
-  if (hover.node.hidden) return null
-  if (selection.selected.includes(hover.node.id)) return null
+  if (!hover.node)
+    return null
+  if (hover.node.hidden)
+    return null
+  if (selection.selected.includes(hover.node.id))
+    return null
   return (
     <div className={prefix} style={createTipsStyle()}>
       <span
-        className={prefix + '-title'}
+        className={`${prefix}-title`}
         style={{
           position: 'absolute',
           bottom: '100%',

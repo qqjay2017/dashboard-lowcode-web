@@ -1,7 +1,7 @@
 import React from 'react'
-import { useDragon, usePrefix } from '../../hooks'
 import { ClosestPosition } from '@designable/core'
 import { observer } from '@formily/reactive-react'
+import { useDragon, usePrefix } from '../../hooks'
 
 export const Insertion = observer(() => {
   const viewportDragon = useDragon()
@@ -16,28 +16,34 @@ export const Insertion = observer(() => {
       top: 0,
       left: 0,
     }
-    if (!closestRect) return baseStyle
+    return baseStyle
+    if (!closestRect)
+      return baseStyle
+
+    // console.log(closestDirection, 'closestDirection')
     if (
-      closestDirection === ClosestPosition.Before ||
-      closestDirection === ClosestPosition.ForbidBefore
+      closestDirection === ClosestPosition.Before
+      || closestDirection === ClosestPosition.ForbidBefore
     ) {
       baseStyle.width = 2
       baseStyle.height = closestRect.height
       baseStyle.transform = `perspective(1px) translate3d(${closestRect.x}px,${closestRect.y}px,0)`
-    } else if (
-      closestDirection === ClosestPosition.After ||
-      closestDirection === ClosestPosition.ForbidAfter
+    }
+    else if (
+      closestDirection === ClosestPosition.After
+      || closestDirection === ClosestPosition.ForbidAfter
     ) {
       baseStyle.width = 2
       baseStyle.height = closestRect.height
       baseStyle.transform = `perspective(1px) translate3d(${
         closestRect.x + closestRect.width - 2
       }px,${closestRect.y}px,0)`
-    } else if (
-      closestDirection === ClosestPosition.InnerAfter ||
-      closestDirection === ClosestPosition.Under ||
-      closestDirection === ClosestPosition.ForbidInnerAfter ||
-      closestDirection === ClosestPosition.ForbidUnder
+    }
+    else if (
+      closestDirection === ClosestPosition.InnerAfter
+      || closestDirection === ClosestPosition.Under
+      || closestDirection === ClosestPosition.ForbidInnerAfter
+      || closestDirection === ClosestPosition.ForbidUnder
     ) {
       if (isInlineLayout) {
         baseStyle.width = 2
@@ -45,24 +51,27 @@ export const Insertion = observer(() => {
         baseStyle.transform = `perspective(1px) translate3d(${
           closestRect.x + closestRect.width - 2
         }px,${closestRect.y}px,0)`
-      } else {
+      }
+      else {
         baseStyle.width = closestRect.width
         baseStyle.height = 2
         baseStyle.transform = `perspective(1px) translate3d(${
           closestRect.x
         }px,${closestRect.y + closestRect.height - 2}px,0)`
       }
-    } else if (
-      closestDirection === ClosestPosition.InnerBefore ||
-      closestDirection === ClosestPosition.Upper ||
-      closestDirection === ClosestPosition.ForbidInnerBefore ||
-      closestDirection === ClosestPosition.ForbidUpper
+    }
+    else if (
+      closestDirection === ClosestPosition.InnerBefore
+      || closestDirection === ClosestPosition.Upper
+      || closestDirection === ClosestPosition.ForbidInnerBefore
+      || closestDirection === ClosestPosition.ForbidUpper
     ) {
       if (isInlineLayout) {
         baseStyle.width = 2
         baseStyle.height = closestRect.height
         baseStyle.transform = `perspective(1px) translate3d(${closestRect.x}px,${closestRect.y}px,0)`
-      } else {
+      }
+      else {
         baseStyle.width = closestRect.width
         baseStyle.height = 2
         baseStyle.transform = `perspective(1px) translate3d(${closestRect.x}px,${closestRect.y}px,0)`

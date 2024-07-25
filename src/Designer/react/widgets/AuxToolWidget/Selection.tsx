@@ -1,18 +1,19 @@
 import React, { Fragment } from 'react'
-import { Helpers } from './Helpers'
-import { ResizeHandler } from './ResizeHandler'
+import { observer } from '@formily/reactive-react'
+import type { TreeNode } from '@designable/core'
 import {
-  useSelection,
-  useValidNodeOffsetRect,
-  useTree,
   useCursor,
+  useDesigner,
   useDragon,
   usePrefix,
-  useDesigner,
+  useSelection,
+  useTree,
+  useValidNodeOffsetRect,
 } from '../../hooks'
-import { observer } from '@formily/reactive-react'
-import { TreeNode } from '@designable/core'
+import { Helpers } from './Helpers'
+import { ResizeHandler } from './ResizeHandler'
 import { TranslateHandler } from './TranslateHandler'
+
 export interface ISelectionBoxProps {
   node: TreeNode
   showHelpers: boolean
@@ -37,9 +38,11 @@ export const SelectionBox: React.FC<ISelectionBoxProps> = (props) => {
     }
     return baseStyle
   }
-  if (!nodeRect) return null
+  if (!nodeRect)
+    return null
 
-  if (!nodeRect.width || !nodeRect.height) return null
+  if (!nodeRect.width || !nodeRect.height)
+    return null
 
   const selectionId = {
     [designer.props?.nodeSelectionIdAttrName]: props.node.id,
@@ -62,13 +65,16 @@ export const Selection = observer(() => {
   const tree = useTree()
   const cursor = useCursor()
   const viewportDragon = useDragon()
-  if (cursor.status !== 'NORMAL' && viewportDragon.touchNode) return null
+  if (cursor.status !== 'NORMAL' && viewportDragon.touchNode)
+    return null
   return (
     <Fragment>
       {selection.selected.map((id) => {
         const node = tree.findById(id)
-        if (!node) return
-        if (node.hidden) return
+        if (!node)
+          return null
+        if (node.hidden)
+          return null
         return (
           <SelectionBox
             key={id}

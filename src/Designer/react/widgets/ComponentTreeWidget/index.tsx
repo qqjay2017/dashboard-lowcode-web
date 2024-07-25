@@ -22,6 +22,7 @@ export const TreeNodeWidget: React.FC<ITreeNodeWidgetProps> = observer(
   (props: ITreeNodeWidgetProps) => {
     const designer = useDesigner(props.node?.designerProps?.effects)
     const components = useComponents()
+
     const node = props.node
     const renderChildren = () => {
       if (node?.designerProps?.selfRenderChildren)

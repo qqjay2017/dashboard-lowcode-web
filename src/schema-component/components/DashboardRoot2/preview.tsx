@@ -5,14 +5,13 @@ import { DashboardRootPreview } from '../DashboardRoot/components'
 import type { DnFC } from '@/Designer/react/types'
 import { AllLocales } from '@/schema-component/antd'
 
-const designZoom = 0.5
+const designZoom = 1
 export const DashboardRoot: DnFC<React.ComponentProps<typeof DashboardRootPreview>> = observer(
   ({ designWidth = 1920, designHeight = 1080, children, ...props }) => {
     return (
       <div
         className={css`
         overflow: hidden;
-        box-shadow: 0 8px 10px #1e1e1e1f;
         width: ${designWidth * designZoom}px;
         height: ${designHeight * designZoom}px;
       

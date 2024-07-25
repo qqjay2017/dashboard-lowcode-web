@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from 'react'
 import React, { Fragment, useMemo, useRef } from 'react'
-import type { IFormItemProps } from '@formily/antd-v5'
+
 import { FormItem } from '@formily/antd-v5'
 import { observer, useField } from '@formily/react'
 import { observable } from '@formily/reactive'
