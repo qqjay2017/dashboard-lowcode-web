@@ -11,6 +11,9 @@ import '../style/designerToolsWidget.less'
 import '../style/mobileSimulator.less'
 import '../style/pCSimulator.less'
 import '../style/responsiveSimulator.less'
+import '../style/auxToolWidget.less'
+import '../style/componentTreeWidget.less'
+import '../style/emptyWidget.less'
 
 import './locales'
 

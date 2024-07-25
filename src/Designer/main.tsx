@@ -1,5 +1,6 @@
 import { GlobalRegistry, createDesigner, createResource } from '@designable/core'
-import { CompositePanel, CompositePanelItem, Designer, DesignerToolsWidget, HistoryWidget, OutlineTreeWidget, ResourceWidget, StudioPanel, ToolbarPanel, ViewToolsWidget, ViewportPanel, Workbench, WorkspacePanel } from './react/lib'
+import { CompositePanel, CompositePanelItem, Designer, DesignerToolsWidget, HistoryWidget, OutlineTreeWidget, ResourceWidget, StudioPanel, ToolbarPanel, ViewPanel, ViewToolsWidget, ViewportPanel, Workbench, WorkspacePanel } from './react/lib'
+import { Content } from './content'
 
 const Input = createResource({
   title: {
@@ -69,9 +70,22 @@ function Main() {
               <ViewToolsWidget />
             </ToolbarPanel>
             <ViewportPanel>
-
+              <ViewPanel type="DESIGNABLE">{() => <Content />}</ViewPanel>
+              <ViewPanel type="JSONTREE">
+                {() => {
+                  return (
+                    <div style={{ overflow: 'hidden', height: '100%' }}>
+                      MonacoInput
+                      {/* <MonacoInput
+                        language="javascript"
+                        helpCode="//hello world"
+                        defaultValue={`<div><div>123123<div>123123<div>123123<div>123123</div></div></div></div></div>`}
+                      /> */}
+                    </div>
+                  )
+                }}
+              </ViewPanel>
             </ViewportPanel>
-
           </WorkspacePanel>
 
         </StudioPanel>
