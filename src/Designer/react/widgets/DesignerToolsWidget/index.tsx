@@ -11,7 +11,6 @@ import {
   useWorkbench,
 } from '../../hooks'
 import { IconWidget } from '../IconWidget'
-import './styles.less'
 
 type DesignerToolsType = 'HISTORY' | 'CURSOR' | 'SCREEN_TYPE'
 

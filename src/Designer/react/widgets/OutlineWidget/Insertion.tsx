@@ -1,7 +1,7 @@
 import React from 'react'
 import { ClosestPosition } from 'designablecore'
 import { observer } from '@formily/reactive-react'
-import { useOutlineDragon, usePrefix } from '../../hooks'
+import { useMoveHelper, usePrefix } from '../../hooks'
 
 export interface IInsertionProps {
   workspaceId?: string
@@ -9,11 +9,11 @@ export interface IInsertionProps {
 
 export const Insertion: React.FC<IInsertionProps> = observer(
   ({ workspaceId }) => {
-    const outlineDragon = useOutlineDragon(workspaceId)
+    const moveHelper = useMoveHelper(workspaceId)
     const prefix = usePrefix('outline-tree-insertion')
     const createInsertionStyle = (): React.CSSProperties => {
-      const closestDirection = outlineDragon.closestDirection
-      const closestRect = outlineDragon.closestOffsetRect
+      const closestDirection = moveHelper.outlineClosestDirection
+      const closestRect = moveHelper.outlineClosestOffsetRect
       const baseStyle: React.CSSProperties = {
         position: 'absolute',
         transform: 'perspective(1px) translate3d(0,0,0)',
@@ -57,7 +57,7 @@ export const Insertion: React.FC<IInsertionProps> = observer(
       return baseStyle
     }
 
-    if (!outlineDragon?.closestNode)
+    if (!moveHelper?.closestNode)
       return null
 
     return <div className={prefix} style={createInsertionStyle()}></div>
