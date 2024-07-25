@@ -6,6 +6,12 @@ import { SizeInput } from '../SizeInput'
 import { InputItems } from '../InputItems'
 import { IconWidget, usePrefix } from '@/Designer/react/lib'
 
+const defaultLabels = [
+  <IconWidget infer="Top" size={16} key="1" />,
+  <IconWidget infer="Right" size={16} key="2" />,
+  <IconWidget infer="Bottom" size={16} key="3" />,
+  <IconWidget infer="Left" size={16} key="4" />,
+]
 type Position = 'top' | 'right' | 'left' | 'bottom' | 'all'
 export interface IMarginStyleSetterProps {
   className?: string
@@ -28,6 +34,7 @@ const BoxRex
 
 export const BoxStyleSetter: React.FC<IMarginStyleSetterProps> = observer(
   (props) => {
+    const labels = props.labels || defaultLabels
     const field = useField()
     const prefix = usePrefix('box-style-setter')
     const createPositionHandler = (
@@ -74,25 +81,25 @@ export const BoxStyleSetter: React.FC<IMarginStyleSetterProps> = observer(
         </FoldItem.Base>
         <FoldItem.Extra>
           <InputItems width="50%">
-            <InputItems.Item icon={props.labels[0]}>
+            <InputItems.Item icon={labels[0]}>
               <SizeInput
                 {...createPositionHandler('top', props)}
                 exclude={['inherit', 'auto']}
               />
             </InputItems.Item>
-            <InputItems.Item icon={props.labels[1]}>
+            <InputItems.Item icon={labels[1]}>
               <SizeInput
                 {...createPositionHandler('right', props)}
                 exclude={['inherit', 'auto']}
               />
             </InputItems.Item>
-            <InputItems.Item icon={props.labels[2]}>
+            <InputItems.Item icon={labels[2]}>
               <SizeInput
                 {...createPositionHandler('bottom', props)}
                 exclude={['inherit', 'auto']}
               />
             </InputItems.Item>
-            <InputItems.Item icon={props.labels[3]}>
+            <InputItems.Item icon={labels[3]}>
               <SizeInput
                 {...createPositionHandler('left', props)}
                 exclude={['inherit', 'auto']}
@@ -104,12 +111,3 @@ export const BoxStyleSetter: React.FC<IMarginStyleSetterProps> = observer(
     )
   },
 )
-
-BoxStyleSetter.defaultProps = {
-  labels: [
-    <IconWidget infer="Top" size={16} key="1" />,
-    <IconWidget infer="Right" size={16} key="2" />,
-    <IconWidget infer="Bottom" size={16} key="3" />,
-    <IconWidget infer="Left" size={16} key="4" />,
-  ],
-}

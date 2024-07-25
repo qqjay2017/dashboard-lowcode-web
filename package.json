@@ -13,6 +13,7 @@
     "@ctrl/tinycolor": "^4.1.0",
     "@daybrush/utils": "^1.13.0",
     "@designable/core": "^1.0.0-beta.45",
+    "@designable/formily-transformer": "^1.0.0-beta.45",
     "@designable/shared": "^1.0.0-beta.45",
     "@dnd-kit/core": "^6.1.0",
     "@dnd-kit/modifiers": "^7.0.0",

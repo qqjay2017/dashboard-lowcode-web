@@ -1,5 +1,12 @@
 import { GlobalRegistry, createBehavior, createDesigner, createResource } from '@designable/core'
-import { CompositePanel, CompositePanelItem, Designer, DesignerToolsWidget, HistoryWidget, OutlineTreeWidget, ResourceWidget, SettingsPanel, StudioPanel, ToolbarPanel, ViewPanel, ViewToolsWidget, ViewportPanel, Workbench, WorkspacePanel } from './react/lib'
+import { Button, Radio, Space } from 'antd'
+import { observer } from '@formily/react'
+import { useEffect } from 'react'
+import {
+  transformToSchema,
+  transformToTreeNode,
+} from '@designable/formily-transformer'
+import { CompositePanel, CompositePanelItem, Designer, DesignerToolsWidget, HistoryWidget, OutlineTreeWidget, ResourceWidget, SettingsPanel, StudioPanel, ToolbarPanel, ViewPanel, ViewToolsWidget, ViewportPanel, Workbench, Workspace, WorkspacePanel, useDesigner } from './react/lib'
 import { Content } from './content'
 import { SettingsForm } from './react-settings-form'
 // import { MonacoInput } from './react-settings-form/MonacoInput'
@@ -313,24 +320,77 @@ GlobalRegistry.registerDesignerLocales({
   },
 })
 
-const engine = createDesigner()
+const Logo: React.FC = () => (
+  <div style={{ display: 'flex', alignItems: 'center', fontSize: 14 }}>
+    大屏设计器
+  </div>
+)
+const Actions = observer(() => {
+  const designer = useDesigner()
+  const supportLocales = ['zh-cn', 'en-us', 'ko-kr']
+  // useEffect(() => {
+  //   if (!supportLocales.includes(GlobalRegistry.getDesignerLanguage())) {
+  //     GlobalRegistry.setDesignerLanguage('zh-cn')
+  //   }
+  // }, [])
 
+  const saveSchema = (designer) => {
+    const tree = designer.getCurrentTree()
+
+    const schema = transformToSchema(tree, {
+      designableFieldName: 'Field',
+      designableFormName: 'Root',
+    })
+
+    console.log({
+      tree,
+      schema,
+    })
+  }
+
+  return (
+    <Space style={{ marginRight: 10 }}>
+      {/* <Radio.Group
+        value={GlobalRegistry.getDesignerLanguage()}
+        optionType="button"
+        options={[
+          { label: 'English', value: 'en-us' },
+          { label: '简体中文', value: 'zh-cn' },
+          { label: '한국어', value: 'ko-kr' },
+        ]}
+        onChange={(e) => {
+          GlobalRegistry.setDesignerLanguage(e.target.value)
+        }}
+      /> */}
+
+      <Button onClick={() => {
+        saveSchema(designer)
+      }}
+      >
+        保存
+      </Button>
+      <Button type="primary">发布</Button>
+    </Space>
+  )
+})
+const engine = createDesigner()
 function Main() {
   return (
     <Designer engine={engine}>
-      <Workbench>
-        <StudioPanel>
-          <CompositePanel>
-            <CompositePanelItem title="panels.Component" icon="Component">
-              <ResourceWidget title="sources.Inputs" sources={[Input]} />
-            </CompositePanelItem>
-            <CompositePanelItem title="panels.OutlinedTree" icon="Outline">
-              <OutlineTreeWidget />
-            </CompositePanelItem>
-            <CompositePanelItem title="panels.History" icon="History">
-              <HistoryWidget />
-            </CompositePanelItem>
-          </CompositePanel>
+
+      <StudioPanel logo={<Logo />} actions={<Actions />}>
+        <CompositePanel>
+          <CompositePanelItem title="panels.Component" icon="Component">
+            <ResourceWidget title="sources.Inputs" sources={[Input]} />
+          </CompositePanelItem>
+          <CompositePanelItem title="panels.OutlinedTree" icon="Outline">
+            <OutlineTreeWidget />
+          </CompositePanelItem>
+          <CompositePanelItem title="panels.History" icon="History">
+            <HistoryWidget />
+          </CompositePanelItem>
+        </CompositePanel>
+        <Workspace id="dashboardRoot">
           <WorkspacePanel>
             <ToolbarPanel>
               <DesignerToolsWidget />
@@ -354,11 +414,12 @@ function Main() {
               </ViewPanel>
             </ViewportPanel>
           </WorkspacePanel>
-          <SettingsPanel title="panels.PropertySettings">
-            <SettingsForm uploadAction="https://www.mocky.io/v2/5cc8019d300000980a055e76" />
-          </SettingsPanel>
-        </StudioPanel>
-      </Workbench>
+        </Workspace>
+        <SettingsPanel title="panels.PropertySettings">
+          <SettingsForm uploadAction="https://www.mocky.io/v2/5cc8019d300000980a055e76" />
+        </SettingsPanel>
+      </StudioPanel>
+
     </Designer>
   )
 }

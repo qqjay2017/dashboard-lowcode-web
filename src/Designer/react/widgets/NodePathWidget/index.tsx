@@ -25,10 +25,12 @@ export const NodePathWidget: React.FC<INodePathWidgetProps> = observer(
       .reverse()
       .concat(selected)
     return (
-      <Breadcrumb className={prefix}>
-        {nodes.map((node, key) => {
-          return (
-            <Breadcrumb.Item key={key}>
+      <Breadcrumb
+        className={prefix}
+        items={nodes.map((node, key) => {
+          return {
+            key,
+            title: <>
               {key === 0 && (
                 <IconWidget infer="Position" style={{ marginRight: 3 }} />
               )}
@@ -45,9 +47,12 @@ export const NodePathWidget: React.FC<INodePathWidgetProps> = observer(
               >
                 <NodeTitleWidget node={node} />
               </a>
-            </Breadcrumb.Item>
-          )
+
+                   </>,
+
+          }
         })}
+      >
       </Breadcrumb>
     )
   },

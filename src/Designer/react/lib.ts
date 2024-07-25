@@ -32,6 +32,10 @@ import '../style/PositionInput.less'
 import '../style/SizeInput.less'
 import '../style/ValueInput.less'
 import '../style/monacoInput.less'
+import '../style/droppable.less'
+import '../style/nodeActions.less'
+import '../style/dataSourceSetter.less'
+import '../style/reactionsSetter.less'
 
 import './locales'
 

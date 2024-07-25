@@ -1653,7 +1653,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@designable/core@npm:^1.0.0-beta.45":
+"@designable/core@npm:1.0.0-beta.45, @designable/core@npm:^1.0.0-beta.45":
   version: 1.0.0-beta.45
   resolution: "@designable/core@npm:1.0.0-beta.45"
   dependencies:
@@ -1664,6 +1664,19 @@ __metadata:
     "@formily/path": ^2.0.2
     "@formily/reactive": ^2.0.2
   checksum: 11b56cbf97d415249af69ce72026541953981a9b7362154e0f89e52a3231dfadc0f8cd3cc5ce228fffa96771557feeaf9af01ac92346ef51c6154b01c8e6e300
+  languageName: node
+  linkType: hard
+
+"@designable/formily-transformer@npm:^1.0.0-beta.45":
+  version: 1.0.0-beta.45
+  resolution: "@designable/formily-transformer@npm:1.0.0-beta.45"
+  dependencies:
+    "@designable/core": "npm:1.0.0-beta.45"
+    "@designable/shared": "npm:1.0.0-beta.45"
+  peerDependencies:
+    "@formily/core": ^2.0.2
+    "@formily/json-schema": ^2.0.2
+  checksum: 3ab32b25bfe38d804a0b97957cc8b587fd5ba385558852a54c474f095c2f518909aee7e1c6d4feb09fc5ba3b9ce399b87687a0e012b3a88e0eb1d9883ba3a8c9
   languageName: node
   linkType: hard
 
@@ -5912,6 +5925,7 @@ __metadata:
     "@ctrl/tinycolor": "npm:^4.1.0"
     "@daybrush/utils": "npm:^1.13.0"
     "@designable/core": "npm:^1.0.0-beta.45"
+    "@designable/formily-transformer": "npm:^1.0.0-beta.45"
     "@designable/shared": "npm:^1.0.0-beta.45"
     "@dnd-kit/core": "npm:^6.1.0"
     "@dnd-kit/modifiers": "npm:^7.0.0"

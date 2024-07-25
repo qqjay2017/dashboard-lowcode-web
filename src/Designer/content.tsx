@@ -2,12 +2,18 @@
 
 import { observer } from '@formily/reactive-react'
 import { ComponentTreeWidget, useTreeNode } from './react/lib'
+import { Form ,Field} from '../schema-component/antd'
 
 
 
 export const Content = () => (
   <ComponentTreeWidget
+    
     components={{
+      Form,
+      DashboardRoot:()=>{
+        return <div id='DashboardRoot'></div>
+      },
       Field: observer((props) => {
         const node = useTreeNode()
         return (
@@ -21,7 +27,7 @@ export const Content = () => (
               border: '1px solid #ddd',
             }}
           >
-            <span data-content-editable="title">{node.props.title}</span>
+            <span data-content-editable="title">fff{node.props.title}</span>
             {props.children}
           </span>
         )
