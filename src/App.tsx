@@ -1,4 +1,5 @@
 import { BASE_URL } from './env'
+import DesignPage2 from './Designer/main'
 import { DesignPage } from '@/client-pages/design-page'
 
 import { Application } from '@/application/Application'
@@ -111,6 +112,10 @@ const application = new Application({
       'dashboarddesign': {
         path: '/dashboard-design/:id',
         Component: DesignPage,
+      },
+      'dashboarddesign2': {
+        path: '/dashboard-design2/:id',
+        Component: DesignPage2,
       },
     },
   },
