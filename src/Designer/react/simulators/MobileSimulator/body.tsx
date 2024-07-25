@@ -75,5 +75,3 @@ export const MobileBody: React.FC<IMobileBodyProps> = observer((props) => {
     </div>
   )
 })
-
-MobileBody.defaultProps = {}
