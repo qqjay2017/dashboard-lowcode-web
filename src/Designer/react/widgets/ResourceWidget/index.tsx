@@ -91,7 +91,6 @@ export const ResourceWidget: React.FC<IResourceWidgetProps> = observer(
           <div className={`${prefix}-header-content`}>
             <TextWidget>
               {props.title}
-              1t
             </TextWidget>
           </div>
         </div>

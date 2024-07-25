@@ -1,5 +1,6 @@
-import { createDesigner, createResource } from '@designable/core'
+import { GlobalRegistry, createDesigner, createResource } from '@designable/core'
 import { CompositePanel, CompositePanelItem, Designer, ResourceWidget, StudioPanel, Workbench } from './react/lib'
+import { OutlineTreeWidget } from './react/widgets/OutlineWidget'
 
 const Input = createResource({
   title: {
@@ -21,6 +22,30 @@ const Input = createResource({
   ],
 })
 
+GlobalRegistry.registerDesignerLocales({
+  'zh-CN': {
+    sources: {
+      Inputs: '输入控件',
+      Displays: '展示控件',
+      Feedbacks: '反馈控件',
+    },
+  },
+  'en-US': {
+    sources: {
+      Inputs: 'Inputs',
+      Displays: 'Displays',
+      Feedbacks: 'Feedbacks',
+    },
+  },
+  'ko-KR': {
+    sources: {
+      Inputs: '입력',
+      Displays: '디스플레이',
+      Feedbacks: '피드백',
+    },
+  },
+})
+
 const engine = createDesigner()
 
 function Main() {
@@ -32,7 +57,9 @@ function Main() {
             <CompositePanelItem title="panels.Component" icon="Component">
               <ResourceWidget title="sources.Inputs" sources={[Input]} />
             </CompositePanelItem>
-
+            <CompositePanelItem title="panels.OutlinedTree" icon="Outline">
+              <OutlineTreeWidget />
+            </CompositePanelItem>
           </CompositePanel>
 
         </StudioPanel>

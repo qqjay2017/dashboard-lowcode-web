@@ -4,6 +4,7 @@ import '../style/theme.less'
 import '../style/panels.less'
 import '../style/iconWidget.less'
 import '../style/resourceWidget.less'
+import '../style/outlineWidget.less'
 
 import './locales'
 

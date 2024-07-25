@@ -170,7 +170,6 @@ export const CompositePanel: React.FC<ICompositePanelProps> = (props) => {
                     <div className={`${prefix}-tabs-pane-title`}>
                       <TextWidget>
                         {item.title}
-                        itemtitle
                       </TextWidget>
                     </div>
                   )
