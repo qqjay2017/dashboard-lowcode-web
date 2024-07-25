@@ -1,6 +1,5 @@
 import { GlobalRegistry, createDesigner, createResource } from '@designable/core'
-import { CompositePanel, CompositePanelItem, Designer, ResourceWidget, StudioPanel, Workbench } from './react/lib'
-import { OutlineTreeWidget } from './react/widgets/OutlineWidget'
+import { CompositePanel, CompositePanelItem, Designer, HistoryWidget, OutlineTreeWidget, ResourceWidget, StudioPanel, Workbench } from './react/lib'
 
 const Input = createResource({
   title: {
@@ -59,6 +58,9 @@ function Main() {
             </CompositePanelItem>
             <CompositePanelItem title="panels.OutlinedTree" icon="Outline">
               <OutlineTreeWidget />
+            </CompositePanelItem>
+            <CompositePanelItem title="panels.History" icon="History">
+              <HistoryWidget />
             </CompositePanelItem>
           </CompositePanel>
 

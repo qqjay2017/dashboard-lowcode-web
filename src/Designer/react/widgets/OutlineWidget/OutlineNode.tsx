@@ -14,7 +14,7 @@ import cls from 'classnames'
 import {
   useCursor,
   useDesigner,
-  useMoveHelper,
+  useOutlineDragon,
   usePrefix,
   useSelection,
 } from '../../hooks'
@@ -38,12 +38,12 @@ export const OutlineTreeNode: React.FC<IOutlineTreeNodeProps> = observer(
     const request = useRef(null)
     const cursor = useCursor()
     const selection = useSelection(workspaceId)
-    const moveHelper = useMoveHelper(workspaceId)
+    const outlineDragon = useOutlineDragon(workspaceId)
 
     useEffect(() => {
       return engine.subscribeTo(DragMoveEvent, () => {
-        const closestNodeId = moveHelper?.closestNode?.id
-        const closestDirection = moveHelper?.outlineClosestDirection
+        const closestNodeId = outlineDragon?.closestNode?.id
+        const closestDirection = outlineDragon?.closestDirection
         const id = node.id
         if (!ref.current)
           return
@@ -74,7 +74,7 @@ export const OutlineTreeNode: React.FC<IOutlineTreeNodeProps> = observer(
           }
         }
       })
-    }, [node, moveHelper, cursor])
+    }, [node, outlineDragon, cursor])
 
     useEffect(() => {
       return autorun(() => {
@@ -94,14 +94,14 @@ export const OutlineTreeNode: React.FC<IOutlineTreeNodeProps> = observer(
         }
         if (
           cursor.status === CursorStatus.Dragging
-          && moveHelper?.dragNodes?.length
+          && outlineDragon?.dragNodes?.length
         ) {
           if (ref.current.classList.contains('selected')) {
             ref.current.classList.remove('selected')
           }
         }
       })
-    }, [node, selection, moveHelper])
+    }, [node, selection, outlineDragon])
 
     if (!node)
       return null

@@ -5,10 +5,9 @@ import '../style/panels.less'
 import '../style/iconWidget.less'
 import '../style/resourceWidget.less'
 import '../style/outlineWidget.less'
+import '../style/historyWidget.less'
 
 import './locales'
-
-import { GlobalRegistry } from '@designable/core'
 
 export * from './panels'
 export * from './widgets'
