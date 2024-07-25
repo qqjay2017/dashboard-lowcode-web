@@ -4,10 +4,10 @@ import type {
   Engine,
 } from 'designablecore'
 import {
+  CursorDragType,
   DragMoveEvent,
   DragStartEvent,
   DragStopEvent,
-  ScreenStatus,
 } from 'designablecore'
 import {
   calcSpeedFactor,
@@ -65,19 +65,19 @@ function useResizeEffect(container: React.MutableRefObject<HTMLDivElement>, cont
     if (!engine.workbench.currentWorkspace?.viewport)
       return
     const target = e.data.target as HTMLElement
-    if (target?.closest('*[data-designer-resize-handle]')) {
+    if (target?.closest(`*[${engine.props.screenResizeHandlerAttrName}]`)) {
       const rect = content.current?.getBoundingClientRect()
       if (!rect)
         return
       status = target.getAttribute(
-        'data-designer-resize-handle',
+        engine.props.screenResizeHandlerAttrName,
       ) as ResizeHandleType
       engine.cursor.setStyle(getStyle(status))
       startX = e.data.topClientX
       startY = e.data.topClientY
       startWidth = rect.width
       startHeight = rect.height
-      engine.screen.setStatus(ScreenStatus.Resizing)
+      engine.cursor.setDragType(CursorDragType.Resize)
     }
   })
   engine.subscribeTo(DragMoveEvent, (e) => {
@@ -124,7 +124,7 @@ function useResizeEffect(container: React.MutableRefObject<HTMLDivElement>, cont
       return
     status = null
     engine.cursor.setStyle('')
-    engine.screen.setStatus(ScreenStatus.Normal)
+    engine.cursor.setDragType(CursorDragType.Move)
     if (animationX) {
       animationX = animationX()
     }
@@ -175,25 +175,25 @@ export const ResponsiveSimulator: React.FC<IResponsiveSimulatorProps>
           <div
             ref={content}
             style={{
-              width: 1920,
-              height: 1080,
-              paddingRight: 0,
-              paddingBottom: 0,
+              width: screen.width,
+              height: screen.height,
+              paddingRight: 15,
+              paddingBottom: 15,
               position: 'relative',
               boxSizing: 'border-box',
               overflow: 'hidden',
             }}
           >
             {props.children}
-            {/* <ResizeHandle type={ResizeHandleType.Resize}>
+            <ResizeHandle type={ResizeHandleType.Resize}>
               <IconWidget infer="DragMove" style={{ pointerEvents: 'none' }} />
-            </ResizeHandle> */}
-            {/* <ResizeHandle type={ResizeHandleType.ResizeHeight}>
+            </ResizeHandle>
+            <ResizeHandle type={ResizeHandleType.ResizeHeight}>
               <IconWidget infer="Menu" style={{ pointerEvents: 'none' }} />
-            </ResizeHandle> */}
-            {/* <ResizeHandle type={ResizeHandleType.ResizeWidth}>
+            </ResizeHandle>
+            <ResizeHandle type={ResizeHandleType.ResizeWidth}>
               <IconWidget infer="Menu" style={{ pointerEvents: 'none' }} />
-            </ResizeHandle> */}
+            </ResizeHandle>
           </div>
         </div>
       </div>

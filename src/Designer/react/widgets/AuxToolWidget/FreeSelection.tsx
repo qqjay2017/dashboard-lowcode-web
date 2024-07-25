@@ -1,13 +1,14 @@
 import React from 'react'
 import { observer } from '@formily/reactive-react'
-import { CursorStatus, CursorType } from 'designablecore'
+import { CursorDragType, CursorStatus } from 'designablecore'
 import { calcRectByStartEndPoint } from 'designableshared'
 import cls from 'classnames'
-import { useCursor, usePrefix, useViewport } from '../../hooks'
+import { useCursor, useOperation, usePrefix, useViewport } from '../../hooks'
 
 export const FreeSelection = observer(() => {
   const cursor = useCursor()
   const viewport = useViewport()
+  const operation = useOperation()
   const prefix = usePrefix('aux-free-selection')
   const createSelectionStyle = () => {
     const startDragPoint = viewport.getOffsetPoint({
@@ -21,8 +22,8 @@ export const FreeSelection = observer(() => {
     const rect = calcRectByStartEndPoint(
       startDragPoint,
       currentPoint,
-      viewport.scrollX - cursor.dragStartScrollOffset.scrollX,
-      viewport.scrollY - cursor.dragStartScrollOffset.scrollY,
+      viewport.dragScrollXDelta,
+      viewport.dragScrollYDelta,
     )
     const baseStyle: React.CSSProperties = {
       position: 'absolute',
@@ -42,10 +43,12 @@ export const FreeSelection = observer(() => {
   }
 
   if (
-    cursor.status !== CursorStatus.Dragging
-    || cursor.type !== CursorType.Selection
+    operation.moveHelper.hasDragNodes
+    || cursor.status !== CursorStatus.Dragging
+    || cursor.dragType !== CursorDragType.Move
   ) {
     return null
   }
+
   return <div className={cls(prefix)} style={createSelectionStyle()}></div>
 })

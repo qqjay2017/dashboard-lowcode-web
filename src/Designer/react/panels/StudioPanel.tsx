@@ -1,8 +1,8 @@
 import type { PropsWithChildren } from 'react'
 import React from 'react'
 import cls from 'classnames'
-import { Layout } from '../containers/Layout'
 import { usePosition, usePrefix } from '../hooks'
+import { Layout } from '../containers/Layout'
 
 export interface IStudioPanelProps extends PropsWithChildren {
   style?: React.CSSProperties

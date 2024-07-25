@@ -1,16 +1,12 @@
 import React, { useEffect, useRef } from 'react'
-import {
-
-  useDesigner,
-
-  usePrefix,
-  useViewport,
-} from '../../hooks'
+import { useDesigner, usePrefix, useViewport } from '../../hooks'
 import { Insertion } from './Insertion'
 import { Selection } from './Selection'
 import { FreeSelection } from './FreeSelection'
 import { Cover } from './Cover'
 import { DashedBox } from './DashedBox'
+import { SpaceBlock } from './SpaceBlock'
+import { SnapLine } from './SnapLine'
 
 export function AuxToolWidget() {
   const engine = useDesigner()
@@ -31,6 +27,8 @@ export function AuxToolWidget() {
   return (
     <div ref={ref} className={prefix}>
       <Insertion />
+      <SpaceBlock />
+      <SnapLine />
       <DashedBox />
       <Selection />
       <Cover />

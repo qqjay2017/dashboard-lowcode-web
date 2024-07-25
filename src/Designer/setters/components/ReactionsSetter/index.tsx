@@ -18,8 +18,8 @@ import { PathSelector } from './PathSelector'
 import { FieldPropertySetter } from './FieldPropertySetter'
 import { FulfillRunHelper } from './helpers'
 import type { IReaction } from './types'
+import { initDeclaration } from './declarations'
 import { TextWidget, usePrefix } from '@/Designer/react/lib'
-import './declarations'
 
 import { MonacoInput } from '@/Designer/react-settings-form/MonacoInput'
 
@@ -158,7 +158,9 @@ export const ReactionsSetter: React.FC<IReactionsSetterProps> = (props) => {
     if (modalVisible) {
       requestIdle(
         () => {
-          setInnerVisible(true)
+          initDeclaration().then(() => {
+            setInnerVisible(true)
+          })
         },
         {
           timeout: 400,
@@ -327,6 +329,8 @@ export const ReactionsSetter: React.FC<IReactionsSetterProps> = (props) => {
                               const property = field
                                 .query('.property')
                                 .get('inputValues')
+                              if (!property)
+                                return
                               property[0] = property[0] || 'value'
                               field.query('.source').take((source) => {
                                 if (isVoidField(source))

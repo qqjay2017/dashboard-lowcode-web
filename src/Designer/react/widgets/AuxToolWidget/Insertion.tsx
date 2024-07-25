@@ -1,26 +1,23 @@
 import React from 'react'
 import { ClosestPosition } from 'designablecore'
 import { observer } from '@formily/reactive-react'
-import { useDragon, usePrefix } from '../../hooks'
+import { useMoveHelper, usePrefix } from '../../hooks'
 
 export const Insertion = observer(() => {
-  const viewportDragon = useDragon()
+  const moveHelper = useMoveHelper()
   const prefix = usePrefix('aux-insertion')
   const createInsertionStyle = (): React.CSSProperties => {
-    const closestDirection = viewportDragon.closestDirection
-    const closestRect = viewportDragon.closestOffsetRect
-    const isInlineLayout = viewportDragon.getClosestLayout() === 'horizontal'
+    const closestDirection = moveHelper.viewportClosestDirection
+    const closestRect = moveHelper.viewportClosestOffsetRect
+    const isInlineLayout = moveHelper.closestNode?.moveLayout === 'horizontal'
     const baseStyle: React.CSSProperties = {
       position: 'absolute',
       transform: 'perspective(1px) translate3d(0,0,0)',
       top: 0,
       left: 0,
     }
-    return baseStyle
     if (!closestRect)
       return baseStyle
-
-    // console.log(closestDirection, 'closestDirection')
     if (
       closestDirection === ClosestPosition.Before
       || closestDirection === ClosestPosition.ForbidBefore

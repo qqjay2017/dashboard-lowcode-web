@@ -4,7 +4,7 @@ import type { TreeNode } from 'designablecore'
 import {
   useCursor,
   useDesigner,
-  useDragon,
+  useMoveHelper,
   usePrefix,
   useSelection,
   useTree,
@@ -30,6 +30,7 @@ export const SelectionBox: React.FC<ISelectionBoxProps> = (props) => {
       top: 0,
       left: 0,
       boxSizing: 'border-box',
+      zIndex: 4,
     }
     if (nodeRect) {
       baseStyle.transform = `perspective(1px) translate3d(${nodeRect.x}px,${nodeRect.y}px,0)`
@@ -64,11 +65,11 @@ export const Selection = observer(() => {
   const selection = useSelection()
   const tree = useTree()
   const cursor = useCursor()
-  const viewportDragon = useDragon()
-  if (cursor.status !== 'NORMAL' && viewportDragon.touchNode)
+  const viewportMoveHelper = useMoveHelper()
+  if (cursor.status !== 'NORMAL' && viewportMoveHelper.touchNode)
     return null
   return (
-    <Fragment>
+    <>
       {selection.selected.map((id) => {
         const node = tree.findById(id)
         if (!node)
@@ -83,7 +84,7 @@ export const Selection = observer(() => {
           />
         )
       })}
-    </Fragment>
+    </>
   )
 })
 

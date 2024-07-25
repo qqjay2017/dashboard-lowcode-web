@@ -2,7 +2,7 @@ import React from 'react'
 import type { TreeNode } from 'designablecore'
 import type { TreeSelectProps } from 'antd'
 import { TreeSelect } from 'antd'
-import { useCurrentNode } from '@/Designer/react/lib'
+import { useSelectedNode } from '@/Designer/react/lib'
 
 export interface IPathSelectorProps
   extends Omit<TreeSelectProps<any>, 'onChange'> {
@@ -21,7 +21,7 @@ function transformDataSource(node: TreeNode) {
     }
     return dots
   }
-  const targetPath = (parentNode: TreeNode, targetNode: TreeNode) => {
+  function targetPath(parentNode: TreeNode, targetNode: TreeNode) {
     const path = []
     const transform = (node: TreeNode) => {
       if (node && node !== parentNode) {
@@ -34,22 +34,23 @@ function transformDataSource(node: TreeNode) {
     transform(targetNode)
     return path.reverse().join('.')
   }
-  const hasNoVoidChildren = (node: TreeNode) => {
+  function hasNoVoidChildren(node: TreeNode) {
     return node.children?.some((node) => {
       if (node.props.type !== 'void' && node !== currentNode)
         return true
       return hasNoVoidChildren(node)
     })
   }
-
-  const root = findRoot(node)
-
   function findRoot(node: TreeNode): TreeNode {
     if (!node?.parent)
       return node
     if (node?.parent?.componentName !== node.componentName)
       return node.parent
     return findRoot(node.parent)
+  }
+  const root = findRoot(node)
+  if (root) {
+    return transformChildren(root.children)
   }
   function findArrayParent(node: TreeNode) {
     if (!node?.parent)
@@ -68,7 +69,6 @@ function transformDataSource(node: TreeNode) {
       targetNode,
     )}`
   }
-
   function transformChildren(children: TreeNode[], path = []) {
     return children.reduce((buf, node) => {
       if (node === currentNode)
@@ -95,15 +95,12 @@ function transformDataSource(node: TreeNode) {
       })
     }, [])
   }
-  if (root) {
-    return transformChildren(root.children)
-  }
 
   return []
 }
 
 export const PathSelector: React.FC<IPathSelectorProps> = (props) => {
-  const baseNode = useCurrentNode()
+  const baseNode = useSelectedNode()
   const dataSource = transformDataSource(baseNode)
   const findNode = (dataSource: any[], value: string) => {
     for (let i = 0; i < dataSource.length; i++) {

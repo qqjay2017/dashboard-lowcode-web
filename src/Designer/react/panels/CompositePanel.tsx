@@ -42,7 +42,9 @@ function getDefaultKey(children: React.ReactNode) {
   return items?.[0].key
 }
 
-export const CompositePanel: React.FC<ICompositePanelProps> = (props) => {
+export const CompositePanel: React.FC<ICompositePanelProps> & {
+  Item: React.FC<ICompositePanelItemProps>
+} = (props) => {
   const prefix = usePrefix('composite-panel')
   const [activeKey, setActiveKey] = useState<string | number>(
     props.defaultActiveKey ?? getDefaultKey(props.children),
@@ -168,9 +170,7 @@ export const CompositePanel: React.FC<ICompositePanelProps> = (props) => {
               {props.showNavTitle && item.title
                 ? (
                     <div className={`${prefix}-tabs-pane-title`}>
-                      <TextWidget>
-                        {item.title}
-                      </TextWidget>
+                      <TextWidget>{item.title}</TextWidget>
                     </div>
                   )
                 : null}
@@ -181,4 +181,8 @@ export const CompositePanel: React.FC<ICompositePanelProps> = (props) => {
       {renderContent()}
     </div>
   )
+}
+
+CompositePanel.Item = () => {
+  return <React.Fragment />
 }

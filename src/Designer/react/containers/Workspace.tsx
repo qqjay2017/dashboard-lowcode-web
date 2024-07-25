@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from 'react'
-import React, { useMemo, useRef } from 'react'
+import React, { Fragment, useMemo, useRef } from 'react'
 import { useDesigner } from '../hooks'
 import { WorkspaceContext } from '../context'
 
@@ -9,11 +9,6 @@ export interface IWorkspaceProps extends PropsWithChildren {
   description?: string
 }
 
-/**
- * Workspace组件往  Engine添加了一个Workspace,并设置为当前的Workspace
- * @param param0
- * @returns
- */
 export const Workspace: React.FC<IWorkspaceProps> = ({
   id,
   title,
@@ -39,10 +34,11 @@ export const Workspace: React.FC<IWorkspaceProps> = ({
     oldId.current = workspace.id
     return workspace
   }, [id, designer])
-
   return (
-    <WorkspaceContext.Provider value={workspace}>
-      {props.children}
-    </WorkspaceContext.Provider>
+    <Fragment>
+      <WorkspaceContext.Provider value={workspace}>
+        {props.children}
+      </WorkspaceContext.Provider>
+    </Fragment>
   )
 }

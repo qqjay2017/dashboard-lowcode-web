@@ -1,9 +1,10 @@
 import React from 'react'
 import { Breadcrumb } from 'antd'
 import { observer } from '@formily/reactive-react'
-import { useCurrentNode, useHover, usePrefix, useSelection } from '../../hooks'
+import { useHover, usePrefix, useSelectedNode, useSelection } from '../../hooks'
 import { IconWidget } from '../IconWidget'
 import { NodeTitleWidget } from '../NodeTitleWidget'
+import './styles.less'
 
 export interface INodePathWidgetProps {
   workspaceId?: string
@@ -12,7 +13,7 @@ export interface INodePathWidgetProps {
 
 export const NodePathWidget: React.FC<INodePathWidgetProps> = observer(
   (props) => {
-    const selected = useCurrentNode(props.workspaceId)
+    const selected = useSelectedNode(props.workspaceId)
     const selection = useSelection(props.workspaceId)
     const hover = useHover(props.workspaceId)
     const prefix = usePrefix('node-path')
@@ -25,12 +26,10 @@ export const NodePathWidget: React.FC<INodePathWidgetProps> = observer(
       .reverse()
       .concat(selected)
     return (
-      <Breadcrumb
-        className={prefix}
-        items={nodes.map((node, key) => {
-          return {
-            key,
-            title: <>
+      <Breadcrumb className={prefix}>
+        {nodes.map((node, key) => {
+          return (
+            <Breadcrumb.Item key={key}>
               {key === 0 && (
                 <IconWidget infer="Position" style={{ marginRight: 3 }} />
               )}
@@ -47,12 +46,9 @@ export const NodePathWidget: React.FC<INodePathWidgetProps> = observer(
               >
                 <NodeTitleWidget node={node} />
               </a>
-
-                   </>,
-
-          }
+            </Breadcrumb.Item>
+          )
         })}
-      >
       </Breadcrumb>
     )
   },

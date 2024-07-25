@@ -7,18 +7,18 @@ import {
   usePrefix,
   useSelected,
   useOperation,
-  useCurrentNode,
+  useSelectedNode,
   useWorkbench,
-  
-} from '../react/hooks'
+  IconWidget,
+  NodePathWidget,
+} from '@/Designer/react/lib'
 import { SchemaField } from './SchemaField'
 import { ISettingFormProps } from './types'
 import { SettingsFormContext } from './shared/context'
 import { useLocales, useSnapshot } from './effects'
 import { Empty } from 'antd'
 import cls from 'classnames'
-import { IconWidget, NodePathWidget } from '../react/lib'
-
+import './styles.less'
 
 const GlobalState = {
   idleRequest: null,
@@ -31,7 +31,7 @@ export const SettingsForm: React.FC<ISettingFormProps> = observer(
       workbench?.activeWorkspace || workbench?.currentWorkspace
     const currentWorkspaceId = currentWorkspace?.id
     const operation = useOperation(currentWorkspaceId)
-    const node = useCurrentNode(currentWorkspaceId)
+    const node = useSelectedNode(currentWorkspaceId)
     const selected = useSelected(currentWorkspaceId)
     const prefix = usePrefix('settings-form')
     const schema = node?.designerProps?.propsSchema

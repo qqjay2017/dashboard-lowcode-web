@@ -1,4 +1,3 @@
-import type { PropsWithChildren } from 'react'
 import React from 'react'
 import type { TreeNode } from 'designablecore'
 import { observer } from '@formily/reactive-react'
@@ -10,8 +9,9 @@ import type {
 import {
   NodeActionsWidget,
 } from '../NodeActionsWidget'
+import './styles.less'
 
-export interface IDroppableWidgetProps extends PropsWithChildren {
+export interface IDroppableWidgetProps {
   node?: TreeNode
   actions?: INodeActionsWidgetActionProps[]
   placeholder?: boolean
@@ -37,8 +37,7 @@ export const DroppableWidget: React.FC<IDroppableWidgetProps> = observer(
     const target = node ?? currentNode
     const hasChildren = hasChildrenProp ?? target.children?.length > 0
     return (
-      <div {...nodeId} className={className} style={style}>
-
+      <div {...nodeId} {...props} className={className} style={style}>
         {hasChildren
           ? (
               props.children
