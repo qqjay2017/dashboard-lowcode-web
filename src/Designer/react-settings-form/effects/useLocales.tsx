@@ -1,8 +1,8 @@
 import React from 'react'
 import { isVoidField, onFieldReact } from '@formily/core'
-import type { TreeNode } from '@designable/core'
-import { GlobalRegistry } from '@designable/core'
-import { isStr } from '@designable/shared'
+import type { TreeNode } from 'designablecore'
+import { GlobalRegistry } from 'designablecore'
+import { isStr } from 'designableshared'
 import { IconWidget } from '@/Designer/react/lib'
 
 function takeIcon(message: string) {

@@ -1,4 +1,4 @@
-import { createLocales } from '@designable/core'
+import { createLocales } from 'designablecore'
 import { Card } from './Card'
 
 export const ArrayCards = createLocales(Card, {

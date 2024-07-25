@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from 'react'
 import React, { useEffect, useState } from 'react'
-import { requestIdle } from '@designable/shared'
+import { requestIdle } from 'designableshared'
 import { observer } from '@formily/reactive-react'
 import cls from 'classnames'
 import { IconWidget, TextWidget } from '../widgets'

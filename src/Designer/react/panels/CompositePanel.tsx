@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
-import { isValid } from '@designable/shared'
+import { isValid } from 'designableshared'
 import cls from 'classnames'
 import { IconWidget, TextWidget } from '../widgets'
 import { usePrefix } from '../hooks'

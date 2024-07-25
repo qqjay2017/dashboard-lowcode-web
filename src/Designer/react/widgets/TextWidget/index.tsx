@@ -1,8 +1,8 @@
 import type { PropsWithChildren } from 'react'
 import React from 'react'
-import { isPlainObj, isStr } from '@designable/shared'
-import type { IDesignerMiniLocales } from '@designable/core'
-import { GlobalRegistry } from '@designable/core'
+import { isPlainObj, isStr } from 'designableshared'
+import type { IDesignerMiniLocales } from 'designablecore'
+import { GlobalRegistry } from 'designablecore'
 import { observer } from '@formily/reactive-react'
 
 export interface ITextWidgetProps extends PropsWithChildren {

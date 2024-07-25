@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { type Engine, GlobalRegistry } from '@designable/core'
+import { type Engine, GlobalRegistry } from 'designablecore'
 import { DesignerEngineContext } from '../context'
 import { useDesigner } from '../hooks'
 import type { IDesignerProps } from '../types'

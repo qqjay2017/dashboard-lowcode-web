@@ -1,4 +1,4 @@
-import { createLocales } from '@designable/core'
+import { createLocales } from 'designablecore'
 import { Component } from './Component'
 
 export const DashboardRoot = createLocales(Component, {

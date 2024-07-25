@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import type { TreeNode } from '@designable/core'
+import type { TreeNode } from 'designablecore'
 import { Button } from 'antd'
 import { observer } from '@formily/reactive-react'
 import { useHover, usePrefix, useSelection } from '../../hooks'

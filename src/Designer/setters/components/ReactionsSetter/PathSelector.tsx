@@ -1,5 +1,5 @@
 import React from 'react'
-import type { TreeNode } from '@designable/core'
+import type { TreeNode } from 'designablecore'
 import type { TreeSelectProps } from 'antd'
 import { TreeSelect } from 'antd'
 import { useCurrentNode } from '@/Designer/react/lib'

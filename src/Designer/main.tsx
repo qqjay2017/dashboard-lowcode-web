@@ -1,4 +1,4 @@
-import { GlobalRegistry, ScreenType, createBehavior, createDesigner, createResource } from '@designable/core'
+import { GlobalRegistry, ScreenType, createBehavior, createDesigner, createResource } from 'designablecore'
 import { Button, Space } from 'antd'
 import { observer } from '@formily/react'
 
@@ -13,7 +13,6 @@ import { SettingsForm } from './react-settings-form'
 import { Input } from '@/schema-component/antd/Input'
 import { Field } from '@/schema-component/antd'
 import { DashboardRoot } from '@/schema-component/components/DashboardRoot2'
-import { PositionDecoratorPreview } from '@/schema-component'
 
 // import { MonacoInput } from './react-settings-form/MonacoInput'
 

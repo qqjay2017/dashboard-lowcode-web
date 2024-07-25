@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useRef, useState } from 'react'
-import type { TreeNode } from '@designable/core'
+import type { TreeNode } from 'designablecore'
 import { reaction } from '@formily/reactive'
 import cls from 'classnames'
 import { useDesigner, usePrefix, useViewport } from '../../hooks'

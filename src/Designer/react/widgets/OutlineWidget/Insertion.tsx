@@ -1,5 +1,5 @@
 import React from 'react'
-import { ClosestPosition } from '@designable/core'
+import { ClosestPosition } from 'designablecore'
 import { observer } from '@formily/reactive-react'
 import { useOutlineDragon, usePrefix } from '../../hooks'
 

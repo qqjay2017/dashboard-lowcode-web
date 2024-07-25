@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { observer } from '@formily/reactive-react'
-import type { TreeNode } from '@designable/core'
-import { ClosestPosition, CursorStatus } from '@designable/core'
+import type { TreeNode } from 'designablecore'
+import { ClosestPosition, CursorStatus } from 'designablecore'
 import cls from 'classnames'
 import {
   useCursor,

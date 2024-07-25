@@ -13,9 +13,9 @@ import {
 } from '@formily/react'
 import { FormItem } from '@formily/antd-v5'
 import { each, reduce } from '@formily/shared'
-import { createBehavior } from '@designable/core'
+import { createBehavior } from 'designablecore'
 
-import { isArr, isStr } from '@designable/shared'
+import { isArr, isStr } from 'designableshared'
 import { Container } from '../common/Container'
 import { AllLocales } from '../locales'
 

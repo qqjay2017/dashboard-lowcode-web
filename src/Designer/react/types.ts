@@ -1,6 +1,6 @@
 import type React from 'react'
 
-import type { Engine, IBehavior, IResource } from '@designable/core'
+import type { Engine, IBehavior, IResource } from 'designablecore'
 import type { PropsWithChildren } from 'react'
 
 export interface IDesignerLayoutProps extends PropsWithChildren {

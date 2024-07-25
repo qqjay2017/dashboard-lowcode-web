@@ -4,7 +4,7 @@ import Editor, { loader } from '@monaco-editor/react'
 import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api'
 import { Tooltip } from 'antd'
 import { parse, parseExpression } from '@babel/parser'
-import { uid } from '@designable/shared'
+import { uid } from 'designableshared'
 import cls from 'classnames'
 import { format } from './format'
 

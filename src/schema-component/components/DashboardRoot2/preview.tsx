@@ -1,5 +1,5 @@
 import { observer } from '@formily/react'
-import { createBehavior } from '@designable/core'
+import { createBehavior } from 'designablecore'
 import { css } from '@emotion/css'
 import { DashboardRootPreview } from '../DashboardRoot/components'
 import type { DnFC } from '@/Designer/react/types'

@@ -2,17 +2,17 @@ import React, { useRef } from 'react'
 import { observer } from '@formily/reactive-react'
 import type {
   Engine,
-} from '@designable/core'
+} from 'designablecore'
 import {
   DragMoveEvent,
   DragStartEvent,
   DragStopEvent,
   ScreenStatus,
-} from '@designable/core'
+} from 'designablecore'
 import {
   calcSpeedFactor,
   createUniformSpeedAnimation,
-} from '@designable/shared'
+} from 'designableshared'
 import cls from 'classnames'
 import { useDesigner, usePrefix, useScreen } from '../../hooks'
 import { IconWidget } from '../../widgets'

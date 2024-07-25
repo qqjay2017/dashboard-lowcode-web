@@ -1,4 +1,4 @@
-import { GlobalRegistry } from '@designable/core'
+import { GlobalRegistry } from 'designablecore'
 import { ISchema } from '@formily/react'
 
 export const Slider: ISchema = {

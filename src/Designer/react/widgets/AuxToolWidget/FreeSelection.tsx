@@ -1,7 +1,7 @@
 import React from 'react'
 import { observer } from '@formily/reactive-react'
-import { CursorStatus, CursorType } from '@designable/core'
-import { calcRectByStartEndPoint } from '@designable/shared'
+import { CursorStatus, CursorType } from 'designablecore'
+import { calcRectByStartEndPoint } from 'designableshared'
 import cls from 'classnames'
 import { useCursor, usePrefix, useViewport } from '../../hooks'
 

@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { observer } from '@formily/reactive-react'
-import type { TreeNode } from '@designable/core'
+import type { TreeNode } from 'designablecore'
 import {
   useCursor,
   useDesigner,

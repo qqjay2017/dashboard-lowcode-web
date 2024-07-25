@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useRef } from 'react'
 import type {
   TreeNode,
-} from '@designable/core'
+} from 'designablecore'
 import {
   ClosestPosition,
   CursorStatus,
   DragMoveEvent,
-} from '@designable/core'
-import { isFn } from '@designable/shared'
+} from 'designablecore'
+import { isFn } from 'designableshared'
 import { autorun } from '@formily/reactive'
 import { observer } from '@formily/reactive-react'
 import cls from 'classnames'

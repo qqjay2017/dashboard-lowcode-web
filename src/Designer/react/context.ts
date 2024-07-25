@@ -1,5 +1,5 @@
 import { createContext } from 'react'
-import type { Engine, TreeNode } from '@designable/core'
+import type { Engine, TreeNode } from 'designablecore'
 import type { IDesignerComponents, IDesignerLayoutContext, IWorkspaceContext } from './types'
 
 export const DesignerComponentsContext = createContext<IDesignerComponents>({})

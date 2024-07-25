@@ -1,6 +1,6 @@
 import React from 'react'
 import cls from 'classnames'
-import type { TreeNode } from '@designable/core'
+import type { TreeNode } from 'designablecore'
 import { useDesigner, usePrefix } from '../../hooks'
 import { IconWidget } from '../IconWidget'
 

@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from 'react'
-import type { TreeNode } from '@designable/core'
-import { GlobalRegistry } from '@designable/core'
+import type { TreeNode } from 'designablecore'
+import { GlobalRegistry } from 'designablecore'
 import { observer } from '@formily/reactive-react'
 import cls from 'classnames'
 import { useComponents, useDesigner, usePrefix, useTree } from '../../hooks'

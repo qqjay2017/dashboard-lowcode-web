@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from 'react'
 import React from 'react'
-import type { TreeNode } from '@designable/core'
+import type { TreeNode } from 'designablecore'
 import { observer } from '@formily/reactive-react'
 import { useNodeIdProps, useTreeNode } from '../../hooks'
 import { NodeTitleWidget } from '../NodeTitleWidget'

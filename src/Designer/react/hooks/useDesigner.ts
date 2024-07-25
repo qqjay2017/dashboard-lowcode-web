@@ -1,8 +1,8 @@
 import { useContext, useEffect } from 'react'
-import { Engine } from '@designable/core'
+import { Engine } from 'designablecore'
 import { DesignerEngineContext } from '../context'
 
-import { isFn, globalThisPolyfill } from '@designable/shared'
+import { isFn, globalThisPolyfill } from 'designableshared'
 
 
 

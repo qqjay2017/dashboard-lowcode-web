@@ -1,4 +1,4 @@
-import type { TreeNode } from '@designable/core'
+import type { TreeNode } from 'designablecore'
 import { useDesigner } from './useDesigner'
 import { useTreeNode } from './useTreeNode'
 

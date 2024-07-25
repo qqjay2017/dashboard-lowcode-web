@@ -9,7 +9,7 @@ import {
   observer,
   useField,
 } from '@formily/react'
-import { GlobalRegistry } from '@designable/core'
+import { GlobalRegistry } from 'designablecore'
 import { ArrayItems } from '@formily/antd-v5'
 
 import { Select } from 'antd'

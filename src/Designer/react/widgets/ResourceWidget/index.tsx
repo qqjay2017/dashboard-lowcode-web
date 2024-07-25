@@ -2,12 +2,12 @@ import React, { useState } from 'react'
 import type {
   IResource,
   IResourceLike,
-} from '@designable/core'
+} from 'designablecore'
 import {
   isResourceHost,
   isResourceList,
-} from '@designable/core'
-import { isFn } from '@designable/shared'
+} from 'designablecore'
+import { isFn } from 'designableshared'
 import { observer } from '@formily/reactive-react'
 import cls from 'classnames'
 import { usePrefix } from '../../hooks'

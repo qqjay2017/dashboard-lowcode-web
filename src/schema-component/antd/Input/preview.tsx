@@ -1,6 +1,6 @@
 import type React from 'react'
 import { Input as FormilyInput } from '@formily/antd-v5'
-import { createBehavior, createResource } from '@designable/core'
+import { createBehavior, createResource } from 'designablecore'
 
 import { observer } from '@formily/react'
 import { get, set } from 'lodash-es'
