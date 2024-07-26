@@ -79,6 +79,7 @@ export const ComponentTreeWidget: React.FC<IComponentTreeWidgetProps> =
     const designer = useDesigner();
     const dataId = {};
     if (designer && tree) {
+      // data-designer-node-id
       dataId[designer?.props?.nodeIdAttrName] = tree.id;
     }
     useEffect(() => {

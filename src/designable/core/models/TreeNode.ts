@@ -2,6 +2,7 @@ import { isFn } from "@formily/shared";
 import { action, define, observable, toJS } from "@formily/reactive";
 import type { IDesignerControllerProps, IDesignerProps } from "../types";
 import { GlobalRegistry } from "../registry";
+import { FromNodeEvent } from "../events";
 import type { Operation } from "./Operation";
 import { each, uid } from "@/designable/shared";
 
@@ -318,15 +319,13 @@ export class TreeNode {
   }
 
   triggerMutation<T>(event: any, callback?: () => T, defaults?: T): T {
-    return null;
-    // if (this.operation) {
-    //   const result = this.operation.dispatch(event, callback) || defaults
-    //   this.takeSnapshot(event?.type)
-    //   return result
-    // }
-    // else if (isFn(callback)) {
-    //   return callback()
-    // }
+    if (this.operation) {
+      const result: any = this.operation.dispatch(event, callback) || defaults;
+      this.takeSnapshot(event?.type);
+      return result;
+    } else if (isFn(callback)) {
+      return callback();
+    }
   }
 
   find(finder: INodeFinder): TreeNode {
@@ -425,7 +424,7 @@ export class TreeNode {
   allowTranslate(): boolean {
     if (this === this.root && !this.isSourceNode) return false;
     const { translatable } = this.designerProps;
-    if (translatable?.x && translatable?.y) return true;
+    if (translatable?.left && translatable?.top) return true;
     return false;
   }
 
@@ -703,32 +702,32 @@ export class TreeNode {
 
   from(node?: ITreeNode) {
     if (!node) return null;
-    // return this.triggerMutation(
-    //   new FromNodeEvent({
-    //     target: this,
-    //     source: node,
-    //   }),
-    //   () => {
-    //     if (node.id && node.id !== this.id) {
-    //       TreeNodes.delete(this.id)
-    //       TreeNodes.set(node.id, this)
-    //       this.id = node.id
-    //     }
-    //     if (node.componentName) {
-    //       this.componentName = node.componentName
-    //     }
-    //     this.props = node.props ?? {}
-    //     if (node.hidden) {
-    //       this.hidden = node.hidden
-    //     }
-    //     if (node.children) {
-    //       this.children
-    //           = node.children?.map?.((node) => {
-    //           return new TreeNode(node, this)
-    //         }) || []
-    //     }
-    //   },
-    // )
+    return this.triggerMutation(
+      new FromNodeEvent({
+        target: this,
+        source: node,
+      }),
+      () => {
+        if (node.id && node.id !== this.id) {
+          TreeNodes.delete(this.id);
+          TreeNodes.set(node.id, this);
+          this.id = node.id;
+        }
+        if (node.componentName) {
+          this.componentName = node.componentName;
+        }
+        this.props = node.props ?? {};
+        if (node.hidden) {
+          this.hidden = node.hidden;
+        }
+        if (node.children) {
+          this.children =
+            node.children?.map?.((node) => {
+              return new TreeNode(node, this);
+            }) || [];
+        }
+      }
+    );
   }
 
   serialize(): ITreeNode {

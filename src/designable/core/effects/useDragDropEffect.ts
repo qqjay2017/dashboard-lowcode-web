@@ -71,7 +71,6 @@ export function useDragDropEffect(engine: Engine) {
       *[${engine.props.outlineNodeIdAttrName}]
     `);
 
-    console.log(event, "DragMoveEvent");
     const point = new Point(event.data.topClientX, event.data.topClientY);
     const nodeId = el?.getAttribute(engine.props.nodeIdAttrName);
     const outlineId = el?.getAttribute(engine.props.outlineNodeIdAttrName);
@@ -92,7 +91,7 @@ export function useDragDropEffect(engine: Engine) {
   engine.subscribeTo(DragStopEvent, () => {
     if (engine.cursor.type !== CursorType.Normal) return;
     if (engine.cursor.dragType !== CursorDragType.Move) return;
-    console.log(" DragStopEvent");
+
     engine.workbench.eachWorkspace((currentWorkspace) => {
       const operation = currentWorkspace.operation;
       const moveHelper = operation.moveHelper;

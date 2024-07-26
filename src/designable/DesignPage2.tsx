@@ -1,6 +1,11 @@
 import React, { useMemo } from "react";
 import { Designer, Workbench } from "./react/container";
-import { createDesigner, createResource } from "./core";
+import {
+  GlobalRegistry,
+  createBehavior,
+  createDesigner,
+  createResource,
+} from "./core";
 import {
   CompositePanel,
   StudioPanel,

@@ -1,6 +1,8 @@
 import { untracked } from "@formily/reactive";
+import { isArr } from "../shared";
 import type {
   IBehavior,
+  IBehaviorCreator,
   IBehaviorHost,
   IEngineProps,
   IResource,
@@ -59,5 +61,18 @@ export function createResource(...sources: IResourceCreator[]): IResource[] {
         children: source.elements || [],
       }),
     });
+  }, []);
+}
+export function createBehavior(
+  ...behaviors: Array<IBehaviorCreator | IBehaviorCreator[]>
+): IBehavior[] {
+  return behaviors.reduce((buf: any[], behavior) => {
+    if (isArr(behavior)) return buf.concat(createBehavior(...behavior));
+    const { selector } = behavior || {};
+    if (!selector) return buf;
+    if (typeof selector === "string") {
+      behavior.selector = (node) => node.componentName === selector;
+    }
+    return buf.concat(behavior);
   }, []);
 }
