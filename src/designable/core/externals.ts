@@ -1,6 +1,7 @@
 import { untracked } from '@formily/reactive'
 import type { IBehavior, IBehaviorHost, IEngineProps, IResource, IResourceHost } from './types'
 import { Engine, TreeNode } from './models'
+import { DEFAULT_DRIVERS, DEFAULT_EFFECTS, DEFAULT_SHORTCUTS } from './presets'
 
 export function createDesigner(props: IEngineProps<Engine> = {}) {
   const drivers = props.drivers || []
@@ -10,9 +11,9 @@ export function createDesigner(props: IEngineProps<Engine> = {}) {
     () =>
       new Engine({
         ...props,
-        effects: [...effects],
-        drivers: [...drivers],
-        shortcuts: [...shortcuts],
+        effects: [...effects, ...DEFAULT_EFFECTS],
+        drivers: [...drivers, ...DEFAULT_DRIVERS],
+        shortcuts: [...shortcuts, ...DEFAULT_SHORTCUTS],
       }),
   )
 }

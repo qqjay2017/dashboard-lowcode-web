@@ -2,6 +2,8 @@ import type { Engine } from './Engine'
 import type { ITreeNode, TreeNode } from './TreeNode'
 import type { Workspace } from './Workspace'
 import type { Selection } from './Selection'
+import { Hover } from './Hover'
+import { MoveHelper } from './MoveHelper'
 import type { ICustomEvent } from '@/designable/shared'
 
 export interface IOperation {
@@ -16,12 +18,11 @@ export class Operation {
   tree: TreeNode
 
   selection: Selection
-  hover: any
-  // hover: Hover
+  hover: Hover
 
   // transformHelper: TransformHelper
 
-  // moveHelper: MoveHelper
+  moveHelper: MoveHelper
 
   requests = {
     snapshot: null,
@@ -35,15 +36,15 @@ export class Operation {
     //   ...this.engine.props.defaultComponentTree,
     //   operation: this,
     // })
-    // this.hover = new Hover({
-    //   operation: this,
-    // })
+    this.hover = new Hover({
+      operation: this,
+    })
     // this.selection = new Selection({
     //   operation: this,
     // })
-    // this.moveHelper = new MoveHelper({
-    //   operation: this,
-    // })
+    this.moveHelper = new MoveHelper({
+      operation: this,
+    })
     // this.transformHelper = new TransformHelper({
     //   operation: this,
     // })
@@ -60,7 +61,7 @@ export class Operation {
   //   if (isFn(callback))
   //     return callback()
   // }
-  snapshot(type?: string) {}
+  snapshot(type?: string) { }
   // snapshot(type?: string) {
   //   cancelIdle(this.requests.snapshot)
   //   if (
@@ -74,7 +75,7 @@ export class Operation {
   //     this.workspace.history.push(type)
   //   })
   // }
-  from(operation?: IOperation) {}
+  from(operation?: IOperation) { }
   // from(operation?: IOperation) {
   //   if (!operation)
   //     return

@@ -11,14 +11,14 @@ const DRIVER_INSTANCES_SYMBOL = Symbol('DRIVER_INSTANCES_SYMBOL')
 export type EventOptions =
   | boolean
   | (AddEventListenerOptions &
-  EventListenerOptions & {
-    mode?: 'onlyOne' | 'onlyParent' | 'onlyChild'
-  })
+    EventListenerOptions & {
+      mode?: 'onlyOne' | 'onlyParent' | 'onlyChild'
+    })
 
-export interface IEventDriver {}
+export interface IEventDriver { }
 
 export interface IEventDriverClass<T> {
-  new (engine: T, context?: any): IEventDriver
+  new(engine: T, context?: any): IEventDriver
 }
 export interface IEventEffect<T> {
   (engine: T): void
@@ -87,7 +87,7 @@ export interface IEventDriver {
 }
 
 export interface IEventDriverClass<T> {
-  new (engine: T, context?: any): IEventDriver
+  new(engine: T, context?: any): IEventDriver
 }
 
 export interface ICustomEvent<EventData = any, EventContext = any> {
@@ -97,7 +97,7 @@ export interface ICustomEvent<EventData = any, EventContext = any> {
 }
 
 export interface CustomEventClass {
-  new (...args: any[]): any
+  new(...args: any[]): any
 }
 
 function isOnlyMode(mode: string) {
@@ -107,7 +107,7 @@ function isOnlyMode(mode: string) {
  * 事件驱动器基类
  */
 export class EventDriver<Engine extends Event = Event, Context = any>
-implements IEventDriver {
+  implements IEventDriver {
   engine: Engine
 
   container: EventDriverContainer = document
@@ -346,8 +346,10 @@ export class Event extends Subscribable<ICustomEvent<any>> {
     }
     if (container[ATTACHED_SYMBOL])
       return
+
     container[ATTACHED_SYMBOL] = this.drivers.map((EventDriver) => {
       const driver = new EventDriver(this, context)
+
       driver.contentWindow = contentWindow
       driver.container = container
       driver.attach(container)

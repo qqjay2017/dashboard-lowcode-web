@@ -32,10 +32,12 @@ export class Viewport {
 
   viewportElement: HTMLElement
 
-  constructor(props: IViewportProps) {}
+  constructor(props: IViewportProps) { }
   detachEvents() {
 
   }
 
-  getValidNodeLayout(p1?: any) {}
+  getValidNodeLayout(p1?: any) { }
+  cacheElements() { }
+  clearCache() { }
 }

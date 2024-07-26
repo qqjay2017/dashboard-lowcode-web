@@ -4,11 +4,13 @@ import { Screen, ScreenType } from './Screen'
 import { Workbench } from './Workbench'
 import type { ITreeNode } from './TreeNode'
 import { TreeNode } from './TreeNode'
+import { Cursor } from './Cursor'
 
 export class Engine extends Event {
   id: string
 
   props: IEngineProps<Engine>
+  cursor: Cursor
   workbench: Workbench
   screen: Screen
   constructor(props: IEngineProps<Engine>) {
@@ -24,7 +26,7 @@ export class Engine extends Event {
   init() {
     this.workbench = new Workbench(this)
     this.screen = new Screen(this)
-    // this.cursor = new Cursor(this)
+    this.cursor = new Cursor(this)
     // this.keyboard = new Keyboard(this)
   }
 
