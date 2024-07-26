@@ -20,7 +20,7 @@ export const GhostWidget = observer(() => {
         const transform = `perspective(1px) translate3d(${
           cursor.position?.topClientX - 18
         }px,${cursor.position?.topClientY - 12}px,0) scale(0.8)`;
-        console.log(transform, "transform");
+
         if (!ref.current) return;
         ref.current.style.transform = transform;
       }),
@@ -39,12 +39,7 @@ export const GhostWidget = observer(() => {
       </span>
     );
   };
-  console.log(
-    "🚀 ~ GhostWidget ~ movingNodes:",
-    firstNode,
-    cursor.status,
-    movingNodes
-  );
+
   if (!firstNode) return null;
 
   return cursor.status === CursorStatus.Dragging ? (

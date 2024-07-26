@@ -5,7 +5,8 @@ import { DesignerLayoutContext } from "../context";
 import type { IDesignerLayoutProps } from "../types";
 
 injectGlobal`
-//品牌色
+  :root {
+    //品牌色
   --dn-brand-color: rgba(24, 144, 255, 1);
   --dn-brand-hovering: rgba(64, 169, 255, 1);
   --dn-brand-dragging: rgba(24, 144, 255, 0.26);
@@ -97,6 +98,7 @@ injectGlobal`
   --dn-droppable-bg-color: var(--dn-white-gray-lighter);
   --dn-droppable-border-color: var(--dn-white-gray-dark);
   --dn-droppable-color: var(--dn-gray-lighter);
+  }
 `;
 
 export const Layout: React.FC<IDesignerLayoutProps> = (props) => {

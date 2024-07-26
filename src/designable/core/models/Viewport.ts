@@ -239,6 +239,7 @@ export class Viewport {
     cancelIdle(this.attachRequest);
     this.attachRequest = requestIdle(() => {
       if (!engine) return;
+
       if (this.isIframe) {
         this.workspace.attachEvents(this.contentWindow, this.contentWindow);
       } else if (isHTMLElement(this.viewportElement)) {

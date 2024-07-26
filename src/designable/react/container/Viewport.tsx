@@ -5,8 +5,12 @@ import {
   useRef,
   useState,
 } from "react";
+import { globalThisPolyfill } from "@formily/shared";
+import { css } from "@emotion/css";
 import { useViewport } from "../hooks";
 import type { Viewport as ViewportType } from "@/designable/core";
+import { cn } from "@/utils";
+import { requestIdle } from "@/designable/shared";
 
 export interface IViewportProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "placeholder">,
@@ -29,19 +33,38 @@ export const Viewport: React.FC<IViewportProps> = ({
   const isFrameRef = useRef(false);
 
   useLayoutEffect(() => {
-    console.log(viewport, "viewport");
+    const frameElement = ref.current.querySelector("iframe");
+    if (!viewport) return;
+    if (viewportRef.current && viewportRef.current !== viewport) {
+      viewportRef.current.onUnmount();
+    }
+    if (frameElement) {
+      //
+    } else {
+      viewport.onMount(ref.current, globalThisPolyfill);
+      requestIdle(() => {
+        isFrameRef.current = false;
+        setLoaded(true);
+      });
+    }
+    viewportRef.current = viewport;
+    return () => {
+      viewport.onUnmount();
+    };
   }, [viewport]);
   return (
     <div
       {...props}
+      className={cn("dn-viewport", props.className)}
       ref={ref}
       style={{
         opacity: !loaded ? 0 : 1,
-        overflow: isFrameRef.current ? "hidden" : "overlay",
+        overflow: "hidden",
         ...props.style,
       }}
     >
       {children}
+      {/* <AuxToolWidget /> */}
     </div>
   );
 };

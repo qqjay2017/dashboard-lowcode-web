@@ -107,8 +107,10 @@ export class MoveHelper {
   }
 
   calcClosestPosition(point: IPoint, viewport: Viewport): ClosestPosition {
+    const closestNode = this.closestNode;
+    debugger;
     return ClosestPosition.Under;
-    // const closestNode = this.closestNode
+    //
     // if (!closestNode || !viewport.isPointInViewport(point))
     //   return ClosestPosition.Forbid
     // const closestRect = viewport.getValidNodeRect(closestNode)

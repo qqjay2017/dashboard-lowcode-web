@@ -7,3 +7,5 @@ export * from "./useOperation";
 export * from "./useTree";
 export * from "./useViewport";
 export * from "./useComponents";
+export * from "./useNodeIdProps";
+export * from "./useTreeNode";

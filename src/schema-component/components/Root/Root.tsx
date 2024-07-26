@@ -11,9 +11,12 @@ export const Root: DnFC<IRootProps> = ({ children }: IRootProps) => {
       className={css`
         width: 1920px;
         height: 1080px;
+        border: 1px solid red;
       `}
     >
+      <h1>11</h1>
       {children}
+      <h1>22</h1>
     </div>
   );
 };

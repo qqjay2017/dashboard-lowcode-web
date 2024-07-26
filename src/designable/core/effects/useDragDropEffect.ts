@@ -100,7 +100,7 @@ export function useDragDropEffect(engine: Engine) {
       const closestDirection = moveHelper.closestDirection;
       const selection = operation.selection;
       if (!dragNodes.length) return;
-      console.log(dragNodes, "dragNodes DragStopEvent");
+
       if (dragNodes.length && closestNode && closestDirection) {
         if (
           closestDirection === ClosestPosition.After ||

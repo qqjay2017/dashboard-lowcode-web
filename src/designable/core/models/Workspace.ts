@@ -1,51 +1,52 @@
-import type { IEngineContext } from '../types'
-import type { Engine } from './Engine'
-import type { IOperation } from './Operation'
-import { Operation } from './Operation'
-import { Viewport } from './Viewport'
-import type { EventContainer, ICustomEvent } from '@/designable/shared'
-import { uid } from '@/designable/shared'
+import type { IEngineContext } from "../types";
+import type { Engine } from "./Engine";
+import type { IOperation } from "./Operation";
+import { Operation } from "./Operation";
+import { Viewport } from "./Viewport";
+import type { EventContainer, ICustomEvent } from "@/designable/shared";
+import { uid } from "@/designable/shared";
 
 export interface IWorkspace {
-  id?: string
-  title?: string
-  description?: string
-  operation: IOperation
+  id?: string;
+  title?: string;
+  description?: string;
+  operation: IOperation;
 }
 export interface IWorkspaceProps {
-  id?: string
-  title?: string
-  description?: string
-  contentWindow?: Window
-  viewportElement?: HTMLElement
+  id?: string;
+  title?: string;
+  description?: string;
+  contentWindow?: Window;
+  viewportElement?: HTMLElement;
 }
 
 // 工作区模型
 export class Workspace {
-  id: string
+  id: string;
 
-  title: string
+  title: string;
 
-  description: string
+  description: string;
 
-  engine: Engine
+  engine: Engine;
 
-  viewport: Viewport
+  viewport: Viewport;
 
-  outline: Viewport
+  outline: Viewport;
 
-  operation: Operation
+  operation: Operation;
 
   // history: History<Workspace>
 
-  props: IWorkspaceProps
+  props: IWorkspaceProps;
 
   constructor(engine: Engine, props: IWorkspaceProps) {
-    this.engine = engine
-    this.props = props
-    this.id = props.id || uid()
-    this.title = props.title
-    this.description = props.description
+    this.engine = engine;
+    this.props = props;
+    this.id = props.id || uid();
+    this.title = props.title;
+    this.description = props.description;
+
     this.viewport = new Viewport({
       engine: this.engine,
       workspace: this,
@@ -53,8 +54,8 @@ export class Workspace {
       contentWindow: props.contentWindow,
       nodeIdAttrName: this.engine.props.nodeIdAttrName,
       moveSensitive: true,
-      moveInsertionType: 'all',
-    })
+      moveInsertionType: "all",
+    });
     this.outline = new Viewport({
       engine: this.engine,
       workspace: this,
@@ -62,9 +63,9 @@ export class Workspace {
       contentWindow: props.contentWindow,
       nodeIdAttrName: this.engine.props.outlineNodeIdAttrName,
       moveSensitive: false,
-      moveInsertionType: 'block',
-    })
-    this.operation = new Operation(this)
+      moveInsertionType: "block",
+    });
+    this.operation = new Operation(this);
     // this.history = new History(this, {
     //   onPush: (item) => {
     //     this.operation.dispatch(new HistoryPushEvent(item))
@@ -90,19 +91,19 @@ export class Workspace {
       workspace: this,
       engine: this.engine,
       viewport: this.viewport,
-    }
+    };
   }
 
   attachEvents(container: EventContainer, contentWindow: Window) {
-    this.engine.attachEvents(container, contentWindow, this.getEventContext())
+    this.engine.attachEvents(container, contentWindow, this.getEventContext());
   }
 
   detachEvents(container: EventContainer) {
-    this.engine.detachEvents(container)
+    this.engine.detachEvents(container);
   }
 
   dispatch(event: ICustomEvent) {
-    return this.engine.dispatch(event, this.getEventContext())
+    return this.engine.dispatch(event, this.getEventContext());
   }
 
   serialize(): IWorkspace {
@@ -111,23 +112,22 @@ export class Workspace {
       title: this.title,
       description: this.description,
       operation: this.operation.serialize(),
-    }
+    };
   }
 
   from(workspace?: IWorkspace) {
-    if (!workspace)
-      return
+    if (!workspace) return;
     if (workspace.operation) {
-      this.operation.from(workspace.operation)
+      this.operation.from(workspace.operation);
     }
     if (workspace.id) {
-      this.id = workspace.id
+      this.id = workspace.id;
     }
     if (workspace.title) {
-      this.title = workspace.title
+      this.title = workspace.title;
     }
     if (workspace.description) {
-      this.description = workspace.description
+      this.description = workspace.description;
     }
   }
 }

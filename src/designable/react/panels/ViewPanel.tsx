@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { observer } from "@formily/reactive-react";
+import { css } from "@emotion/css";
 import { useTree, useWorkbench } from "../hooks";
 import { Viewport } from "../container";
 import { requestIdle } from "@/designable/shared";
@@ -47,8 +48,18 @@ export const ViewPanel: React.FC<IViewPanelProps> = observer((props) => {
   }
   return (
     <div
+      className={css`
+        height: 100%;
+        width: 100%;
+        min-height: 100px;
+        position: relative;
+        outline: none;
+        box-sizing: border-box;
+        user-select: none;
+        overflow: overlay;
+      `}
       style={{
-        overflow: props.scrollable ? "overlay" : "hidden",
+        overflow: scrollable ? "overlay" : "hidden",
         height: "100%",
         cursor: "auto",
         userSelect: "text",
