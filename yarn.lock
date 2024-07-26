@@ -1837,6 +1837,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@emotion/eslint-plugin@npm:^11.12.0":
+  version: 11.12.0
+  resolution: "@emotion/eslint-plugin@npm:11.12.0"
+  dependencies:
+    "@typescript-eslint/utils": "npm:^5.25.0"
+  peerDependencies:
+    eslint: 6 || 7 || 8
+  checksum: 851f23a22b06623c556f1b4340d4f582df3cf930bbaabf5a68effc420bcb5b136968a45e5205587fb3e3ccd7146f9302badffebca0e09f4f2303141b3fb54609
+  languageName: node
+  linkType: hard
+
 "@emotion/hash@npm:^0.8.0":
   version: 0.8.0
   resolution: "@emotion/hash@npm:0.8.0"
@@ -3726,6 +3737,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/semver@npm:^7.3.12":
+  version: 7.5.8
+  resolution: "@types/semver@npm:7.5.8"
+  checksum: b43359b2108c0b2762f772fec1c41a3d59a068d05405434fe34a9485f076ab6f0cf91bdfaa11b7896c16d5ed0af907ae2c94f769e7b4c3e34a6b6009bde8c83d
+  languageName: node
+  linkType: hard
+
 "@types/send@npm:*":
   version: 0.17.4
   resolution: "@types/send@npm:0.17.4"
@@ -4093,6 +4111,24 @@ __metadata:
   peerDependencies:
     eslint: ^8.57.0 || ^9.0.0
   checksum: 6d06e2840755c7de0cad6c0669184b94c0596841e479133c84005713ec7aea3b76729ae2292a9654129cb9429fdc9dbf3691197b87f7212b9dd6d09527446c74
+  languageName: node
+  linkType: hard
+
+"@typescript-eslint/utils@npm:^5.25.0":
+  version: 5.62.0
+  resolution: "@typescript-eslint/utils@npm:5.62.0"
+  dependencies:
+    "@eslint-community/eslint-utils": "npm:^4.2.0"
+    "@types/json-schema": "npm:^7.0.9"
+    "@types/semver": "npm:^7.3.12"
+    "@typescript-eslint/scope-manager": "npm:5.62.0"
+    "@typescript-eslint/types": "npm:5.62.0"
+    "@typescript-eslint/typescript-estree": "npm:5.62.0"
+    eslint-scope: "npm:^5.1.1"
+    semver: "npm:^7.3.7"
+  peerDependencies:
+    eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
+  checksum: a5ee3c1279f000da805b976689034c6bdce0302541467305b1e015ef230b44060b5dffc94436553c6e5ee053ebd778c0b7e64f2014a517dbba230c495a2b62ac
   languageName: node
   linkType: hard
 
@@ -5859,6 +5895,7 @@ __metadata:
     "@egjs/children-differ": "npm:^1.0.1"
     "@emotion/babel-plugin": "npm:^11.12.0"
     "@emotion/css": "npm:^11.11.2"
+    "@emotion/eslint-plugin": "npm:^11.12.0"
     "@emotion/styled": "npm:^11.13.0"
     "@eslint-react/eslint-plugin": "npm:^1.5.30"
     "@formily/antd-v5": "npm:1.2.0"
@@ -5909,6 +5946,7 @@ __metadata:
     monaco-editor-webpack-plugin: "npm:^7.1.0"
     nanoid: "npm:4"
     node-polyfill-webpack-plugin: "npm:^4.0.0"
+    prettier: "npm:^3.3.3"
     prettier-eslint: "npm:^16.3.0"
     qs: "npm:^6.12.1"
     react: "npm:^18.2.0"
@@ -7023,7 +7061,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-scope@npm:5.1.1":
+"eslint-scope@npm:5.1.1, eslint-scope@npm:^5.1.1":
   version: 5.1.1
   resolution: "eslint-scope@npm:5.1.1"
   dependencies:
@@ -10441,7 +10479,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^3.0.1, prettier@npm:^3.3.2":
+"prettier@npm:^3.0.1, prettier@npm:^3.3.2, prettier@npm:^3.3.3":
   version: 3.3.3
   resolution: "prettier@npm:3.3.3"
   bin:
