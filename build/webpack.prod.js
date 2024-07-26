@@ -198,13 +198,13 @@ module.exports = {
    
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: "/build/index.html",
+      template: resolve("index.html"),
       filename: "index.html",
       chunks: ["main"],
         CDN_LIST
     }),
     new HtmlWebpackPlugin({
-      template: "/report/index.html",
+     template: resolve("../report/index.html"),
       filename: "report/index.html",
       //   filename: "/report/index.html",
       chunks: ["report"],

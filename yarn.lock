@@ -3730,6 +3730,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/requestidlecallback@npm:^0":
+  version: 0.3.7
+  resolution: "@types/requestidlecallback@npm:0.3.7"
+  checksum: d11f4b8798977258a696f0362cd97ca116212155b86189ec59e13a3a384411156014f3021dc106d4b1eefd6942a304eb266c996c48b6ec4f1a05dce28de3a224
+  languageName: node
+  linkType: hard
+
 "@types/retry@npm:0.12.2":
   version: 0.12.2
   resolution: "@types/retry@npm:0.12.2"
@@ -5912,6 +5919,7 @@ __metadata:
     "@types/node": "npm:^20.14.9"
     "@types/react": "npm:^18.2.66"
     "@types/react-dom": "npm:^18.2.22"
+    "@types/requestidlecallback": "npm:^0"
     "@typescript-eslint/parser": "npm:5"
     antd: "npm:^5.19.2"
     antd-style: "npm:^3.6.2"
@@ -5961,6 +5969,7 @@ __metadata:
     react-router-dom: "npm:^6.23.1"
     react-selecto: "npm:^1.26.3"
     react-use: "npm:^17.5.1"
+    requestidlecallback: "npm:^0.3.0"
     style-loader: "npm:^4.0.0"
     tailwind-merge: "npm:^2.4.0"
     terser-webpack-plugin: "npm:^5.3.10"
@@ -11724,6 +11733,13 @@ __metadata:
   version: 1.6.1
   resolution: "repeat-string@npm:1.6.1"
   checksum: aa893b7e42c56727dce0f9bf902c5156b9b914c3a31b4a3831e673d43502ce7613311ba38b2c1852c7ea4f9f88e10aa985e162e7ae2e424e0a0ebd761b21f678
+  languageName: node
+  linkType: hard
+
+"requestidlecallback@npm:^0.3.0":
+  version: 0.3.0
+  resolution: "requestidlecallback@npm:0.3.0"
+  checksum: 64784f18f703d07723625a475e602d8adff6550f73fc8829fc5e574f858071089dfe5922a81a7e2f6fea8cc6f07c6f8451fc56fa7c4c573a078398d6514680ec
   languageName: node
   linkType: hard
 

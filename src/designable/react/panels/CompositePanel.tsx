@@ -1,8 +1,9 @@
 import { css } from "@emotion/css";
 
+import type { PropsWithChildren } from "react";
 import { ResourceWidget } from "../widgets";
 
-export function CompositePanel() {
+export function CompositePanel({ children }: PropsWithChildren) {
   return (
     <div
       className={css`
@@ -37,17 +38,7 @@ export function CompositePanel() {
           box-sizing: content-box;
         `}
       >
-        <div
-          className={css`
-            display: grid;
-            grid-template-columns: repeat(3, 33.3333%);
-            grid-gap: 1px;
-            background-color: var(--dn-panel-border-color);
-            border-bottom: 1px solid var(--dn-panel-border-color);
-          `}
-        >
-          <ResourceWidget />
-        </div>
+        {children}
       </div>
     </div>
   );

@@ -16,7 +16,7 @@ export type IEngineProps<T = Event> = IEventProps<T> & {
   screenResizeHandlerAttrName?: string
   nodeResizeHandlerAttrName?: string // 节点尺寸拖拽手柄属性名
   nodeTranslateAttrName?: string // 节点自由布局的属性名
-  // defaultComponentTree?: ITreeNode //默认组件树
+  defaultComponentTree?: ITreeNode // 默认组件树
   defaultScreenType?: ScreenType
   rootComponentName?: string
 }

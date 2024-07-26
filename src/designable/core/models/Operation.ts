@@ -1,10 +1,11 @@
 import type { Engine } from './Engine'
-import type { ITreeNode, TreeNode } from './TreeNode'
+import type { ITreeNode } from './TreeNode'
+import { TreeNode } from './TreeNode'
 import type { Workspace } from './Workspace'
 import type { Selection } from './Selection'
 import { Hover } from './Hover'
 import { MoveHelper } from './MoveHelper'
-import type { ICustomEvent } from '@/designable/shared'
+import { type ICustomEvent, isFn } from '@/designable/shared'
 
 export interface IOperation {
   tree?: ITreeNode
@@ -31,11 +32,11 @@ export class Operation {
   constructor(workspace: Workspace) {
     this.engine = workspace.engine
     this.workspace = workspace
-    // this.tree = new TreeNode({
-    //   componentName: this.engine.props.rootComponentName,
-    //   ...this.engine.props.defaultComponentTree,
-    //   operation: this,
-    // })
+    this.tree = new TreeNode({
+      componentName: this.engine.props.rootComponentName,
+      ...this.engine.props.defaultComponentTree,
+      operation: this,
+    })
     this.hover = new Hover({
       operation: this,
     })
@@ -52,40 +53,24 @@ export class Operation {
   }
 
   dispatch(event: ICustomEvent, callback?: () => void) {
-
+    if (this.workspace.dispatch(event) === false)
+      return
+    if (isFn(callback))
+      return callback()
   }
 
-  // dispatch(event: ICustomEvent, callback?: () => void) {
-  //   if (this.workspace.dispatch(event) === false)
-  //     return
-  //   if (isFn(callback))
-  //     return callback()
-  // }
   snapshot(type?: string) { }
-  // snapshot(type?: string) {
-  //   cancelIdle(this.requests.snapshot)
-  //   if (
-  //     !this.workspace
-  //     || !this.workspace.history
-  //     || this.workspace.history.locking
-  //   ) {
-  //     return
-  //   }
-  //   this.requests.snapshot = requestIdle(() => {
-  //     this.workspace.history.push(type)
-  //   })
-  // }
-  from(operation?: IOperation) { }
-  // from(operation?: IOperation) {
-  //   if (!operation)
-  //     return
-  //   if (operation.tree) {
-  //     this.tree.from(operation.tree)
-  //   }
-  //   if (operation.selected) {
-  //     this.selection.selected = operation.selected
-  //   }
-  // }
+
+  from(operation?: IOperation) {
+    if (!operation)
+      return
+    if (operation.tree) {
+      this.tree.from(operation.tree)
+    }
+    if (operation.selected) {
+      this.selection.selected = operation.selected
+    }
+  }
 
   serialize(): IOperation {
     return {

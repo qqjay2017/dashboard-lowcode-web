@@ -1,116 +1,113 @@
-import { action, define, observable } from '@formily/reactive'
-import { DragNodeEvent, DropNodeEvent } from '../events'
-import { TreeNode } from './TreeNode'
-import type { Operation } from './Operation'
-import type { Viewport } from './Viewport'
-import { CursorDragType } from './Cursor'
+import { action, define, observable } from "@formily/reactive";
+import { DragNodeEvent, DropNodeEvent } from "../events";
+import { TreeNode } from "./TreeNode";
+import type { Operation } from "./Operation";
+import type { Viewport } from "./Viewport";
+import { CursorDragType } from "./Cursor";
 import {
   calcDistanceOfPointToRect,
   calcDistancePointToEdge,
   isNearAfter,
   isPointInRect,
-} from '@/designable/shared'
-import type {
-  IPoint,
-  Rect,
-} from '@/designable/shared'
+} from "@/designable/shared";
+import type { IPoint, Rect } from "@/designable/shared";
 
 export enum ClosestPosition {
-  Before = 'BEFORE',
-  ForbidBefore = 'FORBID_BEFORE',
-  After = 'After',
-  ForbidAfter = 'FORBID_AFTER',
-  Upper = 'UPPER',
-  ForbidUpper = 'FORBID_UPPER',
-  Under = 'UNDER',
-  ForbidUnder = 'FORBID_UNDER',
-  Inner = 'INNER',
-  ForbidInner = 'FORBID_INNER',
-  InnerAfter = 'INNER_AFTER',
-  ForbidInnerAfter = 'FORBID_INNER_AFTER',
-  InnerBefore = 'INNER_BEFORE',
-  ForbidInnerBefore = 'FORBID_INNER_BEFORE',
-  Forbid = 'FORBID',
+  Before = "BEFORE",
+  ForbidBefore = "FORBID_BEFORE",
+  After = "After",
+  ForbidAfter = "FORBID_AFTER",
+  Upper = "UPPER",
+  ForbidUpper = "FORBID_UPPER",
+  Under = "UNDER",
+  ForbidUnder = "FORBID_UNDER",
+  Inner = "INNER",
+  ForbidInner = "FORBID_INNER",
+  InnerAfter = "INNER_AFTER",
+  ForbidInnerAfter = "FORBID_INNER_AFTER",
+  InnerBefore = "INNER_BEFORE",
+  ForbidInnerBefore = "FORBID_INNER_BEFORE",
+  Forbid = "FORBID",
 }
 
 export interface IMoveHelperProps {
-  operation: Operation
+  operation: Operation;
 }
 
 export interface IMoveHelperDragStartProps {
-  dragNodes: TreeNode[]
+  dragNodes: TreeNode[];
 }
 
 export interface IMoveHelperDragDropProps {
-  dropNode: TreeNode
+  dropNode: TreeNode;
 }
 export interface IMoveHelperDragMoveProps {
-  touchNode: TreeNode
-  point: IPoint
+  touchNode: TreeNode;
+  point: IPoint;
 }
 
 export class MoveHelper {
-  operation: Operation
+  operation: Operation;
 
-  rootNode: TreeNode
+  rootNode: TreeNode;
 
-  dragNodes: TreeNode[] = []
+  dragNodes: TreeNode[] = [];
 
-  touchNode: TreeNode = null
+  touchNode: TreeNode = null;
 
-  closestNode: TreeNode = null
+  closestNode: TreeNode = null;
 
-  activeViewport: Viewport = null
+  activeViewport: Viewport = null;
 
-  viewportClosestRect: Rect = null
+  viewportClosestRect: Rect = null;
 
-  outlineClosestRect: Rect = null
+  outlineClosestRect: Rect = null;
 
-  viewportClosestOffsetRect: Rect = null
+  viewportClosestOffsetRect: Rect = null;
 
-  outlineClosestOffsetRect: Rect = null
+  outlineClosestOffsetRect: Rect = null;
 
-  viewportClosestDirection: ClosestPosition = null
+  viewportClosestDirection: ClosestPosition = null;
 
-  outlineClosestDirection: ClosestPosition = null
+  outlineClosestDirection: ClosestPosition = null;
 
-  dragging = false
+  dragging = false;
 
   constructor(props: IMoveHelperProps) {
-    this.operation = props.operation
-    this.rootNode = this.operation.tree
-    this.makeObservable()
+    this.operation = props.operation;
+    this.rootNode = this.operation.tree;
+    this.makeObservable();
   }
 
   get cursor() {
-    return this.operation.engine.cursor
+    return this.operation.engine.cursor;
   }
 
   get viewport() {
-    return this.operation.workspace.viewport
+    return this.operation.workspace.viewport;
   }
 
   get outline() {
-    return this.operation.workspace.outline
+    return this.operation.workspace.outline;
   }
 
   get hasDragNodes() {
-    return this.dragNodes.length > 0
+    return this.dragNodes.length > 0;
   }
 
   get closestDirection() {
     if (this.activeViewport === this.outline) {
-      return this.outlineClosestDirection
+      return this.outlineClosestDirection;
     }
-    return this.viewportClosestDirection
+    return this.viewportClosestDirection;
   }
 
   getClosestLayout(viewport: Viewport) {
-    return viewport.getValidNodeLayout(this.closestNode)
+    return viewport.getValidNodeLayout(this.closestNode);
   }
 
   calcClosestPosition(point: IPoint, viewport: Viewport): ClosestPosition {
-    return ClosestPosition.Under
+    return ClosestPosition.Under;
     // const closestNode = this.closestNode
     // if (!closestNode || !viewport.isPointInViewport(point))
     //   return ClosestPosition.Forbid
@@ -250,12 +247,12 @@ export class MoveHelper {
     //     return this.touchNode
     //   }
     // }
-    return this.operation.tree
+    return this.operation.tree;
   }
 
   calcClosestRect(viewport: Viewport, closestDirection: ClosestPosition): Rect {
-    const closestNode = this.closestNode
-    return null
+    const closestNode = this.closestNode;
+    return null;
     // if (!closestNode || !closestDirection)
     //   return
     // const closestRect = viewport.getValidNodeRect(closestNode)
@@ -272,9 +269,9 @@ export class MoveHelper {
 
   calcClosestOffsetRect(
     viewport: Viewport,
-    closestDirection: ClosestPosition,
+    closestDirection: ClosestPosition
   ): Rect {
-    return null
+    return null;
     // const closestNode = this.closestNode
     // if (!closestNode || !closestDirection)
     //   return
@@ -291,25 +288,25 @@ export class MoveHelper {
   }
 
   dragStart(props: IMoveHelperDragStartProps) {
-    const nodes = TreeNode.filterDraggable(props?.dragNodes)
+    const nodes = TreeNode.filterDraggable(props?.dragNodes);
     if (nodes.length) {
-      this.dragNodes = nodes
+      this.dragNodes = nodes;
       this.trigger(
         new DragNodeEvent({
           target: this.operation.tree,
           source: this.dragNodes,
-        }),
-      )
-      this.viewport.cacheElements()
-      this.cursor.setDragType(CursorDragType.Move)
-      this.dragging = true
+        })
+      );
+      this.viewport.cacheElements();
+
+      this.cursor.setDragType(CursorDragType.Move);
+      this.dragging = true;
     }
   }
 
   dragMove(props: IMoveHelperDragMoveProps) {
-    const { point, touchNode } = props
-    if (!this.dragging)
-      return
+    const { point, touchNode } = props;
+    if (!this.dragging) return;
     // if (this.outline.isPointInViewport(point, false)) {
     //   this.activeViewport = this.outline
     //   this.touchNode = touchNode
@@ -320,22 +317,20 @@ export class MoveHelper {
     //   this.touchNode = touchNode
     //   this.closestNode = this.calcClosestNode(point, this.viewport)
     // }
-    if (!this.activeViewport)
-      return
+    if (!this.activeViewport) return;
 
     if (this.activeViewport === this.outline) {
       this.outlineClosestDirection = this.calcClosestPosition(
         point,
-        this.outline,
-      )
-      this.viewportClosestDirection = this.outlineClosestDirection
-    }
-    else {
+        this.outline
+      );
+      this.viewportClosestDirection = this.outlineClosestDirection;
+    } else {
       this.viewportClosestDirection = this.calcClosestPosition(
         point,
-        this.viewport,
-      )
-      this.outlineClosestDirection = this.viewportClosestDirection
+        this.viewport
+      );
+      this.outlineClosestDirection = this.viewportClosestDirection;
     }
     // if (this.outline.mounted) {
     //   this.outlineClosestRect = this.calcClosestRect(
@@ -364,28 +359,28 @@ export class MoveHelper {
       new DropNodeEvent({
         target: this.operation.tree,
         source: props?.dropNode,
-      }),
-    )
+      })
+    );
   }
 
   dragEnd() {
-    this.dragging = false
-    this.dragNodes = []
-    this.touchNode = null
-    this.closestNode = null
-    this.activeViewport = null
-    this.outlineClosestDirection = null
-    this.outlineClosestOffsetRect = null
-    this.outlineClosestRect = null
-    this.viewportClosestDirection = null
-    this.viewportClosestOffsetRect = null
-    this.viewportClosestRect = null
-    this.viewport.clearCache()
+    this.dragging = false;
+    this.dragNodes = [];
+    this.touchNode = null;
+    this.closestNode = null;
+    this.activeViewport = null;
+    this.outlineClosestDirection = null;
+    this.outlineClosestOffsetRect = null;
+    this.outlineClosestRect = null;
+    this.viewportClosestDirection = null;
+    this.viewportClosestOffsetRect = null;
+    this.viewportClosestRect = null;
+    this.viewport.clearCache();
   }
 
   trigger(event: any) {
     if (this.operation) {
-      return this.operation.dispatch(event)
+      return this.operation.dispatch(event);
     }
   }
 
@@ -404,6 +399,6 @@ export class MoveHelper {
       dragStart: action,
       dragMove: action,
       dragEnd: action,
-    })
+    });
   }
 }
