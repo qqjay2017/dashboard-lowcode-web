@@ -9,7 +9,11 @@ export class Selection {
   operation: Operation
   selected: string[] = []
   indexes: Record<string, boolean> = {}
-  constructor(props?: ISelection) {}
+  constructor(props?: ISelection) { }
+  get selectedNodes() {
+    return []
+  }
+
   get first() {
     if (this.selected && this.selected.length)
       return this.selected[0]
@@ -19,7 +23,7 @@ export class Selection {
     return this.selected.length
   }
 
-  select(p1?: any) {}
+  select(p1?: any) { }
   has(...ids: string[] | TreeNode[]) {
     return false
     // return this.mapIds(ids).some((id) => {
@@ -34,5 +38,5 @@ export class Selection {
     // })
   }
 
-  remove(p1?: any) {}
+  remove(p1?: any) { }
 }

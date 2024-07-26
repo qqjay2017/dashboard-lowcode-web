@@ -125,6 +125,9 @@ export class DragDropDriver extends EventDriver<Engine> {
     }
   }
 
+  /**
+   * 最终执行
+   */
   attach() {
     this.batchAddEventListener('mousedown', this.onMouseDown, true)
   }

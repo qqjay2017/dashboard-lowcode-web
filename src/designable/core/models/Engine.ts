@@ -30,6 +30,27 @@ export class Engine extends Event {
     // this.keyboard = new Keyboard(this)
   }
 
+  getAllSelectedNodes() {
+    let results: TreeNode[] = []
+    for (let i = 0; i < this.workbench.workspaces.length; i++) {
+      const workspace = this.workbench.workspaces[i]
+      results = results.concat(workspace.operation.selection.selectedNodes)
+    }
+    return results
+  }
+
+  findMovingNodes(): TreeNode[] {
+    const results = []
+    this.workbench.eachWorkspace((workspace) => {
+      workspace.operation.moveHelper.dragNodes?.forEach((node) => {
+        if (!results.includes(node)) {
+          results.push(node)
+        }
+      })
+    })
+    return results
+  }
+
   setCurrentTree(tree?: ITreeNode) {
     if (this.workbench.currentWorkspace) {
       this.workbench.currentWorkspace.operation.tree.from(tree)

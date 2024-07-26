@@ -1,5 +1,5 @@
 import { DragMoveEvent, DragStartEvent, DragStopEvent } from '../events'
-import { ClosestPosition, CursorDragType, CursorType, type Engine } from '../models'
+import { ClosestPosition, CursorDragType, CursorType, type Engine, TreeNode } from '../models'
 import { Point } from '@/designable/shared'
 
 export function useDragDropEffect(engine: Engine) {
@@ -29,30 +29,30 @@ export function useDragDropEffect(engine: Engine) {
         engine.workbench.eachWorkspace((currentWorkspace) => {
             const operation = currentWorkspace.operation
             const moveHelper = operation.moveHelper
-            // if (nodeId || outlineId || handlerId) {
-            //     const node = engine.findNodeById(outlineId || nodeId || handlerId)
-            //     if (node) {
-            //         if (!node.allowDrag())
-            //             return
-            //         if (node === node.root)
-            //             return
-            //         const validSelected = engine
-            //             .getAllSelectedNodes()
-            //             .filter(node => node.allowDrag())
-            //         if (validSelected.includes(node)) {
-            //             moveHelper.dragStart({ dragNodes: TreeNode.sort(validSelected) })
-            //         }
-            //         else {
-            //             moveHelper.dragStart({ dragNodes: [node] })
-            //         }
-            //     }
-            // }
-            // else if (sourceId) {
-            //     const sourceNode = engine.findNodeById(sourceId)
-            //     if (sourceNode) {
-            //         moveHelper.dragStart({ dragNodes: [sourceNode] })
-            //     }
-            // }
+            if (nodeId || outlineId || handlerId) {
+                const node = engine.findNodeById(outlineId || nodeId || handlerId)
+                if (node) {
+                    if (!node.allowDrag())
+                        return
+                    if (node === node.root)
+                        return
+                    const validSelected = engine
+                        .getAllSelectedNodes()
+                        .filter(node => node.allowDrag())
+                    if (validSelected.includes(node)) {
+                        moveHelper.dragStart({ dragNodes: TreeNode.sort(validSelected) })
+                    }
+                    else {
+                        moveHelper.dragStart({ dragNodes: [node] })
+                    }
+                }
+            }
+            else if (sourceId) {
+                const sourceNode = engine.findNodeById(sourceId)
+                if (sourceNode) {
+                    moveHelper.dragStart({ dragNodes: [sourceNode] })
+                }
+            }
         })
         engine.cursor.setStyle('move')
     })
@@ -74,16 +74,16 @@ export function useDragDropEffect(engine: Engine) {
         const outlineId = el?.getAttribute(engine.props.outlineNodeIdAttrName)
         engine.workbench.eachWorkspace((currentWorkspace) => {
             const operation = currentWorkspace.operation
-            // const moveHelper = operation.moveHelper
-            // const dragNodes = moveHelper.dragNodes
-            // const tree = operation.tree
-            // if (!dragNodes.length)
-            //     return
-            // const touchNode = tree.findById(outlineId || nodeId)
-            // moveHelper.dragMove({
-            //     point,
-            //     touchNode,
-            // })
+            const moveHelper = operation.moveHelper
+            const dragNodes = moveHelper.dragNodes
+            const tree = operation.tree
+            if (!dragNodes.length)
+                return
+            const touchNode = tree.findById(outlineId || nodeId)
+            moveHelper.dragMove({
+                point,
+                touchNode,
+            })
         })
     })
 
@@ -92,6 +92,7 @@ export function useDragDropEffect(engine: Engine) {
             return
         if (engine.cursor.dragType !== CursorDragType.Move)
             return
+        console.log(' DragStopEvent')
         engine.workbench.eachWorkspace((currentWorkspace) => {
             const operation = currentWorkspace.operation
             const moveHelper = operation.moveHelper
@@ -101,6 +102,7 @@ export function useDragDropEffect(engine: Engine) {
             const selection = operation.selection
             if (!dragNodes.length)
                 return
+            console.log(dragNodes, 'dragNodes DragStopEvent')
             if (dragNodes.length && closestNode && closestDirection) {
                 if (
                     closestDirection === ClosestPosition.After
