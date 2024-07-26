@@ -70,9 +70,11 @@ export function useDragDropEffect(engine: Engine) {
       *[${engine.props.nodeIdAttrName}],
       *[${engine.props.outlineNodeIdAttrName}]
     `);
+    console.log("🚀 ~ engine.subscribeTo ~ el:", el);
 
     const point = new Point(event.data.topClientX, event.data.topClientY);
     const nodeId = el?.getAttribute(engine.props.nodeIdAttrName);
+    console.log("🚀 ~ engine.subscribeTo ~ nodeId:", nodeId);
     const outlineId = el?.getAttribute(engine.props.outlineNodeIdAttrName);
     engine.workbench.eachWorkspace((currentWorkspace) => {
       const operation = currentWorkspace.operation;
@@ -81,6 +83,7 @@ export function useDragDropEffect(engine: Engine) {
       const tree = operation.tree;
       if (!dragNodes.length) return;
       const touchNode = tree.findById(outlineId || nodeId);
+
       moveHelper.dragMove({
         point,
         touchNode,

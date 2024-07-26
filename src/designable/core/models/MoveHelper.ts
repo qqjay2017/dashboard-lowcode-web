@@ -108,8 +108,15 @@ export class MoveHelper {
 
   calcClosestPosition(point: IPoint, viewport: Viewport): ClosestPosition {
     const closestNode = this.closestNode;
-    debugger;
-    return ClosestPosition.Under;
+    // if (closestNode === closestNode.root) {
+    //   console.log(
+    //     "🚀 ~ MoveHelper ~ calcClosestPosition ~ closestNode:",
+    //     closestNode
+    //   );
+
+    //   return ClosestPosition.InnerAfter;
+    // }
+    return ClosestPosition.InnerAfter;
     //
     // if (!closestNode || !viewport.isPointInViewport(point))
     //   return ClosestPosition.Forbid
@@ -273,20 +280,17 @@ export class MoveHelper {
     viewport: Viewport,
     closestDirection: ClosestPosition
   ): Rect {
-    return null;
-    // const closestNode = this.closestNode
-    // if (!closestNode || !closestDirection)
-    //   return
-    // const closestRect = viewport.getValidNodeOffsetRect(closestNode)
-    // if (
-    //   closestDirection === ClosestPosition.InnerAfter
-    //   || closestDirection === ClosestPosition.InnerBefore
-    // ) {
-    //   return viewport.getChildrenOffsetRect(closestNode)
-    // }
-    // else {
-    //   return closestRect
-    // }
+    const closestNode = this.closestNode;
+    if (!closestNode || !closestDirection) return;
+    const closestRect = viewport.getValidNodeOffsetRect(closestNode);
+    if (
+      closestDirection === ClosestPosition.InnerAfter ||
+      closestDirection === ClosestPosition.InnerBefore
+    ) {
+      return viewport.getChildrenOffsetRect(closestNode);
+    } else {
+      return closestRect;
+    }
   }
 
   dragStart(props: IMoveHelperDragStartProps) {
@@ -314,11 +318,13 @@ export class MoveHelper {
     //   this.touchNode = touchNode
     //   this.closestNode = this.calcClosestNode(point, this.outline)
     // }
-    // else if (this.viewport.isPointInViewport(point, false)) {
-    //   this.activeViewport = this.viewport
-    //   this.touchNode = touchNode
-    //   this.closestNode = this.calcClosestNode(point, this.viewport)
-    // }
+    // else
+
+    if (this.viewport.isPointInViewport(point, false)) {
+      this.activeViewport = this.viewport;
+      this.touchNode = touchNode;
+      this.closestNode = this.calcClosestNode(point, this.viewport);
+    }
     if (!this.activeViewport) return;
 
     if (this.activeViewport === this.outline) {
@@ -334,26 +340,36 @@ export class MoveHelper {
       );
       this.outlineClosestDirection = this.viewportClosestDirection;
     }
-    // if (this.outline.mounted) {
-    //   this.outlineClosestRect = this.calcClosestRect(
-    //     this.outline,
-    //     this.outlineClosestDirection,
-    //   )
-    //   this.outlineClosestOffsetRect = this.calcClosestOffsetRect(
-    //     this.outline,
-    //     this.outlineClosestDirection,
-    //   )
-    // }
-    // if (this.viewport.mounted) {
-    //   this.viewportClosestRect = this.calcClosestRect(
-    //     this.viewport,
-    //     this.viewportClosestDirection,
-    //   )
-    //   this.viewportClosestOffsetRect = this.calcClosestOffsetRect(
-    //     this.viewport,
-    //     this.viewportClosestDirection,
-    //   )
-    // }
+    if (this.outline.mounted) {
+      console.log("🚀 ~ MoveHelper ~ dragMove ~ this.outline:", this.outline);
+      this.outlineClosestRect = this.calcClosestRect(
+        this.outline,
+        this.outlineClosestDirection
+      );
+      this.outlineClosestOffsetRect = this.calcClosestOffsetRect(
+        this.outline,
+        this.outlineClosestDirection
+      );
+    }
+    if (this.viewport.mounted) {
+      this.viewportClosestRect = this.calcClosestRect(
+        this.viewport,
+        this.viewportClosestDirection
+      );
+      console.log(
+        "🚀 ~ MoveHelper ~ dragMove ~ viewportClosestRect:",
+        this.viewportClosestRect
+      );
+
+      this.viewportClosestOffsetRect = this.calcClosestOffsetRect(
+        this.viewport,
+        this.viewportClosestDirection
+      );
+      console.log(
+        "🚀 ~ MoveHelper ~ dragMove ~ viewportClosestOffsetRect:",
+        this.viewportClosestOffsetRect
+      );
+    }
   }
 
   dragDrop(props: IMoveHelperDragDropProps) {
