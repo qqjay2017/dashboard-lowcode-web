@@ -21,7 +21,7 @@ import {
   NextButton,
   PrevButton,
   usePrevNextButtons,
-} from "@/style-components/ui";
+} from "@/themes/style-components/ui";
 
 const emptyCss = css`
   width: 100%;

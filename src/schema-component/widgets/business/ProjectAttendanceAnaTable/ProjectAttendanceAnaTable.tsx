@@ -3,7 +3,7 @@ import { get } from "lodash-es";
 import { getSchemeWrap } from "./getSchemeWrap";
 import { menuItem } from "./menuItem";
 import { settingSchema } from "./settingSchema";
-import { DataTable } from "@/style-components/ui";
+import { DataTable } from "@/themes/style-components/ui";
 import type { SchemComponentWithDataSourceProps } from "@/types";
 import {
   useDataBindFetch,

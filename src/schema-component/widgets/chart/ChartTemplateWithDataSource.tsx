@@ -4,7 +4,7 @@ import { get } from "lodash-es";
 
 import type { ChartTemplateProps } from "./types";
 import { useFetchChartConfig } from "./hooks/useFetchChartConfig";
-import { EmptyKit } from "@/style-components";
+import { EmptyKit } from "@/themes/style-components";
 
 import {
   useChartOption,
@@ -12,8 +12,8 @@ import {
   useQueryToBusParams,
 } from "@/schema-component";
 import { useToken } from "@/schema-component/antd/style";
-import chartDarkTheme from "@/global-theme/chart-theme/dark";
-import chartLightTheme from "@/global-theme/chart-theme/light";
+import chartDarkTheme from "@/themes/global-theme/chart-theme/dark";
+import chartLightTheme from "@/themes/global-theme/chart-theme/light";
 
 export function ChartTemplateWithDataSource({
   chartId,

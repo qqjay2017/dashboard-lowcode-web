@@ -1,71 +1,71 @@
-import { get } from 'lodash-es'
-import { Button, Space, Table, Tag, Tooltip } from 'antd'
-import { useNavigate } from 'react-router-dom'
-import { FormDialog } from '@formily/antd-v5'
-import dayjs from 'dayjs'
-import { css } from '@emotion/css'
-import { useEffect, useMemo } from 'react'
-import { ApiTest } from './ApiTest'
-import { CreateApiBtn } from './CreateApiBtn'
-import { ImportApiBtn } from './ImportApiBtn'
-import { ExportApiBtn } from './ExportApiBtn'
-import { shortUid } from '@/utils/shortUid'
-import { apiBase, copyTextToClipboard } from '@/utils'
-import { useGroupList } from '@/hooks'
-import { FormDialogPortal } from '@/schema-component'
-import { useApp } from '@/application'
-import { CreateBtnWrap } from '@/style-components'
-import { useRequest } from '@/api-client'
+import { get } from "lodash-es";
+import { Button, Space, Table, Tag, Tooltip } from "antd";
+import { useNavigate } from "react-router-dom";
+import { FormDialog } from "@formily/antd-v5";
+import dayjs from "dayjs";
+import { css } from "@emotion/css";
+import { useEffect, useMemo } from "react";
+import { ApiTest } from "./ApiTest";
+import { CreateApiBtn } from "./CreateApiBtn";
+import { ImportApiBtn } from "./ImportApiBtn";
+import { ExportApiBtn } from "./ExportApiBtn";
+import { shortUid } from "@/utils/shortUid";
+import { apiBase, copyTextToClipboard } from "@/utils";
+import { useGroupList } from "@/hooks";
+import { FormDialogPortal } from "@/schema-component";
+import { useApp } from "@/application";
+import { CreateBtnWrap } from "@/themes/style-components";
+import { useRequest } from "@/api-client";
 
 export function ApiMain() {
-  const app = useApp()
-  app.getComposeProviders
-  const navigate = useNavigate()
+  const app = useApp();
+  app.getComposeProviders;
+  const navigate = useNavigate();
   const { data, refetch } = useRequest(`${apiBase}/api-manage/list`, {
-    method: 'GET',
-  })
-  const { data: groupList, refetch: refetchGroupList } = useGroupList()
-  const Providers = useMemo(() => app.getComposeProviders(), [app])
-  const groupFilterOptions = get(groupList, 'data.data', []).map((item) => {
+    method: "GET",
+  });
+  const { data: groupList, refetch: refetchGroupList } = useGroupList();
+  const Providers = useMemo(() => app.getComposeProviders(), [app]);
+  const groupFilterOptions = get(groupList, "data.data", []).map((item) => {
     return {
       ...item,
       label: item.name,
       text: item.name,
       value: item.name,
-    }
-  })
-  const dataSource = get(data, 'data.data', []) || []
+    };
+  });
+  const dataSource = get(data, "data.data", []) || [];
 
   const handleTestApi = ({ apiId }: { apiId: string }) => {
     if (!apiId) {
-      return false
+      return false;
     }
     const dialog = FormDialog(
       {
-        title: '测试API',
-        width: '80vw',
+        title: "测试API",
+        width: "80vw",
       },
       () => {
         return (
           <Providers>
             <ApiTest apiId={apiId} />
           </Providers>
-        )
-      },
-    )
-    dialog.open()
-  }
+        );
+      }
+    );
+    dialog.open();
+  };
 
   useEffect(() => {
     function refresh() {
-      refetch()
-      refetchGroupList()
+      refetch();
+      refetchGroupList();
     }
-    document.addEventListener('importApi', refresh)
+    document.addEventListener("importApi", refresh);
     return () => {
-      document.removeEventListener('importApi', refresh)
-    }
-  }, [])
+      document.removeEventListener("importApi", refresh);
+    };
+  }, []);
 
   return (
     <FormDialogPortal>
@@ -91,8 +91,8 @@ export function ApiMain() {
             rowKey="id"
             columns={[
               {
-                title: '标识码',
-                dataIndex: 'id',
+                title: "标识码",
+                dataIndex: "id",
                 width: 160,
                 render: (_, record) => {
                   return (
@@ -103,18 +103,18 @@ export function ApiMain() {
                       <Button
                         type="link"
                         onClick={() => {
-                          copyTextToClipboard(record.id)
+                          copyTextToClipboard(record.id);
                         }}
                       >
                         复制
                       </Button>
                     </Space>
-                  )
+                  );
                 },
               },
               {
-                title: '名称',
-                dataIndex: 'name',
+                title: "名称",
+                dataIndex: "name",
                 width: 200,
                 render: (_, record) => {
                   return (
@@ -122,61 +122,61 @@ export function ApiMain() {
                       <div>{record.name}</div>
                       {record.isMock ? <Tag color="green">MOCK</Tag> : null}
                     </Space>
-                  )
+                  );
                 },
               },
               {
-                title: '分组',
+                title: "分组",
 
-                dataIndex: 'group',
+                dataIndex: "group",
                 filters: groupFilterOptions,
 
                 onFilter: (value, record) => {
-                  return record?.group === value
+                  return record?.group === value;
                 },
               },
               {
-                title: '域名',
-                dataIndex: 'origin',
+                title: "域名",
+                dataIndex: "origin",
               },
               {
-                title: '前缀',
-                dataIndex: 'baseName',
+                title: "前缀",
+                dataIndex: "baseName",
               },
               {
-                title: 'url',
-                dataIndex: 'url',
+                title: "url",
+                dataIndex: "url",
               },
               {
-                title: '请求方式',
-                dataIndex: 'method',
+                title: "请求方式",
+                dataIndex: "method",
                 width: 100,
               },
               {
-                title: '创建时间',
-                dataIndex: 'createdAt',
+                title: "创建时间",
+                dataIndex: "createdAt",
                 render: (_, record) => {
-                  return dayjs(record.createdAt).format('YYYY-MM-DD HH:mm:ss')
+                  return dayjs(record.createdAt).format("YYYY-MM-DD HH:mm:ss");
                 },
               },
               {
-                title: '修改时间',
-                dataIndex: 'updateAt',
+                title: "修改时间",
+                dataIndex: "updateAt",
                 render: (_, record) => {
-                  return dayjs(record.updateAt).format('YYYY-MM-DD HH:mm:ss')
+                  return dayjs(record.updateAt).format("YYYY-MM-DD HH:mm:ss");
                 },
               },
               {
-                title: '操作',
-                dataIndex: 'options',
-                fixed: 'right',
+                title: "操作",
+                dataIndex: "options",
+                fixed: "right",
                 width: 120,
                 render: (_, row) => {
                   return (
                     <Space>
                       <a
                         onClick={() => {
-                          handleTestApi({ apiId: row.id })
+                          handleTestApi({ apiId: row.id });
                         }}
                       >
                         测试
@@ -184,13 +184,13 @@ export function ApiMain() {
 
                       <a
                         onClick={() => {
-                          navigate(`/dapi/edit?id=${row.id}`)
+                          navigate(`/dapi/edit?id=${row.id}`);
                         }}
                       >
                         编辑
                       </a>
                     </Space>
-                  )
+                  );
                 },
               },
             ]}
@@ -198,5 +198,5 @@ export function ApiMain() {
         </div>
       </div>
     </FormDialogPortal>
-  )
+  );
 }

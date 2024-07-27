@@ -2,7 +2,7 @@ import { css } from "@emotion/css";
 import { forwardRef } from "react";
 import { useToken } from "@/schema-component/antd/style";
 import { cn } from "@/utils";
-import { baseSelectValueArrowImg } from "@/style-components/ui";
+import { baseSelectValueArrowImg } from "@/themes/style-components/ui";
 
 export const QuaterSelectValue = forwardRef<
   HTMLDivElement,

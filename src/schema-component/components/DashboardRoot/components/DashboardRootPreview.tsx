@@ -8,10 +8,11 @@ import { useBreakpoints, useRowProperties } from "../hooks";
 import { useDashboardRootStyle, useScrollBarStyle } from "../styles";
 import type { DashboardRootProps } from "../types";
 
-import { fontStyle } from "@/global-theme/font-style";
+import { fontStyle } from "@/themes/global-theme/font-style";
 import { useCustomThemeToken } from "@/dashboard-themes";
-import { ThemeCSSVariableProvider } from "@/css-variable";
+
 import { cn, cx, sizeFormat } from "@/utils";
+import { ThemeCSSVariableProvider } from "@/themes/css-variable";
 
 export function DashboardRootPreview({
   children,

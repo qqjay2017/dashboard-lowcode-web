@@ -1,36 +1,36 @@
-import { get } from 'lodash-es'
+import { get } from "lodash-es";
 
-import { Button, Dropdown, message } from 'antd'
-import { css } from '@emotion/css'
-import { IoIosMore } from 'react-icons/io'
+import { Button, Dropdown, message } from "antd";
+import { css } from "@emotion/css";
+import { IoIosMore } from "react-icons/io";
 
-import { useNavigate } from 'react-router-dom'
-import { FormDialog, Input } from '@formily/antd-v5'
-import type { DashboardItem } from '../types'
+import { useNavigate } from "react-router-dom";
+import { FormDialog, Input } from "@formily/antd-v5";
+import type { DashboardItem } from "../types";
 
-import { updateDashboardFormSchema } from '../schema/createDashboardFormSchema'
-import { CreateFormBtn } from '../CreateFormBtn'
-import { useApp } from '@/application'
-import { useReportShare } from '@/hooks'
-import { apiBase, copyTextToClipboard } from '@/utils'
-import { useAPIClient, useRequest } from '@/api-client/hooks'
-import type { APiWrap } from '@/api-client/hooks'
+import { updateDashboardFormSchema } from "../schema/createDashboardFormSchema";
+import { CreateFormBtn } from "../CreateFormBtn";
+import { useApp } from "@/application";
+import { useReportShare } from "@/hooks";
+import { apiBase, copyTextToClipboard } from "@/utils";
+import { useAPIClient, useRequest } from "@/api-client/hooks";
+import type { APiWrap } from "@/api-client/hooks";
 import {
   FormDialogPortal,
   showConfirmPromisify,
   useFormDialog,
-} from '@/schema-component/antd'
-import { CreateBtnWrap } from '@/style-components'
+} from "@/schema-component/antd";
+import { CreateBtnWrap } from "@/themes/style-components";
 
 export function DashboardMain() {
   const { data, refetch } = useRequest<APiWrap<DashboardItem[]>>(
     `${apiBase}/dashboard`,
     {
-      method: 'GET',
-    },
-  )
+      method: "GET",
+    }
+  );
 
-  const list = get(data, 'data.data', []) || []
+  const list = get(data, "data.data", []) || [];
 
   return (
     <div>
@@ -48,26 +48,25 @@ export function DashboardMain() {
             dashboard={dashboard}
             key={`${dashboard.id}-${index}`}
             refetch={refetch}
-          >
-          </FormCard>
+          ></FormCard>
         ))}
       </div>
     </div>
-  )
+  );
 }
 
 function FormCard({
   dashboard,
   refetch,
 }: {
-  dashboard: DashboardItem
-  refetch: Function
+  dashboard: DashboardItem;
+  refetch: Function;
 }) {
-  const navigate = useNavigate()
-  const apiClient = useAPIClient()
-  const app = useApp()
-  const { reportShare } = useReportShare()
-  const { getFormDialog } = useFormDialog()
+  const navigate = useNavigate();
+  const apiClient = useAPIClient();
+  const app = useApp();
+  const { reportShare } = useReportShare();
+  const { getFormDialog } = useFormDialog();
   return (
     <div
       className={css`
@@ -95,7 +94,7 @@ function FormCard({
       >
         <div
           onClick={() => {
-            navigate(`/dashboard-design/${dashboard.id}`)
+            navigate(`/dashboard-design/${dashboard.id}`);
           }}
           className={css`
             width: 100%;
@@ -106,8 +105,7 @@ function FormCard({
             background-repeat: no-repeat;
             background-position: center center;
           `}
-        >
-        </div>
+        ></div>
         <div
           className={css`
             width: 100%;
@@ -132,14 +130,14 @@ function FormCard({
           </div>
           <FormDialogPortal>
             <Dropdown
-              trigger={['click']}
+              trigger={["click"]}
               menu={{
                 onClick: async ({ key }) => {
-                  if (key === 'share') {
-                    const url = `${window.location.origin}/dashboard-report/${dashboard.shareURL}`
+                  if (key === "share") {
+                    const url = `${window.location.origin}/dashboard-report/${dashboard.shareURL}`;
                     const dialog = FormDialog(
                       {
-                        title: '分享链接',
+                        title: "分享链接",
 
                         footer: null,
                       },
@@ -151,42 +149,42 @@ function FormCard({
                               block
                               type="primary"
                               style={{
-                                marginTop: '16px',
+                                marginTop: "16px",
                               }}
                               onClick={() => {
-                                copyTextToClipboard(url)
+                                copyTextToClipboard(url);
                               }}
                             >
                               复制链接
                             </Button>
                           </div>
-                        )
-                      },
-                    )
-                    dialog.open()
-                    return
+                        );
+                      }
+                    );
+                    dialog.open();
+                    return;
                   }
-                  if (key === 'delete') {
-                    await showConfirmPromisify({})
+                  if (key === "delete") {
+                    await showConfirmPromisify({});
                     await apiClient.request({
                       url: `${apiBase}/dashboard/${dashboard.id}`,
-                      method: 'delete',
-                    })
-                    refetch && refetch()
-                    return
+                      method: "delete",
+                    });
+                    refetch && refetch();
+                    return;
                   }
-                  if (key === 'preview') {
+                  if (key === "preview") {
                     return reportShare(dashboard.shareURL, {
                       isHref: false,
-                    })
+                    });
                   }
-                  if (key === 'edit') {
+                  if (key === "edit") {
                     const dialog = getFormDialog(
                       {
-                        title: '编辑',
+                        title: "编辑",
                       },
-                      updateDashboardFormSchema,
-                    )
+                      updateDashboardFormSchema
+                    );
                     dialog
                       .forOpen((payload, next) => {
                         next({
@@ -194,44 +192,44 @@ function FormCard({
                             name: dashboard.name,
                             description: dashboard.description,
                           },
-                        })
+                        });
                       })
                       .forConfirm(async (payload, next) => {
-                        const { name, description } = payload.values
+                        const { name, description } = payload.values;
                         await app.apiClient.request<
                           any,
                           APiWrap<{ id: number }>
                         >({
                           url: `${apiBase}/dashboard/${dashboard.id}`,
-                          method: 'PUT',
+                          method: "PUT",
                           data: {
                             name,
                             description,
                           },
-                        })
-                        message.success('修改成功')
-                        refetch && refetch()
-                        next(payload)
+                        });
+                        message.success("修改成功");
+                        refetch && refetch();
+                        next(payload);
                       })
-                      .open()
+                      .open();
                   }
                 },
                 items: [
                   {
-                    key: 'preview',
-                    label: '预览',
+                    key: "preview",
+                    label: "预览",
                   },
                   {
-                    key: 'share',
-                    label: '分享',
+                    key: "share",
+                    label: "分享",
                   },
                   {
-                    key: 'edit',
-                    label: '编辑',
+                    key: "edit",
+                    label: "编辑",
                   },
                   {
-                    key: 'delete',
-                    label: '删除',
+                    key: "delete",
+                    label: "删除",
                   },
                 ],
               }}
@@ -242,5 +240,5 @@ function FormCard({
         </div>
       </div>
     </div>
-  )
+  );
 }

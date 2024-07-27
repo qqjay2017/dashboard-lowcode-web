@@ -1,6 +1,5 @@
 import { useEffect } from "react";
-
-import { useToken } from "../schema-component/antd/style";
+import { useToken } from "@/schema-component";
 
 export function ThemeCSSVariableProvider({ children }) {
   const { token } = useToken();

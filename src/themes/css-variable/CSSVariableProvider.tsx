@@ -1,7 +1,8 @@
 import { TinyColor } from "@ctrl/tinycolor";
 import { useEffect } from "react";
+
 import { defaultTheme } from "../global-theme";
-import { useToken } from "../schema-component/antd/style";
+import { useToken } from "@/schema-component";
 
 export function CSSVariableProvider({ children }) {
   const { token } = useToken();

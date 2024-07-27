@@ -1,12 +1,13 @@
-import { css } from '@emotion/css'
-import React from 'react'
-import { ConfigProvider } from 'antd'
+import { css } from "@emotion/css";
+import React from "react";
+import { ConfigProvider } from "antd";
 
-import { ChartView } from './ChartView'
-import { MonacoEditor } from '@/schema-component'
-import { ThemeCSSVariableProvider } from '@/css-variable'
-import { useCustomThemeToken } from '@/dashboard-themes'
-import { useApp } from '@/application'
+import { ChartView } from "./ChartView";
+import { MonacoEditor } from "@/schema-component";
+
+import { useCustomThemeToken } from "@/dashboard-themes";
+import { useApp } from "@/application";
+import { ThemeCSSVariableProvider } from "@/themes/css-variable";
 
 function ChartEditRightMain({
   chartOptionEditorRef,
@@ -16,7 +17,7 @@ function ChartEditRightMain({
   themeProvider,
   isDarkTheme,
 }) {
-  const app = useApp()
+  const app = useApp();
 
   return (
     <div
@@ -55,15 +56,15 @@ function ChartEditRightMain({
         />
       </div>
     </div>
-  )
+  );
 }
 
 export function ChartEditRight(props) {
-  const { isDarkTheme, themeProvider } = props
+  const { isDarkTheme, themeProvider } = props;
   const customThemeToken = useCustomThemeToken({
     isDarkTheme,
     themeProvider,
-  })
+  });
   return (
     <ConfigProvider
       theme={{
@@ -74,5 +75,5 @@ export function ChartEditRight(props) {
         <ChartEditRightMain {...props} />
       </ThemeCSSVariableProvider>
     </ConfigProvider>
-  )
+  );
 }

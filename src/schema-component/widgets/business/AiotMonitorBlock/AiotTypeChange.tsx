@@ -11,7 +11,7 @@ import {
   Tabs,
   TabsList,
   TabsTrigger2,
-} from "@/style-components/ui";
+} from "@/themes/style-components/ui";
 
 export function AiotTypeChange({
   value,

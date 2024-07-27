@@ -13,8 +13,8 @@ import { createRoot } from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { message, notification } from "antd";
 import type { APIClientOptions } from "../sdk";
-import { CSSVariableProvider } from "../css-variable";
-import { AntdAppProvider, GlobalThemeProvider } from "../global-theme";
+
+import { AntdAppProvider, GlobalThemeProvider } from "../themes/global-theme";
 import { APIClient, APIClientProvider } from "../api-client";
 import { AppSchemaComponentProvider } from "./AppSchemaComponentProvider";
 import { compose, normalizeContainer } from "./utils";
@@ -33,6 +33,7 @@ import {
   DashboardRootPreview,
   PositionDecoratorPreview,
 } from "@/schema-component";
+import { CSSVariableProvider } from "@/themes/css-variable";
 
 export type ComponentAndProps<T = any> = [ComponentType, T];
 

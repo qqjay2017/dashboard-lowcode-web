@@ -1,6 +1,6 @@
 import { css } from "@emotion/css";
 import { useToken } from "@/schema-component/antd/style";
-import { Tabs, TabsList, TabsTrigger2 } from "@/style-components/ui";
+import { Tabs, TabsList, TabsTrigger2 } from "@/themes/style-components/ui";
 
 export function RecentDateSelect({
   value,

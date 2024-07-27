@@ -1,73 +1,73 @@
-import { css } from '@emotion/css'
-import { Button } from 'antd'
+import { css } from "@emotion/css";
+import { Button } from "antd";
 
-import { get } from 'lodash-es'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { get } from "lodash-es";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
-import { LuDatabase } from 'react-icons/lu'
+import { LuDatabase } from "react-icons/lu";
 
-import { allChartType, defaultChartTemplate } from './consts'
-import { ChartTypeItem } from './ChartTypeItem'
-import { createChartSchema } from './createChartSchema'
-import { ChartListItem } from './ChartListItem'
-import type { IChartItem } from './types'
-import { CreateBtnWrap } from '@/style-components'
-import { FormDialogPortal, useFormDialog } from '@/schema-component'
-import type { APiWrap } from '@/api-client'
-import { useAPIClient, useRequest } from '@/api-client'
-import { apiBase } from '@/utils'
+import { allChartType, defaultChartTemplate } from "./consts";
+import { ChartTypeItem } from "./ChartTypeItem";
+import { createChartSchema } from "./createChartSchema";
+import { ChartListItem } from "./ChartListItem";
+import type { IChartItem } from "./types";
+import { CreateBtnWrap } from "@/themes/style-components";
+import { FormDialogPortal, useFormDialog } from "@/schema-component";
+import type { APiWrap } from "@/api-client";
+import { useAPIClient, useRequest } from "@/api-client";
+import { apiBase } from "@/utils";
 
 export function ChartIndex() {
-  const navigate = useNavigate()
-  const apiClient = useAPIClient()
-  const [searchParams, setSearchParams] = useSearchParams()
-  const chartType = searchParams.get('type') || ''
+  const navigate = useNavigate();
+  const apiClient = useAPIClient();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const chartType = searchParams.get("type") || "";
 
   const { data, refetch } = useRequest(`${apiBase}/chart`, {
-    method: 'GET',
+    method: "GET",
     params: {
       type: chartType,
     },
 
     refreshDeps: [chartType],
-  })
-  const { getFormDialog } = useFormDialog()
+  });
+  const { getFormDialog } = useFormDialog();
 
   const createChart = () => {
     const dialog = getFormDialog(
       {
-        title: '新建',
+        title: "新建",
       },
-      createChartSchema,
-    )
+      createChartSchema
+    );
 
     dialog
       .forConfirm(async (payload, next) => {
-        const values = payload.values
+        const values = payload.values;
         const res = await apiClient.request<any, APiWrap<{ id: number }>>({
           url: `${apiBase}/chart`,
-          method: 'POST',
+          method: "POST",
           data: {
             ...values,
             template: defaultChartTemplate,
           },
-        })
-        const id = get(res, 'data.data.id')
+        });
+        const id = get(res, "data.data.id");
         if (id) {
-          navigate(`/component/chart-edit/${id}`)
+          navigate(`/component/chart-edit/${id}`);
         }
-        next(payload)
+        next(payload);
       })
-      .open({})
-  }
+      .open({});
+  };
 
   const editChart = ({ id: chartId, name, type, description }: IChartItem) => {
     const dialog = getFormDialog(
       {
-        title: '新建',
+        title: "新建",
       },
-      createChartSchema,
-    )
+      createChartSchema
+    );
 
     dialog
       .forOpen((payload, next) => {
@@ -77,26 +77,26 @@ export function ChartIndex() {
             type,
             description,
           },
-        })
+        });
       })
       .forConfirm(async (payload, next) => {
-        const values = payload.values
+        const values = payload.values;
         const res = await apiClient.request<any, APiWrap<{ id: number }>>({
           url: `${apiBase}/chart/${chartId}`,
-          method: 'PUT',
+          method: "PUT",
           data: {
             ...values,
           },
-        })
-        const id = get(res, 'data.data.id')
+        });
+        const id = get(res, "data.data.id");
         if (id) {
-          refetch()
+          refetch();
         }
-        next(payload)
+        next(payload);
       })
-      .open({})
-  }
-  const chartList: IChartItem[] = get(data, 'data.data', []) || []
+      .open({});
+  };
+  const chartList: IChartItem[] = get(data, "data.data", []) || [];
 
   return (
     <div
@@ -122,8 +122,8 @@ export function ChartIndex() {
         >
           {[
             {
-              label: '全部',
-              name: '',
+              label: "全部",
+              name: "",
               icon: <LuDatabase />,
             },
             ...allChartType,
@@ -136,10 +136,10 @@ export function ChartIndex() {
                 onClick={() => {
                   setSearchParams({
                     type: type.name,
-                  })
+                  });
                 }}
               />
-            )
+            );
           })}
         </div>
         <div
@@ -170,14 +170,14 @@ export function ChartIndex() {
                   key={c.id}
                   {...c}
                   onEditClick={() => {
-                    editChart(c)
+                    editChart(c);
                   }}
                 />
-              )
+              );
             })}
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }

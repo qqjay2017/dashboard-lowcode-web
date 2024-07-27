@@ -1,6 +1,6 @@
 import type { CreateStylesUtils } from "antd-style";
 import { createStyles } from "antd-style";
-import type { CustomToken } from "@/global-theme";
+import type { CustomToken } from "@/themes/global-theme";
 
 export * from "./useToken";
 export { createStyles };

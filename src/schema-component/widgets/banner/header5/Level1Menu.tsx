@@ -9,7 +9,7 @@ import {
   NextButton,
   PrevButton,
   usePrevNextButtons,
-} from "@/style-components/ui";
+} from "@/themes/style-components/ui";
 
 export const Level1Menu = memo(
   ({
