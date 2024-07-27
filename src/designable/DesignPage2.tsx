@@ -1,11 +1,6 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { Designer, Workbench } from "./react/container";
-import {
-  GlobalRegistry,
-  createBehavior,
-  createDesigner,
-  createResource,
-} from "./core";
+import { createDesigner } from "./core";
 import {
   CompositePanel,
   StudioPanel,
@@ -15,10 +10,8 @@ import {
 import { ViewPanel } from "./react/panels/ViewPanel";
 import { Card, Content } from "./Content";
 import { ResourceWidget } from "./react/widgets";
-
-/**
- * 存到全局缓存
- */
+import { Logo } from "./Logo/Logo";
+import { Actions } from "./Logo/Actions";
 
 export function DesignPage2() {
   const engine = useMemo(() => {
@@ -27,9 +20,11 @@ export function DesignPage2() {
   return (
     <Designer engine={engine}>
       <Workbench>
-        <StudioPanel>
+        <StudioPanel logo={<Logo />} actions={<Actions />}>
           <CompositePanel>
-            <ResourceWidget title="sources.Inputs" sources={[Card]} />
+            <CompositePanel.Item title="组件" icon="Component">
+              <ResourceWidget title="sources.Inputs" sources={[Card]} />
+            </CompositePanel.Item>
           </CompositePanel>
           <WorkspacePanel>
             <ViewportPanel>

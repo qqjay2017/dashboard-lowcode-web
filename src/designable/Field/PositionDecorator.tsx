@@ -1,4 +1,5 @@
 import { type PropsWithChildren, useMemo } from "react";
+import { observer } from "@formily/react";
 import { useDesigner, useViewport } from "../react";
 import type { PositionDecoratorOptions } from "@/schema-component/components/PositionDecorator/types";
 import { cn, sizeFormat } from "@/utils";
@@ -6,7 +7,7 @@ import { cn, sizeFormat } from "@/utils";
 interface PositionDecoratorProps
   extends PropsWithChildren,
     PositionDecoratorOptions {}
-export function PositionDecorator(props: PositionDecoratorProps) {
+export const PositionDecorator = observer((props: PositionDecoratorProps) => {
   const {
     children,
     x = 0,
@@ -51,21 +52,26 @@ export function PositionDecorator(props: PositionDecoratorProps) {
   const designProps = {
     [designer.props.nodeIdAttrName]: props["data-designer-node-id"],
   };
+  console.log(props, "props pos dec ");
   return (
     <div
       className={cn("positionDecoratorHandle", className)}
       style={{
+        userSelect: "none",
         position: "absolute",
         width,
         height,
         zIndex,
         padding: styleMemo.padding,
-        left: `${sizeFormat(x * colWidth)}px`,
-        top: `${sizeFormat(y * rowHeight)}px`,
+        left: 0,
+        top: 0,
+        transform: `translate( ${sizeFormat(x * colWidth)}px,  ${sizeFormat(
+          y * rowHeight
+        )}px )`,
       }}
       {...designProps}
     >
       {children}
     </div>
   );
-}
+});

@@ -246,6 +246,7 @@ export class MoveHelper {
     if (!this.activeViewport) return;
 
     if (this.activeViewport === this.outline) {
+      console.log(this.outline, " this.outline");
       this.outlineClosestDirection = this.calcClosestPosition(
         point,
         this.outline

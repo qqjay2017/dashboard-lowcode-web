@@ -43,20 +43,29 @@ export function useDragDropEffect(engine: Engine) {
     engine.workbench.eachWorkspace((currentWorkspace) => {
       const operation = currentWorkspace.operation;
       const moveHelper = operation.moveHelper;
+      const transformHelper = operation.transformHelper;
       if (nodeId || outlineId || handlerId) {
         const node = engine.findNodeById(outlineId || nodeId || handlerId);
 
         if (node) {
           if (!node.allowDrag()) return;
           if (node === node.root) return;
-          const validSelected = engine
-            .getAllSelectedNodes()
-            .filter((node) => node.allowDrag());
-          if (validSelected.includes(node)) {
-            moveHelper.dragStart({ dragNodes: TreeNode.sort(validSelected) });
-          } else {
-            moveHelper.dragStart({ dragNodes: [node] });
-          }
+
+          transformHelper.dragStart({
+            dragNodes: [node],
+            type: "translate",
+          });
+
+          // if (!node.allowDrag()) return;
+          // if (node === node.root) return;
+          // const validSelected = engine
+          //   .getAllSelectedNodes()
+          //   .filter((node) => node.allowDrag());
+          // if (validSelected.includes(node)) {
+          //   moveHelper.dragStart({ dragNodes: TreeNode.sort(validSelected) });
+          // } else {
+          //   moveHelper.dragStart({ dragNodes: [node] });
+          // }
         }
       } else if (sourceId) {
         const sourceNode = engine.findNodeById(sourceId);
@@ -64,14 +73,15 @@ export function useDragDropEffect(engine: Engine) {
         if (sourceNode) {
           moveHelper.dragStart({ dragNodes: [sourceNode] });
         }
+        engine.cursor.setStyle("move");
       }
     });
-    engine.cursor.setStyle("move");
   });
 
   engine.subscribeTo(DragMoveEvent, (event) => {
     if (engine.cursor.type !== CursorType.Normal) return;
     if (engine.cursor.dragType !== CursorDragType.Move) return;
+
     const target = event.data.target as HTMLElement;
     const el = target?.closest(`
       *[${engine.props.nodeIdAttrName}],
@@ -80,7 +90,7 @@ export function useDragDropEffect(engine: Engine) {
 
     const point = new Point(event.data.topClientX, event.data.topClientY);
     const nodeId = el?.getAttribute(engine.props.nodeIdAttrName);
-
+    console.log(nodeId, "nodeId");
     const outlineId = el?.getAttribute(engine.props.outlineNodeIdAttrName);
     engine.workbench.eachWorkspace((currentWorkspace) => {
       const operation = currentWorkspace.operation;
@@ -89,7 +99,7 @@ export function useDragDropEffect(engine: Engine) {
       const tree = operation.tree;
       if (!dragNodes.length) return;
       const touchNode = tree.findById(outlineId || nodeId);
-
+      console.log(touchNode, "touchNode");
       moveHelper.dragMove({
         point,
         touchNode,
@@ -140,10 +150,12 @@ export function useDragDropEffect(engine: Engine) {
     engine.workbench.eachWorkspace((currentWorkspace) => {
       const operation = currentWorkspace.operation;
       const moveHelper = operation.moveHelper;
+      // const transformHelper = operation.transformHelper;
       const dragNodes = moveHelper.dragNodes;
       const closestNode = moveHelper.closestNode;
       const closestDirection = moveHelper.closestDirection;
       const selection = operation.selection;
+
       if (!dragNodes.length) return;
 
       if (dragNodes.length && closestNode && closestDirection) {

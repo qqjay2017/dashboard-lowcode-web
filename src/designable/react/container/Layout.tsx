@@ -1,10 +1,10 @@
 import React, { Fragment, useContext, useRef } from "react";
 
-import { injectGlobal } from "@emotion/css";
+import { css, injectGlobal } from "@emotion/css";
 import { DesignerLayoutContext } from "../context";
 import type { IDesignerLayoutProps } from "../types";
 
-injectGlobal`
+injectGlobal` 
   :root {
     //品牌色
   --dn-brand-color: rgba(24, 144, 255, 1);
@@ -24,7 +24,12 @@ injectGlobal`
   --dn-gray-lighter: #666;
   --dn-gray-dark: #222;
   --dn-black: #1a1a1a;
-   --dn-aux-cover-rect-dragging-color: var(--dn-brand-dragging);
+  }
+  
+  `;
+
+const lightStyle = css`
+  --dn-aux-cover-rect-dragging-color: var(--dn-brand-dragging);
   --dn-aux-cover-rect-dropping-color: var(--dn-brand-dropping);
   --dn-aux-free-selection-background-color: var(--dn-brand-color);
   --dn-aux-free-selection-border-color: var(--dn-brand-color);
@@ -98,18 +103,93 @@ injectGlobal`
   --dn-droppable-bg-color: var(--dn-white-gray-lighter);
   --dn-droppable-border-color: var(--dn-white-gray-dark);
   --dn-droppable-color: var(--dn-gray-lighter);
-  }
+`;
+
+const darkStyle = css`
+  --dn-aux-cover-rect-dragging-color: var(--dn-brand-dragging);
+  --dn-aux-cover-rect-dropping-color: var(--dn-brand-dropping);
+  --dn-aux-free-selection-background-color: var(--dn-brand-color);
+  --dn-aux-free-selection-border-color: var(--dn-brand-color);
+  --dn-aux-insertion-color: var(--dn-brand-color);
+  --dn-aux-dashed-box-color: var(--dn-brand-color);
+  --dn-aux-dashed-box-title-color: var(--dn-brand-color);
+  --dn-aux-selection-box-border-color: var(--dn-brand-color);
+  --dn-aux-selection-box-color: var(--dn-gray);
+  --dn-ghost-color: var(--dn-white);
+  --dn-ghost-bg-color: var(--dn-brand-moving);
+  --dn-outline-tree-bg-color: var(--dn-gray-dark);
+  --dn-outline-tree-header-border-color: var(--dn-gray);
+  --dn-outline-tree-color: var(--dn-white-gray);
+  --dn-outline-tree-insertion-bg-color: var(--dn-brand-color);
+  --dn-outline-tree-node-header-color: var(--dn-white-gray);
+  --dn-outline-tree-node-hover-color: var(--dn-white-gray);
+
+  --dn-toolbar-input-color: var(--dn-white-gray);
+  --dn-toolbar-input-bg-color: transparent;
+  --dn-toolbar-input-border-color: var(--dn-gray-light);
+  --dn-toolbar-input-hover-border-color: var(--dn-brand-color);
+  --dn-toolbar-input-handler-bg-color: var(--dn-gray-light);
+  --dn-resize-handle-bg-color: var(--dn-gray-light);
+  --dn-resize-handle-hover-bg-color: var(--dn-gray-lighter);
+  --dn-resize-handle-color: var(--dn-gray-lighter);
+  --dn-resize-handle-hover-color: var(--dn-white-gray-dark);
+
+  --dn-mobile-simulator-bg-color: var(--dn-black);
+  --dn-mobile-simulator-body-bg-color: var(--dn-black);
+  --dn-mobile-simulator-border-color: var(--dn-black);
+  --dn-responsive-simulator-bg-color: var(--dn-black);
+  --dn-pc-simulator-bg-color: var(--dn-black);
+
+  --dn-aux-selector-btn-color: var(--dn-white);
+  --dn-aux-selector-btn-bg-color: var(--dn-brand-color);
+  --dn-aux-selector-btn-border-color: var(--dn-brand-color);
+  --dn-aux-selector-btn-hover-color: var(--dn-white);
+  --dn-aux-selector-btn-hover-bg-color: var(--dn-brand-hovering);
+  --dn-aux-selector-btn-hover-border-color: var(--dn-brand-hovering);
+  --dn-aux-selector-btn-active-color: var(--dn-white);
+  --dn-aux-selector-btn-active-bg-color: var(--dn-brand-hovering);
+  --dn-aux-selector-btn-active-border-color: var(--dn-brand-hovering);
+
+  --dn-panel-border-color: var(--dn-gray-light);
+  --dn-panel-active-bg-color: var(--dn-gray);
+  --dn-resource-content-bg-color: var(--dn-gray-dark);
+
+  --dn-composite-panel-tabs-bg-color: var(--dn-gray-dark);
+  --dn-composite-panel-tabs-active-bg-color: var(--dn-gray-dark);
+  --dn-composite-panel-highlight-bg-color: var(--dn-black);
+  --dn-composite-panel-tabs-color: var(--dn-white-gray-dark);
+  --dn-composite-panel-tabs-hover-color: var(--dn-brand-color);
+  --dn-composite-panel-tabs-content-bg-color: var(--dn-gray-dark);
+  --dn-composite-panel-tabs-header-color: var(--dn-white-gray);
+
+  --dn-collapse-header-color: var(--dn-white-gray);
+
+  --dn-resource-item-color: var(--dn-white-gray);
+  --dn-resource-item-hover-color: var(--dn-brand-color);
+
+  --dn-main-panel-header-bg-color: var(--dn-gray-dark);
+  --dn-workspace-panel-bg-color: var(--dn-gray-dark);
+
+  --dn-scrollbar-color: var(--dn-gray-light);
+  --dn-scrollbar-hover-color: var(--dn-gray-lighter);
+
+  --dn-empty-bg-color: var(--dn-gray-dark);
+
+  --dn-droppable-bg-color: var(--dn-gray);
+  --dn-droppable-border-color: var(--dn-gray-light);
+  --dn-droppable-color: var(--dn-white);
 `;
 
 export const Layout: React.FC<IDesignerLayoutProps> = (props) => {
   const layout = useContext(DesignerLayoutContext);
   const ref = useRef<HTMLDivElement>();
+  const theme = props.theme || "light";
 
   if (layout) {
     return <Fragment>{props.children}</Fragment>;
   }
   return (
-    <div ref={ref}>
+    <div ref={ref} className={theme === "light" ? lightStyle : darkStyle}>
       <DesignerLayoutContext.Provider
         value={{
           theme: props.theme,

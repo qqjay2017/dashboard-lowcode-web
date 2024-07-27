@@ -1,6 +1,8 @@
+// import { set } from "lodash-es";
 import type { Engine } from "../models";
 import { CursorDragType } from "../models";
 import { DragMoveEvent, DragStartEvent, DragStopEvent } from "../events";
+// import { sizeFormat } from "@/utils";
 
 export function useResizeEffect(engine: Engine) {
   const findStartNodeHandler = (target: HTMLElement) => {
@@ -70,7 +72,6 @@ export function useResizeEffect(engine: Engine) {
     dragNodes.forEach((node) => {
       const element = node.getElement();
       helper.resize(node, (rect) => {
-        console.log(element, "element");
         element.style.width = `${rect.width}px`;
         element.style.height = `${rect.height}px`;
         element.style.position = "absolute";
@@ -86,7 +87,13 @@ export function useResizeEffect(engine: Engine) {
     const currentWorkspace =
       event.context?.workspace ?? engine.workbench.activeWorkspace;
     const helper = currentWorkspace?.operation.transformHelper;
+
     if (helper) {
+      // const dragNodes = helper.dragNodes;
+
+      // dragNodes.forEach((node) => {
+      //   const rect = node.getElementOffsetRect();
+      // });
       helper.dragEnd();
     }
   });

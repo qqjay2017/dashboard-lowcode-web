@@ -37,8 +37,9 @@ export const TreeNodeWidget: React.FC<ITreeNodeWidgetProps> = observer(
         ...node.props,
         ...node.designerProps?.getComponentProps?.(node),
       };
+
       if (node.depth === 0) {
-        delete props.style;
+        // delete props.style;
       }
       return props;
     };
