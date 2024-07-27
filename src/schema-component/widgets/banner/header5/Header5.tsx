@@ -5,9 +5,7 @@ import { get } from "lodash-es";
 import useResizeObserver from "use-resize-observer";
 import { GradientTitle } from "../header1/GradientTitle";
 import type { HeaderMenuItemType } from "../HeaderMenu/types";
-import { getSchemeWrap } from "./getSchemeWrap";
-import { menuItem } from "./menuItem";
-import { settingSchema } from "./settingSchema";
+
 import { HeaderClock } from "./HeaderClock";
 import { Level1Menu } from "./Level1Menu";
 import { loopMenuList } from "./loopMenuList";
@@ -21,6 +19,8 @@ import {
   useStrHandlebars,
 } from "@/schema-component";
 import type { DataSourceBindType } from "@/schema-component/types";
+import type { DnFC } from "@/designable/react";
+import { createBehavior, createResource } from "@/designable/core";
 
 interface Header5Props extends PropsWithChildren {
   title?: string;
@@ -28,7 +28,11 @@ interface Header5Props extends PropsWithChildren {
   dataSource?: DataSourceBindType;
 }
 
-export function Header5({ title, dataSource, subTitle }: Header5Props) {
+export const Header5: DnFC<Header5Props> = ({
+  title,
+  dataSource,
+  subTitle,
+}) => {
   const { reportId } = useReportId();
   const { isPc } = useDashboardRoot();
 
@@ -203,9 +207,52 @@ export function Header5({ title, dataSource, subTitle }: Header5Props) {
       )}
     </div>
   );
-}
+};
 
 Header5.displayName = "Header5";
-Header5.schemaFn = getSchemeWrap;
-Header5.menuItem = menuItem;
-Header5.settingSchema = settingSchema;
+
+Header5.Resource = createResource({
+  title: "头部5",
+  icon: rs("/assets/schema-component/header5/WX20240719-232752@2x.png"),
+  elements: [
+    {
+      componentName: "Field",
+      props: {
+        type: "void",
+        "x-component": "Header5",
+        "x-decorator": "PositionDecorator",
+        "x-decorator-props": {
+          w: 11,
+          h: 1.3,
+          padding: [0, 0, 0, 0],
+        },
+        "x-component-props": {
+          title: "{{dashboardDt.name}}",
+        },
+
+        "x-reactions": {
+          dependencies: {},
+          when: true,
+          fulfill: {
+            schema: {
+              "x-component-props.query": "{{$deps}}",
+            },
+          },
+        },
+      },
+    },
+  ],
+});
+
+Header5.Behavior = createBehavior({
+  name: "Header5",
+  selector: (node) =>
+    node.componentName === "Field" && node.props["x-component"] === "Header5",
+  designerProps: {
+    title: "头部5",
+    draggable: true,
+    droppable: false,
+    resizable: {},
+    translatable: {},
+  },
+});

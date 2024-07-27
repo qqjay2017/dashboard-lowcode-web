@@ -14,6 +14,7 @@ import {
 import { PiPathLight } from "react-icons/pi";
 
 import { IoIosSettings } from "react-icons/io";
+import { RiDragDropLine } from "react-icons/ri";
 import { cn } from "@/utils";
 
 export interface IIconWidgetProps extends React.HTMLAttributes<HTMLElement> {
@@ -38,6 +39,7 @@ const allIconMap = {
   Eye: MdRemoveRedEye,
   Position: PiPathLight,
   Setting: IoIosSettings,
+  DragDrop: RiDragDropLine,
 };
 
 export const IconWidget = observer(

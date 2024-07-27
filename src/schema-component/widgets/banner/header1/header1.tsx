@@ -72,7 +72,7 @@ export const Header1: DnFC<Header1Props> = ({
 Header1.displayName = "Header1";
 Header1.Resource = createResource({
   title: "头部1",
-  icon: rs("/assets/schema-component/Header1/header1.png"),
+  icon: rs("/assets/schema-component/Header1/WX20240728-001724@2x.png"),
   elements: [
     {
       componentName: "Field",
@@ -108,6 +108,7 @@ Header1.Behavior = createBehavior({
   selector: (node) =>
     node.componentName === "Field" && node.props["x-component"] === "Header1",
   designerProps: {
+    title: "头部5",
     draggable: true,
     droppable: false,
     resizable: {},

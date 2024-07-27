@@ -3,6 +3,7 @@ import cls from "classnames";
 import { injectGlobal } from "@emotion/css";
 import { useDesigner } from "../../hooks";
 
+import { IconWidget } from "../IconWidget";
 import type { TreeNode } from "@/designable/core";
 
 injectGlobal`
@@ -37,7 +38,9 @@ export const TranslateHandler: React.FC<ITranslateHandlerProps> = (props) => {
   if (!allowTranslate) return null;
   return (
     <>
-      <div {...createHandler("translate")}>FreeMove</div>
+      <div {...createHandler("translate")}>
+        <IconWidget infer="DragDrop" />
+      </div>
     </>
   );
 };

@@ -5,6 +5,7 @@ import { css } from "@emotion/css";
 import { useHover, useSelection } from "../../hooks";
 
 import { NodeTitleWidget } from "../NodeTitleWidget";
+import { IconWidget } from "../IconWidget";
 import type { TreeNode } from "@/designable/core";
 import { cn } from "@/utils";
 
@@ -48,18 +49,18 @@ export const Selector: React.FC<ISelectorProps> = observer(({ node }) => {
   const ref = useRef<HTMLDivElement>(null);
   const selection = useSelection();
 
-  // const renderIcon = (node: TreeNode) => {
-  //   const icon = node.designerProps.icon;
-  //   if (icon) {
-  //     return <IconWidget infer={icon} />;
-  //   }
-  //   if (node === node.root) {
-  //     return <IconWidget infer="Page" />;
-  //   } else if (node.designerProps?.droppable) {
-  //     return <IconWidget infer="Container" />;
-  //   }
-  //   return <IconWidget infer="Component" />;
-  // };
+  const renderIcon = (node: TreeNode) => {
+    // const icon = node.designerProps.icon;
+    // if (icon) {
+    //   return <IconWidget infer={icon} />;
+    // }
+    if (node === node.root) {
+      return <IconWidget infer="Page" />;
+    } else if (node.designerProps?.droppable) {
+      return <IconWidget infer="Container" />;
+    }
+    return <IconWidget infer="Component" />;
+  };
 
   const renderMenu = () => {
     const parents = node.getParents();
@@ -140,7 +141,7 @@ export const Selector: React.FC<ISelectorProps> = observer(({ node }) => {
           hover.setHover(node);
         }}
       >
-        {/* {renderIcon(node)} */}
+        {renderIcon(node)}
         <span>
           <NodeTitleWidget node={node} />
         </span>

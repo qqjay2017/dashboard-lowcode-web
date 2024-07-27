@@ -1,5 +1,6 @@
 import React from "react";
 import { observer } from "@formily/reactive-react";
+import { get } from "lodash-es";
 import type { TreeNode } from "@/designable/core";
 
 export interface INodeTitleWidgetProps {
@@ -16,6 +17,9 @@ export const NodeTitleWidget: React.FC<INodeTitleWidgetProps> = observer(
       return node;
     };
     const node = takeNode();
-    return <>{node.componentName || "componentName"}</>;
+    console.log(node, "node");
+    const title = get(node, "designerProps.title");
+
+    return <>{title || node.componentName || "componentName"}</>;
   }
 );

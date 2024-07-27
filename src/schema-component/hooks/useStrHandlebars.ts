@@ -4,7 +4,7 @@ import { useSchemaOptionsContext } from '../core'
 
 export function useStrHandlebars(titleStr = '') {
   const { scope } = useSchemaOptionsContext()
-
+  console.log(scope, 'scope')
   const str = useMemo(() => {
     const template = Handlebars.compile(titleStr)
     return template({
