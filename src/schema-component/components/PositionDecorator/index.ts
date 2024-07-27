@@ -1,2 +1,1 @@
-export * from './PositionDecorator'
-export * from './PositionDecoratorPreview'
+export * from "./PositionDecoratorPreview";

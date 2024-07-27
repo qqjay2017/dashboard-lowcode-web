@@ -1,14 +1,14 @@
 import { Fragment, useEffect, useMemo, useState } from "react";
 import { ConfigProvider } from "antd";
-import { useFieldSchema } from "@formily/react";
+import { RecursionField, useFieldSchema } from "@formily/react";
 import { css } from "@emotion/css";
 import { DashboardRootContext, DesignPageConext } from "../context";
 import { defaultBreakpoints, flexible } from "../../../../utils/utils";
 import { useBreakpoints, useRowProperties } from "../hooks";
 import { useDashboardRootStyle, useScrollBarStyle } from "../styles";
-import type { DashboardRootProps } from "./DashboardRoot";
-import { MemorizedRecursionField } from "./DashboardRoot";
-import { fontStyle } from "../../../../global-theme/font-style";
+import type { DashboardRootProps } from "../types";
+
+import { fontStyle } from "@/global-theme/font-style";
 import { useCustomThemeToken } from "@/dashboard-themes";
 import { ThemeCSSVariableProvider } from "@/css-variable";
 import { cn, cx, sizeFormat } from "@/utils";
@@ -61,7 +61,7 @@ export function DashboardRootPreview({
         {blockItems.map((schema, index) => {
           return (
             <Fragment key={`${schema.name}${index}`}>
-              <MemorizedRecursionField name={schema.name} schema={schema} />
+              <RecursionField name={schema.name} schema={schema} />
             </Fragment>
           );
         })}

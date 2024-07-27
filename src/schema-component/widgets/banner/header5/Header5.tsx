@@ -1,60 +1,60 @@
-import { css } from '@emotion/css'
+import { css } from "@emotion/css";
 
-import { type PropsWithChildren, useMemo } from 'react'
-import { get } from 'lodash-es'
-import useResizeObserver from 'use-resize-observer'
-import { GradientTitle } from '../header1/GradientTitle'
-import type { HeaderMenuItemType } from '../HeaderMenu/types'
-import { getSchemeWrap } from './getSchemeWrap'
-import { menuItem } from './menuItem'
-import { settingSchema } from './settingSchema'
-import { HeaderClock } from './HeaderClock'
-import { Level1Menu } from './Level1Menu'
-import { loopMenuList } from './loopMenuList'
-import { Level2SubMenu } from './Level2SubMenu'
-import { useToken } from '@/style'
-import { rs } from '@/utils'
+import { type PropsWithChildren, useMemo } from "react";
+import { get } from "lodash-es";
+import useResizeObserver from "use-resize-observer";
+import { GradientTitle } from "../header1/GradientTitle";
+import type { HeaderMenuItemType } from "../HeaderMenu/types";
+import { getSchemeWrap } from "./getSchemeWrap";
+import { menuItem } from "./menuItem";
+import { settingSchema } from "./settingSchema";
+import { HeaderClock } from "./HeaderClock";
+import { Level1Menu } from "./Level1Menu";
+import { loopMenuList } from "./loopMenuList";
+import { Level2SubMenu } from "./Level2SubMenu";
+import { useToken } from "@/schema-component/antd/style";
+import { rs } from "@/utils";
 import {
   useDashboardRoot,
   useDataBindFetch,
   useReportId,
   useStrHandlebars,
-} from '@/schema-component'
-import type { DataSourceBindType } from '@/schema-component/types'
+} from "@/schema-component";
+import type { DataSourceBindType } from "@/schema-component/types";
 
 interface Header5Props extends PropsWithChildren {
-  title?: string
-  subTitle?: string
-  dataSource?: DataSourceBindType
+  title?: string;
+  subTitle?: string;
+  dataSource?: DataSourceBindType;
 }
 
 export function Header5({ title, dataSource, subTitle }: Header5Props) {
-  const { reportId } = useReportId()
-  const { isPc } = useDashboardRoot()
+  const { reportId } = useReportId();
+  const { isPc } = useDashboardRoot();
 
-  const { token } = useToken()
+  const { token } = useToken();
 
   const bgSrc = rs(
-    `/assets/schema-component/header5/${token.themeAssetsPath}/bg.png`,
-  )
-  const titleStr = useStrHandlebars(title)
-  const subTitleStr = useStrHandlebars(subTitle)
-  const { data, isLoading } = useDataBindFetch(dataSource)
-  const menuList: HeaderMenuItemType[] = get(data, 'data.data', []) || []
-  const { ref, width = 0 } = useResizeObserver<HTMLDivElement>()
+    `/assets/schema-component/header5/${token.themeAssetsPath}/bg.png`
+  );
+  const titleStr = useStrHandlebars(title);
+  const subTitleStr = useStrHandlebars(subTitle);
+  const { data, isLoading } = useDataBindFetch(dataSource);
+  const menuList: HeaderMenuItemType[] = get(data, "data.data", []) || [];
+  const { ref, width = 0 } = useResizeObserver<HTMLDivElement>();
 
   const subMenuList = useMemo(() => {
     if (!menuList.length) {
-      return []
+      return [];
     }
-    return loopMenuList(menuList)
-  }, [menuList.length])
+    return loopMenuList(menuList);
+  }, [menuList.length]);
 
   const activeSubMenu = useMemo(() => {
     return subMenuList.find((s) => {
-      return s.shareURL === reportId
-    })
-  }, [subMenuList.length, reportId])
+      return s.shareURL === reportId;
+    });
+  }, [subMenuList.length, reportId]);
   return (
     <div
       className={css`
@@ -67,7 +67,7 @@ export function Header5({ title, dataSource, subTitle }: Header5Props) {
       <div
         className={css`
           width: 100%;
-          height: ${isPc ? '100%' : `106.4px`};
+          height: ${isPc ? "100%" : `106.4px`};
           position: relative;
           background-repeat: no-repeat;
           background-size: 100% 100%;
@@ -99,15 +99,14 @@ export function Header5({ title, dataSource, subTitle }: Header5Props) {
               <GradientTitle
                 titleStr={titleStr}
                 textProps={{
-                  x: '24px',
-                  y: '0.22rem',
-                  fontSize: '0.44rem',
+                  x: "24px",
+                  y: "0.22rem",
+                  fontSize: "0.44rem",
 
-                  alignmentBaseline: 'middle',
-                  textAnchor: 'start',
+                  alignmentBaseline: "middle",
+                  textAnchor: "start",
                 }}
-              >
-              </GradientTitle>
+              ></GradientTitle>
             </div>
           </div>
         )}
@@ -150,15 +149,13 @@ export function Header5({ title, dataSource, subTitle }: Header5Props) {
                 `
           }
         >
-          {menuList && menuList.length
-            ? (
-                <Level1Menu
-                  reportId={reportId}
-                  menuList={menuList}
-                  activeSubMenu={activeSubMenu}
-                />
-              )
-            : null}
+          {menuList && menuList.length ? (
+            <Level1Menu
+              reportId={reportId}
+              menuList={menuList}
+              activeSubMenu={activeSubMenu}
+            />
+          ) : null}
         </div>
         {/* 二级菜单区域 */}
         <div
@@ -171,14 +168,12 @@ export function Header5({ title, dataSource, subTitle }: Header5Props) {
             top: 58.3%;
           `}
         >
-          {activeSubMenu?.parent?.children?.length
-            ? (
-                <Level2SubMenu
-                  reportId={reportId}
-                  subMenuList={activeSubMenu?.parent?.children || []}
-                />
-              )
-            : null}
+          {activeSubMenu?.parent?.children?.length ? (
+            <Level2SubMenu
+              reportId={reportId}
+              subMenuList={activeSubMenu?.parent?.children || []}
+            />
+          ) : null}
         </div>
         {/* 闹钟区域 */}
         {isPc && (
@@ -207,10 +202,10 @@ export function Header5({ title, dataSource, subTitle }: Header5Props) {
         </div>
       )}
     </div>
-  )
+  );
 }
 
-Header5.displayName = 'Header5'
-Header5.schemaFn = getSchemeWrap
-Header5.menuItem = menuItem
-Header5.settingSchema = settingSchema
+Header5.displayName = "Header5";
+Header5.schemaFn = getSchemeWrap;
+Header5.menuItem = menuItem;
+Header5.settingSchema = settingSchema;

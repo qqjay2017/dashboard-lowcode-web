@@ -3,7 +3,7 @@ import type { PropsWithChildren } from "react";
 
 import { GradientTitle } from "./GradientTitle";
 import { cn, rs } from "@/utils";
-import { createStyles } from "@/style";
+import { createStyles } from "@/schema-component/antd/style";
 
 import { useStrHandlebars } from "@/schema-component/hooks";
 import type { DnFC } from "@/designable/react";

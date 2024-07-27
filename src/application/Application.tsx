@@ -4,74 +4,72 @@ import type {
   PropsWithChildren,
   ReactElement,
   ReactNode,
-} from 'react'
-import { define, observable } from '@formily/reactive'
-import { get, merge, set } from 'lodash-es'
-import { Link, NavLink, Navigate } from 'react-router-dom'
-import React from 'react'
-import { createRoot } from 'react-dom/client'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { message, notification } from 'antd'
-import type { APIClientOptions } from '../sdk'
-import { CSSVariableProvider } from '../css-variable'
-import { AntdAppProvider, GlobalThemeProvider } from '../global-theme'
-import { APIClient, APIClientProvider } from '../api-client'
-import { AppSchemaComponentProvider } from './AppSchemaComponentProvider'
-import { compose, normalizeContainer } from './utils'
-import { PluginManager } from './PluginManager'
-import type { PluginType } from './PluginManager'
+} from "react";
+import { define, observable } from "@formily/reactive";
+import { get, merge, set } from "lodash-es";
+import { Link, NavLink, Navigate } from "react-router-dom";
+import React from "react";
+import { createRoot } from "react-dom/client";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { message, notification } from "antd";
+import type { APIClientOptions } from "../sdk";
+import { CSSVariableProvider } from "../css-variable";
+import { AntdAppProvider, GlobalThemeProvider } from "../global-theme";
+import { APIClient, APIClientProvider } from "../api-client";
+import { AppSchemaComponentProvider } from "./AppSchemaComponentProvider";
+import { compose, normalizeContainer } from "./utils";
+import { PluginManager } from "./PluginManager";
+import type { PluginType } from "./PluginManager";
 
 import {
   AppComponent,
   BlankComponent,
   defaultAppComponents,
-} from './components'
-import { RouterManager } from './RouterManager'
-import type { ComponentTypeAndString, RouterOptions } from './RouterManager'
+} from "./components";
+import { RouterManager } from "./RouterManager";
+import type { ComponentTypeAndString, RouterOptions } from "./RouterManager";
 
 import {
-  DashboardRoot,
   DashboardRootPreview,
-  PositionDecorator,
   PositionDecoratorPreview,
-} from '@/schema-component'
+} from "@/schema-component";
 
-export type ComponentAndProps<T = any> = [ComponentType, T]
+export type ComponentAndProps<T = any> = [ComponentType, T];
 
 export interface ApplicationOptions {
-  designable?: boolean
-  name?: string
-  publicPath?: string
-  apiClient?: APIClientOptions | APIClient
+  designable?: boolean;
+  name?: string;
+  publicPath?: string;
+  apiClient?: APIClientOptions | APIClient;
 
-  providers?: (ComponentType | ComponentAndProps)[]
-  plugins?: PluginType[]
-  components?: Record<string, ComponentType>
-  scopes?: Record<string, any>
-  router?: RouterOptions
+  providers?: (ComponentType | ComponentAndProps)[];
+  plugins?: PluginType[];
+  components?: Record<string, ComponentType>;
+  scopes?: Record<string, any>;
+  router?: RouterOptions;
 }
 
 export class Application {
-  providers: ComponentAndProps[] = []
-  scopes?: Record<string, any>
-  router: RouterManager
-  public apiClient: APIClient
+  providers: ComponentAndProps[] = [];
+  scopes?: Record<string, any>;
+  router: RouterManager;
+  public apiClient: APIClient;
   public components: Record<string, ComponentType<any> | any> = {
     ...defaultAppComponents,
-  }
+  };
 
-  public pluginManager: PluginManager
-  public notification = notification
-  public message = message
-  public name: string = 'app'
+  public pluginManager: PluginManager;
+  public notification = notification;
+  public message = message;
+  public name: string = "app";
 
-  loading = true
-  maintained = false
-  maintaining = false
-  error = null
+  loading = true;
+  maintained = false;
+  maintaining = false;
+  error = null;
 
   get pm() {
-    return this.pluginManager
+    return this.pluginManager;
   }
 
   constructor(protected options: ApplicationOptions) {
@@ -80,29 +78,24 @@ export class Application {
       loading: observable.ref,
       maintaining: observable.ref,
       error: observable.ref,
-    })
-    this.scopes = merge(this.scopes, options.scopes)
-    this.components = merge(this.components, options.components, {
-      PositionDecorator: options.designable
-        ? PositionDecorator
-        : PositionDecoratorPreview,
-      DashboardRoot: options.designable ? DashboardRoot : DashboardRootPreview,
-    })
-    this.apiClient
-      = options.apiClient instanceof APIClient
+    });
+    this.scopes = merge(this.scopes, options.scopes);
+    this.components = merge(this.components, options.components, {});
+    this.apiClient =
+      options.apiClient instanceof APIClient
         ? options.apiClient
-        : new APIClient(options.apiClient)
-    this.apiClient.app = this
-    this.router = new RouterManager(options.router, this)
+        : new APIClient(options.apiClient);
+    this.apiClient.app = this;
+    this.router = new RouterManager(options.router, this);
 
-    this.pluginManager = new PluginManager(options.plugins, false, this)
+    this.pluginManager = new PluginManager(options.plugins, false, this);
 
-    this.addDefaultProviders()
-    this.addReactRouterComponents()
-    this.addProviders(options.providers || [])
+    this.addDefaultProviders();
+    this.addReactRouterComponents();
+    this.addProviders(options.providers || []);
 
-    this.addRoutes()
-    this.name = this.options.name
+    this.addRoutes();
+    this.name = this.options.name;
   }
 
   private addDefaultProviders() {
@@ -115,18 +108,18 @@ export class Application {
           },
         },
       }),
-    })
-    this.use(APIClientProvider, { apiClient: this.apiClient })
+    });
+    this.use(APIClientProvider, { apiClient: this.apiClient });
 
-    this.use(GlobalThemeProvider)
-    this.use(CSSVariableProvider)
+    this.use(GlobalThemeProvider);
+    this.use(CSSVariableProvider);
     this.use(AppSchemaComponentProvider, {
       designable: this.options.designable,
       appName: this.name,
       components: this.components,
       scope: this.scopes,
-    })
-    this.use(AntdAppProvider)
+    });
+    this.use(AntdAppProvider);
   }
 
   private addReactRouterComponents() {
@@ -134,167 +127,163 @@ export class Application {
       Link,
       Navigate: Navigate as ComponentType,
       NavLink,
-    })
+    });
   }
 
   private addRoutes() {
-    this.router.add('not-found', {
-      path: '*',
+    this.router.add("not-found", {
+      path: "*",
       Component: this.components.AppNotFound,
-    })
+    });
   }
 
   getOptions() {
-    return this.options
+    return this.options;
   }
 
   getName() {
-    return this.name
+    return this.name;
   }
 
   getPublicPath() {
-    let publicPath = this.options.publicPath || '/'
-    if (!publicPath.endsWith('/')) {
-      publicPath += '/'
+    let publicPath = this.options.publicPath || "/";
+    if (!publicPath.endsWith("/")) {
+      publicPath += "/";
     }
-    return publicPath
+    return publicPath;
   }
 
-  getApiUrl(pathname = '') {
-    let baseURL = this.apiClient.axios.defaults.baseURL
-    if (!baseURL.startsWith('http://') && !baseURL.startsWith('https://')) {
-      const { protocol, host } = window.location
-      baseURL = `${protocol}//${host}${baseURL}`
+  getApiUrl(pathname = "") {
+    let baseURL = this.apiClient.axios.defaults.baseURL;
+    if (!baseURL.startsWith("http://") && !baseURL.startsWith("https://")) {
+      const { protocol, host } = window.location;
+      baseURL = `${protocol}//${host}${baseURL}`;
     }
-    return `${baseURL.replace(/\/$/g, '')}/${pathname.replace(/^\//g, '')}`
+    return `${baseURL.replace(/\/$/g, "")}/${pathname.replace(/^\//g, "")}`;
   }
 
   getRouteUrl(pathname: string) {
-    return this.getPublicPath() + pathname.replace(/^\//g, '')
+    return this.getPublicPath() + pathname.replace(/^\//g, "");
   }
 
   /**
    * @internal
    */
   getComposeProviders(): React.FC<PropsWithChildren<any>> {
-    const Providers = compose(...this.providers)(BlankComponent)
-    Providers.displayName = 'Providers'
-    return Providers
+    const Providers = compose(...this.providers)(BlankComponent);
+    Providers.displayName = "Providers";
+    return Providers;
   }
 
   use<T = any>(component: ComponentType, props?: T) {
-    return this.addProvider(component, props)
+    return this.addProvider(component, props);
   }
 
   addProvider<T = any>(component: ComponentType, props?: T) {
-    return this.providers.push([component, props])
+    return this.providers.push([component, props]);
   }
 
   addProviders(providers: (ComponentType | [ComponentType, any])[]) {
     providers.forEach((provider) => {
       if (Array.isArray(provider)) {
-        this.addProvider(provider[0], provider[1])
+        this.addProvider(provider[0], provider[1]);
+      } else {
+        this.addProvider(provider);
       }
-      else {
-        this.addProvider(provider)
-      }
-    })
+    });
   }
 
   async load() {
-    let loadFailed = false
+    let loadFailed = false;
 
     try {
-      this.loading = true
-      await this.pm.load()
-    }
-    catch (error) {
-      loadFailed = true
-      const others = error?.response?.data?.error
-        || error?.response?.data?.errors?.[0] || { message: error?.message }
+      this.loading = true;
+      await this.pm.load();
+    } catch (error) {
+      loadFailed = true;
+      const others = error?.response?.data?.error ||
+        error?.response?.data?.errors?.[0] || { message: error?.message };
       this.error = {
-        code: 'LOAD_ERROR',
+        code: "LOAD_ERROR",
         ...others,
-      }
-      console.error(error, this.error)
+      };
+      console.error(error, this.error);
     }
-    this.loading = false
+    this.loading = false;
   }
 
   getComponent<T = any>(
     Component: ComponentTypeAndString<T>,
-    isShowError = true,
+    isShowError = true
   ): ComponentType<T> | undefined {
-    const showError = (msg: string) => isShowError && console.error(msg)
+    const showError = (msg: string) => isShowError && console.error(msg);
     if (!Component) {
-      showError(`getComponent called with ${Component}`)
-      return
+      showError(`getComponent called with ${Component}`);
+      return;
     }
 
     // ClassComponent or FunctionComponent
-    if (typeof Component === 'function')
-      return Component
+    if (typeof Component === "function") return Component;
 
     // Component is a string, try to get it from this.components
-    if (typeof Component === 'string') {
-      const res = get(this.components, Component) as ComponentType<T>
+    if (typeof Component === "string") {
+      const res = get(this.components, Component) as ComponentType<T>;
 
       if (!res) {
-        showError(`Component ${Component} not found`)
-        return
+        showError(`Component ${Component} not found`);
+        return;
       }
-      return res
+      return res;
     }
 
-    showError(`Component ${Component} should be a string or a React component`)
+    showError(`Component ${Component} should be a string or a React component`);
   }
 
   renderComponent<T extends {}>(
     Component: ComponentTypeAndString,
     props?: T,
-    children?: ReactNode,
+    children?: ReactNode
   ): ReactElement {
-    return React.createElement(this.getComponent(Component), props, children)
+    return React.createElement(this.getComponent(Component), props, children);
   }
 
   /**
    * @internal
    */
   protected addComponent(component: ComponentType, name?: string) {
-    const componentName = name || component.displayName || component.name
+    const componentName = name || component.displayName || component.name;
     if (!componentName) {
       console.error(
-        'Component must have a displayName or pass name as second argument',
-      )
-      return
+        "Component must have a displayName or pass name as second argument"
+      );
+      return;
     }
-    set(this.components, componentName, component)
+    set(this.components, componentName, component);
   }
 
   addComponents(components: Record<string, ComponentType>) {
     Object.keys(components).forEach((name) => {
-      this.addComponent(components[name], name)
-    })
+      this.addComponent(components[name], name);
+    });
   }
 
   addScopes(scopes: Record<string, any>) {
-    this.scopes = merge(this.scopes, scopes)
+    this.scopes = merge(this.scopes, scopes);
   }
 
   getRootComponent() {
     const Root: FC<{ children?: React.ReactNode }> = ({ children }) => (
       <AppComponent app={this}>{children}</AppComponent>
-    )
-    return Root
+    );
+    return Root;
   }
 
   mount(containerOrSelector: Element | ShadowRoot | string) {
-    const container = normalizeContainer(containerOrSelector)
-    if (!container)
-      return
-    const App = this.getRootComponent()
-    const root = createRoot(container)
-    root.render(<App />)
-    return root
+    const container = normalizeContainer(containerOrSelector);
+    if (!container) return;
+    const App = this.getRootComponent();
+    const root = createRoot(container);
+    root.render(<App />);
+    return root;
   }
 }

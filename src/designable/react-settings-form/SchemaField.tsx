@@ -32,6 +32,7 @@ import {
   ColorInput,
   ColorTypeSelect,
   CornerInput,
+  DataSourceBind,
   DecoratorPaddingFormItem,
   DepFieldSetFormItem,
   DesignWidthEnumSelect,
@@ -95,5 +96,6 @@ export const SchemaField = createSchemaField({
     ApiHeadersFormItem,
     ApiOriginFormItem,
     DesignWidthEnumSelect,
+    DataSourceBind,
   },
 });

@@ -1,8 +1,9 @@
-import { css } from '@emotion/css'
-import type { PropsWithChildren } from 'react'
-import { forwardRef } from 'react'
-import { useToken } from '@/style'
-import { cn } from '@/utils'
+import { css } from "@emotion/css";
+import type { PropsWithChildren } from "react";
+import { forwardRef } from "react";
+import { useToken } from "@/schema-component/antd/style";
+
+import { cn } from "@/utils";
 
 interface TableContainerProps extends PropsWithChildren {}
 
@@ -21,11 +22,11 @@ const TableContainer = forwardRef<HTMLDivElement, TableContainerProps>(
       >
         {children}
       </div>
-    )
-  },
-)
+    );
+  }
+);
 
-TableContainer.displayName = 'TableContainer'
+TableContainer.displayName = "TableContainer";
 
 const Table = forwardRef<
   HTMLTableElement,
@@ -42,7 +43,7 @@ const Table = forwardRef<
           border-spacing: 0;
           table-layout: fixed;
         `,
-        className,
+        className
       )}
       style={{
         ...style,
@@ -51,9 +52,9 @@ const Table = forwardRef<
     >
       {children}
     </table>
-  )
-})
-Table.displayName = 'Table'
+  );
+});
+Table.displayName = "Table";
 
 const TableBody = forwardRef<
   HTMLTableSectionElement,
@@ -65,18 +66,18 @@ const TableBody = forwardRef<
       css`
         padding-top: 3px;
       `,
-      className,
+      className
     )}
     {...props}
   />
-))
-TableBody.displayName = 'TableBody'
+));
+TableBody.displayName = "TableBody";
 
 const TableCell = forwardRef<
   HTMLTableCellElement,
   React.TdHTMLAttributes<HTMLTableCellElement>
 >(({ className, ...props }, ref) => {
-  const { token } = useToken()
+  const { token } = useToken();
   return (
     <td
       ref={ref}
@@ -99,19 +100,19 @@ const TableCell = forwardRef<
             overflow: hidden;
           }
         `,
-        className,
+        className
       )}
       {...props}
     />
-  )
-})
-TableCell.displayName = 'TableCell'
+  );
+});
+TableCell.displayName = "TableCell";
 
 const TableHead = forwardRef<
   HTMLTableCellElement,
   React.ThHTMLAttributes<HTMLTableCellElement>
 >(({ className, ...props }, ref) => {
-  const { token } = useToken()
+  const { token } = useToken();
   return (
     <th
       ref={ref}
@@ -131,19 +132,19 @@ const TableHead = forwardRef<
           justify-content: flex-start;
           flex: 0 1 auto;
         `,
-        className,
+        className
       )}
       {...props}
     />
-  )
-})
-TableHead.displayName = 'TableHead'
+  );
+});
+TableHead.displayName = "TableHead";
 
 const TableHeader = forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement>
 >(({ className, ...props }, ref) => {
-  const { token } = useToken()
+  const { token } = useToken();
   return (
     <thead
       ref={ref}
@@ -161,13 +162,13 @@ const TableHeader = forwardRef<
           border: none;
           border-bottom: 1px solid ${token.table.colorRowBg};
         `,
-        className,
+        className
       )}
       {...props}
     />
-  )
-})
-TableHeader.displayName = 'TableHeader'
+  );
+});
+TableHeader.displayName = "TableHeader";
 
 const TableRow = forwardRef<
   HTMLTableRowElement,
@@ -182,12 +183,12 @@ const TableRow = forwardRef<
         height: 100%;
       `,
 
-      className,
+      className
     )}
     {...props}
   />
-))
-TableRow.displayName = 'TableRow'
+));
+TableRow.displayName = "TableRow";
 
 export {
   Table,
@@ -197,4 +198,4 @@ export {
   TableHead,
   TableHeader,
   TableRow,
-}
+};

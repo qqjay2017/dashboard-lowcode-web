@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { ConfigProvider } from "antd";
 import { Schema, observer } from "@formily/react";
 
-import type { DashboardRootProps } from "@/schema-component/components/DashboardRoot";
 import { defaultBreakpoints, flexible } from "@/utils/utils";
 import {
   useDashboardRootStyle,
@@ -16,6 +15,7 @@ import { cn, sizeFormat } from "@/utils";
 import { useCustomThemeToken } from "@/dashboard-themes";
 import { ThemeCSSVariableProvider } from "@/css-variable";
 import { fontStyle } from "@/global-theme/font-style";
+import type { DashboardRootProps } from "@/schema-component";
 
 interface IRootProps extends DashboardRootProps {}
 export const Root: DnFC<IRootProps> = observer(

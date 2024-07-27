@@ -1,15 +1,15 @@
-import { css } from '@emotion/css'
-import { useToken } from '@/style'
-import { Tabs, TabsList, TabsTrigger2 } from '@/ui'
+import { css } from "@emotion/css";
+import { useToken } from "@/schema-component/antd/style";
+import { Tabs, TabsList, TabsTrigger2 } from "@/style-components/ui";
 
 export function RecentDateSelect({
   value,
   onChange,
 }: {
-  value?: any
-  onChange?: any
+  value?: any;
+  onChange?: any;
 }) {
-  const { token } = useToken()
+  const { token } = useToken();
   return (
     <Tabs defaultValue="1" value={value} onValueChange={onChange}>
       <TabsList>
@@ -39,5 +39,5 @@ export function RecentDateSelect({
         </TabsTrigger2>
       </TabsList>
     </Tabs>
-  )
+  );
 }

@@ -1,23 +1,23 @@
-import { css } from '@emotion/css'
-import type { PropsWithChildren } from 'react'
-import { LuLoader2 } from 'react-icons/lu'
-import { useToken } from '@/style/useToken'
+import { css } from "@emotion/css";
+import type { PropsWithChildren } from "react";
+import { LuLoader2 } from "react-icons/lu";
+import { useToken } from "@/schema-component/antd/style/useToken";
 
 interface EmptyKitProps extends PropsWithChildren {
-  loading?: boolean
-  empty?: boolean
-  placeholder?: string
-  className?: string
+  loading?: boolean;
+  empty?: boolean;
+  placeholder?: string;
+  className?: string;
 }
 
 export function EmptyKit({
   loading = false,
   empty = false,
-  placeholder = '暂无数据',
+  placeholder = "暂无数据",
   children,
   className,
 }: EmptyKitProps) {
-  const { token } = useToken()
+  const { token } = useToken();
   if (loading || empty) {
     return (
       <div
@@ -50,22 +50,20 @@ export function EmptyKit({
             `}
           />
         )}
-        {empty && !loading
-          ? (
-              <div
-                className={css`
+        {empty && !loading ? (
+          <div
+            className={css`
               font-weight: 400;
               font-size: 0.16rem;
               color: ${token.textCommon};
               line-height: 0.2rem;
             `}
-              >
-                {placeholder}
-              </div>
-            )
-          : null}
+          >
+            {placeholder}
+          </div>
+        ) : null}
       </div>
-    )
+    );
   }
-  return children
+  return children;
 }

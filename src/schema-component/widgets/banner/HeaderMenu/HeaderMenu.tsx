@@ -1,23 +1,27 @@
-import { get } from 'lodash-es'
-import { css } from '@emotion/css'
-import * as Select from '@radix-ui/react-select'
-import useResizeObserver from 'use-resize-observer'
-import { forwardRef, useMemo } from 'react'
-import useEmblaCarousel from 'embla-carousel-react'
-import type { HeaderMenuItemType } from './types'
-import { useMenuItemStyle } from './styles'
-import { HeaderMenuSchemeWrap } from './HeaderMenuSchemeWrap'
-import { HeaderMenuMenuItem } from './HeaderMenuMenuItem'
-import { HeaderMenuSettingSchema } from './HeaderMenuSettingSchema'
-import { ConetentSpin } from '@/schema-component/components'
-import { useDataBindFetch, useReportId } from '@/schema-component/hooks'
-import type { DataSourceBindType } from '@/schema-component/types'
+import { get } from "lodash-es";
+import { css } from "@emotion/css";
+import * as Select from "@radix-ui/react-select";
+import useResizeObserver from "use-resize-observer";
+import { forwardRef, useMemo } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import type { HeaderMenuItemType } from "./types";
+import { useMenuItemStyle } from "./styles";
+import { HeaderMenuSchemeWrap } from "./HeaderMenuSchemeWrap";
+import { HeaderMenuMenuItem } from "./HeaderMenuMenuItem";
+import { HeaderMenuSettingSchema } from "./HeaderMenuSettingSchema";
+import { ConetentSpin } from "@/schema-component/components";
+import { useDataBindFetch, useReportId } from "@/schema-component/hooks";
+import type { DataSourceBindType } from "@/schema-component/types";
 
-import { useToken } from '@/style'
-import { cn, sizeFormat } from '@/utils'
-import { useReportShare } from '@/hooks'
+import { useToken } from "@/schema-component/antd/style";
+import { cn, sizeFormat } from "@/utils";
+import { useReportShare } from "@/hooks";
 
-import { NextButton, PrevButton, usePrevNextButtons } from '@/ui'
+import {
+  NextButton,
+  PrevButton,
+  usePrevNextButtons,
+} from "@/style-components/ui";
 
 const emptyCss = css`
   width: 100%;
@@ -25,26 +29,26 @@ const emptyCss = css`
   display: flex;
   align-items: center;
   justify-content: center;
-`
+`;
 
 export const MenuItem = forwardRef<
   HTMLDivElement,
   {
-    menuItem: HeaderMenuItemType
-    reportId?: string
-    className?: string
-    style?: React.CSSProperties
+    menuItem: HeaderMenuItemType;
+    reportId?: string;
+    className?: string;
+    style?: React.CSSProperties;
   }
 >(({ menuItem, reportId, className, style }, ref) => {
-  const disabled = !menuItem.shareURL || menuItem.disabled
+  const disabled = !menuItem.shareURL || menuItem.disabled;
   const active = !reportId
     ? false
-    : (menuItem.shareURL && menuItem.shareURL === reportId)
-    || !!(menuItem.children || []).find(child => child.shareURL === reportId)
-  const { styles } = useMenuItemStyle({ active })
-  const { token } = useToken()
+    : (menuItem.shareURL && menuItem.shareURL === reportId) ||
+      !!(menuItem.children || []).find((child) => child.shareURL === reportId);
+  const { styles } = useMenuItemStyle({ active });
+  const { token } = useToken();
 
-  const { reportShare } = useReportShare()
+  const { reportShare } = useReportShare();
 
   if (!menuItem.children || !menuItem.children.length) {
     return (
@@ -54,11 +58,11 @@ export const MenuItem = forwardRef<
         aria-roledescription="slide"
         onClick={() => {
           if (disabled) {
-            return false
+            return false;
           }
           reportShare(menuItem.shareURL, {
             isHref: true,
-          })
+          });
         }}
         className={cn(
           // active ? css`` : "",
@@ -68,29 +72,29 @@ export const MenuItem = forwardRef<
             ? css`
                 cursor: not-allowed;
               `
-            : '',
-          className,
+            : "",
+          className
         )}
         style={style}
       >
         {menuItem.label}
       </div>
-    )
+    );
   }
   const menuItemActiveCss = css`
     background-color: ${token.popover?.accentBg}!important;
     color: ${token.popover?.accentForeground}!important;
-  `
+  `;
   return (
     <Select.Root
       value={reportId}
       onValueChange={(e) => {
         if (!e) {
-          return false
+          return false;
         }
         reportShare(e, {
           isHref: true,
-        })
+        });
       }}
     >
       <Select.Trigger asChild>
@@ -104,7 +108,7 @@ export const MenuItem = forwardRef<
         </div>
       </Select.Trigger>
 
-      <Select.Portal container={document.getElementById('DashboardRoot')}>
+      <Select.Portal container={document.getElementById("DashboardRoot")}>
         <Select.Content
           className={css`
             margin-top: 0;
@@ -125,7 +129,7 @@ export const MenuItem = forwardRef<
             <ChevronUpIcon />
           </SelectScrollButton> */}
             {menuItem.children.map((subItem, index) => {
-              const disabled = !subItem.shareURL || subItem.disabled
+              const disabled = !subItem.shareURL || subItem.disabled;
 
               return (
                 <Select.Item
@@ -148,20 +152,20 @@ export const MenuItem = forwardRef<
                         letter-spacing: 0.02rem;
                         padding-left: 0.12rem;
                         color: ${token.popover?.foreground};
-                        cursor: ${disabled ? 'not-allowed' : 'pointer'};
+                        cursor: ${disabled ? "not-allowed" : "pointer"};
                         &:hover {
                           ${!disabled && menuItemActiveCss}
                         }
                       `,
-                      reportId
-                      && subItem.shareURL === reportId
-                      && menuItemActiveCss,
+                      reportId &&
+                        subItem.shareURL === reportId &&
+                        menuItemActiveCss
                     )}
                   >
                     {subItem.label}
                   </div>
                 </Select.Item>
-              )
+              );
             })}
           </Select.Viewport>
           {/* <SelectScrollDownButton>
@@ -170,47 +174,45 @@ export const MenuItem = forwardRef<
         </Select.Content>
       </Select.Portal>
     </Select.Root>
-  )
-})
+  );
+});
 export function HeaderMenu({
   dataSource,
 }: {
-  dataSource?: DataSourceBindType
+  dataSource?: DataSourceBindType;
 }) {
-  const { data, isLoading } = useDataBindFetch(dataSource)
-  const menuList: HeaderMenuItemType[] = get(data, 'data.data', []) || []
-  const { reportId } = useReportId()
-  const { ref, width = 0 } = useResizeObserver<HTMLDivElement>()
+  const { data, isLoading } = useDataBindFetch(dataSource);
+  const menuList: HeaderMenuItemType[] = get(data, "data.data", []) || [];
+  const { reportId } = useReportId();
+  const { ref, width = 0 } = useResizeObserver<HTMLDivElement>();
   const menuInnerWidth = useMemo(() => {
-    if (!width)
-      return 0
+    if (!width) return 0;
 
-    return Math.floor(width - 60)
-  }, [width])
+    return Math.floor(width - 60);
+  }, [width]);
 
   const menuCount = useMemo(() => {
-    if (!menuInnerWidth)
-      return 0
+    if (!menuInnerWidth) return 0;
 
-    return Math.floor(menuInnerWidth / 180)
-  }, [menuInnerWidth])
+    return Math.floor(menuInnerWidth / 180);
+  }, [menuInnerWidth]);
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
-    slidesToScroll: 'auto',
-  })
+    slidesToScroll: "auto",
+  });
 
   const {
     prevBtnDisabled,
     nextBtnDisabled,
     onPrevButtonClick,
     onNextButtonClick,
-  } = usePrevNextButtons(emblaApi)
+  } = usePrevNextButtons(emblaApi);
 
   if (!dataSource || !dataSource.dataSourceId) {
-    return <div className={emptyCss}>请绑定数据源</div>
+    return <div className={emptyCss}>请绑定数据源</div>;
   }
   if (!isLoading && !menuList.length) {
-    return <div className={emptyCss}>菜单数据为空</div>
+    return <div className={emptyCss}>菜单数据为空</div>;
   }
 
   return (
@@ -268,16 +270,16 @@ export function HeaderMenu({
                   >
                     <MenuItem reportId={reportId} menuItem={menuItem} />
                   </div>
-                )
+                );
               })}
             </div>
           </div>
         </div>
       </div>
     </ConetentSpin>
-  )
+  );
 }
 
-HeaderMenu.schemaFn = HeaderMenuSchemeWrap
-HeaderMenu.menuItem = HeaderMenuMenuItem
-HeaderMenu.settingSchema = HeaderMenuSettingSchema
+HeaderMenu.schemaFn = HeaderMenuSchemeWrap;
+HeaderMenu.menuItem = HeaderMenuMenuItem;
+HeaderMenu.settingSchema = HeaderMenuSettingSchema;

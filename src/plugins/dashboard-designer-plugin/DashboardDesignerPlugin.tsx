@@ -1,19 +1,6 @@
 import { Plugin } from "../../application";
 
-import {
-  ApiBaseNameFormItem,
-  ApiGroupFormItem,
-  ApiHeadersFormItem,
-  ApiOriginFormItem,
-  ComponentAddressFormItem,
-  ComponentTypeFormItem,
-  DataSourceBind,
-  DecoratorPaddingFormItem,
-  DepFieldSetFormItem,
-  JsonInput,
-  PositionDecoratorFormItem,
-} from "@/schema-component";
-import { DesignWidthEnumSelect } from "@/schema-settings";
+import { DataSourceBind } from "@/schema-component";
 
 /**
  * 设计器相关的插件,浏览的时候不需要用到
@@ -21,19 +8,7 @@ import { DesignWidthEnumSelect } from "@/schema-settings";
 export class DashboardDesignerPlugin extends Plugin {
   async load(): Promise<void> {
     this.app.addComponents({
-      JsonInput,
-      ApiHeadersFormItem,
-      ApiBaseNameFormItem,
-      ApiOriginFormItem,
-      ApiGroupFormItem,
-      ComponentAddressFormItem,
-      ComponentTypeFormItem,
-      DepFieldSetFormItem,
-      PositionDecoratorFormItem,
-      DecoratorPaddingFormItem,
-
       DataSourceBind,
-      DesignWidthEnumSelect,
     });
   }
 }

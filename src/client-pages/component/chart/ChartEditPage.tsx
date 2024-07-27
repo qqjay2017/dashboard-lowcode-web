@@ -1,76 +1,76 @@
-import { useParams } from 'react-router-dom'
-import { get } from 'lodash-es'
-import { css } from '@emotion/css'
-import React, { useEffect, useRef, useState } from 'react'
-import { Select, Spin, Switch, message } from 'antd'
-import Handlebars from 'handlebars'
-import * as echarts from 'echarts'
-import html2canvas from 'html2canvas'
-import Decimal from 'decimal.js'
+import { useParams } from "react-router-dom";
+import { get } from "lodash-es";
+import { css } from "@emotion/css";
+import React, { useEffect, useRef, useState } from "react";
+import { Select, Spin, Switch, message } from "antd";
+import Handlebars from "handlebars";
+import * as echarts from "echarts";
+import html2canvas from "html2canvas";
+import Decimal from "decimal.js";
 
-import { defaultChartTemplate } from './consts'
+import { defaultChartTemplate } from "./consts";
 
-import { chartMockData, chartMockDataOptions } from './chartMockData'
-import { ChartEditRight } from './ChartEditRight'
-import type { MonacoEditorHandles } from '@/schema-component'
-import { MonacoEditor } from '@/schema-component'
-import { useAPIClient } from '@/api-client'
+import { chartMockData, chartMockDataOptions } from "./chartMockData";
+import { ChartEditRight } from "./ChartEditRight";
+import type { MonacoEditorHandles } from "@/schema-component";
+import { MonacoEditor } from "@/schema-component";
+import { useAPIClient } from "@/api-client";
 import {
   apiBase,
   chartListDataFormat,
   findItemByName,
   getTotalNum,
   percentToDisplay,
-} from '@/utils'
-import { useApp } from '@/application'
-import { useCustomThemeToken } from '@/dashboard-themes'
-import { useToken } from '@/style'
-import { getPercent } from '@/schema-component/utils'
+} from "@/utils";
+import { useApp } from "@/application";
+import { useCustomThemeToken } from "@/dashboard-themes";
+import { useToken } from "@/schema-component/antd/style";
+import { getPercent } from "@/schema-component/utils";
 
 export function ChartEditPage() {
-  const { token: antdToken } = useToken()
-  const chartOptionEditorRef = useRef<MonacoEditorHandles>(null)
-  const app = useApp()
-  const apiClient = useAPIClient()
-  const { id } = useParams()
-  const [spinning, setSpinning] = useState(false)
-  const [chartMockDataType, setChartMockDataType] = useState('standard')
-  const [themeProvider, setThemeName] = useState('technologyBlue')
-  const [isDarkTheme, setIsDarkTheme] = useState(true)
-  const [template, setTemplate] = useState('')
-  const [chartOption, setChartOption] = useState(null)
-  const [chartOptionStr, setChartOptionStr] = useState('')
+  const { token: antdToken } = useToken();
+  const chartOptionEditorRef = useRef<MonacoEditorHandles>(null);
+  const app = useApp();
+  const apiClient = useAPIClient();
+  const { id } = useParams();
+  const [spinning, setSpinning] = useState(false);
+  const [chartMockDataType, setChartMockDataType] = useState("standard");
+  const [themeProvider, setThemeName] = useState("technologyBlue");
+  const [isDarkTheme, setIsDarkTheme] = useState(true);
+  const [template, setTemplate] = useState("");
+  const [chartOption, setChartOption] = useState(null);
+  const [chartOptionStr, setChartOptionStr] = useState("");
   const { token: customThemeToken } = useCustomThemeToken({
     isDarkTheme,
     themeProvider,
-  })
-  const handleCompileTemplate = (template = '', mockDataType = '') => {
+  });
+  const handleCompileTemplate = (template = "", mockDataType = "") => {
     if (!template) {
-      app.message.warning('图表模版内容为空,请输入')
-      return false
+      app.message.warning("图表模版内容为空,请输入");
+      return false;
     }
     try {
-      const handlebarsTemplate = Handlebars.compile(template)
+      const handlebarsTemplate = Handlebars.compile(template);
       const { chartListData, totalNum } = chartListDataFormat(
-        chartMockData[mockDataType || chartMockDataType] || [],
-      )
+        chartMockData[mockDataType || chartMockDataType] || []
+      );
 
       const handlebarsStr = handlebarsTemplate({
         chartListData,
-      })
+      });
       // eslint-disable-next-line no-new-func
       const funCode = new Function(
-        'echarts',
-        'chartListData',
-        'token',
-        'busData',
+        "echarts",
+        "chartListData",
+        "token",
+        "busData",
 
-        'chartHelps',
-        `option=null;${handlebarsStr};return option||{};`,
-      )
+        "chartHelps",
+        `option=null;${handlebarsStr};return option||{};`
+      );
       // 注入变量
-      const c
-        = funCode(
+      const c =
+        funCode(
           echarts,
           chartListData,
           {
@@ -88,55 +88,53 @@ export function ChartEditPage() {
             getPercent,
             chartListDataFormat,
             totalNum,
-          },
-        ) || {}
-      setChartOption(c)
-      setChartOptionStr(JSON.stringify(c))
+          }
+        ) || {};
+      setChartOption(c);
+      setChartOptionStr(JSON.stringify(c));
       setTimeout(() => {
-        chartOptionEditorRef.current?.formatDocument()
-      }, 200)
-      return template
+        chartOptionEditorRef.current?.formatDocument();
+      }, 200);
+      return template;
+    } catch (error) {
+      console.error(error);
+      app.message.error("代码执行失败");
     }
-    catch (error) {
-      console.error(error)
-      app.message.error('代码执行失败')
-    }
-  }
+  };
   const handleSaveTemplate = async (temp) => {
-    const newTemp = handleCompileTemplate(temp)
+    const newTemp = handleCompileTemplate(temp);
     if (!newTemp) {
-      return false
+      return false;
     }
-    setSpinning(true)
+    setSpinning(true);
     setTimeout(() => {
-      save()
-    }, 1500)
+      save();
+    }, 1500);
 
     async function save() {
       try {
         const canvas = await html2canvas(
-          document.getElementById('ChartViewCore'),
+          document.getElementById("ChartViewCore"),
           {
             scale: 1,
-          },
-        )
-        const coverThumbnail = canvas.toDataURL('image/webp', 0.8)
+          }
+        );
+        const coverThumbnail = canvas.toDataURL("image/webp", 0.8);
         await apiClient.request({
           url: `${apiBase}/chart/${id}`,
-          method: 'put',
+          method: "put",
           data: {
             coverThumbnail,
             template: newTemp,
           },
-        })
-        setSpinning(false)
-        message.success('保存成功')
-      }
-      catch (error) {
-        setSpinning(false)
+        });
+        setSpinning(false);
+        message.success("保存成功");
+      } catch (error) {
+        setSpinning(false);
       }
     }
-  }
+  };
 
   useEffect(() => {
     apiClient
@@ -144,21 +142,21 @@ export function ChartEditPage() {
         url: `${apiBase}/chart/${id}`,
       })
       .then((res) => {
-        const chartDt = get(res, 'data.data', {}) || {}
-        const type = chartDt.type
-        const isPie = type === 'pie'
+        const chartDt = get(res, "data.data", {}) || {};
+        const type = chartDt.type;
+        const isPie = type === "pie";
         if (isPie) {
-          setChartMockDataType('pieData')
+          setChartMockDataType("pieData");
         }
 
-        const template = chartDt.template || defaultChartTemplate
-        setTemplate(template)
-        handleCompileTemplate(template, isPie ? 'pieData' : '')
-      })
-  }, [id])
+        const template = chartDt.template || defaultChartTemplate;
+        setTemplate(template);
+        handleCompileTemplate(template, isPie ? "pieData" : "");
+      });
+  }, [id]);
 
   if (!template) {
-    return null
+    return null;
   }
   return (
     <div
@@ -199,16 +197,16 @@ export function ChartEditPage() {
               `}
               options={[
                 {
-                  label: '科技蓝',
-                  value: 'technologyBlue',
+                  label: "科技蓝",
+                  value: "technologyBlue",
                 },
                 {
-                  label: '复古绿',
-                  value: 'green',
+                  label: "复古绿",
+                  value: "green",
                 },
               ]}
               onChange={(e) => {
-                setThemeName(e)
+                setThemeName(e);
               }}
             />
             <Switch
@@ -216,10 +214,9 @@ export function ChartEditPage() {
               unCheckedChildren="浅色"
               checked={isDarkTheme}
               onChange={(e) => {
-                setIsDarkTheme(e)
+                setIsDarkTheme(e);
               }}
-            >
-            </Switch>
+            ></Switch>
             <Select
               size="small"
               value={chartMockDataType}
@@ -229,19 +226,19 @@ export function ChartEditPage() {
               `}
               options={chartMockDataOptions}
               onChange={(e) => {
-                setChartMockDataType(e)
+                setChartMockDataType(e);
               }}
             />
             <RunBtn
               onClick={() => {
-                handleSaveTemplate(template)
+                handleSaveTemplate(template);
               }}
             >
               保存
             </RunBtn>
             <RunBtn
               onClick={() => {
-                handleCompileTemplate(template)
+                handleCompileTemplate(template);
               }}
             >
               运行
@@ -274,7 +271,7 @@ export function ChartEditPage() {
         themeProvider={themeProvider}
       />
     </div>
-  )
+  );
 }
 
 function RunBtn({ children, ...props }: React.HTMLAttributes<HTMLDivElement>) {
@@ -295,5 +292,5 @@ function RunBtn({ children, ...props }: React.HTMLAttributes<HTMLDivElement>) {
     >
       {children}
     </div>
-  )
+  );
 }
