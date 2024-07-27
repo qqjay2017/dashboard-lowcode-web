@@ -137,13 +137,6 @@ module.exports = {
       chunks: "all",
 
       cacheGroups: {
-        libs: {
-          minChunks: 3,
-          name: "chunk-libs",
-          test: /[\\/]node_modules[\\/]/,
-          priority: 10,
-          chunks: "initial", // only package third parties that are initially dependent
-        },
         lodash: {
           test: /[\\/]node_modules[\\/](lodash-es)[\\/]/,
           name: "lodash-es",
@@ -169,6 +162,13 @@ module.exports = {
           minChunks: 1, //  minimum common number
           priority: 5,
           reuseExistingChunk: true,
+        },
+        libs: {
+          minChunks: 3,
+          name: "chunk-libs",
+          test: /[\\/]node_modules[\\/]/,
+          priority: 10,
+          chunks: "initial", // only package third parties that are initially dependent
         },
       },
     },
