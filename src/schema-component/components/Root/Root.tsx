@@ -11,7 +11,7 @@ export const Root: DnFC<IRootProps> = ({ children }: IRootProps) => {
       className={css`
         width: 1920px;
         height: 1080px;
-        border: 1px solid red;
+        border: 1px solid greenyellow;
       `}
     >
       <h1>11</h1>

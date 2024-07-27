@@ -5,6 +5,7 @@ import { Workbench } from './Workbench'
 import type { ITreeNode } from './TreeNode'
 import { TreeNode } from './TreeNode'
 import { Cursor } from './Cursor'
+import { Keyboard } from './Keyboard'
 
 export class Engine extends Event {
   id: string
@@ -13,6 +14,7 @@ export class Engine extends Event {
   cursor: Cursor
   workbench: Workbench
   screen: Screen
+  keyboard: Keyboard
   constructor(props: IEngineProps<Engine>) {
     super(props)
     this.props = {
@@ -27,7 +29,7 @@ export class Engine extends Event {
     this.workbench = new Workbench(this)
     this.screen = new Screen(this)
     this.cursor = new Cursor(this)
-    // this.keyboard = new Keyboard(this)
+    this.keyboard = new Keyboard(this)
   }
 
   getAllSelectedNodes() {
