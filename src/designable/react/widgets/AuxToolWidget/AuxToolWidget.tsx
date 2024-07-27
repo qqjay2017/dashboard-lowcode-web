@@ -28,7 +28,6 @@ export function AuxToolWidget() {
       `}
     >
       <Insertion />
-
       <DashedBox />
       <Selection />
       <Cover />

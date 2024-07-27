@@ -1,4 +1,10 @@
-import { DragMoveEvent, DragStartEvent, DragStopEvent } from "../events";
+import { get } from "lodash-es";
+import {
+  DragMoveEvent,
+  DragStartEvent,
+  DragStopEvent,
+  ViewportScrollEvent,
+} from "../events";
 import {
   ClosestPosition,
   CursorDragType,
@@ -91,6 +97,42 @@ export function useDragDropEffect(engine: Engine) {
     });
   });
 
+  engine.subscribeTo(ViewportScrollEvent, (event) => {
+    if (engine.cursor.type !== CursorType.Normal) return;
+    if (engine.cursor.dragType !== CursorDragType.Move) return;
+    const point = new Point(
+      engine.cursor.position.topClientX,
+      engine.cursor.position.topClientY
+    );
+    const currentWorkspace =
+      event?.context?.workspace ?? engine.workbench.activeWorkspace;
+    if (!currentWorkspace) return;
+    const operation = currentWorkspace.operation;
+    const moveHelper = operation.moveHelper;
+    if (!moveHelper.dragNodes.length) return;
+    const tree = operation.tree;
+    const viewport = currentWorkspace.viewport;
+    const outline = currentWorkspace.outline;
+    const viewportTarget = viewport.elementFromPoint(point);
+    const outlineTarget = outline.elementFromPoint(point);
+    const viewportNodeElement = viewportTarget?.closest(`
+      *[${engine.props.nodeIdAttrName}],
+      *[${engine.props.outlineNodeIdAttrName}]
+    `);
+    const outlineNodeElement = outlineTarget?.closest(`
+    *[${engine.props.nodeIdAttrName}],
+    *[${engine.props.outlineNodeIdAttrName}]
+  `);
+    const nodeId = viewportNodeElement?.getAttribute(
+      engine.props.nodeIdAttrName
+    );
+    const outlineNodeId = outlineNodeElement?.getAttribute(
+      engine.props.outlineNodeIdAttrName
+    );
+    const touchNode = tree.findById(outlineNodeId || nodeId);
+    moveHelper.dragMove({ point, touchNode });
+  });
+
   engine.subscribeTo(DragStopEvent, () => {
     if (engine.cursor.type !== CursorType.Normal) return;
     if (engine.cursor.dragType !== CursorDragType.Move) return;
@@ -106,31 +148,10 @@ export function useDragDropEffect(engine: Engine) {
 
       if (dragNodes.length && closestNode && closestDirection) {
         if (
-          closestDirection === ClosestPosition.After ||
-          closestDirection === ClosestPosition.Under
-        ) {
-          if (closestNode.allowSibling(dragNodes)) {
-            // selection.batchSafeSelect(
-            //     closestNode.insertAfter(
-            //         ...TreeNode.filterDroppable(dragNodes, closestNode.parent),
-            //     ),
-            // )
-          }
-        } else if (
-          closestDirection === ClosestPosition.Before ||
-          closestDirection === ClosestPosition.Upper
-        ) {
-          if (closestNode.allowSibling(dragNodes)) {
-            // selection.batchSafeSelect(
-            //     closestNode.insertBefore(
-            //         ...TreeNode.filterDroppable(dragNodes, closestNode.parent),
-            //     ),
-            // )
-          }
-        } else if (
           closestDirection === ClosestPosition.Inner ||
           closestDirection === ClosestPosition.InnerAfter
         ) {
+          // 添加root
           if (closestNode.allowAppend(dragNodes)) {
             const viewport = currentWorkspace.viewport;
             const dragEndOffsetPoint = viewport.getOffsetPoint(
@@ -139,8 +160,16 @@ export function useDragDropEffect(engine: Engine) {
                 engine.cursor.position.topClientY
               )
             );
+            const maxIndex = closestNode?.children?.length
+              ? closestNode.children.reduce((memo, cur) => {
+                  const curIndex =
+                    get(cur, "props.x-decorator-prop.zIndex", 1) || 1;
+                  return Math.max(curIndex, memo);
+                }, 1)
+              : 0;
 
             const decoratorProps = {
+              zIndex: maxIndex + 1,
               x: sizeFormat(dragEndOffsetPoint.x / (viewport.width / 12), 2),
               y: sizeFormat(dragEndOffsetPoint.y / (viewport.height / 12), 2),
             };
@@ -165,15 +194,6 @@ export function useDragDropEffect(engine: Engine) {
                 )
               )
             );
-            moveHelper.dragDrop({ dropNode: closestNode });
-          }
-        } else if (closestDirection === ClosestPosition.InnerBefore) {
-          if (closestNode.allowAppend(dragNodes)) {
-            // selection.batchSafeSelect(
-            //     closestNode.prepend(
-            //         ...TreeNode.filterDroppable(dragNodes, closestNode),
-            //     ),
-            // )
             moveHelper.dragDrop({ dropNode: closestNode });
           }
         }

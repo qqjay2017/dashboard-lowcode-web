@@ -3,7 +3,6 @@ import {
   // KeyboardDriver,
   MouseClickDriver,
   MouseMoveDriver,
-  // ViewportResizeDriver,
   ViewportScrollDriver,
 } from "./drivers";
 import {
@@ -12,6 +11,7 @@ import {
   useDragDropEffect,
   useFreeSelectionEffect,
   useSelectionEffect,
+  useViewportEffect,
   useWorkspaceEffect,
 } from "./effects";
 // import {
@@ -32,7 +32,7 @@ import {
 export const DEFAULT_EFFECTS = [
   useFreeSelectionEffect,
   useCursorEffect,
-
+  useViewportEffect,
   useDragDropEffect,
   useSelectionEffect,
   // useKeyboardEffect,

@@ -18,6 +18,7 @@ export const Insertion = observer(() => {
       top: 0,
       left: 0,
     };
+
     if (!closestRect) return baseStyle;
     if (
       closestDirection === ClosestPosition.Before ||

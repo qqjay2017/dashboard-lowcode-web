@@ -60,11 +60,8 @@ export function PositionDecorator(props: PositionDecoratorProps) {
         height,
         zIndex,
         padding: styleMemo.padding,
-        left: 0,
-        top: 0,
-        transform: `translate( ${sizeFormat(x * colWidth)}px,  ${sizeFormat(
-          y * rowHeight
-        )}px )`,
+        left: `${sizeFormat(x * colWidth)}px`,
+        top: `${sizeFormat(y * rowHeight)}px`,
       }}
       {...designProps}
     >
