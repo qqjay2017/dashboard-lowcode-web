@@ -136,7 +136,6 @@ export const Field: DnFC<{
     node.id
   );
 
-  console.log(props, Field, fieldProps, "Field props");
   if (props.type === "object") {
     return (
       <div>

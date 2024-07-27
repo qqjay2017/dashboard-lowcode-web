@@ -2,20 +2,18 @@ import {
   DragDropDriver,
   // KeyboardDriver,
   MouseClickDriver,
-  // MouseMoveDriver,
+  MouseMoveDriver,
   // ViewportResizeDriver,
-  // ViewportScrollDriver,
-} from './drivers'
+  ViewportScrollDriver,
+} from "./drivers";
 import {
   useAutoScrollEffect,
   useCursorEffect,
   useDragDropEffect,
   useFreeSelectionEffect,
-
   useSelectionEffect,
   useWorkspaceEffect,
-
-} from './effects'
+} from "./effects";
 // import {
 //   SelectNodes,
 //   SelectAllNodes,
@@ -34,7 +32,7 @@ import {
 export const DEFAULT_EFFECTS = [
   useFreeSelectionEffect,
   useCursorEffect,
-  // useViewportEffect,
+
   useDragDropEffect,
   useSelectionEffect,
   // useKeyboardEffect,
@@ -43,16 +41,16 @@ export const DEFAULT_EFFECTS = [
   // useContentEditableEffect,
   // useTranslateEffect,
   // useResizeEffect,
-]
+];
 
 export const DEFAULT_DRIVERS = [
-  // MouseMoveDriver,
+  MouseMoveDriver,
   DragDropDriver,
   MouseClickDriver,
   // ViewportResizeDriver,
-  // ViewportScrollDriver,
+  ViewportScrollDriver,
   // KeyboardDriver,
-]
+];
 
 export const DEFAULT_SHORTCUTS = [
   // PreventCommandX,
@@ -67,4 +65,4 @@ export const DEFAULT_SHORTCUTS = [
   // UndoMutation,
   // RedoMutation,
   // CursorSwitchSelection,
-]
+];

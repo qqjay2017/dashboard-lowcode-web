@@ -36,6 +36,7 @@ export function useCursorEffect(engine: Engine) {
   });
   engine.subscribeTo(MouseMoveEvent, (event) => {
     const currentWorkspace = event?.context?.workspace;
+
     if (!currentWorkspace) return;
     const operation = currentWorkspace.operation;
     if (engine.cursor.status !== CursorStatus.Normal) {
@@ -47,12 +48,14 @@ export function useCursorEffect(engine: Engine) {
       *[${engine.props.nodeIdAttrName}],
       *[${engine.props.outlineNodeIdAttrName}]
     `);
+
     if (!el?.getAttribute) {
       return;
     }
     const nodeId = el.getAttribute(engine.props.nodeIdAttrName);
     const outlineNodeId = el.getAttribute(engine.props.outlineNodeIdAttrName);
     const node = operation.tree.findById(nodeId || outlineNodeId);
+
     if (node) {
       operation.hover.setHover(node);
     } else {

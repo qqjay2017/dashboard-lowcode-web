@@ -26,6 +26,7 @@ export const DashedBox = observer(() => {
     }
     return baseStyle;
   };
+
   if (!hover.node) return null;
   if (hover.node.hidden) return null;
   if (selection.selected.includes(hover.node.id)) return null;

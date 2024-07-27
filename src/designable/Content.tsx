@@ -10,8 +10,8 @@ export const Card: DnFC<any> = observer((props) => {
     <div
       {...props}
       style={{
-        width: 200,
-        height: 100,
+        width: "100%",
+        height: "100%",
         ...props.style,
         background: "#eee",
         border: "1px solid #ddd",
@@ -73,7 +73,7 @@ Card.Resource = createResource({
         "x-decorator": "PositionDecorator",
         "x-decorator-props": {
           w: 3,
-          y: 3,
+          h: 3,
           padding: [0, 0, 0, 0],
         },
         "x-component": "Card",

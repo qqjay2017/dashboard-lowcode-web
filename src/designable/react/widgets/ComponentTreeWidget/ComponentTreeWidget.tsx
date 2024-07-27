@@ -46,6 +46,7 @@ export const TreeNodeWidget: React.FC<ITreeNodeWidgetProps> = observer(
       const componentName = node.componentName;
       const Component = components[componentName];
       const dataId = {};
+
       if (Component) {
         if (designer) {
           dataId[designer?.props?.nodeIdAttrName] = node.id;

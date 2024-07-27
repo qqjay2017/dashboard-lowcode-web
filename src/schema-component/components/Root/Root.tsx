@@ -1,13 +1,18 @@
 import { css } from "@emotion/css";
 import type { PropsWithChildren } from "react";
 import { createBehavior, createResource } from "@/designable/core";
-import type { DnFC } from "@/designable/react";
+import { type DnFC, useDesigner } from "@/designable/react";
 
 interface IRootProps extends PropsWithChildren {}
-export const Root: DnFC<IRootProps> = ({ children }: IRootProps) => {
+export const Root: DnFC<IRootProps> = ({ children, ...props }: IRootProps) => {
+  const designer = useDesigner();
+  const designerProps = {
+    [designer.props.nodeIdAttrName]: props["data-designer-node-id"],
+  };
   return (
     <div
       id="Root"
+      {...designerProps}
       className={css`
         width: 1920px;
         height: 1080px;

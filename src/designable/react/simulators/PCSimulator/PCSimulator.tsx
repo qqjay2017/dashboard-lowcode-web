@@ -45,7 +45,7 @@ export const PCSimulator: React.FC<IPCSimulatorProps> = (props) => {
           className={css`
             width: 1920px;
             height: 1080px;
-            margin: 150px;
+            margin: 0px;
 
             position: relative;
             box-sizing: border-box;
