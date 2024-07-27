@@ -11,6 +11,9 @@ import {
   MdRemoveRedEye,
 } from "react-icons/md";
 
+import { PiPathLight } from "react-icons/pi";
+
+import { IoIosSettings } from "react-icons/io";
 import { cn } from "@/utils";
 
 export interface IIconWidgetProps extends React.HTMLAttributes<HTMLElement> {
@@ -33,6 +36,8 @@ const allIconMap = {
   Page: MdOutlineFindInPage,
   History: MdOutlineHistory,
   Eye: MdRemoveRedEye,
+  Position: PiPathLight,
+  Setting: IoIosSettings,
 };
 
 export const IconWidget = observer(

@@ -55,7 +55,11 @@ export const NodePathWidget: React.FC<INodePathWidgetProps> = observer(
           return (
             <Breadcrumb.Item key={key}>
               {key === 0 && (
-                <IconWidget infer="Position" style={{ marginRight: 3 }} />
+                <IconWidget
+                  infer="Position"
+                  style={{ marginRight: 3 }}
+                  size={12}
+                />
               )}
               <a
                 href=""

@@ -1,3 +1,3 @@
-export * from './getPercent'
-export * from '../widgets/getDataSourceBindSchema'
-export * from './schema'
+export * from "../../utils/getPercent";
+export * from "../widgets/getDataSourceBindSchema";
+export * from "./schema";

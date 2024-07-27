@@ -20,7 +20,7 @@ import { Actions } from "./Logo/Actions";
 import { Field } from "./Field";
 import { SettingsPanel } from "./react/panels/SettingsPanel";
 import { SettingsForm } from "./react-settings-form";
-import { Root } from "@/schema-component/components/Root/Root";
+import { Root } from "@/designable/Field/Root/Root";
 import { Header1 } from "@/schema-component";
 
 export function DesignPage2() {

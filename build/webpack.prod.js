@@ -4,28 +4,28 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 
-
 const WebpackBar = require("webpackbar");
-
 
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const { DefinePlugin } = require("webpack");
+
 const NODE_ENV =
   process.env.NODE_ENV === "production" ? "production" : "development";
 const isProduct = NODE_ENV === "production";
 const publicPath = isProduct ? "/dashboard/" : "/";
- const CDN_LIST =  [
-  isProduct ? "unpkg/react.production.min.js": "unpkg/react.development.js",
- isProduct ? "unpkg/react-dom.production.min.js": "unpkg/react-dom.development.js",
+const CDN_LIST = [
+  isProduct ? "unpkg/react.production.min.js" : "unpkg/react.development.js",
+  isProduct
+    ? "unpkg/react-dom.production.min.js"
+    : "unpkg/react-dom.development.js",
   "unpkg/handlebars.js",
   "unpkg/html2canvas.min.js",
-  "unpkg/echarts.min.js"
-].map(url=>publicPath+url);
-const resolve = (name) => {
+  "unpkg/echarts.min.js",
+].map((url) => publicPath + url);
+function resolve(name) {
   return path.join(__dirname, name);
-};
-
+}
 
 const _target = "http://qzjg.kxgcc.com:30251";
 module.exports = {
@@ -38,7 +38,7 @@ module.exports = {
   },
   output: {
     clean: true,
-    filename: isProduct ?  "[name].[contenthash].js":"[name].js",
+    filename: isProduct ? "[name].[contenthash].js" : "[name].js",
     path: resolve("../dist"),
     publicPath,
   },
@@ -76,7 +76,6 @@ module.exports = {
                   cssPropOptimization: true,
                 },
               ],
-
             ].filter(Boolean),
           },
         },
@@ -106,7 +105,7 @@ module.exports = {
         exclude: /\.module\.less$/,
         use: [
           isProduct ? MiniCssExtractPlugin.loader : "style-loader",
-          
+
           "css-loader",
           "less-loader",
         ],
@@ -134,81 +133,75 @@ module.exports = {
     ],
   },
   optimization: {
-        splitChunks: {
-          chunks: "all",
+    splitChunks: {
+      chunks: "all",
 
-          cacheGroups: {
-            libs: {
-              minChunks: 3,
-              name: "chunk-libs",
-              test: /[\\/]node_modules[\\/]/,
-              priority: 10,
-              chunks: "initial", // only package third parties that are initially dependent
-            },
-            lodash: {
-              test: /[\\/]node_modules[\\/](lodash-es)[\\/]/,
-              name: "lodash-es",
-              chunks: "all",
-              reuseExistingChunk: true,
-              enforce: true,
-            },
-
-            antd: {
-              test: /[\\/]node_modules[\\/]_?antd(.*)/,
-              priority: 20,
-              name: "chunk-antd",
-            },
-            formily: {
-              test: /[\\/]node_modules[\\/]_?@formily(.*)/,
-              name: "chunk-formily",
-              chunks: "all",
-            },
-
-            moveable: {
-              test: /[\\/]node_modules[\\/]_?react-moveable(.*)/,
-              priority: 20,
-              name: "chunk-reactmoveable",
-            },
-            // commons: {
-            //   name: "chunk-commons",
-            //   test: resolve("../src/schema-component"), // can customize your rules
-            //   minChunks: 3, //  minimum common number
-            //   priority: 5,
-            //   reuseExistingChunk: true,
-            // },
-          },
+      cacheGroups: {
+        libs: {
+          minChunks: 3,
+          name: "chunk-libs",
+          test: /[\\/]node_modules[\\/]/,
+          priority: 10,
+          chunks: "initial", // only package third parties that are initially dependent
         },
-        minimize: isProduct,
-        minimizer:isProduct? [
+        lodash: {
+          test: /[\\/]node_modules[\\/](lodash-es)[\\/]/,
+          name: "lodash-es",
+          chunks: "all",
+          reuseExistingChunk: true,
+          enforce: true,
+        },
+
+        antd: {
+          test: /[\\/]node_modules[\\/]_?antd(.*)/,
+          priority: 20,
+          name: "chunk-antd",
+        },
+        formily: {
+          test: /[\\/]node_modules[\\/]_?@formily(.*)/,
+          name: "chunk-formily",
+          chunks: "all",
+        },
+
+        commons: {
+          name: "chunk-commons",
+          test: resolve("../src/designable"), // can customize your rules
+          minChunks: 2, //  minimum common number
+          priority: 5,
+          reuseExistingChunk: true,
+        },
+      },
+    },
+    minimize: isProduct,
+    minimizer: isProduct
+      ? [
           new TerserPlugin({
             parallel: true,
           }),
-        ]:[],
-      }
-   ,
-  externals : {
-      handlebars:"Handlebars",
-        react: "React",
-        "react-dom": "ReactDOM",
-        html2canvas: "html2canvas",
-        echarts: "echarts",
-      }
-   ,
+        ]
+      : [],
+  },
+  externals: {
+    handlebars: "Handlebars",
+    react: "React",
+    "react-dom": "ReactDOM",
+    html2canvas: "html2canvas",
+    echarts: "echarts",
+  },
   plugins: [
-   
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: resolve("index.html"),
       filename: "index.html",
       chunks: ["main"],
-        CDN_LIST
+      CDN_LIST,
     }),
     new HtmlWebpackPlugin({
-     template: resolve("../report/index.html"),
+      template: resolve("../report/index.html"),
       filename: "report/index.html",
       //   filename: "/report/index.html",
       chunks: ["report"],
-      CDN_LIST
+      CDN_LIST,
       //   publicPath: "/report/",
     }),
     isProduct
@@ -222,14 +215,10 @@ module.exports = {
     }),
     new NodePolyfillPlugin(),
     new MiniCssExtractPlugin({
-      filename: isProduct ?  "[name].[contenthash].css":"[name].css",
+      filename: isProduct ? "[name].[contenthash].css" : "[name].css",
     }),
 
-     new WebpackBar({
-     
-
-    }),
-    
+    new WebpackBar({}),
   ].filter(Boolean),
   devServer: {
     historyApiFallback: {

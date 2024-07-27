@@ -38,7 +38,27 @@ export const SettingsPanel: React.FC<ISettingPanelProps> = observer((props) => {
     if (innerVisible) setInnerVisible(false);
     return (
       <div
-        className={`${prefix}-opener`}
+        className={cn(
+          `${prefix}-opener`,
+          css`
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+            background: var(--dn-composite-panel-tabs-content-bg-color);
+            border: 1px solid var(--dn-panel-border-color);
+            color: var(--dn-composite-panel-tabs-color);
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+          `
+        )}
         onClick={() => {
           setVisible(true);
         }}

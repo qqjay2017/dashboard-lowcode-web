@@ -5,4 +5,4 @@ export * from "./DataSourceBind";
 export * from "./CountTo";
 export * from "./ConetentSpin";
 export * from "./MonacoEditor";
-export * from "./Root";
+export * from "../../designable/Field/Root";

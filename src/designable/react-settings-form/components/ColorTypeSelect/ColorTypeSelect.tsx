@@ -1,13 +1,13 @@
-import { css } from '@emotion/css'
-import { theme } from 'antd'
-import { allThemes } from '../../dashboard-themes'
+import { css } from "@emotion/css";
+import { theme } from "antd";
+import { allThemes } from "../../../../dashboard-themes";
 
 interface ColorTypeSelectProps {
-  value?: string
-  onChange?: (str?: string) => string
+  value?: string;
+  onChange?: (str?: string) => string;
 }
 export function ColorTypeSelect({ value, onChange }: ColorTypeSelectProps) {
-  const { token } = theme.useToken()
+  const { token } = theme.useToken();
 
   return (
     <div
@@ -16,11 +16,11 @@ export function ColorTypeSelect({ value, onChange }: ColorTypeSelectProps) {
       `}
     >
       {allThemes.map((theme) => {
-        const isActive = value === theme.name
+        const isActive = value === theme.name;
         return (
           <div
             onClick={() => {
-              onChange && onChange(theme.name)
+              onChange && onChange(theme.name);
             }}
             key={theme.name}
             className={css`
@@ -29,12 +29,12 @@ export function ColorTypeSelect({ value, onChange }: ColorTypeSelectProps) {
               padding: 12px 12px;
               margin-bottom: 16px;
               width: 100%;
-              min-width: 230px;
+              width: 180px;
               height: 40px;
               display: flex;
               align-items: center;
               justify-content: center;
-              border: 1px solid ${isActive ? theme.colors[0] : '#ccc'};
+              border: 1px solid ${isActive ? theme.colors[0] : "#ccc"};
             `}
           >
             <div
@@ -58,8 +58,8 @@ export function ColorTypeSelect({ value, onChange }: ColorTypeSelectProps) {
               `}
             >
               {theme.colors.map((color, index) => {
-                if (index > 5) {
-                  return null
+                if (index > 3) {
+                  return null;
                 }
                 return (
                   <div
@@ -70,14 +70,13 @@ export function ColorTypeSelect({ value, onChange }: ColorTypeSelectProps) {
                       border-radius: 6px;
                       background-color: ${color};
                     `}
-                  >
-                  </div>
-                )
+                  ></div>
+                );
               })}
             </div>
           </div>
-        )
+        );
       })}
     </div>
-  )
+  );
 }
