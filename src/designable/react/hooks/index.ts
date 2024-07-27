@@ -14,3 +14,4 @@ export * from "./useSelection";
 export * from "./useValidNodeOffsetRect";
 export * from "./useHover";
 export * from "./useTransformHelper";
+export * from "./useHistory";

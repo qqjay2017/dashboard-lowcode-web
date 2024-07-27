@@ -1,8 +1,15 @@
 import type { IEngineContext } from "../types";
+import {
+  HistoryGotoEvent,
+  HistoryPushEvent,
+  HistoryRedoEvent,
+  HistoryUndoEvent,
+} from "../events";
 import type { Engine } from "./Engine";
 import type { IOperation } from "./Operation";
 import { Operation } from "./Operation";
 import { Viewport } from "./Viewport";
+import { History } from "./History";
 import type { EventContainer, ICustomEvent } from "@/designable/shared";
 import { uid } from "@/designable/shared";
 
@@ -36,7 +43,7 @@ export class Workspace {
 
   operation: Operation;
 
-  // history: History<Workspace>
+  history: History<Workspace>;
 
   props: IWorkspaceProps;
 
@@ -66,23 +73,23 @@ export class Workspace {
       moveInsertionType: "block",
     });
     this.operation = new Operation(this);
-    // this.history = new History(this, {
-    //   onPush: (item) => {
-    //     this.operation.dispatch(new HistoryPushEvent(item))
-    //   },
-    //   onRedo: (item) => {
-    //     this.operation.hover.clear()
-    //     this.operation.dispatch(new HistoryRedoEvent(item))
-    //   },
-    //   onUndo: (item) => {
-    //     this.operation.hover.clear()
-    //     this.operation.dispatch(new HistoryUndoEvent(item))
-    //   },
-    //   onGoto: (item) => {
-    //     this.operation.hover.clear()
-    //     this.operation.dispatch(new HistoryGotoEvent(item))
-    //   },
-    // })
+    this.history = new History(this, {
+      onPush: (item) => {
+        this.operation.dispatch(new HistoryPushEvent(item));
+      },
+      onRedo: (item) => {
+        this.operation.hover.clear();
+        this.operation.dispatch(new HistoryRedoEvent(item));
+      },
+      onUndo: (item) => {
+        this.operation.hover.clear();
+        this.operation.dispatch(new HistoryUndoEvent(item));
+      },
+      onGoto: (item) => {
+        this.operation.hover.clear();
+        this.operation.dispatch(new HistoryGotoEvent(item));
+      },
+    });
   }
 
   getEventContext(): IEngineContext {

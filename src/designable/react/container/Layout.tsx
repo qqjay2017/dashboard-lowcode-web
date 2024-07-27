@@ -1,8 +1,10 @@
 import React, { Fragment, useContext, useRef } from "react";
 
 import { css, injectGlobal } from "@emotion/css";
+import { ConfigProvider, theme } from "antd";
 import { DesignerLayoutContext } from "../context";
 import type { IDesignerLayoutProps } from "../types";
+import { useCustomThemeToken } from "@/dashboard-themes";
 
 injectGlobal` 
   :root {
@@ -183,22 +185,29 @@ const darkStyle = css`
 export const Layout: React.FC<IDesignerLayoutProps> = (props) => {
   const layout = useContext(DesignerLayoutContext);
   const ref = useRef<HTMLDivElement>();
-  const theme = props.theme || "light";
+  const _theme = props.theme || "dark";
 
   if (layout) {
     return <Fragment>{props.children}</Fragment>;
   }
   return (
-    <div ref={ref} className={theme === "light" ? lightStyle : darkStyle}>
-      <DesignerLayoutContext.Provider
-        value={{
-          theme: props.theme,
-          prefixCls: props.prefixCls,
-          position: props.position,
-        }}
-      >
-        {props.children}
-      </DesignerLayoutContext.Provider>
-    </div>
+    <ConfigProvider
+      theme={{
+        algorithm:
+          _theme === "dark" ? theme.darkAlgorithm : theme.defaultAlgorithm,
+      }}
+    >
+      <div ref={ref} className={_theme === "light" ? lightStyle : darkStyle}>
+        <DesignerLayoutContext.Provider
+          value={{
+            theme: props.theme,
+            prefixCls: props.prefixCls,
+            position: props.position,
+          }}
+        >
+          {props.children}
+        </DesignerLayoutContext.Provider>
+      </div>
+    </ConfigProvider>
   );
 };

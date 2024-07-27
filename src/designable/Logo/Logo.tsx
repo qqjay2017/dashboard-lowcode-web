@@ -9,6 +9,7 @@ export function Logo() {
         line-height: 42px;
         font-size: 16px;
         font-weight: 600;
+        color: var(--dn-composite-panel-tabs-header-color);
       `}
     >
       大屏可视化设计器
