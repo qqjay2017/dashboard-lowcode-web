@@ -20,6 +20,7 @@ import { Actions } from "./Logo/Actions";
 import { Field } from "./Field";
 import { Root } from "@/schema-component/components/Root/Root";
 import { Header1 } from "@/schema-component";
+import { SettingsPanel } from "./react/panels/SettingsPanel";
 
 export function DesignPage2() {
   const engine = useMemo(() => {
@@ -56,6 +57,9 @@ export function DesignPage2() {
               </ViewPanel>
             </ViewportPanel>
           </WorkspacePanel>
+          <SettingsPanel title="属性配置">
+            <SettingsForm />
+          </SettingsPanel>
         </StudioPanel>
       </Workbench>
     </Designer>
