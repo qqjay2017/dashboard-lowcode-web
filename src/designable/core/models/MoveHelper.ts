@@ -144,7 +144,12 @@ export class MoveHelper {
   }
 
   calcClosestNode(point: IPoint, viewport: Viewport): TreeNode {
+    // 只让放一级
+    return this.rootNode;
+    // return this.touchNode;
+
     if (this.touchNode) {
+      // 放到子级的逻辑
       const touchNodeRect = viewport.getValidNodeRect(this.touchNode);
       if (!touchNodeRect) return;
       if (this.touchNode?.children?.length) {
