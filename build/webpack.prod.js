@@ -164,9 +164,9 @@ module.exports = {
         },
 
         commons: {
-          name: "chunk-commons",
+          name: "chunk-designable",
           test: resolve("../src/designable"), // can customize your rules
-          minChunks: 2, //  minimum common number
+          minChunks: 1, //  minimum common number
           priority: 5,
           reuseExistingChunk: true,
         },
