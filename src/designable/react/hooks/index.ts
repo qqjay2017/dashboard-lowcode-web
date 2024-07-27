@@ -15,3 +15,4 @@ export * from "./useValidNodeOffsetRect";
 export * from "./useHover";
 export * from "./useTransformHelper";
 export * from "./useHistory";
+export * from "./useOutline";

@@ -2,8 +2,14 @@ import { observer } from "@formily/react";
 import { Tooltip, type TooltipProps } from "antd";
 import React from "react";
 import { CgComponents } from "react-icons/cg";
-import { MdOutlineClose } from "react-icons/md";
-import { isStr } from "@formily/shared";
+import {
+  MdOutlineClearAll,
+  MdOutlineClose,
+  MdOutlineExpandMore,
+  MdOutlineFindInPage,
+  MdOutlineHistory,
+} from "react-icons/md";
+
 import { cn } from "@/utils";
 
 export interface IIconWidgetProps extends React.HTMLAttributes<HTMLElement> {
@@ -21,6 +27,10 @@ export interface IShadowSVGProps {
 const allIconMap = {
   Component: CgComponents,
   Close: MdOutlineClose,
+  Outline: MdOutlineClearAll,
+  Expand: MdOutlineExpandMore,
+  Page: MdOutlineFindInPage,
+  History: MdOutlineHistory,
 };
 
 export const IconWidget = observer(
@@ -60,6 +70,8 @@ export const IconWidget = observer(
             },
           })
         );
+      } else {
+        console.log(infer);
       }
     }
     return infer || null;

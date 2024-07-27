@@ -107,7 +107,7 @@ export const CompositePanel: React.FC<ICompositePanelProps> & {
             className={cn(
               `${prefix}-tabs-header-title`,
               css`
-                font-size: 20px;
+                font-size: 16px;
               `
             )}
           >

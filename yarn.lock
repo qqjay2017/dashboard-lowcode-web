@@ -3521,6 +3521,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/dateformat@npm:^5":
+  version: 5.0.2
+  resolution: "@types/dateformat@npm:5.0.2"
+  checksum: 14685fe3c1f25d3c17abb25c9a8392809419ef709ba946824c53f34d2a704ef9ec5b37c3b44424614f2cfc291bdbc2ba3d7991ab4697a8e52572a44ef6090eb7
+  languageName: node
+  linkType: hard
+
 "@types/eslint-scope@npm:^3.7.3":
   version: 3.7.7
   resolution: "@types/eslint-scope@npm:3.7.7"
@@ -5916,6 +5923,7 @@ __metadata:
     "@radix-ui/react-tabs": "npm:^1.1.0"
     "@tanstack/react-query": "npm:^5.40.0"
     "@tanstack/react-table": "npm:^8.19.2"
+    "@types/dateformat": "npm:^5"
     "@types/lodash-es": "npm:^4.17.12"
     "@types/node": "npm:^20.14.9"
     "@types/react": "npm:^18.2.66"
@@ -5932,6 +5940,7 @@ __metadata:
     copy-webpack-plugin: "npm:^12.0.2"
     cross-env: "npm:^7.0.3"
     css-loader: "npm:^7.1.2"
+    dateformat: "npm:^5.0.3"
     dayjs: "npm:^1.11.11"
     decimal.js: "npm:^10.4.3"
     echarts: "npm:^5.5.1"
@@ -5984,6 +5993,13 @@ __metadata:
     zustand: "npm:^4.5.4"
   languageName: unknown
   linkType: soft
+
+"dateformat@npm:^5.0.3":
+  version: 5.0.3
+  resolution: "dateformat@npm:5.0.3"
+  checksum: 2220af3a5549a06253f00ecebf20f54d6515ead6108b6fe45ed5beef17ce63cbf3d7946d9e9e4fba736ba342e0f4420352d14b4547a9f3ad70adc2afad40ccc1
+  languageName: node
+  linkType: hard
 
 "dayjs@npm:^1.11.11":
   version: 1.11.11
