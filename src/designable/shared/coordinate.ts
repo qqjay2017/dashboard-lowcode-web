@@ -68,6 +68,19 @@ export class Rect implements IRect {
   get bottom() {
     return this.y + this.height
   }
+
+  toJSON(): any {
+    return {
+      x: this.x,
+      y: this.y,
+      top: this.top,
+      bottom: this.bottom,
+      left: this.left,
+      right: this.right,
+      width: this.width,
+      height: this.height,
+    }
+  }
 }
 
 export class LineSegment {
@@ -79,7 +92,7 @@ export class LineSegment {
   }
 }
 
-export interface IRect {
+export interface IRect extends DOMRect {
   x: number
   y: number
   width: number

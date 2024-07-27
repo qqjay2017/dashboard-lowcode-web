@@ -8,6 +8,7 @@ import {
 import { globalThisPolyfill } from "@formily/shared";
 import { css } from "@emotion/css";
 import { useViewport } from "../hooks";
+import { AuxToolWidget } from "../widgets";
 import type { Viewport as ViewportType } from "@/designable/core";
 import { cn } from "@/utils";
 import { requestIdle } from "@/designable/shared";
@@ -64,7 +65,7 @@ export const Viewport: React.FC<IViewportProps> = ({
       }}
     >
       {children}
-      {/* <AuxToolWidget /> */}
+      <AuxToolWidget />
     </div>
   );
 };
