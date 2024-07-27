@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { Input, Popover } from "antd";
-import { usePrefix } from "@/designable/react";
 import { SketchPicker } from "react-color";
+import { usePrefix } from "@/designable/react";
 import "./styles.less";
 
 export interface IColorInputProps {
@@ -37,7 +37,7 @@ export const ColorInput: React.FC<IColorInputProps> = (props) => {
             }
           >
             <div
-              className={prefix + "-color-tips"}
+              className={`${prefix}-color-tips`}
               style={{
                 backgroundColor: color,
               }}

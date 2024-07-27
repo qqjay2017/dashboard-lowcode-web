@@ -1,5 +1,8 @@
+// @ts-nocheck
+
 import { getNpmCDNRegistry } from "../registry";
 import { globalThisPolyfill } from "@/designable/shared";
+
 export interface ILoadScriptProps {
   package: string;
   entry: string;
@@ -7,7 +10,7 @@ export interface ILoadScriptProps {
   base?: string;
 }
 
-export const loadScript = async (props: ILoadScriptProps) => {
+export async function loadScript(props: ILoadScriptProps) {
   const options: ILoadScriptProps = {
     base: getNpmCDNRegistry(),
     ...props,
@@ -21,15 +24,16 @@ export const loadScript = async (props: ILoadScriptProps) => {
     script.src = path;
     script.onload = () => {
       const module = globalThisPolyfill[options.root];
-      globalThisPolyfill["define"] = define;
+      // eslint-disable-next-line ts/no-use-before-define
+      globalThisPolyfill.define = define;
       resolve(module);
       script.remove();
     };
     script.onerror = (err) => {
       reject(err);
     };
-    const define = globalThisPolyfill["define"];
-    globalThisPolyfill["define"] = undefined;
+    const define = globalThisPolyfill.define;
+    globalThisPolyfill.define = undefined;
     document.body.appendChild(script);
   });
-};
+}

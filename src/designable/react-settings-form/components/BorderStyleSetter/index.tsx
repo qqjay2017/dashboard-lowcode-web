@@ -1,15 +1,15 @@
 import React, { Fragment, useMemo } from "react";
-import { usePrefix } from "@/designable/react";
 import { camelCase } from "@formily/shared";
 import { Select } from "@formily/antd-v5";
 import { observable } from "@formily/reactive";
-import { Field as FieldType } from "@formily/core";
-import { useField, Field, observer } from "@formily/react";
+import type { Field as FieldType } from "@formily/core";
+import { Field, observer, useField } from "@formily/react";
+import cls from "classnames";
 import { FoldItem } from "../FoldItem";
 import { ColorInput } from "../ColorInput";
 import { SizeInput } from "../SizeInput";
 import { PositionInput } from "../PositionInput";
-import cls from "classnames";
+import { usePrefix } from "@/designable/react";
 import "./styles.less";
 
 const Positions = ["center", "top", "right", "bottom", "left"];
@@ -33,12 +33,12 @@ const BorderStyleOptions = [
   },
 ];
 
-const createBorderProp = (position: string, key: string) => {
+function createBorderProp(position: string, key: string) {
   const insert = position === "center" ? "" : `-${position}`;
   return camelCase(`border${insert}-${key}`);
-};
+}
 
-const parseInitPosition = (field: FieldType) => {
+function parseInitPosition(field: FieldType) {
   const basePath = field.address.parent();
   for (let i = 0; i < Positions.length; i++) {
     const position = Positions[i];
@@ -54,7 +54,7 @@ const parseInitPosition = (field: FieldType) => {
     }
   }
   return "center";
-};
+}
 export interface IBorderStyleSetterProps {
   className?: string;
   style?: React.CSSProperties;
@@ -87,7 +87,7 @@ export const BorderStyleSetter: React.FC<IBorderStyleSetterProps> = observer(
       <FoldItem label={field.title}>
         <FoldItem.Extra>
           <div className={cls(prefix, className)} style={style}>
-            <div className={prefix + "-position"}>
+            <div className={`${prefix}-position`}>
               <PositionInput
                 value={currentPosition.value}
                 onChange={(value) => {
@@ -95,7 +95,7 @@ export const BorderStyleSetter: React.FC<IBorderStyleSetterProps> = observer(
                 }}
               />
             </div>
-            <div className={prefix + "-input"}>
+            <div className={`${prefix}-input`}>
               {Positions.map((position, key) => {
                 return (
                   <Fragment key={key}>

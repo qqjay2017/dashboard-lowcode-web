@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { usePrefix } from "@/designable/react";
+import React, { useEffect, useState } from "react";
 import cls from "classnames";
+import { usePrefix } from "@/designable/react";
 import "./styles.less";
 
 export interface ICornerInputProps {
@@ -19,7 +19,7 @@ export const CornerInput: React.FC<ICornerInputProps> = (props) => {
     }
   }, [props.value]);
   const createCellProps = (type: string) => ({
-    className: cls(prefix + "-cell", { active: current === type }),
+    className: cls(`${prefix}-cell`, { active: current === type }),
     onClick() {
       setCurrent(type);
       props.onChange?.(type);
@@ -27,14 +27,14 @@ export const CornerInput: React.FC<ICornerInputProps> = (props) => {
   });
   return (
     <div className={cls(prefix, props.className)} style={props.style}>
-      <div className={prefix + "-column"}>
+      <div className={`${prefix}-column`}>
         <div {...createCellProps("topLeft")}>┏</div>
         <div {...createCellProps("bottomLeft")}>┗</div>
       </div>
-      <div className={prefix + "-column"}>
+      <div className={`${prefix}-column`}>
         <div {...createCellProps("all")}>╋</div>
       </div>
-      <div className={prefix + "-column"}>
+      <div className={`${prefix}-column`}>
         <div {...createCellProps("topRight")}>┓</div>
         <div {...createCellProps("bottomRight")}>┛</div>
       </div>

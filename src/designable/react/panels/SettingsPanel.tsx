@@ -1,3 +1,4 @@
+import type { PropsWithChildren } from "react";
 import React, { useEffect, useState } from "react";
 import { observer } from "@formily/reactive-react";
 import cls from "classnames";
@@ -7,7 +8,7 @@ import { useWorkbench } from "../hooks";
 import { requestIdle } from "@/designable/shared";
 import { cn } from "@/utils";
 
-export interface ISettingPanelProps {
+export interface ISettingPanelProps extends PropsWithChildren {
   title?: React.ReactNode;
   extra?: React.ReactNode;
 }

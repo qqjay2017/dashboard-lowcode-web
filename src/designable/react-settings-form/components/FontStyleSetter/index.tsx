@@ -1,18 +1,19 @@
 import React from "react";
-import { usePrefix, IconWidget } from "@/designable/react";
-import { useField, Field, observer } from "@formily/react";
-import { Select, Radio, NumberPicker } from "@formily/antd-v5";
+import { Field, observer, useField } from "@formily/react";
+import { NumberPicker, Radio, Select } from "@formily/antd-v5";
+import cls from "classnames";
 import { FoldItem } from "../FoldItem";
 import { InputItems } from "../InputItems";
 import { SizeInput } from "../SizeInput";
 import { ColorInput } from "../ColorInput";
-import cls from "classnames";
+import { IconWidget, usePrefix } from "@/designable/react";
+
 export interface IFontStyleSetterProps {
   className?: string;
   style?: React.CSSProperties;
 }
 
-const createFontFamilyOptions = (fonts: string[]) => {
+function createFontFamilyOptions(fonts: string[]) {
   return fonts.map((font) => {
     const splited = font.split("=");
     const label = splited?.[0];
@@ -22,7 +23,7 @@ const createFontFamilyOptions = (fonts: string[]) => {
       value,
     };
   });
-};
+}
 
 const FontFamilyOptions = createFontFamilyOptions([
   "宋体=SimSun",

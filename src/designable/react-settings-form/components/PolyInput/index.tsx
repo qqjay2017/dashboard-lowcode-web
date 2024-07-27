@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button } from "antd";
-import { usePrefix, IconWidget } from "@/designable/react";
 import cls from "classnames";
+import { IconWidget, usePrefix } from "@/designable/react";
 import "./styles.less";
 
 export interface IInput {
@@ -27,20 +27,16 @@ export type PolyTypes = IPolyType[];
 
 const isValid = (val: any) => val !== undefined && val !== null;
 
-const getEventValue = (event: any) => {
+function getEventValue(event: any) {
   if (event?.target) {
     if (isValid(event.target.value)) return event.target.value;
     if (isValid(event.target.checked)) return event.target.checked;
     return;
   }
   return event;
-};
+}
 
-const createTypes = (
-  types: PolyTypes,
-  exclude: string[],
-  include: string[]
-) => {
+function createTypes(types: PolyTypes, exclude: string[], include: string[]) {
   return types.filter(({ type }) => {
     if (Array.isArray(include) && include.length) {
       return include.includes(type);
@@ -50,7 +46,7 @@ const createTypes = (
     }
     return true;
   });
-};
+}
 
 export function createPolyInput(polyTypes: PolyTypes = []): React.FC<IInput> {
   return ({
@@ -90,7 +86,7 @@ export function createPolyInput(polyTypes: PolyTypes = []): React.FC<IInput> {
     return (
       <div className={cls(prefix, className)} style={style}>
         {component && (
-          <div className={prefix + "-content"}>
+          <div className={`${prefix}-content`}>
             {React.createElement(component, {
               ...props,
               value: type?.toInputValue ? type?.toInputValue(value) : value,
@@ -103,7 +99,7 @@ export function createPolyInput(polyTypes: PolyTypes = []): React.FC<IInput> {
           </div>
         )}
         <Button
-          className={prefix + "-controller"}
+          className={`${prefix}-controller`}
           style={{
             width: !component ? "100%" : "auto",
           }}

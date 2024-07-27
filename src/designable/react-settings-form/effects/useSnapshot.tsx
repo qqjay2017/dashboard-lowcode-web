@@ -1,13 +1,13 @@
-import { Operation } from '@designable/core'
-import { onFieldInputValueChange } from '@formily/core'
+import { onFieldInputValueChange } from "@formily/core";
+import type { Operation } from "@/designable/core";
 
-let timeRequest = null
+let timeRequest = null;
 
-export const useSnapshot = (operation: Operation) => {
-  onFieldInputValueChange('*', () => {
-    clearTimeout(timeRequest)
+export function useSnapshot(operation: Operation) {
+  onFieldInputValueChange("*", () => {
+    clearTimeout(timeRequest);
     timeRequest = setTimeout(() => {
-      operation.snapshot('update:node:props')
-    }, 1000)
-  })
+      operation.snapshot("update:node:props");
+    }, 1000);
+  });
 }

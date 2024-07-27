@@ -6,3 +6,4 @@ export * from "./TextWidget";
 export * from "./IconWidget";
 export * from "./OutlineWidget";
 export * from "./HistoryWidget";
+export * from "./NodePathWidget";

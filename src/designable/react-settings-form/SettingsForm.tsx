@@ -15,7 +15,7 @@ import {
 import { SchemaField } from "./SchemaField";
 import { ISettingFormProps } from "./types";
 import { SettingsFormContext } from "./shared/context";
-import { useLocales, useSnapshot } from "./effects";
+import { useSnapshot } from "./effects";
 import { Empty } from "antd";
 import cls from "classnames";
 import "./styles.less";
@@ -45,7 +45,6 @@ export const SettingsForm: React.FC<ISettingFormProps> = observer(
         initialValues: node?.designerProps?.defaultProps,
         values: node?.props,
         effects(form) {
-          useLocales(node);
           useSnapshot(operation);
           props.effects?.(form);
         },
@@ -88,12 +87,10 @@ export const SettingsForm: React.FC<ISettingFormProps> = observer(
     };
 
     return (
-      <IconWidget.Provider tooltip>
-        <div className={prefix + "-wrapper"}>
-          {!isEmpty && <NodePathWidget workspaceId={currentWorkspaceId} />}
-          <div className={prefix + "-content"}>{render()}</div>
-        </div>
-      </IconWidget.Provider>
+      <div className={prefix + "-wrapper"}>
+        {!isEmpty && <NodePathWidget workspaceId={currentWorkspaceId} />}
+        <div className={prefix + "-content"}>{render()}</div>
+      </div>
     );
   },
   {

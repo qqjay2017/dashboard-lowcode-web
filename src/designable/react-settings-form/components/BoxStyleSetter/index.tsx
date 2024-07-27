@@ -1,10 +1,10 @@
 import React from "react";
-import { useField, observer } from "@formily/react";
-import { usePrefix, IconWidget } from "@/designable/react";
+import { observer, useField } from "@formily/react";
+import cls from "classnames";
 import { FoldItem } from "../FoldItem";
 import { SizeInput } from "../SizeInput";
 import { InputItems } from "../InputItems";
-import cls from "classnames";
+import { IconWidget, usePrefix } from "@/designable/react";
 
 type Position = "top" | "right" | "left" | "bottom" | "all";
 export interface IMarginStyleSetterProps {
@@ -24,7 +24,7 @@ const PositionMap = {
 };
 
 const BoxRex =
-  /([\d\.]+[^\d\s\.+-]+)(?:\s+([\d\.]+[^\d\s\.+-]+)(?:\s+([\d\.]+[^\d\s\.+-]+)(?:\s+([\d\.]+[^\d\s\.+-]+))?)?)?/;
+  /([\d.]+[^\d\s.+-]+)(?:\s+([\d.]+[^\d\s.+-]+)(?:\s+([\d.]+[^\d\s.+-]+)(?:\s+([\d.]+[^\d\s.+-]+))?)?)?/;
 
 export const BoxStyleSetter: React.FC<IMarginStyleSetterProps> = observer(
   (props) => {

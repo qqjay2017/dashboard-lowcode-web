@@ -1,13 +1,13 @@
 import React from "react";
-import { useField, Field, observer } from "@formily/react";
-import { usePrefix } from "@/designable/react";
-import { Select, Input } from "@formily/antd-v5";
+import { Field, observer, useField } from "@formily/react";
+import { Input, Select } from "@formily/antd-v5";
+import cls from "classnames";
 import { FoldItem } from "../FoldItem";
 import { ColorInput } from "../ColorInput";
 import { BackgroundSizeInput } from "../SizeInput";
 import { BackgroundImageInput } from "../ImageInput";
 import { InputItems } from "../InputItems";
-import cls from "classnames";
+import { usePrefix } from "@/designable/react";
 
 export interface IBackgroundStyleSetterProps {
   className?: string;

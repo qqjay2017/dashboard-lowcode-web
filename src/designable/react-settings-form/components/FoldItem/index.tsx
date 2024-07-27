@@ -1,16 +1,18 @@
-import React, { Fragment, useRef, useMemo } from "react";
-import { FormItem, IFormItemProps } from "@formily/antd-v5";
-import { useField, observer } from "@formily/react";
+import type { PropsWithChildren } from "react";
+import React, { Fragment, useMemo, useRef } from "react";
+import type { IFormItemProps } from "@formily/antd-v5";
+import { FormItem } from "@formily/antd-v5";
+import { observer, useField } from "@formily/react";
 import { observable } from "@formily/reactive";
-import { IconWidget, usePrefix } from "@/designable/react";
 import cls from "classnames";
+import { IconWidget, usePrefix } from "@/designable/react";
 import "./styles.less";
 
 const ExpandedMap = new Map<string, boolean>();
 
-export const FoldItem: React.FC<IFormItemProps> & {
-  Base?: React.FC;
-  Extra?: React.FC;
+export const FoldItem: React.FC<PropsWithChildren<IFormItemProps>> & {
+  Base?: React.FC<PropsWithChildren>;
+  Extra?: React.FC<PropsWithChildren>;
 } = observer(({ className, style, children, ...props }) => {
   const prefix = usePrefix("fold-item");
   const field = useField();
@@ -21,18 +23,18 @@ export const FoldItem: React.FC<IFormItemProps> & {
   const slots = useRef({ base: null, extra: null });
   React.Children.forEach(children, (node) => {
     if (React.isValidElement(node)) {
-      if (node?.["type"]?.["displayName"] === "FoldItem.Base") {
-        slots.current.base = node["props"].children;
+      if ((node?.type as any)?.displayName === "FoldItem.Base") {
+        slots.current.base = node.props.children;
       }
-      if (node?.["type"]?.["displayName"] === "FoldItem.Extra") {
-        slots.current.extra = node["props"].children;
+      if ((node?.type as any)?.displayName === "FoldItem.Extra") {
+        slots.current.extra = node.props.children;
       }
     }
   });
   return (
     <div className={cls(prefix, className)}>
       <div
-        className={prefix + "-base"}
+        className={`${prefix}-base`}
         onClick={() => {
           expand.value = !expand.value;
           ExpandedMap.set(field.address.toString(), expand.value);
@@ -42,7 +44,7 @@ export const FoldItem: React.FC<IFormItemProps> & {
           {...props}
           label={
             <span
-              className={cls(prefix + "-title", {
+              className={cls(`${prefix}-title`, {
                 expand: expand.value,
               })}
             >
@@ -62,7 +64,7 @@ export const FoldItem: React.FC<IFormItemProps> & {
         </FormItem.BaseItem>
       </div>
       {expand.value && slots.current.extra && (
-        <div className={prefix + "-extra"}>{slots.current.extra}</div>
+        <div className={`${prefix}-extra`}>{slots.current.extra}</div>
       )}
     </div>
   );

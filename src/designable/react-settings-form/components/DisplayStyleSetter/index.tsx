@@ -1,12 +1,13 @@
 import React from "react";
-import { useField, Field, observer } from "@formily/react";
-import { Field as FieldType } from "@formily/core";
+import { Field, observer, useField } from "@formily/react";
+import type { Field as FieldType } from "@formily/core";
 import { FormItem } from "@formily/antd-v5";
 import { Radio } from "antd";
-import { usePrefix, IconWidget } from "@/designable/react";
-import { FlexStyleSetter } from "../FlexStyleSetter";
 import cls from "classnames";
+import { FlexStyleSetter } from "../FlexStyleSetter";
+import { IconWidget, usePrefix } from "@/designable/react";
 import "./styles.less";
+
 export interface IDisplayStyleSetterProps {
   className?: string;
   style?: React.CSSProperties;
@@ -26,7 +27,7 @@ export const DisplayStyleSetter: React.FC<IDisplayStyleSetterProps> = observer(
           style={props.style}
         >
           <Radio.Group
-            className={prefix + "-radio"}
+            className={`${prefix}-radio`}
             options={[
               {
                 label: <IconWidget infer="DisplayBlock" size={16} />,

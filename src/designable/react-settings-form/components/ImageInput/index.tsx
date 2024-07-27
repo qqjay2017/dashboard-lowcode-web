@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
-import { InputProps } from "antd/lib/input";
+import type { InputProps } from "antd/lib/input";
 import { Input, Upload } from "antd";
-import { usePrefix, IconWidget } from "@/designable/react";
-import { SettingsFormContext } from "../../shared/context";
 import cls from "classnames";
+import { SettingsFormContext } from "../../shared/context";
+import { IconWidget, usePrefix } from "@/designable/react";
 import "./styles.less";
+
 export interface ImageInputProps extends Omit<InputProps, "onChange"> {
   value?: string;
   onChange?: (value: string) => void;
@@ -22,7 +23,7 @@ export const ImageInput: React.FC<ImageInputProps> = ({
       <Input
         {...props}
         onChange={(e) => {
-          props.onChange?.(e?.target?.["value"]);
+          props.onChange?.(e?.target?.value);
         }}
         prefix={
           <Upload
@@ -56,6 +57,7 @@ export const BackgroundImageInput: React.FC<ImageInputProps> = (props) => {
     return `url(${value})`;
   };
   const removeBgValue = (value: any) => {
+    // eslint-disable-next-line regexp/no-super-linear-backtracking, regexp/optimal-quantifier-concatenation
     const matched = String(value).match(/url\(\s*([^)]+)\s*\)/);
     if (matched?.[1]) {
       return matched?.[1];

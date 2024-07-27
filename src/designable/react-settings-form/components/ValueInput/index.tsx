@@ -1,15 +1,18 @@
+// @ts-nocheck
+
 /*
  * 支持文本、数字、布尔、表达式
  * Todo: JSON、富文本，公式
  */
-import React from "react";
+
+import { Button, Input, InputNumber, Popover, Select } from "antd";
 import { createPolyInput } from "../PolyInput";
-import { Input, Button, Popover, InputNumber, Select } from "antd";
-import { MonacoInput } from "../MonacoInput";
+
 import { TextWidget } from "@/designable/react";
 
 const STARTTAG_REX =
-  /<([-A-Za-z0-9_]+)((?:\s+[a-zA-Z_:][-a-zA-Z0-9_:.]*(?:\s*=\s*(?:(?:"[^"]*")|(?:'[^']*')|[^>\s]+))?)*)\s*(\/?)>/;
+  // eslint-disable-next-line regexp/no-dupe-disjunctions
+  /<[-\w]+(?:\s+[a-z_:][-\w:.]*(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^>\s]+))?)*\s*\/?>/i;
 
 const EXPRESSION_REX = /^\{\{([\s\S]*)\}\}$/;
 
@@ -17,25 +20,25 @@ const isNumber = (value: any) => typeof value === "number";
 
 const isBoolean = (value: any) => typeof value === "boolean";
 
-const isExpression = (value: any) => {
+function isExpression(value: any) {
   return typeof value === "string" && EXPRESSION_REX.test(value);
-};
+}
 
-const isRichText = (value: any) => {
+function isRichText(value: any) {
   return typeof value === "string" && STARTTAG_REX.test(value);
-};
+}
 
-const isNormalText = (value: any) => {
+function isNormalText(value: any) {
   return (
     typeof value === "string" && !isExpression(value) && !isRichText(value)
   );
-};
+}
 
-const takeNumber = (value: any) => {
-  const num = String(value).replace(/[^\d\.]+/, "");
+function takeNumber(value: any) {
+  const num = String(value).replace(/[^\d.]+/, "");
   if (num === "") return;
   return Number(num);
-};
+}
 
 export const ValueInput = createPolyInput([
   {
@@ -60,7 +63,7 @@ export const ValueInput = createPolyInput([
                 marginBottom: -12,
               }}
             >
-              <MonacoInput {...props} language="javascript.expression" />
+              MonacoInput
             </div>
           }
           trigger="click"

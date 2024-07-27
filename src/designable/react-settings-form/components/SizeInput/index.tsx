@@ -1,57 +1,59 @@
-import { InputNumber } from 'antd'
-import { createPolyInput } from '../PolyInput'
+import { InputNumber } from "antd";
+import { createPolyInput } from "../PolyInput";
 
-const takeNumber = (value: any) => {
+function takeNumber(value: any) {
   const num = String(value)
     .trim()
-    .replace(/[^\d\.]+/, '')
-  if (num === '') return
-  return Number(num)
+    .replace(/[^\d.]+/, "");
+  if (num === "") return;
+  return Number(num);
 }
 
-const createUnitType = (type: string) => {
+function createUnitType(type: string) {
   return {
     type,
     component: InputNumber,
     checker(value: any) {
-      return String(value).includes(type)
+      return String(value).includes(type);
     },
     toInputValue(value: any) {
-      return takeNumber(value)
+      return takeNumber(value);
     },
     toChangeValue(value: any) {
-      return `${value || 0}${type}`
+      return `${value || 0}${type}`;
     },
-  }
+  };
 }
 
-const createSpecialSizeOption = (type: string) => ({
-  type: type,
-  checker(value: any) {
-    if (value === type) return true
-    return false
-  },
-  toChangeValue() {
-    return type
-  },
-})
+function createSpecialSizeOption(type: string) {
+  return {
+    type,
+    checker(value: any) {
+      if (value === type) return true;
+      return false;
+    },
+    toChangeValue() {
+      return type;
+    },
+  };
+}
 
 const NormalSizeOptions = [
-  createSpecialSizeOption('inherit'),
-  createSpecialSizeOption('auto'),
-  createUnitType('px'),
-  createUnitType('%'),
-  createUnitType('vh'),
-  createUnitType('em'),
-]
+  createSpecialSizeOption("inherit"),
+  createSpecialSizeOption("auto"),
+  createUnitType("px"),
+  createUnitType("%"),
+  createUnitType("vh"),
+  createUnitType("em"),
+];
 
-export const SizeInput = createPolyInput(NormalSizeOptions)
+export const SizeInput = createPolyInput(NormalSizeOptions);
 
 export const BackgroundSizeInput = createPolyInput([
-  createSpecialSizeOption('cover'),
-  createSpecialSizeOption('contain'),
-  createUnitType('px'),
-  createUnitType('%'),
-  createUnitType('vh'),
-  createUnitType('em'),
-])
+  createSpecialSizeOption("cover"),
+  createSpecialSizeOption("contain"),
+  createUnitType("px"),
+  createUnitType("%"),
+  createUnitType("vh"),
+  createUnitType("em"),
+]);

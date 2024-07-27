@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useField, observer } from "@formily/react";
-import { usePrefix, IconWidget } from "@/designable/react";
+import { observer, useField } from "@formily/react";
 import cls from "classnames";
+import { IconWidget, usePrefix } from "@/designable/react";
 import "./styles.less";
 
 export interface ICollapseItemProps {
@@ -20,19 +20,19 @@ export const CollapseItem: React.FC<ICollapseItemProps> = observer((props) => {
       style={props.style}
     >
       <div
-        className={prefix + "-header"}
+        className={`${prefix}-header`}
         onClick={(e) => {
           e.stopPropagation();
           e.preventDefault();
           setExpand(!expand);
         }}
       >
-        <div className={prefix + "-header-expand"}>
+        <div className={`${prefix}-header-expand`}>
           <IconWidget infer="Expand" size={10} />
         </div>
-        <div className={prefix + "-header-content"}>{field.title}</div>
+        <div className={`${prefix}-header-content`}>{field.title}</div>
       </div>
-      <div className={prefix + "-content"}>{props.children}</div>
+      <div className={`${prefix}-content`}>{props.children}</div>
     </div>
   );
 });

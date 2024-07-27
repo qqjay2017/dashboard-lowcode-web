@@ -1,10 +1,11 @@
-import React, { Fragment, useState, useLayoutEffect } from "react";
+import React, { Fragment, useLayoutEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { observer, useField } from "@formily/react";
 import { FormLayout } from "@formily/antd-v5";
-import { IconWidget, usePrefix, useTreeNode } from "@/designable/react";
-import { Button, ButtonProps } from "antd";
+import type { ButtonProps } from "antd";
+import { Button } from "antd";
 import cls from "classnames";
+import { IconWidget, usePrefix, useTreeNode } from "@/designable/react";
 import "./styles.less";
 
 export interface IDrawerSetterProps {
@@ -21,12 +22,22 @@ export const DrawerSetter: React.FC<IDrawerSetterProps> = observer((props) => {
   const prefix = usePrefix("drawer-setter");
   const formWrapperCls = usePrefix("settings-form-wrapper");
   useLayoutEffect(() => {
-    const wrapper = document.querySelector("." + formWrapperCls);
+    const wrapper = document.querySelector(`.${formWrapperCls}`);
     if (wrapper) {
       setRoot(wrapper);
     }
   }, [node]);
+  const handleOpen = () => {
+    setVisible(true);
+  };
 
+  const handleClose = () => {
+    setRemove(true);
+    setTimeout(() => {
+      setVisible(false);
+      setRemove(false);
+    }, 150);
+  };
   const renderDrawer = () => {
     if (root && visible) {
       return createPortal(
@@ -35,13 +46,13 @@ export const DrawerSetter: React.FC<IDrawerSetterProps> = observer((props) => {
             animate__slideOutRight: remove,
           })}
         >
-          <div className={prefix + "-header"} onClick={handleClose}>
+          <div className={`${prefix}-header`} onClick={handleClose}>
             <IconWidget infer="Return" size={18} />
-            <span className={prefix + "-header-text"}>
+            <span className={`${prefix}-header-text`}>
               {props.text || field.title}
             </span>
           </div>
-          <div className={prefix + "-body"}>
+          <div className={`${prefix}-body`}>
             <FormLayout
               colon={false}
               labelWidth={120}
@@ -58,18 +69,6 @@ export const DrawerSetter: React.FC<IDrawerSetterProps> = observer((props) => {
       );
     }
     return null;
-  };
-
-  const handleOpen = () => {
-    setVisible(true);
-  };
-
-  const handleClose = () => {
-    setRemove(true);
-    setTimeout(() => {
-      setVisible(false);
-      setRemove(false);
-    }, 150);
   };
 
   return (

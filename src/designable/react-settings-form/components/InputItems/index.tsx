@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { PropsWithChildren, useContext } from "react";
 import { usePrefix, IconWidget } from "@/designable/react";
 import cls from "classnames";
 import "./styles.less";
@@ -8,14 +8,14 @@ export interface IInputItemsContext {
   vertical?: boolean;
 }
 
-export interface IInputItemsProps {
+export interface IInputItemsProps extends PropsWithChildren {
   className?: string;
   style?: React.CSSProperties;
   width?: string | number;
   vertical?: boolean;
 }
 
-export interface IInputItemProps {
+export interface IInputItemProps extends PropsWithChildren {
   className?: string;
   style?: React.CSSProperties;
   icon?: React.ReactNode;
