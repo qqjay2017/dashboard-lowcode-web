@@ -2,6 +2,9 @@ import React, { useRef } from "react";
 import { css } from "@emotion/css";
 import { useDesigner, useViewport } from "../../hooks";
 import { Selection } from "./Selection";
+import { Insertion } from "./Insertion";
+import { Cover } from "./Cover";
+import { DashedBox } from "./DashedBox";
 
 export function AuxToolWidget() {
   const engine = useDesigner();
@@ -24,7 +27,11 @@ export function AuxToolWidget() {
         z-index: 9998;
       `}
     >
+      <Insertion />
+
+      <DashedBox />
       <Selection />
+      <Cover />
     </div>
   );
 }

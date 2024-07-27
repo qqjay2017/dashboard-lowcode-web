@@ -29,7 +29,7 @@ Card.Behavior = createBehavior({
   name: "Card",
   selector: "Card",
   designerProps: {
-    droppable: true,
+    droppable: false,
     resizable: {
       grid: {
         width: -1, // -1代表网格宽度以元素宽度为基准，0代表无网格，大于0代表按某个网格宽度拖拽

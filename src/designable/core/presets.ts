@@ -7,17 +7,14 @@ import {
   // ViewportScrollDriver,
 } from './drivers'
 import {
+  useAutoScrollEffect,
   useCursorEffect,
-  //   useViewportEffect,
   useDragDropEffect,
-  //   useSelectionEffect,
-  //   useResizeEffect,
-  //   useKeyboardEffect,
-  //   useAutoScrollEffect,
+  useFreeSelectionEffect,
+
+  useSelectionEffect,
   useWorkspaceEffect,
-  //   useFreeSelectionEffect,
-  //   useContentEditableEffect,
-  //   useTranslateEffect,
+
 } from './effects'
 // import {
 //   SelectNodes,
@@ -35,13 +32,13 @@ import {
 // } from './shortcuts'
 
 export const DEFAULT_EFFECTS = [
-  // useFreeSelectionEffect,
+  useFreeSelectionEffect,
   useCursorEffect,
   // useViewportEffect,
   useDragDropEffect,
-  // useSelectionEffect,
+  useSelectionEffect,
   // useKeyboardEffect,
-  // useAutoScrollEffect,
+  useAutoScrollEffect,
   useWorkspaceEffect,
   // useContentEditableEffect,
   // useTranslateEffect,

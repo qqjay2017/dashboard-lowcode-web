@@ -14,9 +14,7 @@ export const Root: DnFC<IRootProps> = ({ children }: IRootProps) => {
         border: 1px solid greenyellow;
       `}
     >
-      <h1>11</h1>
       {children}
-      <h1>22</h1>
     </div>
   );
 };
