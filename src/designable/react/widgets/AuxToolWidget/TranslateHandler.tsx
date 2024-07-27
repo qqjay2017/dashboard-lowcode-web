@@ -1,8 +1,24 @@
 import React from "react";
 import cls from "classnames";
+import { injectGlobal } from "@emotion/css";
 import { useDesigner } from "../../hooks";
 
 import type { TreeNode } from "@/designable/core";
+
+injectGlobal`
+.aux-node-translate-handler {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  width: 40px;
+  height: 20px;
+  background: #1890ff;
+  opacity: 0.5;
+  pointer-events: all;
+}
+`;
 
 export interface ITranslateHandlerProps {
   node: TreeNode;
