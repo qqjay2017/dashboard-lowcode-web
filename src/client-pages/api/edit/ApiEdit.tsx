@@ -1,88 +1,88 @@
-import { useContext, useMemo } from 'react'
-import { SchemaOptionsContext } from '@formily/react'
-import { ConfigProvider } from 'antd'
-import { Form, FormButtonGroup, FormDialog, Submit } from '@formily/antd-v5'
-import { createForm } from '@formily/core'
-import { css } from '@emotion/css'
-import { get } from 'lodash-es'
-import { useNavigate } from 'react-router-dom'
-import { editApiFormSchema } from '../main/editApiFormSchema'
-import { ApiTest } from '../main/ApiTest'
-import { FormButtonGroupWrap, FormDialogPortal } from '@/schema-component'
-import { useEditId } from '@/hooks'
-import { useAPIClient, useRequest } from '@/api-client'
+import { useContext, useMemo } from "react";
+import { SchemaOptionsContext } from "@formily/react";
+import { ConfigProvider } from "antd";
+import { Form, FormButtonGroup, FormDialog, Submit } from "@formily/antd-v5";
+import { createForm } from "@formily/core";
+import { css } from "@emotion/css";
+import { get } from "lodash-es";
+import { useNavigate } from "react-router-dom";
+import { editApiFormSchema } from "../main/editApiFormSchema";
+import { ApiTest } from "../main/ApiTest";
+import { FormButtonGroupWrap, FormDialogPortal } from "@/schema-component";
+import { useEditId } from "@/hooks";
+import { useAPIClient, useRequest } from "@/api-client";
 import {
   SchemaComponent,
   SchemaComponentOptions,
-} from '@/schema-component/core'
-import { apiBase } from '@/utils'
-import { useApp } from '@/application'
+} from "@/schema-component/core";
+import { apiBase } from "@/utils";
+import { useApp } from "@/application";
 
 export function ApiEdit() {
-  const app = useApp()
-  const id = useEditId()
-  const apiClient = useAPIClient()
-  const options = useContext(SchemaOptionsContext)
-  const { locale } = useContext(ConfigProvider.ConfigContext)
-  const navigate = useNavigate()
-  const Providers = useMemo(() => app.getComposeProviders(), [app])
+  const app = useApp();
+  const id = useEditId();
+  const apiClient = useAPIClient();
+  const options = useContext(SchemaOptionsContext);
+  const { locale } = useContext(ConfigProvider.ConfigContext);
+  const navigate = useNavigate();
+  const Providers = useMemo(() => app.getComposeProviders(), [app]);
   const { data } = useRequest(`${apiBase}/api-manage/${id}`, {
     enabled: !!id,
-    method: 'GET',
-  })
-  const dtData = get(data, 'data.data', {})
+    method: "GET",
+  });
+  const dtData = get(data, "data.data", {});
 
-  const form = useMemo(() => {
+  const form: any = useMemo(() => {
     if (!id) {
       return createForm({
         initialValues: {},
-      })
+      });
     }
     return createForm({
       initialValues: {
         ...dtData,
-        headers: JSON.parse(dtData?.headers || '[]'),
-        mockJson: dtData?.mockJson || '{}',
+        headers: JSON.parse(dtData?.headers || "[]"),
+        mockJson: dtData?.mockJson || "{}",
       },
-    })
-  }, [dtData, id])
+    });
+  }, [dtData, id]);
 
   const onSubmit = async (values) => {
     const res = await apiClient.request({
-      method: id ? 'put' : 'post',
+      method: id ? "put" : "post",
       url: id
         ? `${apiBase}/api-manage/edit/${id}`
         : `${apiBase}/api-manage/create`,
       data: {
         ...values,
         headers: JSON.stringify(values.headers || []),
-        url: (values.url || '').trim(),
+        url: (values.url || "").trim(),
 
-        mockJson: values.mockJson || '{}',
+        mockJson: values.mockJson || "{}",
       },
-    })
-    const resId = get(res, 'data.data.id', '')
+    });
+    const resId = get(res, "data.data.id", "");
     if (resId) {
-      navigate('/dapi/external-data')
+      navigate("/dapi/external-data");
     }
-  }
+  };
 
   const onTest = async (values) => {
     const dialog = FormDialog(
       {
-        title: '测试API',
-        width: '80vw',
+        title: "测试API",
+        width: "80vw",
       },
       () => {
         return (
           <Providers>
             <ApiTest formValues={values} />
           </Providers>
-        )
-      },
-    )
-    dialog.open()
-  }
+        );
+      }
+    );
+    dialog.open();
+  };
 
   return (
     <div
@@ -120,5 +120,5 @@ export function ApiEdit() {
         </ConfigProvider>
       </SchemaComponentOptions>
     </div>
-  )
+  );
 }
