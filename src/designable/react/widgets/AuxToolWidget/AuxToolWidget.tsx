@@ -5,6 +5,9 @@ import { Selection } from "./Selection";
 import { Insertion } from "./Insertion";
 import { Cover } from "./Cover";
 import { DashedBox } from "./DashedBox";
+import { SpaceBlock } from "./SpaceBlock";
+import { SnapLine } from "./SnapLine";
+import { FreeSelection } from "./FreeSelection";
 
 export function AuxToolWidget() {
   const engine = useDesigner();
@@ -28,9 +31,12 @@ export function AuxToolWidget() {
       `}
     >
       <Insertion />
+      <SpaceBlock />
+      <SnapLine />
       <DashedBox />
       <Selection />
       <Cover />
+      <FreeSelection />
     </div>
   );
 }

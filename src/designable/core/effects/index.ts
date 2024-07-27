@@ -5,3 +5,6 @@ export * from "./useSelectionEffect";
 export * from "./useFreeSelectionEffect";
 export * from "./useAutoScrollEffect";
 export * from "./useViewportEffect";
+export * from "./useKeyboardEffect";
+export * from "./useResizeEffect";
+export * from "./useTranslateEffect";

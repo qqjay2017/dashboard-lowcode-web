@@ -2606,7 +2606,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@juggle/resize-observer@npm:^3.3.1":
+"@juggle/resize-observer@npm:^3.3.1, @juggle/resize-observer@npm:^3.4.0":
   version: 3.4.0
   resolution: "@juggle/resize-observer@npm:3.4.0"
   checksum: 5786abce4141d541f563d32a0c04dd0fb62f1f9f31620c0e92809418e73eb56610f7e10ddddf08ed2f09aad032c1eeac8c991eb708e042224002cc658716e67b
@@ -5909,6 +5909,7 @@ __metadata:
     "@formily/core": "npm:2.3.1"
     "@formily/react": "npm:2.3.1"
     "@formily/shared": "npm:2.3.1"
+    "@juggle/resize-observer": "npm:^3.4.0"
     "@monaco-editor/react": "npm:^4.6.0"
     "@radix-ui/react-icons": "npm:^1.3.0"
     "@radix-ui/react-select": "npm:^2.1.1"

@@ -5,6 +5,7 @@ import type { Workspace } from "./Workspace";
 import { Selection } from "./Selection";
 import { Hover } from "./Hover";
 import { MoveHelper } from "./MoveHelper";
+import { TransformHelper } from "./TransformHelper";
 import { type ICustomEvent, cancelIdle, isFn } from "@/designable/shared";
 
 export interface IOperation {
@@ -21,7 +22,7 @@ export class Operation {
   selection: Selection;
   hover: Hover;
 
-  // transformHelper: TransformHelper
+  transformHelper: TransformHelper;
 
   moveHelper: MoveHelper;
 
@@ -47,9 +48,9 @@ export class Operation {
     this.moveHelper = new MoveHelper({
       operation: this,
     });
-    // this.transformHelper = new TransformHelper({
-    //   operation: this,
-    // })
+    this.transformHelper = new TransformHelper({
+      operation: this,
+    });
     this.selection.select(this.tree);
   }
 
