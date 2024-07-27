@@ -27,7 +27,7 @@ import { useCustomThemeToken } from "@/dashboard-themes";
 import { useToken } from "@/schema-component/antd/style";
 import { getPercent } from "@/schema-component/utils";
 
-export function ChartEditPage() {
+function ChartEditPage() {
   const { token: antdToken } = useToken();
   const chartOptionEditorRef = useRef<MonacoEditorHandles>(null);
   const app = useApp();
@@ -294,3 +294,5 @@ function RunBtn({ children, ...props }: React.HTMLAttributes<HTMLDivElement>) {
     </div>
   );
 }
+
+export default ChartEditPage;

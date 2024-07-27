@@ -1,32 +1,56 @@
-import { useMemo } from "react";
-import { Designer, Workbench } from "./react/container";
-import { createDesigner } from "./core";
+import { useEffect, useMemo } from "react";
+import { get } from "lodash-es";
+
+import { Actions } from "./Logo/Actions";
+import { Logo } from "./Logo/Logo";
+import { useDashboardDt } from "./useDashboardDt";
+import { SettingsForm } from "@/designable/react-settings-form";
+import {
+  Designer,
+  SettingsPanel,
+  ViewPanel,
+  Workbench,
+} from "@/designable/react";
+import { createDesigner, transformToTreeNode } from "@/designable/core";
+import { Field } from "@/designable/Field";
+import { Card } from "@/designable/Content";
 import {
   CompositePanel,
   StudioPanel,
   ViewportPanel,
   WorkspacePanel,
-} from "./react/panels";
-import { ViewPanel } from "./react/panels/ViewPanel";
-import { Card } from "./Content";
+} from "@/designable/react/panels";
 import {
   ComponentTreeWidget,
   HistoryWidget,
   OutlineTreeWidget,
   ResourceWidget,
-} from "./react/widgets";
-import { Logo } from "./Logo/Logo";
-import { Actions } from "./Logo/Actions";
-import { Field } from "./Field";
-import { SettingsPanel } from "./react/panels/SettingsPanel";
-import { SettingsForm } from "./react-settings-form";
+} from "@/designable/react/widgets";
 import { Root } from "@/designable/Field/Root/Root";
-import { Header1 } from "@/schema-component";
+import { Header1, useProjectSelectScope } from "@/schema-component";
+import { useAppSpin } from "@/application";
 
-export function DesignPage2() {
+function DesignPage2() {
+  const { data, isLoading } = useDashboardDt();
+  const schema = get(data, "data.data.content", "");
+  const projectSelectScope = useProjectSelectScope();
   const engine = useMemo(() => {
     return createDesigner({});
   }, []);
+
+  const { render } = useAppSpin();
+
+  useEffect(() => {
+    if (engine && schema) {
+      const tree = transformToTreeNode(JSON.parse(schema));
+      console.log(tree);
+      engine.setCurrentTree(tree);
+    }
+  }, [engine, schema]);
+
+  if (!schema || isLoading || !projectSelectScope) {
+    return render();
+  }
   return (
     <Designer engine={engine}>
       <Workbench>
@@ -66,3 +90,5 @@ export function DesignPage2() {
     </Designer>
   );
 }
+
+export default DesignPage2;

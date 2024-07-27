@@ -1,5 +1,6 @@
+import { lazy } from "react";
 import { BASE_URL } from "./env";
-import { DesignPage2 } from "./designable/DesignPage2";
+
 import { DesignPage } from "@/client-pages/design-page";
 
 import { Application } from "@/application/Application";
@@ -15,15 +16,17 @@ import { NavigateHome } from "@/client-pages/home-list/NavigateHome";
 
 import { HomeMain } from "@/client-pages/home";
 import { DashboardMain } from "@/client-pages/dashboard";
-import {
-  ChartEditPage,
-  ChartIndex,
-  ComponentMain,
-} from "@/client-pages/component";
+import { ChartIndex, ComponentMain } from "@/client-pages/component";
 import { AssetsMain } from "@/client-pages/assets";
 import { ApiEdit, ApiMagic, ApiMain } from "@/client-pages/api";
 import { PluginMain } from "@/client-pages/plugin";
 
+const DesignPage2 = lazy(
+  () => import("./client-pages/design-page/DesignPage2")
+);
+const ChartEditPage = lazy(
+  () => import("@/client-pages/component/chart/ChartEditPage")
+);
 const application = new Application({
   providers: [],
   plugins: [AntdV5Plugin, DashboardBuildinPlugin, KxgcAuthPlugin],
@@ -103,12 +106,9 @@ const application = new Application({
         path: "/plugin/main",
         Component: PluginMain,
       },
+
       dashboarddesign: {
         path: "/dashboard-design/:id",
-        Component: DesignPage,
-      },
-      dashboarddesign2: {
-        path: "/dashboard-design2/:id",
         Component: DesignPage2,
       },
     },
