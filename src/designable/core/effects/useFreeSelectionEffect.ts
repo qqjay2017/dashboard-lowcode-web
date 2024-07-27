@@ -31,6 +31,7 @@ export function useFreeSelectionEffect(engine: Engine) {
           engine.cursor.position.topClientY,
         ),
       )
+
       if (!viewport.isPointInViewport(dragEndPoint, false))
         return
       const tree = workspace.operation.tree

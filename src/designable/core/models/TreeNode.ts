@@ -557,6 +557,8 @@ export class TreeNode {
 
     const newNodes = this.resetNodesParent(nodes, this)
 
+    console.log(newNodes, 'newNodes')
+
     if (!newNodes.length)
       return []
     return this.triggerMutation(

@@ -1,10 +1,11 @@
 import { observer } from "@formily/reactive-react";
 import { ComponentTreeWidget } from "./react/widgets";
-import { createBehavior } from "./core";
+import { createBehavior, createResource } from "./core";
 import type { DnFC } from "./react";
+import { Field } from "./Field";
 import { Root } from "@/schema-component";
 
-const Card: DnFC<any> = observer((props) => {
+export const Card: DnFC<any> = observer((props) => {
   return (
     <div
       {...props}
@@ -27,7 +28,8 @@ const Card: DnFC<any> = observer((props) => {
 
 Card.Behavior = createBehavior({
   name: "Card",
-  selector: "Card",
+  selector: (node) =>
+    node.componentName === "Field" && node.props["x-component"] === "Card",
   designerProps: {
     droppable: false,
     resizable: {
@@ -58,12 +60,42 @@ Card.Behavior = createBehavior({
     },
   },
 });
+
+Card.Resource = createResource({
+  title: "卡片",
+  icon: "CardSource",
+  elements: [
+    {
+      componentName: "Field",
+      props: {
+        title: "输入框",
+        type: "void",
+        "x-decorator": "PositionDecorator",
+        "x-decorator-props": {
+          w: 3,
+          y: 3,
+          padding: [0, 0, 0, 0],
+        },
+        "x-component": "Card",
+      },
+    },
+  ],
+  // elements: [
+  //   {
+  //     componentName: "Card",
+  //     props: {
+  //       title: "卡片",
+  //     },
+  //   },
+  // ],
+});
 export function Content() {
   return (
     <ComponentTreeWidget
       components={{
         Root,
         Card,
+        Field,
       }}
     />
   );

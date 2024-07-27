@@ -6,6 +6,7 @@ import {
   type Engine,
   TreeNode,
 } from '../models'
+import { sizeFormat } from '@/utils'
 import { Point } from '@/designable/shared'
 
 export function useDragDropEffect(engine: Engine) {
@@ -146,9 +147,33 @@ export function useDragDropEffect(engine: Engine) {
           || closestDirection === ClosestPosition.InnerAfter
         ) {
           if (closestNode.allowAppend(dragNodes)) {
+            const viewport = currentWorkspace.viewport
+            const dragEndOffsetPoint = viewport.getOffsetPoint(
+              new Point(
+                engine.cursor.position.topClientX,
+                engine.cursor.position.topClientY,
+              ),
+            )
+            console.log(dragEndOffsetPoint.x, viewport.width, 'dragEndOffsetPoint.x')
+            const decoratorProps = {
+              w: 3,
+              h: 3,
+              padding: [0, 0, 0, 0],
+              x: sizeFormat(dragEndOffsetPoint.x / (viewport.width / 12), 2),
+              y: sizeFormat(dragEndOffsetPoint.y / (viewport.height / 12), 2),
+            }
+            console.log(decoratorProps, 'decoratorProps')
+
             selection.batchSafeSelect(
               closestNode.append(
-                ...TreeNode.filterDroppable(dragNodes, closestNode),
+                ...TreeNode.filterDroppable(dragNodes.map((node) => {
+                  node.props['x-decorator-props'] = node.props['x-decorator-props'] || {}
+                  node.props['x-decorator-props'] = {
+                    ...decoratorProps,
+                    ...(node.props['x-decorator-props']),
+                  }
+                  return node
+                }), closestNode),
               ),
             )
             moveHelper.dragDrop({ dropNode: closestNode })

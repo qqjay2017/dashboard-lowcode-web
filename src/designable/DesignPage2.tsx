@@ -13,24 +13,12 @@ import {
   WorkspacePanel,
 } from "./react/panels";
 import { ViewPanel } from "./react/panels/ViewPanel";
-import { Content } from "./Content";
+import { Card, Content } from "./Content";
 import { ResourceWidget } from "./react/widgets";
 
 /**
  * 存到全局缓存
  */
-const Card = createResource({
-  title: "卡片",
-  icon: "CardSource",
-  elements: [
-    {
-      componentName: "Card",
-      props: {
-        title: "卡片",
-      },
-    },
-  ],
-});
 
 export function DesignPage2() {
   const engine = useMemo(() => {
