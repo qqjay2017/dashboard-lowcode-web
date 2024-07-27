@@ -1,29 +1,33 @@
-import { css } from '@emotion/css'
-import type { PropsWithChildren } from 'react'
-import { Header1SchemeWrap } from './Header1SchemeWrap'
-import { Header1MenuItem } from './Header1MenuItem'
-import { Header1SettingSchema } from './Header1SettingSchema'
-import { GradientTitle } from './GradientTitle'
-import { cn, rs } from '@/utils'
-import { createStyles } from '@/style'
+import { css } from "@emotion/css";
+import type { PropsWithChildren } from "react";
 
-import { useStrHandlebars } from '@/schema-component/hooks'
+import { GradientTitle } from "./GradientTitle";
+import { cn, rs } from "@/utils";
+import { createStyles } from "@/style";
+
+import { useStrHandlebars } from "@/schema-component/hooks";
+import type { DnFC } from "@/designable/react";
+import { createBehavior, createResource } from "@/designable/core";
 
 const useHeader1Styles = createStyles(({ css, token }) => {
-  const { themeAssetsPath } = token
-  const url = rs(`/assets/header1/${themeAssetsPath}/bg.png`)
+  const { themeAssetsPath } = token;
+  const url = rs(`/assets/header1/${themeAssetsPath}/bg.png`);
   return css`
     background-image: url(${url});
-  `
-})
+  `;
+});
 
 interface Header1Props extends PropsWithChildren {
-  title?: string
+  title?: string;
 }
-export function Header1({ title }: Header1Props) {
-  const { styles } = useHeader1Styles()
+export const Header1: DnFC<Header1Props> = ({
+  title,
+  ...props
+}: Header1Props) => {
+  const { styles } = useHeader1Styles();
 
-  const titleStr = useStrHandlebars(title)
+  const titleStr = useStrHandlebars(title);
+
   return (
     <div
       className={cn(
@@ -35,7 +39,7 @@ export function Header1({ title }: Header1Props) {
           background-repeat: no-repeat;
           background-position: center bottom;
           position: relative;
-        `,
+        `
       )}
     >
       <div
@@ -63,9 +67,50 @@ export function Header1({ title }: Header1Props) {
         {/* {title} */}
       </div>
     </div>
-  )
-}
-Header1.displayName = 'Header1'
-Header1.schemaFn = Header1SchemeWrap
-Header1.menuItem = Header1MenuItem
-Header1.settingSchema = Header1SettingSchema
+  );
+};
+Header1.displayName = "Header1";
+Header1.Resource = createResource({
+  title: "头部1",
+  icon: rs("/assets/schema-component/Header1/header1.png"),
+  elements: [
+    {
+      componentName: "Field",
+      props: {
+        type: "void",
+        "x-component": "Header1",
+        "x-decorator": "PositionDecorator",
+        "x-decorator-props": {
+          w: 12,
+          h: 1.3,
+          padding: [0, 0, 0, 0],
+        },
+        "x-component-props": {
+          title: "{{dashboardDt.name}}",
+        },
+
+        "x-reactions": {
+          dependencies: {},
+          when: true,
+          fulfill: {
+            schema: {
+              "x-component-props.query": "{{$deps}}",
+            },
+          },
+        },
+      },
+    },
+  ],
+});
+
+Header1.Behavior = createBehavior({
+  name: "Header1",
+  selector: (node) =>
+    node.componentName === "Field" && node.props["x-component"] === "Header1",
+  designerProps: {
+    draggable: true,
+    droppable: false,
+    resizable: {},
+    translatable: {},
+  },
+});

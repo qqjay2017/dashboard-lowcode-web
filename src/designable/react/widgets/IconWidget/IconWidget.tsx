@@ -8,6 +8,7 @@ import {
   MdOutlineExpandMore,
   MdOutlineFindInPage,
   MdOutlineHistory,
+  MdRemoveRedEye,
 } from "react-icons/md";
 
 import { cn } from "@/utils";
@@ -31,6 +32,7 @@ const allIconMap = {
   Expand: MdOutlineExpandMore,
   Page: MdOutlineFindInPage,
   History: MdOutlineHistory,
+  Eye: MdRemoveRedEye,
 };
 
 export const IconWidget = observer(

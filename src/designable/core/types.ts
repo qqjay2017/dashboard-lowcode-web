@@ -45,8 +45,8 @@ export interface ITranslate {
     width?: number;
     height?: number;
   };
-  left: (node: TreeNode, value: number) => void;
-  top: (node: TreeNode, value: number) => void;
+  left?: (node: TreeNode, value: number) => void;
+  top?: (node: TreeNode, value: number) => void;
 }
 
 export interface IDesignerProps {

@@ -416,9 +416,10 @@ export class TreeNode {
     if (this === this.root && !this.isSourceNode) return false;
     const { resizable } = this.designerProps;
     if (!resizable) return false;
-    if (resizable.width && resizable.height) return ["x", "y"];
-    if (resizable.width) return ["x"];
-    return ["y"];
+    return ["x", "y"];
+    // if (resizable.width && resizable.height) return ["x", "y"];
+    // if (resizable.width) return ["x"];
+    // return ["y"];
   }
 
   allowRotate() {}
@@ -430,8 +431,10 @@ export class TreeNode {
   allowTranslate(): boolean {
     if (this === this.root && !this.isSourceNode) return false;
     const { translatable } = this.designerProps;
-    if (translatable?.left && translatable?.top) return true;
-    return false;
+    if (!translatable) {
+      return false;
+    }
+    return true;
   }
 
   allowDelete() {

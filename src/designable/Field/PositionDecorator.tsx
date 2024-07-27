@@ -1,5 +1,6 @@
 import { type PropsWithChildren, useMemo } from "react";
 import { observer } from "@formily/react";
+import { css } from "@emotion/css";
 import { useDesigner, useViewport } from "../react";
 import type { PositionDecoratorOptions } from "@/schema-component/components/PositionDecorator/types";
 import { cn, sizeFormat } from "@/utils";
@@ -52,12 +53,19 @@ export const PositionDecorator = observer((props: PositionDecoratorProps) => {
   const designProps = {
     [designer.props.nodeIdAttrName]: props["data-designer-node-id"],
   };
-  console.log(props, "props pos dec ");
+
   return (
     <div
-      className={cn("positionDecoratorHandle", className)}
+      className={cn(
+        "positionDecoratorHandle",
+        className,
+        css`
+          > * {
+            /* user-select: none; */
+          }
+        `
+      )}
       style={{
-        userSelect: "none",
         position: "absolute",
         width,
         height,
@@ -71,7 +79,17 @@ export const PositionDecorator = observer((props: PositionDecoratorProps) => {
       }}
       {...designProps}
     >
-      {children}
+      <div
+        className={css`
+          width: 100%;
+          height: 100%;
+          user-select: none;
+          pointer-events: none;
+          position: relative;
+        `}
+      >
+        {children}
+      </div>
     </div>
   );
 });

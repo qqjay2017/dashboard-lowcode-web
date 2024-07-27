@@ -1,17 +1,17 @@
-import { Fragment, useEffect, useMemo, useState } from 'react'
-import { ConfigProvider } from 'antd'
-import { useFieldSchema } from '@formily/react'
-import { css } from '@emotion/css'
-import { DashboardRootContext, DesignPageConext } from '../context'
-import { defaultBreakpoints, flexible } from '../utils'
-import { useBreakpoints, useRowProperties } from '../hooks'
-import { useDashboardRootStyle, useScrollBarStyle } from '../styles'
-import type { DashboardRootProps } from './DashboardRoot'
-import { MemorizedRecursionField } from './DashboardRoot'
-import { fontStyle } from './style'
-import { useCustomThemeToken } from '@/dashboard-themes'
-import { ThemeCSSVariableProvider } from '@/css-variable'
-import { cn, cx, sizeFormat } from '@/utils'
+import { Fragment, useEffect, useMemo, useState } from "react";
+import { ConfigProvider } from "antd";
+import { useFieldSchema } from "@formily/react";
+import { css } from "@emotion/css";
+import { DashboardRootContext, DesignPageConext } from "../context";
+import { defaultBreakpoints, flexible } from "../utils";
+import { useBreakpoints, useRowProperties } from "../hooks";
+import { useDashboardRootStyle, useScrollBarStyle } from "../styles";
+import type { DashboardRootProps } from "./DashboardRoot";
+import { MemorizedRecursionField } from "./DashboardRoot";
+import { fontStyle } from "./style";
+import { useCustomThemeToken } from "@/dashboard-themes";
+import { ThemeCSSVariableProvider } from "@/css-variable";
+import { cn, cx, sizeFormat } from "@/utils";
 
 export function DashboardRootPreview({
   children,
@@ -24,36 +24,36 @@ export function DashboardRootPreview({
     cols = 12,
     rows = 12,
     rowheight: mobileRowHeight = 80,
-    themeProvider = '',
+    themeProvider = "",
     distributed,
     className,
     style,
     isDarkTheme,
     ...otherProps
-  } = props
+  } = props;
 
-  const [designZoom, setDesignZoom] = useState(1)
+  const [designZoom, setDesignZoom] = useState(1);
   const { breakpoint, width, height } = useBreakpoints(
     breakpoints,
     300,
-    document.body,
-  )
+    document.body
+  );
   const rootStyle = useDashboardRootStyle({
     themeProvider,
     isDarkTheme,
-  })
+  });
 
-  const fieldSchema = useFieldSchema()
-  const isPc = breakpoint === 'desktop' || breakpoint === 'showroom'
-  const rowHeight = isPc ? sizeFormat(height / rows) : 80
-  const colWidth = cols && width ? sizeFormat(width / cols) : 0
+  const fieldSchema = useFieldSchema();
+  const isPc = breakpoint === "desktop" || breakpoint === "showroom";
+  const rowHeight = isPc ? sizeFormat(height / rows) : 80;
+  const colWidth = cols && width ? sizeFormat(width / cols) : 0;
   const blockItems = useRowProperties({
     isPc,
     rowHeight,
     colWidth,
     breakpoint,
     width,
-  })
+  });
 
   const RenderBlockItems = useMemo(() => {
     return (
@@ -63,38 +63,36 @@ export function DashboardRootPreview({
             <Fragment key={`${schema.name}${index}`}>
               <MemorizedRecursionField name={schema.name} schema={schema} />
             </Fragment>
-          )
+          );
         })}
       </>
-    )
-  }, [blockItems?.length])
+    );
+  }, [blockItems?.length]);
   const customThemeToken = useCustomThemeToken({
     themeProvider,
     isDarkTheme,
-  })
+  });
 
   useEffect(() => {
     if (isPc) {
-      flexible(designWidth)
+      flexible(designWidth);
+    } else if (breakpoint === "mobile") {
+      flexible(550);
+    } else if (breakpoint === "tablet") {
+      flexible(1300);
     }
-    else if (breakpoint === 'mobile') {
-      flexible(550)
-    }
-    else if (breakpoint === 'tablet') {
-      flexible(1300)
-    }
-  }, [designWidth, isPc, breakpoint])
+  }, [designWidth, isPc, breakpoint]);
 
-  const lastBlockItem
-    = blockItems[blockItems.length - 1]?.['x-decorator-props']
+  const lastBlockItem =
+    blockItems[blockItems.length - 1]?.["x-decorator-props"];
   const totalHeight = lastBlockItem
     ? (lastBlockItem.y + lastBlockItem.h + 0.5) * rowHeight
-    : '2000'
-  const dheight = isPc || !lastBlockItem ? '100%' : `${totalHeight}px`
+    : "2000";
+  const dheight = isPc || !lastBlockItem ? "100%" : `${totalHeight}px`;
 
   const { styles: scrollBarStyle } = useScrollBarStyle({
     thumbColor: customThemeToken.token.thumbColor,
-  })
+  });
 
   return (
     <DesignPageConext.Provider
@@ -138,9 +136,9 @@ export function DashboardRootPreview({
                     position: relative;
                     background-size: cover;
                     overflow-x: hidden;
-                    overflow-y: ${isPc ? 'hidden' : 'auto'};
+                    overflow-y: ${isPc ? "hidden" : "auto"};
                   `,
-                  scrollBarStyle,
+                  scrollBarStyle
                 )}
               >
                 <div
@@ -158,7 +156,7 @@ export function DashboardRootPreview({
                       css`
                         background-size: cover;
                         background-position: center;
-                        background-repeat: ${isPc ? 'no-repeat' : 'repeat'};
+                        background-repeat: ${isPc ? "no-repeat" : "repeat"};
                         font-size: 0.14rem;
                         line-height: 1;
                         color: #ccc;
@@ -169,7 +167,7 @@ export function DashboardRootPreview({
                       `,
                       rootStyle.styles,
                       className,
-                      themeProvider,
+                      themeProvider
                     )}
                     style={{
                       ...style,
@@ -184,5 +182,5 @@ export function DashboardRootPreview({
         </ThemeCSSVariableProvider>
       </ConfigProvider>
     </DesignPageConext.Provider>
-  )
+  );
 }

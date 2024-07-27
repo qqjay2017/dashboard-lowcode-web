@@ -8,14 +8,18 @@ import {
   WorkspacePanel,
 } from "./react/panels";
 import { ViewPanel } from "./react/panels/ViewPanel";
-import { Card, Content } from "./Content";
+import { Card } from "./Content";
 import {
+  ComponentTreeWidget,
   HistoryWidget,
   OutlineTreeWidget,
   ResourceWidget,
 } from "./react/widgets";
 import { Logo } from "./Logo/Logo";
 import { Actions } from "./Logo/Actions";
+import { Field } from "./Field";
+import { Root } from "@/schema-component/components/Root/Root";
+import { Header1 } from "@/schema-component";
 
 export function DesignPage2() {
   const engine = useMemo(() => {
@@ -27,7 +31,7 @@ export function DesignPage2() {
         <StudioPanel logo={<Logo />} actions={<Actions />}>
           <CompositePanel>
             <CompositePanel.Item title="组件" icon="Component">
-              <ResourceWidget title="sources.Inputs" sources={[Card]} />
+              <ResourceWidget title="业务" sources={[Card, Header1]} />
             </CompositePanel.Item>
             <CompositePanel.Item title="大纲树" icon="Outline">
               <OutlineTreeWidget />
@@ -38,7 +42,18 @@ export function DesignPage2() {
           </CompositePanel>
           <WorkspacePanel>
             <ViewportPanel>
-              <ViewPanel type="DESIGNABLE">{() => <Content />}</ViewPanel>
+              <ViewPanel type="DESIGNABLE">
+                {() => (
+                  <ComponentTreeWidget
+                    components={{
+                      Root,
+                      Card,
+                      Field,
+                      Header1,
+                    }}
+                  />
+                )}
+              </ViewPanel>
             </ViewportPanel>
           </WorkspacePanel>
         </StudioPanel>
