@@ -21,6 +21,7 @@ import {
 import type { DataSourceBindType } from "@/schema-component/types";
 import type { DnFC } from "@/designable/react";
 import { createBehavior, createResource } from "@/designable/core";
+import { createFieldSchema } from "@/designable/Field";
 
 interface Header5Props extends PropsWithChildren {
   title?: string;
@@ -222,7 +223,7 @@ Header5.Resource = createResource({
         "x-component": "Header5",
         "x-decorator": "PositionDecorator",
         "x-decorator-props": {
-          w: 11,
+          w: 12,
           h: 1.3,
           padding: [0, 0, 0, 0],
         },
@@ -254,5 +255,16 @@ Header5.Behavior = createBehavior({
     droppable: false,
     resizable: {},
     translatable: {},
+    propsSchema: createFieldSchema({
+      type: "object",
+      properties: {
+        title: {
+          type: "string",
+          title: "标题",
+          "x-decorator": "FormItem",
+          "x-component": "Input",
+        },
+      },
+    }),
   },
 });

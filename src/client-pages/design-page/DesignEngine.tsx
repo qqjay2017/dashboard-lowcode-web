@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react";
 import { Actions, Logo } from "./Logo";
-import { Header1, Header5, Root } from "@/schema-component";
+import { Header1, Header5, HeaderMenu, Root } from "@/schema-component";
 import {
   ComponentTreeWidget,
   CompositePanel,
@@ -30,7 +30,7 @@ export function DesignEngine({ schema }: { schema?: any }) {
   useEffect(() => {
     if (engine && schema) {
       const tree = transformToTreeNode(JSON.parse(schema));
-      console.log(tree);
+
       engine.setCurrentTree(tree);
     }
   }, [engine, schema]);
@@ -41,7 +41,10 @@ export function DesignEngine({ schema }: { schema?: any }) {
         <StudioPanel logo={<Logo />} actions={<Actions />}>
           <CompositePanel>
             <CompositePanel.Item title="组件" icon="Component">
-              <ResourceWidget title="业务" sources={[Card, Header1, Header5]} />
+              <ResourceWidget
+                title="导航菜单"
+                sources={[Header1, Header5, HeaderMenu]}
+              />
             </CompositePanel.Item>
             <CompositePanel.Item title="大纲树" icon="Outline">
               <OutlineTreeWidget />
@@ -57,10 +60,11 @@ export function DesignEngine({ schema }: { schema?: any }) {
                   <ComponentTreeWidget
                     components={{
                       Root,
-                      Card,
+
                       Field,
                       Header1,
                       Header5,
+                      HeaderMenu,
                     }}
                   />
                 )}

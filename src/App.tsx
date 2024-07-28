@@ -1,8 +1,6 @@
 import { lazy } from "react";
 import { BASE_URL } from "./env";
 
-import { DesignPage } from "@/client-pages/design-page";
-
 import { Application } from "@/application/Application";
 import {
   AntdV5Plugin,

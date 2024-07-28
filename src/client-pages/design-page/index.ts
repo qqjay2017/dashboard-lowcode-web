@@ -1,1 +1,1 @@
-export * from './DesignPage'
+export * from './DesignPage2'

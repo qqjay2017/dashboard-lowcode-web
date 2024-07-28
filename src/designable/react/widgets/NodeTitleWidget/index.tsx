@@ -17,7 +17,7 @@ export const NodeTitleWidget: React.FC<INodeTitleWidgetProps> = observer(
       return node;
     };
     const node = takeNode();
-    console.log(node, "node");
+
     const title = get(node, "designerProps.title");
 
     return <>{title || node.componentName || "componentName"}</>;
