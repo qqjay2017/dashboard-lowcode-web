@@ -16,3 +16,7 @@ async function loadDependencies(deps: IDependency[]) {
     })),
   )
 }
+
+export function initDeclaration() {
+  return Promise.resolve()
+}

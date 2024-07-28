@@ -10,6 +10,7 @@ import {
   MdOutlineHistory,
   MdRemoveRedEye,
 } from "react-icons/md";
+import { TbBrandGoogleBigQuery } from "react-icons/tb";
 
 import { PiPathLight } from "react-icons/pi";
 
@@ -40,6 +41,7 @@ const allIconMap = {
   Position: PiPathLight,
   Setting: IoIosSettings,
   DragDrop: RiDragDropLine,
+  TbBrandGoogleBigQuery,
 };
 
 export const IconWidget = observer(

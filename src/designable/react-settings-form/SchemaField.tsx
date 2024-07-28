@@ -17,6 +17,7 @@ import {
   TimePicker,
 } from "@formily/antd-v5";
 import { Slider } from "antd";
+import { ReactionsSetter } from "../setters";
 import {
   ApiBaseNameFormItem,
   ApiGroupFormItem,
@@ -97,5 +98,6 @@ export const SchemaField = createSchemaField({
     ApiOriginFormItem,
     DesignWidthEnumSelect,
     DataSourceBind,
+    ReactionsSetter,
   },
 });

@@ -52,7 +52,7 @@ const CSSStyle: ISchema = {
     },
 }
 
-function createComponentSchema(component: ISchema, decorator: ISchema) {
+function createComponentSchema(component: ISchema['properties'], decorator: ISchema) {
     return {
         'component-group': component && {
             'title': '组件属性',
@@ -66,7 +66,21 @@ function createComponentSchema(component: ISchema, decorator: ISchema) {
                 },
             },
             'properties': {
-                'x-component-props': component,
+                'x-component-props': {
+                    type: 'object',
+                    properties: {
+                        ...(component as any),
+                        dataSource: {
+                            'type': 'object',
+                            'title': '数据源',
+                            'required': false,
+                            'x-decorator': 'FormItem',
+                            'x-component': 'DataSourceBind',
+                        },
+
+                    },
+
+                },
             },
         },
         'decorator-group': decorator && {
@@ -120,7 +134,7 @@ function createComponentSchema(component: ISchema, decorator: ISchema) {
     }
 }
 
-export function createFieldSchema(component?: ISchema, decorator: ISchema = positionDecoratorPropsSchema): ISchema {
+export function createFieldSchema(component?: ISchema['properties'], decorator: ISchema = positionDecoratorPropsSchema): ISchema {
     return {
         type: 'object',
         properties: {
@@ -130,13 +144,6 @@ export function createFieldSchema(component?: ISchema, decorator: ISchema = posi
                 'x-component': 'CollapseItem',
                 'properties': {
 
-                    dataSource: {
-                        'type': 'object',
-                        'title': '数据源',
-                        'required': false,
-                        'x-decorator': 'FormItem',
-                        'x-component': 'DataSourceBind',
-                    },
                     // 'x-display': {
                     //     'type': 'string',
                     //     'enum': ['visible', 'hidden', 'none', ''],
@@ -147,10 +154,10 @@ export function createFieldSchema(component?: ISchema, decorator: ISchema = posi
                     //     },
                     // },
 
-                    // 'x-reactions': {
-                    //     'x-decorator': 'FormItem',
-                    //     'x-component': ReactionsSetter,
-                    // },
+                    'x-reactions': {
+                        'x-decorator': 'FormItem',
+                        'x-component': 'ReactionsSetter',
+                    },
 
                 },
             },

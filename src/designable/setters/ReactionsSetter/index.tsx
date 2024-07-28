@@ -17,9 +17,11 @@ import { FieldPropertySetter } from "./FieldPropertySetter";
 import { FulfillRunHelper } from "./helpers";
 import type { IReaction } from "./types";
 
+import { initDeclaration } from "./declarations";
 import { TextWidget, usePrefix } from "@/designable/react";
+
 import { requestIdle } from "@/designable/shared";
-import { GlobalRegistry } from "@/designable/core";
+
 import "./styles.less";
 
 export interface IReactionsSetterProps {
@@ -151,20 +153,39 @@ export const ReactionsSetter: React.FC<IReactionsSetterProps> = (props) => {
   );
   const openModal = () => setModalVisible(true);
   const closeModal = () => setModalVisible(false);
-
+  useEffect(() => {
+    if (modalVisible) {
+      requestIdle(
+        () => {
+          initDeclaration().then(() => {
+            setInnerVisible(true);
+          });
+        },
+        {
+          timeout: 400,
+        }
+      );
+    } else {
+      setInnerVisible(false);
+    }
+  }, [modalVisible]);
   return (
     <>
       <Button block onClick={openModal}>
-        <TextWidget token="SettingComponents.ReactionsSetter.configureReactions" />
+        <TextWidget token="配置查询项" />
       </Button>
       <Modal
-        title="SettingComponents.ReactionsSetter.configureReactions"
+        title="配置查询项"
         width="70%"
         centered
-        bodyStyle={{ padding: 10 }}
+        bodyProps={{
+          style: {
+            padding: 10,
+          },
+        }}
         transitionName=""
         maskTransitionName=""
-        visible={modalVisible}
+        open={modalVisible}
         onCancel={closeModal}
         destroyOnClose
         onOk={() => {
@@ -190,8 +211,7 @@ export const ReactionsSetter: React.FC<IReactionsSetterProps> = (props) => {
                     x-component="FormCollapse.CollapsePanel"
                     x-component-props={{
                       key: "deps",
-                      header:
-                        "SettingComponents.ReactionsSetter.relationsFields",
+                      header: "依赖字段",
                     }}
                   >
                     <SchemaField.Array
@@ -203,8 +223,7 @@ export const ReactionsSetter: React.FC<IReactionsSetterProps> = (props) => {
                         <SchemaField.Void
                           x-component="ArrayTable.Column"
                           x-component-props={{
-                            title:
-                              "SettingComponents.ReactionsSetter.sourceField",
+                            title: "来源字段",
                             width: 240,
                           }}
                         >
@@ -213,16 +232,14 @@ export const ReactionsSetter: React.FC<IReactionsSetterProps> = (props) => {
                             x-decorator="FormItem"
                             x-component="PathSelector"
                             x-component-props={{
-                              placeholder:
-                                "SettingComponents.ReactionsSetter.pleaseSelect",
+                              placeholder: "请选择",
                             }}
                           />
                         </SchemaField.Void>
                         <SchemaField.Void
                           x-component="ArrayTable.Column"
                           x-component-props={{
-                            title:
-                              "SettingComponents.ReactionsSetter.sourceProperty",
+                            title: "字段属性",
                             width: 200,
                           }}
                         >
@@ -238,8 +255,7 @@ export const ReactionsSetter: React.FC<IReactionsSetterProps> = (props) => {
                         <SchemaField.Void
                           x-component="ArrayTable.Column"
                           x-component-props={{
-                            title:
-                              "SettingComponents.ReactionsSetter.variableName",
+                            title: "变量名",
                             width: 200,
                           }}
                         >
@@ -248,14 +264,12 @@ export const ReactionsSetter: React.FC<IReactionsSetterProps> = (props) => {
                             x-decorator="FormItem"
                             x-validator={{
                               pattern: /^[$_a-z][$\w]*$/i,
-                              message:
-                                "SettingComponents.ReactionsSetter.variableNameValidateMessage",
+                              message: "不符合变量命名规则",
                             }}
                             x-component="Input"
                             x-component-props={{
                               addonBefore: "$deps.",
-                              placeholder:
-                                "SettingComponents.ReactionsSetter.pleaseInput",
+                              placeholder: "请输入",
                             }}
                             x-reactions={(field) => {
                               if (isVoidField(field)) return;
@@ -278,8 +292,7 @@ export const ReactionsSetter: React.FC<IReactionsSetterProps> = (props) => {
                         <SchemaField.Void
                           x-component="ArrayTable.Column"
                           x-component-props={{
-                            title:
-                              "SettingComponents.ReactionsSetter.variableType",
+                            title: "变量类型",
                             ellipsis: {
                               showTitle: false,
                             },
@@ -326,8 +339,7 @@ export const ReactionsSetter: React.FC<IReactionsSetterProps> = (props) => {
                         <SchemaField.Void
                           x-component="ArrayTable.Column"
                           x-component-props={{
-                            title:
-                              "SettingComponents.ReactionsSetter.operations",
+                            title: "操作",
                             align: "center",
                             width: 80,
                           }}
@@ -339,7 +351,7 @@ export const ReactionsSetter: React.FC<IReactionsSetterProps> = (props) => {
                         </SchemaField.Void>
                       </SchemaField.Object>
                       <SchemaField.Void
-                        title="SettingComponents.ReactionsSetter.addRelationField"
+                        title="添加依赖字段"
                         x-component="ArrayTable.Addition"
                         x-component-props={{ style: { marginTop: 8 } }}
                       />
@@ -349,8 +361,7 @@ export const ReactionsSetter: React.FC<IReactionsSetterProps> = (props) => {
                   <SchemaField.Void
                     x-component="FormCollapse.CollapsePanel"
                     x-component-props={{
-                      header:
-                        "SettingComponents.ReactionsSetter.propertyReactions",
+                      header: "属性响应(仅支持JS表达式)",
                       key: "state",
                       className: "reaction-state",
                     }}
@@ -364,8 +375,7 @@ export const ReactionsSetter: React.FC<IReactionsSetterProps> = (props) => {
                     x-component="FormCollapse.CollapsePanel"
                     x-component-props={{
                       key: "run",
-                      header:
-                        "SettingComponents.ReactionsSetter.actionReactions",
+                      header: "动作响应(高级，可选，支持JS语句)",
                       className: "reaction-runner",
                     }}
                   >

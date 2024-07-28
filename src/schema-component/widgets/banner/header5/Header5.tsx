@@ -31,6 +31,7 @@ interface Header5Props extends PropsWithChildren {
 
 export function Header5(props: Header5Props) {
   const { title, dataSource, subTitle } = props;
+  console.log(props, "props");
   const { reportId } = useReportId();
   const { isPc } = useDashboardRoot();
 
