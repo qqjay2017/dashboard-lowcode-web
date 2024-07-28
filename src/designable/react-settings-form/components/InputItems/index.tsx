@@ -28,7 +28,7 @@ const InputItemsContext = React.createContext<IInputItemsContext>(null);
 
 export const InputItems: React.FC<IInputItemsProps> & {
   Item: React.FC<IInputItemProps>;
-} = (props) => {
+} = ({ width = "100%", ...props }) => {
   const prefix = usePrefix("input-items");
   return (
     <InputItemsContext.Provider value={props}>
@@ -37,10 +37,6 @@ export const InputItems: React.FC<IInputItemsProps> & {
       </div>
     </InputItemsContext.Provider>
   );
-};
-
-InputItems.defaultProps = {
-  width: "100%",
 };
 
 InputItems.Item = (props) => {

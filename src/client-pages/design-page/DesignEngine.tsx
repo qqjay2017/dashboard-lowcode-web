@@ -4,6 +4,7 @@ import {
   FormilyHeader1 as Header1,
   FormilyHeader5 as Header5,
   FormilyHeaderMenu as HeaderMenu,
+  FormilyLaborAttendance as LaborAttendance,
   Root,
 } from "@/schema-component";
 import {
@@ -25,7 +26,13 @@ import { Field } from "@/designable/Field";
 import { createDesigner, transformToTreeNode } from "@/designable/core";
 import { SettingsForm } from "@/designable/react-settings-form";
 
-export function DesignEngine({ schema }: { schema?: any }) {
+export function DesignEngine({
+  schema,
+  shareURL,
+}: {
+  schema?: any;
+  shareURL?: string;
+}) {
   const engine = useMemo(() => {
     return createDesigner({
       defaultComponentTree: schema,
@@ -43,12 +50,16 @@ export function DesignEngine({ schema }: { schema?: any }) {
   return (
     <Designer engine={engine}>
       <Workbench>
-        <StudioPanel logo={<Logo />} actions={<Actions />}>
+        <StudioPanel logo={<Logo />} actions={<Actions shareURL={shareURL} />}>
           <CompositePanel>
             <CompositePanel.Item title="组件" icon="Component">
               <ResourceWidget
                 title="导航菜单"
                 sources={[Header1, Header5, HeaderMenu]}
+              />
+              <ResourceWidget
+                title="业务-人员管理"
+                sources={[LaborAttendance]}
               />
             </CompositePanel.Item>
             <CompositePanel.Item title="大纲树" icon="Outline">

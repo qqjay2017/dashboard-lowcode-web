@@ -8,11 +8,19 @@ import {
   MdOutlineExpandMore,
   MdOutlineFindInPage,
   MdOutlineHistory,
+  MdOutlineVerticalAlignBottom,
+  MdOutlineVerticalAlignTop,
   MdRemoveRedEye,
 } from "react-icons/md";
 import { TbBrandGoogleBigQuery } from "react-icons/tb";
 import { PiMapPinLineLight, PiPathLight } from "react-icons/pi";
-import { RiDragDropLine, RiEyeCloseLine, RiLinkedinLine } from "react-icons/ri";
+import {
+  RiContractLeftLine,
+  RiContractRightLine,
+  RiDragDropLine,
+  RiEyeCloseLine,
+  RiLinkedinLine,
+} from "react-icons/ri";
 
 import { IoIosSettings } from "react-icons/io";
 
@@ -47,6 +55,10 @@ const allIconMap = {
   DisplayFlex: CgDisplayFlex,
   DisplayInline: CgDisplaySpacing,
   DisplayInlineBlock: CgDisplaySpacing,
+  Top: MdOutlineVerticalAlignTop,
+  Bottom: MdOutlineVerticalAlignBottom,
+  Left: RiContractLeftLine,
+  Right: RiContractRightLine,
 };
 
 export const IconWidget = observer(
@@ -83,6 +95,8 @@ export const IconWidget = observer(
               // color: "var(--dn-composite-panel-tabs-color)",
               ...style,
               fontSize: size,
+              width: size,
+              height: size,
             },
           })
         );

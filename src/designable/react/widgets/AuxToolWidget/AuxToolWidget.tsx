@@ -10,7 +10,7 @@ import { SnapLine } from "./SnapLine";
 import { FreeSelection } from "./FreeSelection";
 
 export function AuxToolWidget() {
-  const engine = useDesigner();
+  // const engine = useDesigner();
   const viewport = useViewport();
 
   const ref = useRef<HTMLDivElement>();
@@ -31,7 +31,7 @@ export function AuxToolWidget() {
       `}
     >
       <Insertion />
-      <SpaceBlock />
+      {/* <SpaceBlock /> */}
       <SnapLine />
       <DashedBox />
       <Selection />

@@ -15,6 +15,7 @@ import { useAppSpin } from "@/application";
 function DesignPage2() {
   const { data, isLoading } = useDashboardDt();
   const schema = get(data, "data.data.content", "");
+  const shareURL = get(data, "data.data.shareURL", "");
   const projectSelectScope = useProjectSelectScope();
   const { scope, ...schemaOptions } = useSchemaOptionsContext();
   const { render } = useAppSpin();
@@ -35,7 +36,7 @@ function DesignPage2() {
         },
       }}
     >
-      <DesignEngine schema={schema} />
+      <DesignEngine schema={schema} shareURL={shareURL} />
     </SchemaOptionsContext.Provider>
   );
 }

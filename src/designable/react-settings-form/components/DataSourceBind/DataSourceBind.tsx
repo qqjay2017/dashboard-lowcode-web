@@ -16,7 +16,6 @@ import { apiBase } from "@/utils";
 interface DataSourceBindProps extends FormItemComponentProps {}
 
 export const DataSourceBind = observer((props: DataSourceBindProps) => {
-  console.log(props, "DataSourceBindprops");
   const { value, onChange } = props;
   const [open, setOpen] = useState(false);
 

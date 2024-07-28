@@ -20,9 +20,9 @@ export interface IResourceWidgetProps {
 }
 
 export const ResourceWidget: React.FC<IResourceWidgetProps> = observer(
-  (props) => {
+  ({ defaultExpand = true, ...props }) => {
     const prefix = "dn-resource";
-    const [expand, setExpand] = useState(props.defaultExpand);
+    const [expand, setExpand] = useState(defaultExpand);
     const renderNode = (source: IResource) => {
       const { node, icon, title, thumb, span } = source;
 
@@ -78,7 +78,7 @@ export const ResourceWidget: React.FC<IResourceWidgetProps> = observer(
           }}
         >
           <div className={`${prefix}-header-expand`}>
-            <IconWidget infer="Expand" size={10} />
+            <IconWidget infer="Expand" size={18} />
           </div>
           <div className={`${prefix}-header-content`}>
             <TextWidget>{props.title}</TextWidget>
@@ -99,7 +99,3 @@ export const ResourceWidget: React.FC<IResourceWidgetProps> = observer(
     );
   }
 );
-
-ResourceWidget.defaultProps = {
-  defaultExpand: true,
-};

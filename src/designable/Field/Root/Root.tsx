@@ -70,15 +70,18 @@ export const Root: DnFC<IRootProps> = observer(
     const { styles: scrollBarStyle } = useScrollBarStyle({
       thumbColor: customThemeToken.token.thumbColor,
     });
-    console.log(props, "root props");
+
+    if (!themeProvider) {
+      return null;
+    }
     return (
       <div
         id="Root"
         {...designerProps}
-        className={css`
-          width: 1920px;
-          height: 1080px;
-        `}
+        style={{
+          width: designWidth,
+          height: designHeight,
+        }}
       >
         <ConfigProvider
           theme={{

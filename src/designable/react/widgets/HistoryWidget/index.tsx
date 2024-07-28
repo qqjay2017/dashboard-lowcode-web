@@ -2,10 +2,11 @@ import React from "react";
 import format from "dateformat";
 import { observer } from "@formily/reactive-react";
 import cls from "classnames";
+import { get } from "lodash-es";
 import { useWorkbench } from "../../hooks";
 import { TextWidget } from "../TextWidget";
+
 import "./styles.less";
-import { get } from "lodash-es";
 
 const locale = {
   operations: {

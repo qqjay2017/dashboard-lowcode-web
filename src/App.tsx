@@ -2,11 +2,7 @@ import { lazy } from "react";
 import { BASE_URL } from "./env";
 
 import { Application } from "@/application/Application";
-import {
-  AntdV5Plugin,
-  DashboardBuildinPlugin,
-  KxgcAuthPlugin,
-} from "@/plugins";
+import { KxgcAuthPlugin } from "@/plugins";
 
 import { DashboardLayout } from "@/client-pages/DashboardLayout";
 
@@ -27,7 +23,7 @@ const ChartEditPage = lazy(
 );
 const application = new Application({
   providers: [],
-  plugins: [AntdV5Plugin, DashboardBuildinPlugin, KxgcAuthPlugin],
+  plugins: [KxgcAuthPlugin],
   designable: true,
   components: {},
 
