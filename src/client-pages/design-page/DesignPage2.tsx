@@ -7,7 +7,6 @@ import { DesignEngine } from "./DesignEngine";
 import {
   useAsyncProjectDataSource,
   useAsyncQuarterDataSource,
-  useChartOption,
   useFetchChartAll,
   useProjectSelectScope,
   useSchemaOptionsContext,

@@ -1,32 +1,32 @@
-import Editor, { loader } from '@monaco-editor/react'
-import { forwardRef, useImperativeHandle, useRef } from 'react'
+import Editor, { loader } from "@monaco-editor/react";
+import { forwardRef, useImperativeHandle, useRef } from "react";
 
-import type { FormItemComponentProps } from '../../../types'
-import { BASE_URL } from '@/env'
+import type { FormItemComponentProps } from "../../../types";
+import { BASE_URL } from "@/env";
 
 interface MonacoEditorProps extends FormItemComponentProps {
-  language?: string
-  theme?: 'vs-dark' | 'light'
-  readOnly?: boolean
-  height?: string
-  scrollBeyondLastLine?: boolean
-  defaultValue?: string
-  wordWrap?: 'off' | 'on' | 'wordWrapColumn' | 'bounded'
+  language?: string;
+  theme?: "vs-dark" | "light";
+  readOnly?: boolean;
+  height?: string;
+  scrollBeyondLastLine?: boolean;
+  defaultValue?: string;
+  wordWrap?: "off" | "on" | "wordWrapColumn" | "bounded";
 }
 
 loader.config({
-  'paths': {
+  paths: {
     vs: `${window.location.origin}${BASE_URL}unpkg/vs`,
   },
-  'vs/nls': {
+  "vs/nls": {
     availableLanguages: {
-      '*': 'zh-cn',
+      "*": "zh-cn",
     },
   },
-})
+});
 
 export interface MonacoEditorHandles {
-  formatDocument: Function
+  formatDocument: Function;
 }
 
 export const MonacoEditor = forwardRef<MonacoEditorHandles, MonacoEditorProps>(
@@ -34,38 +34,39 @@ export const MonacoEditor = forwardRef<MonacoEditorHandles, MonacoEditorProps>(
     {
       value,
       onChange,
-      language = 'javascript',
-      theme = 'light',
+      language = "javascript",
+      theme = "light",
       readOnly = false,
-      height = '300px',
+      height = "300px",
       scrollBeyondLastLine = false,
       defaultValue,
-      wordWrap = 'off',
+      wordWrap = "off",
     },
-    reff,
+    reff
   ) => {
-    const editorRef = useRef(null)
+    const editorRef = useRef(null);
 
     // 初始化后自动格式化
     const handleEditorMount = (editor) => {
-      editorRef.current = editor
+      editorRef.current = editor;
       setTimeout(() => {
-        editor.getAction('editor.action.formatDocument').run()
-      }, 200)
-    }
+        editor.getAction("editor.action.formatDocument").run();
+      }, 200);
+    };
 
     useImperativeHandle(reff, () => {
       return {
         formatDocument: () => {
           setTimeout(() => {
-            editorRef.current?.getAction('editor.action.formatDocument').run()
-          }, 500)
+            editorRef.current?.getAction("editor.action.formatDocument").run();
+          }, 500);
         },
-      }
-    }, [editorRef.current])
+      };
+    }, [editorRef.current]);
 
     return (
       <Editor
+        className="monaco-editor"
         onMount={handleEditorMount}
         theme={theme}
         options={{
@@ -88,9 +89,9 @@ export const MonacoEditor = forwardRef<MonacoEditorHandles, MonacoEditorProps>(
         defaultValue={defaultValue}
         value={value}
         onChange={(e) => {
-          onChange && onChange(e)
+          onChange && onChange(e);
         }}
       />
-    )
-  },
-)
+    );
+  }
+);

@@ -22,3 +22,4 @@ export * from "./useRegistry";
 export * from "./useSelected";
 export * from "./useSelectedNode";
 export * from "./useTheme";
+export * from "./useTreeRootProps";

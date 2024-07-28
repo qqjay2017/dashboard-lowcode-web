@@ -6,12 +6,14 @@ import {
   useState,
 } from "react";
 import { globalThisPolyfill } from "@formily/shared";
-import { css } from "@emotion/css";
-import { useViewport } from "../hooks";
+import { css, cx } from "@emotion/css";
+import { useExpressionScope } from "@formily/react";
+import { useTree, useTreeNode, useTreeRootProps, useViewport } from "../hooks";
 import { AuxToolWidget } from "../widgets";
 import type { Viewport as ViewportType } from "@/designable/core";
 import { cn } from "@/utils";
 import { requestIdle } from "@/designable/shared";
+import { useSchemaOptionsContext } from "@/schema-component";
 
 export interface IViewportProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "placeholder">,
@@ -32,6 +34,7 @@ export const Viewport: React.FC<IViewportProps> = ({
   const ref = useRef<HTMLDivElement>();
   const viewportRef = useRef<ViewportType>();
   const isFrameRef = useRef(false);
+  const { designWidth = 0, designHeight = 0 } = useTreeRootProps();
 
   useLayoutEffect(() => {
     const frameElement = ref.current.querySelector("iframe");
@@ -53,10 +56,18 @@ export const Viewport: React.FC<IViewportProps> = ({
       viewport.onUnmount();
     };
   }, [viewport]);
+
   return (
     <div
       {...props}
-      className={cn("dn-viewport", props.className)}
+      className={cx(
+        "dn-viewport",
+        props.className,
+        css`
+          width: ${designWidth}px;
+          height: ${designHeight}px;
+        `
+      )}
       ref={ref}
       style={{
         opacity: !loaded ? 0 : 1,

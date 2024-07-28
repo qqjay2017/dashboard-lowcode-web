@@ -11,7 +11,7 @@ import {
   MdOutlineVerticalAlignTop,
   MdRemoveRedEye,
 } from "react-icons/md";
-import { TbBrandGoogleBigQuery } from "react-icons/tb";
+import { TbBrandGoogleBigQuery, TbHtml, TbJson } from "react-icons/tb";
 import { PiMapPinLineLight, PiPathLight } from "react-icons/pi";
 import {
   RiContractLeftLine,
@@ -23,10 +23,15 @@ import {
 
 import { IoIosSettings, IoMdCopy } from "react-icons/io";
 
-import { IoTrashOutline } from "react-icons/io5";
+import {
+  IoArrowRedoOutline,
+  IoArrowUndoOutline,
+  IoTrashOutline,
+} from "react-icons/io5";
 
 import { RxDashboard } from "react-icons/rx";
 
+import { AiOutlineDashboard } from "react-icons/ai";
 import { cn } from "@/utils";
 
 export interface IIconWidgetProps extends React.HTMLAttributes<HTMLElement> {
@@ -65,6 +70,11 @@ const allIconMap = {
 
   Copy: IoMdCopy,
   Remove: IoTrashOutline,
+  Undo: IoArrowUndoOutline,
+  Redo: IoArrowRedoOutline,
+  Design: AiOutlineDashboard,
+  HTML: TbHtml,
+  JSON: TbJson,
 };
 
 export const IconWidget = observer(

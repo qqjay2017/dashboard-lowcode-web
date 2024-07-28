@@ -7,3 +7,7 @@ export * from "./IconWidget";
 export * from "./OutlineWidget";
 export * from "./HistoryWidget";
 export * from "./NodePathWidget";
+
+export * from "./DesignerToolsWidget";
+export * from "./ViewToolsWidget";
+export * from "./SchemaEditorWidget";

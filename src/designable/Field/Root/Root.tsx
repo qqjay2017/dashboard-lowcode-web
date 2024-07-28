@@ -121,6 +121,7 @@ export const Root: DnFC<IRootProps> = observer(
                     width: 100%;
                     height: 100%;
                     min-height: 600px;
+                    position: relative;
                   `}
                 >
                   <div

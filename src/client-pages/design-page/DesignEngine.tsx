@@ -25,12 +25,16 @@ import {
   ComponentTreeWidget,
   CompositePanel,
   Designer,
+  DesignerToolsWidget,
   HistoryWidget,
   OutlineTreeWidget,
   ResourceWidget,
+  SchemaEditorWidget,
   SettingsPanel,
   StudioPanel,
+  ToolbarPanel,
   ViewPanel,
+  ViewToolsWidget,
   ViewportPanel,
   Workbench,
   WorkspacePanel,
@@ -160,6 +164,10 @@ export function DesignEngine({
             </CompositePanel.Item>
           </CompositePanel>
           <WorkspacePanel>
+            <ToolbarPanel>
+              <DesignerToolsWidget />
+              <ViewToolsWidget use={["DESIGNABLE", "JSONTREE"]} />
+            </ToolbarPanel>
             <ViewportPanel>
               <ViewPanel type="DESIGNABLE">
                 {() => (
@@ -187,6 +195,11 @@ export function DesignEngine({
                       UnprocessedWarningList,
                     }}
                   />
+                )}
+              </ViewPanel>
+              <ViewPanel type="JSONTREE" scrollable={false}>
+                {(tree, onChange) => (
+                  <SchemaEditorWidget tree={tree} onChange={onChange} />
                 )}
               </ViewPanel>
             </ViewportPanel>
