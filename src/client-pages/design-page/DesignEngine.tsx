@@ -101,6 +101,7 @@ export function DesignEngine({
                           "x-component": "ChartTemplate",
                           "x-component-props": {
                             chartId: String(chart.id),
+                            busData: {},
                           },
                           "x-decorator": "PositionDecorator",
                           "x-decorator-props": {

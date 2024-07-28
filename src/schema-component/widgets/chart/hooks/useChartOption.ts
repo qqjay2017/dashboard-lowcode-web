@@ -21,8 +21,9 @@ export function useChartOption(chartDataTemplate = "", busData) {
     try {
       const handlebarsTemplate = Handlebars.compile(chartDataTemplate);
       //   const chartListData = chartMockData[chartMockDataType] || [];
+      const d = busData?.chartListData || busData;
       let { chartListData, totalNum } = chartListDataFormat(
-        busData?.chartListData || busData
+        Array.isArray(d) ? d : []
       );
       if (!Array.isArray(chartListData)) {
         chartListData = [];

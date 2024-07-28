@@ -21,16 +21,15 @@ export function ChartTemplateWithOutData(props: ChartTemplateWithOutDataProps) {
     loading,
     empty,
 
-    busData,
+    busData = {},
   } = props;
 
-  console.log(chartId, props, "ChartTemplateWithOutData chartId");
   const { token } = useToken();
   const { data: chartDataRes, isLoading: isChartDataLoading } =
     useFetchChartConfig(chartId);
   const chartDataTemplate = get(chartDataRes, "data.data.template");
+
   const optionMemo = useChartOption(chartDataTemplate, busData);
-  console.log(optionMemo, "optionMemo");
 
   return (
     <EmptyKit

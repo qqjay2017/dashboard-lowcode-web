@@ -20,7 +20,6 @@ export function ChartTemplateWithDataSource({
   dataSource,
   query,
 }: ChartTemplateProps) {
-  console.log(chartId, "chartIdchartId");
   const { token } = useToken();
   const { data: chartDataRes, isLoading: isChartDataLoading } =
     useFetchChartConfig(chartId);

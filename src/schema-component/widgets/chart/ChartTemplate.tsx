@@ -10,11 +10,11 @@ interface ChartTemplateProps extends SchemComponentWithDataSourceProps {
 }
 
 export function ChartTemplate(props: ChartTemplateProps) {
-  console.log(props, "props");
   const { dataSource } = props;
+
   if (dataSource && dataSource.dataSourceId) {
     return <ChartTemplateWithDataSource {...props} />;
   } else {
-    <ChartTemplateWithOutData {...props} />;
+    return <ChartTemplateWithOutData {...props} />;
   }
 }
