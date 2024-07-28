@@ -45,92 +45,89 @@ export interface ISelectorProps {
 const prefix = "aux-selector";
 export const Selector: React.FC<ISelectorProps> = observer(({ node }) => {
   const hover = useHover();
-  const [expand, setExpand] = useState(false);
+  // const [expand, setExpand] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-  const selection = useSelection();
+  // const selection = useSelection();
 
-  const renderIcon = (node: TreeNode) => {
-    // const icon = node.designerProps.icon;
-    // if (icon) {
-    //   return <IconWidget infer={icon} />;
-    // }
-    if (node === node.root) {
-      return <IconWidget infer="Page" />;
-    } else if (node.designerProps?.droppable) {
-      return <IconWidget infer="Container" />;
-    }
-    return <IconWidget infer="Component" />;
-  };
+  // const renderIcon = (node: TreeNode) => {
+  //   // const icon = node.designerProps.icon;
+  //   // if (icon) {
+  //   //   return <IconWidget infer={icon} />;
+  //   // }
+  //   if (node === node.root) {
+  //     return <IconWidget infer="Page" size={14} />;
+  //   } else if (node.designerProps?.droppable) {
+  //     return <IconWidget infer="Container" size={14} />;
+  //   }
+  //   return <IconWidget infer="Component" size={14} />;
+  // };
 
-  const renderMenu = () => {
-    const parents = node.getParents();
-    return (
-      <div
-        className={cn(
-          `${prefix}-menu`,
-          css`
-            margin-top: -4px;
-            animation: dn-animate-slide-to-top 0.2s;
-            opacity: 0.8;
-            @keyframes dn-animate-slide-to-top {
-              from {
-                transform: translateY(-10%);
-                opacity: 0;
-              }
+  // const renderMenu = () => {
+  //   const parents = node.getParents();
+  //   return (
+  //     <div
+  //       className={cn(
+  //         `${prefix}-menu`,
+  //         css`
+  //           margin-top: -4px;
+  //           animation: dn-animate-slide-to-top 0.2s;
+  //           opacity: 0.8;
+  //           @keyframes dn-animate-slide-to-top {
+  //             from {
+  //               transform: translateY(-10%);
+  //               opacity: 0;
+  //             }
 
-              to {
-                transform: translateY(0);
-                opacity: 0.8;
-              }
-            }
-          `
-        )}
-        style={{
-          position: "absolute",
-          top: "100%",
-          left: 0,
-        }}
-      >
-        {parents.slice(0, 4).map((parent) => {
-          return (
-            <Button
-              className={css`
-                font-size: 12px !important;
-                display: flex;
-                align-items: center;
-                padding: 0 3px;
-                height: 20px;
-                margin-top: 2px;
-              `}
-              key={parent.id}
-              type="primary"
-              onClick={() => {
-                selection.select(parent.id);
-              }}
-              onMouseEnter={() => {
-                hover.setHover(parent);
-              }}
-            >
-              {/* {renderIcon(parent)} */}
-              <span style={{ transform: "scale(0.85)", marginLeft: 2 }}>
-                <NodeTitleWidget node={parent} />
-              </span>
-            </Button>
-          );
-        })}
-      </div>
-    );
-  };
+  //             to {
+  //               transform: translateY(0);
+  //               opacity: 0.8;
+  //             }
+  //           }
+  //         `
+  //       )}
+  //       style={{
+  //         position: "absolute",
+  //         top: "100%",
+  //         left: 0,
+  //       }}
+  //     >
+  //       {parents.slice(0, 4).map((parent) => {
+  //         return (
+  //           <Button
+  //             className={css`
+  //               font-size: 12px !important;
+  //               display: flex;
+  //               align-items: center;
+  //               padding: 0 3px;
+  //               height: 20px;
+  //               margin-top: 2px;
+  //             `}
+  //             key={parent.id}
+  //             type="primary"
+  //             onClick={() => {
+  //               selection.select(parent.id);
+  //             }}
+  //             onMouseEnter={() => {
+  //               hover.setHover(parent);
+  //             }}
+  //           >
+  //             <NodeTitleWidget node={parent} />
+  //           </Button>
+  //         );
+  //       })}
+  //     </div>
+  //   );
+  // };
 
-  useMouseHover(
-    ref,
-    () => {
-      setExpand(true);
-    },
-    () => {
-      setExpand(false);
-    }
-  );
+  // useMouseHover(
+  //   ref,
+  //   () => {
+  //     setExpand(true);
+  //   },
+  //   () => {
+  //     setExpand(false);
+  //   }
+  // );
 
   return (
     <div ref={ref} className={prefix}>
@@ -141,12 +138,11 @@ export const Selector: React.FC<ISelectorProps> = observer(({ node }) => {
           hover.setHover(node);
         }}
       >
-        {renderIcon(node)}
         <span>
           <NodeTitleWidget node={node} />
         </span>
       </Button>
-      {expand && renderMenu()}
+      {/* {expand && renderMenu()} */}
     </div>
   );
 });

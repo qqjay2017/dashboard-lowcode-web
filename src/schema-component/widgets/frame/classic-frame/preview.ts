@@ -17,6 +17,9 @@ FormilyClassicFrame.Resource = createResource({
       props: {
         type: "void",
         "x-component": "ClassicFrame",
+        "x-component-props": {
+          title: "默认标题",
+        },
         "x-decorator": "PositionDecorator",
         "x-decorator-props": {
           padding: "0px 0px 0px 0px",
@@ -51,6 +54,8 @@ FormilyClassicFrame.Behavior = createBehavior({
     droppable: false,
     resizable: {},
     translatable: {},
-    propsSchema: createFieldSchema({}),
+    propsSchema: createFieldSchema({
+      title: {},
+    }),
   },
 });

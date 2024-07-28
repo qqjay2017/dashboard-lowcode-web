@@ -32,5 +32,10 @@ export const positionDecoratorPropsSchema: ISchema = {
       title: "内边距",
       "x-component": "BoxStyleSetter",
     },
+    zIndex: {
+      title: "展示层级",
+      "x-decorator": "FormItem",
+      "x-component": "NumberPicker",
+    },
   },
 };

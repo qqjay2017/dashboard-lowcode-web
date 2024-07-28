@@ -6,7 +6,6 @@ import {
   MdOutlineClearAll,
   MdOutlineClose,
   MdOutlineExpandMore,
-  MdOutlineFindInPage,
   MdOutlineHistory,
   MdOutlineVerticalAlignBottom,
   MdOutlineVerticalAlignTop,
@@ -22,7 +21,11 @@ import {
   RiLinkedinLine,
 } from "react-icons/ri";
 
-import { IoIosSettings } from "react-icons/io";
+import { IoIosSettings, IoMdCopy } from "react-icons/io";
+
+import { IoTrashOutline } from "react-icons/io5";
+
+import { RxDashboard } from "react-icons/rx";
 
 import { cn } from "@/utils";
 
@@ -43,7 +46,7 @@ const allIconMap = {
   Close: MdOutlineClose,
   Outline: MdOutlineClearAll,
   Expand: MdOutlineExpandMore,
-  Page: MdOutlineFindInPage,
+  Page: RxDashboard,
   History: MdOutlineHistory,
   Eye: MdRemoveRedEye,
   EyeClose: RiEyeCloseLine,
@@ -59,6 +62,9 @@ const allIconMap = {
   Bottom: MdOutlineVerticalAlignBottom,
   Left: RiContractLeftLine,
   Right: RiContractRightLine,
+
+  Copy: IoMdCopy,
+  Remove: IoTrashOutline,
 };
 
 export const IconWidget = observer(

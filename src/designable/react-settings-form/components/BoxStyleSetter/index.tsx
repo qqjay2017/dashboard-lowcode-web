@@ -35,7 +35,6 @@ const defaultLabels = [
 
 export const BoxStyleSetter: React.FC<IMarginStyleSetterProps> = observer(
   ({ labels = defaultLabels, ...props }) => {
-    console.log(props, "props11");
     const field = useField();
     const prefix = usePrefix("box-style-setter");
     const createPositionHandler = (

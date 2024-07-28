@@ -17,6 +17,9 @@ FormilyClassicFrame5.Resource = createResource({
       props: {
         type: "void",
         "x-component": "ClassicFrame5",
+        "x-component-props": {
+          title: "默认标题",
+        },
         "x-decorator": "PositionDecorator",
         "x-decorator-props": {
           padding: "0px 0px 0px 0px",

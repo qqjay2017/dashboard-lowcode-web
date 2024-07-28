@@ -3,6 +3,7 @@ import { observer } from "@formily/reactive-react";
 import { css } from "@emotion/css";
 import { useHover, useSelection, useValidNodeOffsetRect } from "../../hooks";
 import { cx } from "@/utils";
+import { GlobalRegistry } from "@/designable/core";
 
 export const DashedBox = observer(() => {
   const hover = useHover();
@@ -30,6 +31,7 @@ export const DashedBox = observer(() => {
   if (!hover.node) return null;
   if (hover.node.hidden) return null;
   if (selection.selected.includes(hover.node.id)) return null;
+
   return (
     <div
       className={cx(
@@ -40,7 +42,7 @@ export const DashedBox = observer(() => {
       )}
       style={createTipsStyle()}
     >
-      <span
+      {/* <span
         color={css`
           color: var(--dn-aux-dashed-box-title-color);
         `}
@@ -54,9 +56,7 @@ export const DashedBox = observer(() => {
           fontWeight: "lighter",
           whiteSpace: "nowrap",
         }}
-      >
-        {hover?.node?.componentName}
-      </span>
+      ></span> */}
     </div>
   );
 });

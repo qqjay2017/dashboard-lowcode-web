@@ -1,6 +1,8 @@
 import React from "react";
 import { Button } from "antd";
 
+import { IconWidget } from "../IconWidget";
+import { useTreeNode } from "../../hooks";
 import { TreeNode } from "@/designable/core";
 
 export interface ICopyProps {
@@ -9,6 +11,7 @@ export interface ICopyProps {
 }
 
 export const Copy: React.FC<ICopyProps> = ({ node, style }) => {
+  const treeNode = useTreeNode();
   const prefix = "aux-copy";
   if (node === node.root) return null;
   return (
@@ -20,7 +23,7 @@ export const Copy: React.FC<ICopyProps> = ({ node, style }) => {
         TreeNode.clone([node]);
       }}
     >
-      copy
+      <IconWidget infer="Copy" size={14} />
     </Button>
   );
 };

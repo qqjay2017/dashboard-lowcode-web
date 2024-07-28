@@ -5,6 +5,8 @@ import { ConfigProvider, theme } from "antd";
 import { DesignerLayoutContext } from "../context";
 import type { IDesignerLayoutProps } from "../types";
 import { useCustomThemeToken } from "@/dashboard-themes";
+import { useScrollBarStyle } from "@/schema-component/components/DashboardRoot/styles";
+import { cx } from "@/utils";
 
 injectGlobal` 
   :root {
@@ -186,7 +188,9 @@ export const Layout: React.FC<IDesignerLayoutProps> = (props) => {
   const layout = useContext(DesignerLayoutContext);
   const ref = useRef<HTMLDivElement>();
   const _theme = props.theme || "dark";
-
+  const scrollBarStyle = useScrollBarStyle({
+    thumbColor: "rgba(59, 120, 239, 0.5)",
+  });
   if (layout) {
     return <Fragment>{props.children}</Fragment>;
   }
@@ -197,7 +201,13 @@ export const Layout: React.FC<IDesignerLayoutProps> = (props) => {
           _theme === "dark" ? theme.darkAlgorithm : theme.defaultAlgorithm,
       }}
     >
-      <div ref={ref} className={_theme === "light" ? lightStyle : darkStyle}>
+      <div
+        ref={ref}
+        className={cx(
+          scrollBarStyle.styles,
+          _theme === "light" ? lightStyle : darkStyle
+        )}
+      >
         <DesignerLayoutContext.Provider
           value={{
             theme: props.theme,

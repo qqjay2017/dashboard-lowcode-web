@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "antd";
+import { IconWidget } from "../IconWidget";
 import { TreeNode } from "@/designable/core";
 
 export interface IDeleteProps {
@@ -19,7 +20,7 @@ export const Delete: React.FC<IDeleteProps> = ({ node, style }) => {
         TreeNode.remove([node]);
       }}
     >
-      Remove
+      <IconWidget infer="Remove" size={14} />
     </Button>
   );
 };

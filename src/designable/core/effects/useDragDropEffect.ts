@@ -172,10 +172,12 @@ export function useDragDropEffect(engine: Engine) {
                 engine.cursor.position.topClientY
               )
             );
+
             const maxIndex = closestNode?.children?.length
               ? closestNode.children.reduce((memo, cur) => {
                   const curIndex =
-                    get(cur, "props.x-decorator-prop.zIndex", 1) || 1;
+                    get(cur, "props.x-decorator-props.zIndex", 1) || 1;
+
                   return Math.max(curIndex, memo);
                 }, 1)
               : 0;
