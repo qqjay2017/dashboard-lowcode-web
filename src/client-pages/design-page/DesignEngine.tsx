@@ -2,6 +2,8 @@ import { useEffect, useMemo } from "react";
 import { Actions, Logo } from "./Logo";
 import {
   FormilyAiotMonitorBlock as AiotMonitorBlock,
+  FormilyClassicFrame as ClassicFrame,
+  FormilyClassicFrame5 as ClassicFrame5,
   FormilyEmploymentCreditMng as EmploymentCreditMng,
   FormilyHeader1 as Header1,
   FormilyHeader5 as Header5,
@@ -12,6 +14,8 @@ import {
   FormilyProjectAttendanceDataAna as ProjectAttendanceDataAna,
   FormilyProjectBudget as ProjectBudget,
   FormilyProjectDesc as ProjectDesc,
+  FormilyProjectSelect as ProjectSelect,
+  FormilyQuarterSelect as QuarterSelect,
   Root,
   FormilySmartHelmet as SmartHelmet,
 } from "@/schema-component";
@@ -66,6 +70,14 @@ export function DesignEngine({
                 sources={[Header1, Header5, HeaderMenu]}
               />
               <ResourceWidget
+                title="装饰边框"
+                sources={[ClassicFrame, ClassicFrame5]}
+              />
+              <ResourceWidget
+                title="全局查询"
+                sources={[ProjectSelect, QuarterSelect]}
+              />
+              <ResourceWidget
                 title="业务-人员信息"
                 sources={[
                   LaborAttendance,
@@ -109,6 +121,10 @@ export function DesignEngine({
                       ProjectAttendanceDataAna,
                       ProjectBudget,
                       SmartHelmet,
+                      ClassicFrame,
+                      ClassicFrame5,
+                      ProjectSelect,
+                      QuarterSelect,
                     }}
                   />
                 )}

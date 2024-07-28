@@ -1,9 +1,7 @@
 import { css } from "@emotion/css";
 import { useState } from "react";
 import { connect, mapProps, useField } from "@formily/react";
-import { getSchemeWrap } from "./getSchemeWrap";
-import { menuItem } from "./menuItem";
-import { settingSchema } from "./settingSchema";
+
 import { ProjectSelectValue } from "./ProjectSelectValue";
 import { useJfGlobalProjectStore } from "./useJfGlobalProjectStore";
 import type { FormItemComponentProps } from "@/types";
@@ -90,11 +88,3 @@ export const ProjectSelect = connect(
     };
   })
 );
-
-ProjectSelect.displayName = "ProjectSelect";
-// @ts-expect-error
-ProjectSelect.schemaFn = getSchemeWrap;
-// @ts-expect-error
-ProjectSelect.menuItem = menuItem;
-// @ts-expect-error
-ProjectSelect.settingSchema = settingSchema;

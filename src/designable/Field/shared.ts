@@ -74,7 +74,6 @@ function createComponentSchema(
         "x-component-props": {
           type: "object",
           properties: {
-            ...(component as any),
             dataSource: {
               type: "object",
 
@@ -82,6 +81,7 @@ function createComponentSchema(
               "x-decorator": "FormItem",
               "x-component": "DataSourceBind",
             },
+            ...(component as any),
           },
         },
       },
@@ -107,7 +107,8 @@ function createComponentSchema(
 
 export function createFieldSchema(
   component?: ISchema["properties"],
-  decorator: ISchema = positionDecoratorPropsSchema
+  decorator: ISchema = positionDecoratorPropsSchema,
+  field: ISchema["properties"] = {}
 ): ISchema {
   return {
     type: "object",
@@ -117,20 +118,11 @@ export function createFieldSchema(
         type: "void",
         "x-component": "CollapseItem",
         properties: {
-          // 'x-display': {
-          //     'type': 'string',
-          //     'enum': ['visible', 'hidden', 'none', ''],
-          //     'x-decorator': 'FormItem',
-          //     'x-component': 'Select',
-          //     'x-component-props': {
-          //         defaultValue: 'visible',
-          //     },
-          // },
-
           "x-reactions": {
             "x-decorator": "FormItem",
             "x-component": "ReactionsSetter",
           },
+          ...(field as any),
         },
       },
       ...createComponentSchema(component, decorator),

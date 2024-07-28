@@ -1,4 +1,3 @@
-export * from './ClassicFrame'
+export * from "./ClassicFrame";
 
-export * from './ClassicFrameSettingSchema'
-export * from './ClassicFrameMenuItem'
+export * from "./preview";

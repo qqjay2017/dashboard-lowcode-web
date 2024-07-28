@@ -1,12 +1,7 @@
-import React from "react";
-
 import { css } from "@emotion/css";
 import type { ClassicFrameProps } from "../classic-frame/ClassicFrame";
 import { useClassicFrame5Style } from "./styles";
 
-import { getSchemeWrap } from "./getSchemeWrap";
-import { menuItem } from "./menuItem";
-import { settingSchema } from "./settingSchema";
 import { cn } from "@/utils";
 import { useToken } from "@/schema-component/antd/style";
 
@@ -86,9 +81,3 @@ export function ClassicFrame5({
     </div>
   );
 }
-
-ClassicFrame5.displayName = "ClassicFrame5";
-
-ClassicFrame5.schemaFn = getSchemeWrap;
-ClassicFrame5.menuItem = menuItem;
-ClassicFrame5.settingSchema = settingSchema;

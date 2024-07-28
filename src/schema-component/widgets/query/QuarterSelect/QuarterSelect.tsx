@@ -1,11 +1,9 @@
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useField } from "@formily/react";
 import { css } from "@emotion/css";
 import { useJfGlobalProjectStore } from "../ProjectSelect/useJfGlobalProjectStore";
 import { QuaterSelectValue } from "./QuaterSelectValue";
-import { getSchemeWrap } from "./getSchemeWrap";
-import { menuItem } from "./menuItem";
-import { settingSchema } from "./settingSchema";
+
 import type { QuarterItemType } from "./types";
 import {
   Select,
@@ -308,8 +306,3 @@ export function QuarterSelect({ value, onChange }: FormItemComponentProps) {
     </Select>
   );
 }
-
-QuarterSelect.displayName = "QuarterSelect";
-QuarterSelect.schemaFn = getSchemeWrap;
-QuarterSelect.menuItem = menuItem;
-QuarterSelect.settingSchema = settingSchema;
