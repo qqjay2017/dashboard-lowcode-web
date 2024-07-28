@@ -37,15 +37,21 @@ import {
 } from "@/designable/react";
 
 import { Field } from "@/designable/Field";
-import { createDesigner, transformToTreeNode } from "@/designable/core";
+import {
+  createDesigner,
+  createResource,
+  transformToTreeNode,
+} from "@/designable/core";
 import { SettingsForm } from "@/designable/react-settings-form";
 
 export function DesignEngine({
   schema,
   shareURL,
+  chartAll = [],
 }: {
   schema?: any;
   shareURL?: string;
+  chartAll?: any[];
 }) {
   const engine = useMemo(() => {
     return createDesigner({
@@ -80,6 +86,49 @@ export function DesignEngine({
                 sources={[ProjectSelect, QuarterSelect]}
               />
               <ResourceWidget
+                defaultExpand={false}
+                title="图表"
+                sources={chartAll.map((chart) => {
+                  return createResource({
+                    title: chart.name,
+
+                    icon: chart.coverThumbnail,
+                    elements: [
+                      {
+                        componentName: "Field",
+                        props: {
+                          type: "void",
+                          "x-component": "ChartTemplate",
+                          "x-component-props": {
+                            chartId: String(chart.id),
+                          },
+                          "x-decorator": "PositionDecorator",
+                          "x-decorator-props": {
+                            padding: "0px 0px 0px 0px",
+                            w: 3,
+                            h: 3,
+                          },
+
+                          "x-reactions": {
+                            dependencies: {
+                              projectSelect: "projectSelect",
+                              quarterSelect: "quarterSelect",
+                            },
+                            when: true,
+                            fulfill: {
+                              schema: {
+                                "x-component-props.query": "{{$deps}}",
+                              },
+                            },
+                          },
+                        },
+                      },
+                    ],
+                  });
+                })}
+              />
+              <ResourceWidget
+                defaultExpand={false}
                 title="业务-人员信息"
                 sources={[
                   LaborAttendance,
@@ -91,8 +140,13 @@ export function DesignEngine({
                   UnprocessedWarningList,
                 ]}
               />
-              <ResourceWidget title="业务-项目信息" sources={[ProjectDesc]} />
               <ResourceWidget
+                defaultExpand={false}
+                title="业务-项目信息"
+                sources={[ProjectDesc]}
+              />
+              <ResourceWidget
+                defaultExpand={false}
                 title="业务-企业级驾驶舱"
                 sources={[AiotMonitorBlock, ProjectBudget]}
               />

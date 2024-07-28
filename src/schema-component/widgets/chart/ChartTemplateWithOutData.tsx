@@ -15,13 +15,16 @@ interface ChartTemplateWithOutDataProps
   busData?: any;
 }
 
-export function ChartTemplateWithOutData({
-  chartId,
-  loading,
-  empty,
+export function ChartTemplateWithOutData(props: ChartTemplateWithOutDataProps) {
+  const {
+    chartId,
+    loading,
+    empty,
 
-  busData,
-}: ChartTemplateWithOutDataProps) {
+    busData,
+  } = props;
+
+  console.log(chartId, props, "ChartTemplateWithOutData chartId");
   const { token } = useToken();
   const { data: chartDataRes, isLoading: isChartDataLoading } =
     useFetchChartConfig(chartId);
