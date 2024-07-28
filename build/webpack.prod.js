@@ -3,8 +3,11 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
-
+const ReactRefreshTypeScript = require("react-refresh-typescript");
 const WebpackBar = require("webpackbar");
+const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
+
+const { WebpackPluginServe } = require("webpack-plugin-serve");
 
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
@@ -14,15 +17,19 @@ const NODE_ENV =
   process.env.NODE_ENV === "production" ? "production" : "development";
 const isProduct = NODE_ENV === "production";
 const publicPath = isProduct ? "/dashboard/" : "/";
-const CDN_LIST = [
-  isProduct ? "unpkg/react.production.min.js" : "unpkg/react.development.js",
-  isProduct
-    ? "unpkg/react-dom.production.min.js"
-    : "unpkg/react-dom.development.js",
-  "unpkg/handlebars.js",
-  "unpkg/html2canvas.min.js",
-  "unpkg/echarts.min.js",
-].map((url) => publicPath + url);
+const CDN_LIST = !isProduct
+  ? []
+  : [
+      isProduct
+        ? "unpkg/react.production.min.js"
+        : "unpkg/react.development.js",
+      isProduct
+        ? "unpkg/react-dom.production.min.js"
+        : "unpkg/react-dom.development.js",
+      "unpkg/handlebars.js",
+      "unpkg/html2canvas.min.js",
+      "unpkg/echarts.min.js",
+    ].map((url) => publicPath + url);
 function resolve(name) {
   return path.join(__dirname, name);
 }
@@ -80,6 +87,7 @@ module.exports = {
           },
         },
       },
+
       {
         test: /\.css$/,
         exclude: /\.module\.css$/,
@@ -132,38 +140,42 @@ module.exports = {
       },
     ],
   },
-  optimization: {
-    splitChunks: {
-      chunks: "all",
-      minSize: 30000,
-      minChunks: 3,
-      automaticNameDelimiter: ".",
-      cacheGroups: {
-        vendor: {
-          name: "vendors",
-          test({ resource }) {
-            return /[\\/]node_modules[\\/]/.test(resource);
+  optimization: isProduct
+    ? {
+        splitChunks: {
+          chunks: "all",
+          minSize: 30000,
+          minChunks: 3,
+          automaticNameDelimiter: ".",
+          cacheGroups: {
+            vendor: {
+              name: "vendors",
+              test({ resource }) {
+                return /[\\/]node_modules[\\/]/.test(resource);
+              },
+              priority: 10,
+            },
           },
-          priority: 10,
         },
-      },
-    },
-    minimize: isProduct,
-    minimizer: isProduct
-      ? [
-          new TerserPlugin({
-            parallel: true,
-          }),
-        ]
-      : [],
-  },
-  externals: {
-    handlebars: "Handlebars",
-    react: "React",
-    "react-dom": "ReactDOM",
-    html2canvas: "html2canvas",
-    echarts: "echarts",
-  },
+        minimize: isProduct,
+        minimizer: isProduct
+          ? [
+              new TerserPlugin({
+                parallel: true,
+              }),
+            ]
+          : [],
+      }
+    : {},
+  externals: isProduct
+    ? {
+        handlebars: "Handlebars",
+        react: "React",
+        "react-dom": "ReactDOM",
+        html2canvas: "html2canvas",
+        echarts: "echarts",
+      }
+    : {},
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
@@ -180,6 +192,7 @@ module.exports = {
       CDN_LIST,
       //   publicPath: "/report/",
     }),
+
     isProduct
       ? new CopyPlugin({
           patterns: [{ from: "public", to: "" }],
