@@ -164,6 +164,18 @@ export function transformToSchema(
       Object.assign(schema, clone(node.props));
     }
     schema["x-designable-id"] = node.id;
+    if (schema["x-component-props"]?.query) {
+      schema["x-component-props"].query = undefined;
+    }
+    if (schema["x-component-props"]?.componentType) {
+      schema["x-component-props"].componentType = undefined;
+    }
+    if (schema["x-component-props"]?.componentAddress) {
+      schema["x-component-props"].componentAddress = undefined;
+    }
+    if (schema["x-component-props"]?.formId) {
+      schema["x-component-props"].formId = undefined;
+    }
     if (schema.type === "array") {
       if (node.children[0]) {
         if (

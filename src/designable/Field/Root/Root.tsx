@@ -11,7 +11,7 @@ import {
 } from "@/schema-component/components/DashboardRoot/styles";
 import { DashboardRootContext } from "@/schema-component/components/DashboardRoot/context";
 import { createBehavior, createResource } from "@/designable/core";
-import { type DnFC, useDesigner } from "@/designable/react";
+import { type DnFC, useDesigner, useTreeRootProps } from "@/designable/react";
 import { cn, sizeFormat } from "@/utils";
 import { useCustomThemeToken } from "@/dashboard-themes";
 
@@ -24,8 +24,7 @@ export const Root: DnFC<IRootProps> = observer(
   ({ children, ...props }: IRootProps) => {
     const {
       breakpoints = defaultBreakpoints,
-      designWidth = 1920,
-      designHeight = 1080,
+
       cols = 12,
       rows = 12,
       rowheight: mobileRowHeight = 80,
@@ -36,6 +35,7 @@ export const Root: DnFC<IRootProps> = observer(
       isDarkTheme,
       ...otherProps
     } = props;
+    const { designWidth = 1920, designHeight = 1080 } = useTreeRootProps();
     const [designZoom, setDesignZoom] = useState(1);
     const breakpoint = "desktop";
     const width = 1920;

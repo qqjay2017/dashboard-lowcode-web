@@ -1,8 +1,7 @@
 import type { PropsWithChildren } from "react";
-import cls from "classnames";
+
 import { css } from "@emotion/css";
-import { cn, cx } from "@/utils";
-import { useScrollBarStyle } from "@/schema-component/components/DashboardRoot/styles";
+import { cn } from "@/utils";
 
 export interface IPCSimulatorProps
   extends React.HTMLAttributes<HTMLDivElement>,

@@ -32,6 +32,7 @@ import {
 import { RxDashboard } from "react-icons/rx";
 
 import { AiOutlineDashboard } from "react-icons/ai";
+import { FaRegSave } from "react-icons/fa";
 import { cn } from "@/utils";
 
 export interface IIconWidgetProps extends React.HTMLAttributes<HTMLElement> {
@@ -75,6 +76,7 @@ const allIconMap = {
   Design: AiOutlineDashboard,
   HTML: TbHtml,
   JSON: TbJson,
+  Save: FaRegSave,
 };
 
 export const IconWidget = observer(
