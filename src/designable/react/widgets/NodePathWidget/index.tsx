@@ -50,34 +50,37 @@ export const NodePathWidget: React.FC<INodePathWidgetProps> = observer(
             }
           `
         )}
-      >
-        {nodes.map((node, key) => {
-          return (
-            <Breadcrumb.Item key={key}>
-              {key === 0 && (
-                <IconWidget
-                  infer="Position"
-                  style={{ marginRight: 3 }}
-                  size={12}
-                />
-              )}
-              <a
-                href=""
-                onMouseEnter={() => {
-                  hover.setHover(node);
-                }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  e.preventDefault();
-                  selection.select(node);
-                }}
-              >
-                <NodeTitleWidget node={node} />
-              </a>
-            </Breadcrumb.Item>
-          );
+        items={nodes.map((node, key) => {
+          return {
+            key,
+
+            title: (
+              <>
+                {key === 0 && (
+                  <IconWidget
+                    infer="Position"
+                    style={{ marginRight: 3 }}
+                    size={12}
+                  />
+                )}
+                <a
+                  href=""
+                  onMouseEnter={() => {
+                    hover.setHover(node);
+                  }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    selection.select(node);
+                  }}
+                >
+                  <NodeTitleWidget node={node} />
+                </a>
+              </>
+            ),
+          };
         })}
-      </Breadcrumb>
+      ></Breadcrumb>
     );
   }
 );

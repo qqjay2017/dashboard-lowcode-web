@@ -20,6 +20,11 @@ FormilyHeader5.Resource = createResource({
         "x-component-props": {
           title: "{{dashboardDt.name}}",
         },
+        "x-decorator-props": {
+          w: 12,
+          h: 1.3,
+          padding: [0, 0, 0, 0],
+        },
         "x-reactions": {
           dependencies: {},
           when: true,
@@ -49,6 +54,13 @@ FormilyHeader5.Behavior = createBehavior({
       title: {
         type: "string",
         title: "标题",
+        "x-decorator": "FormItem",
+        "x-component": "Input",
+      },
+      subTitle: {
+        type: "string",
+        title: "副标题",
+        required: false,
         "x-decorator": "FormItem",
         "x-component": "Input",
       },

@@ -1,24 +1,32 @@
-import { Checkbox } from 'antd'
-import type { FormItemComponentProps } from '@/types'
+import { Checkbox } from "antd";
+import type { FormItemComponentProps } from "@/types";
 
 export function DepFieldSetFormItem({
-  value = [],
+  value = {},
   onChange,
 }: FormItemComponentProps) {
   return (
     <Checkbox.Group
       options={[
         {
-          label: '时间查询',
-          value: 'quarterSelect',
+          label: "时间查询",
+          value: "quarterSelect",
         },
         {
-          label: '项目查询',
-          value: 'projectSelect',
+          label: "项目查询",
+          value: "projectSelect",
         },
       ]}
-      value={value}
-      onChange={onChange}
+      value={Object.keys(value)}
+      onChange={(e) => {
+        onChange &&
+          onChange(
+            e.reduce((memo, cur) => {
+              memo[cur] = cur;
+              return memo;
+            }, {})
+          );
+      }}
     />
-  )
+  );
 }

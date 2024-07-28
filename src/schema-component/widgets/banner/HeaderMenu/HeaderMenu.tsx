@@ -177,147 +177,102 @@ const MenuItem = forwardRef<
     </Select.Root>
   );
 });
-export const HeaderMenu: DnFC<SchemComponentWithDataSourceProps> = observer(
-  ({ dataSource }) => {
-    const { data, isLoading } = useDataBindFetch(dataSource);
-    const menuList: HeaderMenuItemType[] = get(data, "data.data", []) || [];
-    const { reportId } = useReportId();
-    const { ref, width = 0 } = useResizeObserver<HTMLDivElement>();
-    const menuInnerWidth = useMemo(() => {
-      if (!width) return 0;
+export function HeaderMenu({ dataSource }: SchemComponentWithDataSourceProps) {
+  const { data, isLoading } = useDataBindFetch(dataSource);
+  const menuList: HeaderMenuItemType[] = get(data, "data.data", []) || [];
+  const { reportId } = useReportId();
+  const { ref, width = 0 } = useResizeObserver<HTMLDivElement>();
+  const menuInnerWidth = useMemo(() => {
+    if (!width) return 0;
 
-      return Math.floor(width - 60);
-    }, [width]);
+    return Math.floor(width - 60);
+  }, [width]);
 
-    const menuCount = useMemo(() => {
-      if (!menuInnerWidth) return 0;
+  const menuCount = useMemo(() => {
+    if (!menuInnerWidth) return 0;
 
-      return Math.floor(menuInnerWidth / 180);
-    }, [menuInnerWidth]);
+    return Math.floor(menuInnerWidth / 180);
+  }, [menuInnerWidth]);
 
-    const [emblaRef, emblaApi] = useEmblaCarousel({
-      slidesToScroll: "auto",
-    });
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    slidesToScroll: "auto",
+  });
 
-    const {
-      prevBtnDisabled,
-      nextBtnDisabled,
-      onPrevButtonClick,
-      onNextButtonClick,
-    } = usePrevNextButtons(emblaApi);
+  const {
+    prevBtnDisabled,
+    nextBtnDisabled,
+    onPrevButtonClick,
+    onNextButtonClick,
+  } = usePrevNextButtons(emblaApi);
 
-    if (!dataSource || !dataSource.dataSourceId) {
-      return <div className={emptyCss}>请绑定数据源</div>;
-    }
-    if (!isLoading && !menuList.length) {
-      return <div className={emptyCss}>菜单数据为空</div>;
-    }
+  if (!dataSource || !dataSource.dataSourceId) {
+    return <div className={emptyCss}>请绑定数据源</div>;
+  }
+  if (!isLoading && !menuList.length) {
+    return <div className={emptyCss}>菜单数据为空</div>;
+  }
 
-    return (
-      <ConetentSpin isLoading={isLoading}>
+  return (
+    <ConetentSpin isLoading={isLoading}>
+      <div
+        ref={ref}
+        className={css`
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+          height: 100%;
+          max-height: 0.38rem;
+          width: 100%;
+        `}
+      >
+        <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
+        <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
+
         <div
-          ref={ref}
           className={css`
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
+            width: ${menuInnerWidth}px;
             height: 100%;
-            max-height: 0.38rem;
-            width: 100%;
+            overflow: hidden;
           `}
         >
-          <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
-          <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
-
           <div
             className={css`
-              width: ${menuInnerWidth}px;
               height: 100%;
               overflow: hidden;
             `}
+            ref={emblaRef}
           >
             <div
               className={css`
+                touch-action: pan-y pinch-zoom;
+                backface-visibility: hidden;
+                display: flex;
                 height: 100%;
-                overflow: hidden;
               `}
-              ref={emblaRef}
             >
-              <div
-                className={css`
-                  touch-action: pan-y pinch-zoom;
-                  backface-visibility: hidden;
-                  display: flex;
-                  height: 100%;
-                `}
-              >
-                {menuList.map((menuItem, index) => {
-                  return (
-                    <div
-                      key={menuItem.shareURL + menuItem.label + index}
-                      className={css`
-                        min-width: 0;
-                        flex-grow: 0;
-                        flex-shrink: 0;
-                        flex-basis: ${sizeFormat(100 / menuCount)}%;
-                        padding: 0 0.12rem;
-                        height: 100%;
-                        max-height: 0.38rem;
-                      `}
-                    >
-                      <MenuItem reportId={reportId} menuItem={menuItem} />
-                    </div>
-                  );
-                })}
-              </div>
+              {menuList.map((menuItem, index) => {
+                return (
+                  <div
+                    key={menuItem.shareURL + menuItem.label + index}
+                    className={css`
+                      min-width: 0;
+                      flex-grow: 0;
+                      flex-shrink: 0;
+                      flex-basis: ${sizeFormat(100 / menuCount)}%;
+                      padding: 0 0.12rem;
+                      height: 100%;
+                      max-height: 0.38rem;
+                    `}
+                  >
+                    <MenuItem reportId={reportId} menuItem={menuItem} />
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
-      </ConetentSpin>
-    );
-  }
-);
-
-HeaderMenu.Resource = createResource({
-  title: "头部下拉菜单",
-  icon: rs("/assets/header-menu/WX20240722-153218.png"),
-  elements: [
-    {
-      componentName: "Field",
-      props: {
-        type: "void",
-        "x-component": "HeaderMenu",
-        "x-decorator": "PositionDecorator",
-        "x-decorator-props": {
-          padding: [0, 0, 0, 0],
-          w: 12,
-          h: 0.75,
-        },
-
-        "x-reactions": {
-          dependencies: {},
-          when: true,
-          fulfill: {
-            schema: {
-              "x-component-props.query": "{{$deps}}",
-            },
-          },
-        },
-      },
-    },
-  ],
-});
-HeaderMenu.Behavior = createBehavior({
-  name: "HeaderMenu",
-  selector: (node) =>
-    node.componentName === "Field" &&
-    node.props["x-component"] === "HeaderMenu",
-  designerProps: {
-    title: "头部菜单",
-    draggable: true,
-    droppable: false,
-    resizable: {},
-    translatable: {},
-  },
-});
+      </div>
+    </ConetentSpin>
+  );
+}

@@ -3,8 +3,7 @@ import { css } from "@emotion/css";
 import { type PropsWithChildren, useMemo } from "react";
 import { get } from "lodash-es";
 import useResizeObserver from "use-resize-observer";
-import { observer } from "@formily/reactive-react";
-import { useField } from "@formily/react";
+
 import { GradientTitle } from "../header1/GradientTitle";
 import type { HeaderMenuItemType } from "../HeaderMenu/types";
 
@@ -21,7 +20,6 @@ import {
   useStrHandlebars,
 } from "@/schema-component";
 import type { DataSourceBindType } from "@/schema-component/types";
-import type { DnFC } from "@/designable/react";
 
 interface Header5Props extends PropsWithChildren {
   title?: string;
@@ -31,7 +29,7 @@ interface Header5Props extends PropsWithChildren {
 
 export function Header5(props: Header5Props) {
   const { title, dataSource, subTitle } = props;
-  console.log(props, "props");
+
   const { reportId } = useReportId();
   const { isPc } = useDashboardRoot();
 

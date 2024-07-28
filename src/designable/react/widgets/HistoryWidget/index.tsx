@@ -5,6 +5,24 @@ import cls from "classnames";
 import { useWorkbench } from "../../hooks";
 import { TextWidget } from "../TextWidget";
 import "./styles.less";
+import { get } from "lodash-es";
+
+const locale = {
+  operations: {
+    default_state: "缺省态",
+    append_node: "追加节点",
+    prepend_node: "头部追加",
+    clone_node: "复制节点",
+    update_node_props: "属性更改",
+    insert_after: "后置插入",
+    insert_before: "前置插入",
+    insert_children: "插入子节点",
+    update_children: "覆盖子节点",
+    remove_node: "删除节点",
+    wrap_node: "包装节点",
+    from_node: "子树更新",
+  },
+};
 
 export const HistoryWidget: React.FC = observer(() => {
   const workbench = useWorkbench();
@@ -28,7 +46,7 @@ export const HistoryWidget: React.FC = observer(() => {
             }}
           >
             <span className={`${prefix}-item-title`}>
-              <TextWidget token={`operations.${token}`} />
+              <TextWidget token={get(locale, `operations.${token}`)} />
             </span>
             <span className={`${prefix}-item-timestamp`}>
               {" "}

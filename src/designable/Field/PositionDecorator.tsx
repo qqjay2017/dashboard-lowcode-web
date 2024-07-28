@@ -53,7 +53,7 @@ export const PositionDecorator = observer((props: PositionDecoratorProps) => {
   const designProps = {
     [designer.props.nodeIdAttrName]: props["data-designer-node-id"],
   };
-  console.log(props, "position props");
+
   return (
     <div
       className={cn(

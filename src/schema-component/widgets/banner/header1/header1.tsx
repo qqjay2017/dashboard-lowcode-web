@@ -20,10 +20,7 @@ const useHeader1Styles = createStyles(({ css, token }) => {
 interface Header1Props extends PropsWithChildren {
   title?: string;
 }
-export const Header1: DnFC<Header1Props> = ({
-  title,
-  ...props
-}: Header1Props) => {
+export function Header1({ title, ...props }: Header1Props) {
   const { styles } = useHeader1Styles();
 
   const titleStr = useStrHandlebars(title);
@@ -68,50 +65,4 @@ export const Header1: DnFC<Header1Props> = ({
       </div>
     </div>
   );
-};
-Header1.displayName = "Header1";
-Header1.Resource = createResource({
-  title: "头部1",
-  icon: rs("/assets/schema-component/Header1/WX20240728-001724@2x.png"),
-  elements: [
-    {
-      componentName: "Field",
-      props: {
-        type: "void",
-        "x-component": "Header1",
-        "x-decorator": "PositionDecorator",
-        "x-decorator-props": {
-          w: 12,
-          h: 1.3,
-          padding: [0, 0, 0, 0],
-        },
-        "x-component-props": {
-          title: "{{dashboardDt.name}}",
-        },
-
-        "x-reactions": {
-          dependencies: {},
-          when: true,
-          fulfill: {
-            schema: {
-              "x-component-props.query": "{{$deps}}",
-            },
-          },
-        },
-      },
-    },
-  ],
-});
-
-Header1.Behavior = createBehavior({
-  name: "Header1",
-  selector: (node) =>
-    node.componentName === "Field" && node.props["x-component"] === "Header1",
-  designerProps: {
-    title: "头部5",
-    draggable: true,
-    droppable: false,
-    resizable: {},
-    translatable: {},
-  },
-});
+}

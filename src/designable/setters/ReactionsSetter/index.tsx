@@ -3,18 +3,9 @@ import { clone, uid } from "@formily/shared";
 import { createForm, isVoidField } from "@formily/core";
 import { createSchemaField } from "@formily/react";
 
-import {
-  ArrayTable,
-  Form,
-  FormCollapse,
-  FormItem,
-  Input,
-  Select,
-} from "@formily/antd-v5";
+import { Form, FormCollapse, FormItem, Input, Select } from "@formily/antd-v5";
 import { Button, Card, Modal, Tag, Tooltip } from "antd";
-import { PathSelector } from "./PathSelector";
-import { FieldPropertySetter } from "./FieldPropertySetter";
-import { FulfillRunHelper } from "./helpers";
+
 import type { IReaction } from "./types";
 
 import { initDeclaration } from "./declarations";
@@ -23,6 +14,7 @@ import { TextWidget, usePrefix } from "@/designable/react";
 import { requestIdle } from "@/designable/shared";
 
 import "./styles.less";
+import { DepFieldSetFormItem } from "@/designable/react-settings-form";
 
 export interface IReactionsSetterProps {
   value?: IReaction;
@@ -57,12 +49,11 @@ const SchemaField = createSchemaField({
     Card,
     FormCollapse,
     Input,
-    TypeView,
+
     Select,
     FormItem,
-    PathSelector,
-    FieldPropertySetter,
-    ArrayTable,
+
+    DepFieldSetFormItem,
   },
 });
 
@@ -148,7 +139,7 @@ export const ReactionsSetter: React.FC<IReactionsSetterProps> = (props) => {
     });
   }, [modalVisible, props.value]);
   const formCollapse = useMemo(
-    () => FormCollapse.createFormCollapse(["deps", "state"]),
+    () => FormCollapse.createFormCollapse(["deps"]),
     [modalVisible]
   );
   const openModal = () => setModalVisible(true);
@@ -214,199 +205,11 @@ export const ReactionsSetter: React.FC<IReactionsSetterProps> = (props) => {
                       header: "依赖字段",
                     }}
                   >
-                    <SchemaField.Array
+                    <SchemaField.Object
                       name="dependencies"
-                      default={[{}]}
-                      x-component="ArrayTable"
-                    >
-                      <SchemaField.Object>
-                        <SchemaField.Void
-                          x-component="ArrayTable.Column"
-                          x-component-props={{
-                            title: "来源字段",
-                            width: 240,
-                          }}
-                        >
-                          <SchemaField.String
-                            name="source"
-                            x-decorator="FormItem"
-                            x-component="PathSelector"
-                            x-component-props={{
-                              placeholder: "请选择",
-                            }}
-                          />
-                        </SchemaField.Void>
-                        <SchemaField.Void
-                          x-component="ArrayTable.Column"
-                          x-component-props={{
-                            title: "字段属性",
-                            width: 200,
-                          }}
-                        >
-                          <SchemaField.String
-                            name="property"
-                            default="value"
-                            x-decorator="FormItem"
-                            x-component="Select"
-                            x-component-props={{ showSearch: true }}
-                            enum={FieldStateProperties}
-                          />
-                        </SchemaField.Void>
-                        <SchemaField.Void
-                          x-component="ArrayTable.Column"
-                          x-component-props={{
-                            title: "变量名",
-                            width: 200,
-                          }}
-                        >
-                          <SchemaField.String
-                            name="name"
-                            x-decorator="FormItem"
-                            x-validator={{
-                              pattern: /^[$_a-z][$\w]*$/i,
-                              message: "不符合变量命名规则",
-                            }}
-                            x-component="Input"
-                            x-component-props={{
-                              addonBefore: "$deps.",
-                              placeholder: "请输入",
-                            }}
-                            x-reactions={(field) => {
-                              if (isVoidField(field)) return;
-                              field.query(".source").take((source) => {
-                                if (isVoidField(source)) return;
-                                if (
-                                  source.value &&
-                                  !field.value &&
-                                  !field.modified
-                                ) {
-                                  field.value =
-                                    source.inputValues[1]?.props?.name ||
-                                    `v_${uid()}`;
-                                }
-                              });
-                            }}
-                          />
-                        </SchemaField.Void>
-
-                        <SchemaField.Void
-                          x-component="ArrayTable.Column"
-                          x-component-props={{
-                            title: "变量类型",
-                            ellipsis: {
-                              showTitle: false,
-                            },
-                            width: 200,
-                            align: "center",
-                          }}
-                        >
-                          <SchemaField.String
-                            name="type"
-                            default="any"
-                            x-decorator="FormItem"
-                            x-component="TypeView"
-                            x-reactions={(field) => {
-                              if (isVoidField(field)) return;
-                              const property = field
-                                .query(".property")
-                                .get("inputValues");
-                              if (!property) return;
-                              property[0] = property[0] || "value";
-                              field.query(".source").take((source) => {
-                                if (isVoidField(source)) return;
-                                if (source.value) {
-                                  if (
-                                    property[0] === "value" ||
-                                    property[0] === "initialValue" ||
-                                    property[0] === "inputValue"
-                                  ) {
-                                    field.value =
-                                      source.inputValues[1]?.props?.type ||
-                                      "any";
-                                  } else if (property[0] === "inputValues") {
-                                    field.value = `any[]`;
-                                  } else if (property[0]) {
-                                    field.value =
-                                      FieldStateValueTypes[property[0]];
-                                  } else {
-                                    field.value = "any";
-                                  }
-                                }
-                              });
-                            }}
-                          />
-                        </SchemaField.Void>
-                        <SchemaField.Void
-                          x-component="ArrayTable.Column"
-                          x-component-props={{
-                            title: "操作",
-                            align: "center",
-                            width: 80,
-                          }}
-                        >
-                          <SchemaField.Markup
-                            type="void"
-                            x-component="ArrayTable.Remove"
-                          />
-                        </SchemaField.Void>
-                      </SchemaField.Object>
-                      <SchemaField.Void
-                        title="添加依赖字段"
-                        x-component="ArrayTable.Addition"
-                        x-component-props={{ style: { marginTop: 8 } }}
-                      />
-                    </SchemaField.Array>
-                  </SchemaField.Void>
-
-                  <SchemaField.Void
-                    x-component="FormCollapse.CollapsePanel"
-                    x-component-props={{
-                      header: "属性响应(仅支持JS表达式)",
-                      key: "state",
-                      className: "reaction-state",
-                    }}
-                  >
-                    <SchemaField.Markup
-                      name="fulfill.state"
-                      x-component="FieldPropertySetter"
-                    />
-                  </SchemaField.Void>
-                  <SchemaField.Void
-                    x-component="FormCollapse.CollapsePanel"
-                    x-component-props={{
-                      key: "run",
-                      header: "动作响应(高级，可选，支持JS语句)",
-                      className: "reaction-runner",
-                    }}
-                  >
-                    <SchemaField.String
-                      name="fulfill.run"
-                      x-component="MonacoInput"
-                      x-component-props={{
-                        width: "100%",
-                        height: 400,
-                        language: "typescript",
-                        helpCode: FulfillRunHelper,
-                        options: {
-                          minimap: {
-                            enabled: false,
-                          },
-                        },
-                      }}
-                      x-reactions={(field) => {
-                        const deps = field.query("dependencies").value();
-                        if (Array.isArray(deps)) {
-                          field.componentProps.extraLib = `
-                          declare var $deps : {
-                            ${deps.map(({ name, type }) => {
-                              if (!name) return "";
-                              return `${name}?:${type || "any"},`;
-                            })}
-                          }
-                          `;
-                        }
-                      }}
-                    />
+                      default={{}}
+                      x-component="DepFieldSetFormItem"
+                    ></SchemaField.Object>
                   </SchemaField.Void>
                 </SchemaField.Void>
               </SchemaField>

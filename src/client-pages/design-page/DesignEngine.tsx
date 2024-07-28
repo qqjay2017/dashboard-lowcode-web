@@ -1,9 +1,9 @@
 import { useEffect, useMemo } from "react";
 import { Actions, Logo } from "./Logo";
 import {
-  Header1,
+  FormilyHeader1 as Header1,
   FormilyHeader5 as Header5,
-  HeaderMenu,
+  FormilyHeaderMenu as HeaderMenu,
   Root,
 } from "@/schema-component";
 import {
@@ -20,7 +20,7 @@ import {
   Workbench,
   WorkspacePanel,
 } from "@/designable/react";
-import { Card } from "@/designable/Content";
+
 import { Field } from "@/designable/Field";
 import { createDesigner, transformToTreeNode } from "@/designable/core";
 import { SettingsForm } from "@/designable/react-settings-form";

@@ -246,7 +246,7 @@ module.exports = {
       },
       {
         context: ["/dashboard-api/"],
-        target: "http://localhost:3001",
+        target: "http://192.168.0.102:3001",
         changeOrigin: true,
         pathRewrite: (path) => path.replace(/^\/dashboard-api/, ""),
       },

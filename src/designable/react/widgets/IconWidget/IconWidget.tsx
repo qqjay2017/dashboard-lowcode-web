@@ -1,7 +1,7 @@
 import { observer } from "@formily/reactive-react";
 import { Tooltip, type TooltipProps } from "antd";
 import React from "react";
-import { CgComponents } from "react-icons/cg";
+import { CgComponents, CgDisplayFlex, CgDisplaySpacing } from "react-icons/cg";
 import {
   MdOutlineClearAll,
   MdOutlineClose,
@@ -11,11 +11,11 @@ import {
   MdRemoveRedEye,
 } from "react-icons/md";
 import { TbBrandGoogleBigQuery } from "react-icons/tb";
-
-import { PiPathLight } from "react-icons/pi";
+import { PiMapPinLineLight, PiPathLight } from "react-icons/pi";
+import { RiDragDropLine, RiEyeCloseLine, RiLinkedinLine } from "react-icons/ri";
 
 import { IoIosSettings } from "react-icons/io";
-import { RiDragDropLine } from "react-icons/ri";
+
 import { cn } from "@/utils";
 
 export interface IIconWidgetProps extends React.HTMLAttributes<HTMLElement> {
@@ -38,10 +38,15 @@ const allIconMap = {
   Page: MdOutlineFindInPage,
   History: MdOutlineHistory,
   Eye: MdRemoveRedEye,
-  Position: PiPathLight,
+  EyeClose: RiEyeCloseLine,
+  Position: PiMapPinLineLight,
   Setting: IoIosSettings,
   DragDrop: RiDragDropLine,
   TbBrandGoogleBigQuery,
+  DisplayBlock: RiLinkedinLine,
+  DisplayFlex: CgDisplayFlex,
+  DisplayInline: CgDisplaySpacing,
+  DisplayInlineBlock: CgDisplaySpacing,
 };
 
 export const IconWidget = observer(
