@@ -90,7 +90,7 @@ function createComponentSchema(
       title: "容器属性",
       type: "void",
       "x-component": "CollapseItem",
-      "x-component-props": { defaultExpand: false },
+      "x-component-props": { defaultExpand: true },
       "x-reactions": {
         fulfill: {
           state: {

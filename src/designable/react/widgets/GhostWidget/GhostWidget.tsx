@@ -34,7 +34,7 @@ export const GhostWidget = observer(() => {
           whiteSpace: "nowrap",
         }}
       >
-        <div>{firstNode?.componentName}</div>
+        <div>拖拽组件</div>
         {movingNodes.length > 1 ? "..." : ""}
       </span>
     );

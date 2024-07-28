@@ -1,7 +1,8 @@
 import React from "react";
 import { observer } from "@formily/reactive-react";
 import { get } from "lodash-es";
-import type { TreeNode } from "@/designable/core";
+import { GlobalRegistry, type TreeNode } from "@/designable/core";
+import { useSchemaOptionsContext } from "@/schema-component";
 
 export interface INodeTitleWidgetProps {
   node: TreeNode;
@@ -18,8 +19,23 @@ export const NodeTitleWidget: React.FC<INodeTitleWidgetProps> = observer(
     };
     const node = takeNode();
 
-    const title = get(node, "designerProps.title");
+    console.log(
+      GlobalRegistry.getDesignerBehaviors(node),
+      node,
+      "GlobalRegistry"
+    );
+    const { scope } = useSchemaOptionsContext();
 
-    return <>{title || node.componentName || "componentName"}</>;
+    const title = get(node, "designerProps.title");
+    const isChartTemplate = get(node, "props.x-component") === "ChartTemplate";
+    const chartTemplateId = get(node, "props.x-component-props.chartId");
+
+    return (
+      <>
+        {isChartTemplate
+          ? get(scope, `chartIdMap.${chartTemplateId}.name`)
+          : title || node.componentName || "componentName"}
+      </>
+    );
   }
 );

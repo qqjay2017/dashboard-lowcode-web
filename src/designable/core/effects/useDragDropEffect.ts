@@ -192,6 +192,7 @@ export function useDragDropEffect(engine: Engine) {
               closestNode.append(
                 ...TreeNode.filterDroppable(
                   dragNodes.map((node) => {
+                    console.log(node, "node");
                     node.props["x-decorator-props"] =
                       node.props["x-decorator-props"] || {};
                     node.props["x-decorator-props"] = {

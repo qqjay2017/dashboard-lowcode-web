@@ -19,7 +19,7 @@ function DesignPage2() {
     useFetchChartAll();
   const schema = get(data, "data.data.content", "");
   const shareURL = get(data, "data.data.shareURL", "");
-  const chartAll = get(chartAllRes, "data.data", "");
+  const chartAll: any[] = get(chartAllRes, "data.data");
 
   const projectSelectScope = useProjectSelectScope();
   const { scope, ...schemaOptions } = useSchemaOptionsContext();
@@ -39,6 +39,12 @@ function DesignPage2() {
           useAsyncProjectDataSource,
           useAsyncQuarterDataSource,
           dashboardDt: get(data, "data.data", {}) || {},
+          chartIdMap: (chartAll || []).reduce((memo, cur) => {
+            memo[cur.id] = {
+              ...cur,
+            };
+            return memo;
+          }, {}),
         },
       }}
     >

@@ -100,6 +100,8 @@ export function DesignEngine({
                     elements: [
                       {
                         componentName: "Field",
+
+                        componentDisplayName: chart.name,
                         props: {
                           type: "void",
                           "x-component": "ChartTemplate",

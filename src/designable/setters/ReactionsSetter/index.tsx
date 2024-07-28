@@ -160,9 +160,14 @@ export const ReactionsSetter: React.FC<IReactionsSetterProps> = (props) => {
       setInnerVisible(false);
     }
   }, [modalVisible]);
+
   return (
     <>
-      <Button block onClick={openModal}>
+      <Button
+        block
+        onClick={openModal}
+        disabled={props.value && Array.isArray(props.value)}
+      >
         <TextWidget token="配置查询项" />
       </Button>
       <Modal

@@ -9,6 +9,8 @@ import chartLightTheme from "@/themes/global-theme/chart-theme/light";
 import { useDashboardRootStyle } from "@/schema-component/components/DashboardRoot/styles";
 import { cn, cx } from "@/utils";
 import { useClassicFrameStyle } from "@/schema-component/widgets/frame/classic-frame/styles";
+import { AppError } from "@/application/components/defaultAppError";
+import { useApp } from "@/application";
 
 interface IChartViewCoreProps {
   option?: any;
@@ -53,8 +55,11 @@ function ChartViewCore({
 }
 
 export function ChartView(props: IChartViewCoreProps) {
+  const app = useApp();
   return (
-    <ErrorBoundary FallbackComponent={(props) => <div></div>}>
+    <ErrorBoundary
+      FallbackComponent={(props) => <AppError app={app} {...props} />}
+    >
       <ChartViewCore {...props} />
     </ErrorBoundary>
   );

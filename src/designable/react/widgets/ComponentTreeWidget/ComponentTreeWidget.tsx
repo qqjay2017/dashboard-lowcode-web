@@ -2,12 +2,15 @@ import React, { Fragment, useEffect } from "react";
 import { observer } from "@formily/reactive-react";
 
 import { css } from "@emotion/css";
+import { ErrorBoundary } from "react-error-boundary";
 import { useComponents, useDesigner, useTree } from "../../hooks";
 import { DesignerComponentsContext, TreeNodeContext } from "../../context";
 import type { IDesignerComponents } from "../../types";
 import { GlobalRegistry } from "@/designable/core";
 import type { TreeNode } from "@/designable/core";
 import { cn } from "@/utils";
+import { AppError } from "@/application/components/defaultAppError";
+import { useApp } from "@/application";
 
 export interface IComponentTreeWidgetProps {
   style?: React.CSSProperties;
@@ -78,6 +81,7 @@ export const TreeNodeWidget: React.FC<ITreeNodeWidgetProps> = observer(
 export const ComponentTreeWidget: React.FC<IComponentTreeWidgetProps> =
   observer((props: IComponentTreeWidgetProps) => {
     const tree = useTree();
+    const app = useApp();
 
     const designer = useDesigner();
     const dataId = {};
@@ -89,22 +93,26 @@ export const ComponentTreeWidget: React.FC<IComponentTreeWidgetProps> =
       GlobalRegistry.registerDesignerBehaviors(props.components);
     }, []);
     return (
-      <div
-        style={{ ...props.style, ...tree?.props?.style }}
-        className={cn(
-          "componentTreeWidget",
-          css`
-            height: 100%;
-            width: 100%;
-            overflow: auto;
-          `
-        )}
-        {...dataId}
+      <ErrorBoundary
+        FallbackComponent={(props) => <AppError app={app} {...props} />}
       >
-        <DesignerComponentsContext.Provider value={props.components}>
-          <TreeNodeWidget node={tree} />
-        </DesignerComponentsContext.Provider>
-      </div>
+        <div
+          style={{ ...props.style, ...tree?.props?.style }}
+          className={cn(
+            "componentTreeWidget",
+            css`
+              height: 100%;
+              width: 100%;
+              overflow: auto;
+            `
+          )}
+          {...dataId}
+        >
+          <DesignerComponentsContext.Provider value={props.components}>
+            <TreeNodeWidget node={tree} />
+          </DesignerComponentsContext.Provider>
+        </div>
+      </ErrorBoundary>
     );
   });
 

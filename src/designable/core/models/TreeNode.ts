@@ -19,6 +19,7 @@ import { each, uid } from "@/designable/shared";
 
 export interface ITreeNode {
   componentName?: string;
+  componentDisplayName?: string;
   sourceName?: string;
   operation?: Operation;
   hidden?: boolean;
@@ -107,6 +108,7 @@ export class TreeNode {
   hidden = false;
 
   componentName = "NO_NAME_COMPONENT";
+  componentDisplayName = "";
 
   sourceName = "";
 
@@ -121,6 +123,9 @@ export class TreeNode {
       return node;
     }
     this.id = node.id || uid();
+
+    this.componentDisplayName = node.componentDisplayName;
+    console.log(node, "nodenode");
     if (parent) {
       this.parent = parent;
       this.depth = parent.depth + 1;
