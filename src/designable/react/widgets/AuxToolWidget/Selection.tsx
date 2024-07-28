@@ -1,4 +1,4 @@
-import { observer } from "@formily/react";
+import { observer } from "@formily/reactive-react";
 import { css } from "@emotion/css";
 import {
   useCursor,

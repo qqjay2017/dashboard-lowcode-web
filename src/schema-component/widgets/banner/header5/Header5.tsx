@@ -3,6 +3,8 @@ import { css } from "@emotion/css";
 import { type PropsWithChildren, useMemo } from "react";
 import { get } from "lodash-es";
 import useResizeObserver from "use-resize-observer";
+import { observer } from "@formily/reactive-react";
+import { useField } from "@formily/react";
 import { GradientTitle } from "../header1/GradientTitle";
 import type { HeaderMenuItemType } from "../HeaderMenu/types";
 
@@ -29,11 +31,10 @@ interface Header5Props extends PropsWithChildren {
   dataSource?: DataSourceBindType;
 }
 
-export const Header5: DnFC<Header5Props> = ({
-  title,
-  dataSource,
-  subTitle,
-}) => {
+export const Header5: DnFC<Header5Props> = (props) => {
+  const field = useField();
+  console.log(props, field, "Header5  fieldprops");
+  const { title, dataSource, subTitle } = props;
   const { reportId } = useReportId();
   const { isPc } = useDashboardRoot();
 
@@ -209,62 +210,3 @@ export const Header5: DnFC<Header5Props> = ({
     </div>
   );
 };
-
-Header5.displayName = "Header5";
-
-Header5.Resource = createResource({
-  title: "头部5",
-  icon: rs("/assets/schema-component/header5/WX20240719-232752@2x.png"),
-  elements: [
-    {
-      componentName: "Field",
-      props: {
-        type: "void",
-        "x-component": "Header5",
-        "x-decorator": "PositionDecorator",
-        "x-decorator-props": {
-          w: 12,
-          h: 1.3,
-          padding: [0, 0, 0, 0],
-        },
-        "x-component-props": {
-          title: "{{dashboardDt.name}}",
-        },
-
-        "x-reactions": {
-          dependencies: {},
-          when: true,
-          fulfill: {
-            schema: {
-              "x-component-props.query": "{{$deps}}",
-            },
-          },
-        },
-      },
-    },
-  ],
-});
-
-Header5.Behavior = createBehavior({
-  name: "Header5",
-  selector: (node) =>
-    node.componentName === "Field" && node.props["x-component"] === "Header5",
-  designerProps: {
-    title: "头部5",
-    draggable: true,
-    droppable: false,
-    resizable: {},
-    translatable: {},
-    propsSchema: createFieldSchema({
-      type: "object",
-      properties: {
-        title: {
-          type: "string",
-          title: "标题",
-          "x-decorator": "FormItem",
-          "x-component": "Input",
-        },
-      },
-    }),
-  },
-});

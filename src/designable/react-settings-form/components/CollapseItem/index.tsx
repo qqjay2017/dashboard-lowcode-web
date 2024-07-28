@@ -13,7 +13,7 @@ export interface ICollapseItemProps {
 export const CollapseItem: React.FC<ICollapseItemProps> = observer((props) => {
   const prefix = usePrefix("collapse-item");
   const field = useField();
-  console.log(field, "field");
+
   const [expand, setExpand] = useState(props.defaultExpand ?? true);
   return (
     <div

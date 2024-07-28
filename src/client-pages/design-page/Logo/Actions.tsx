@@ -1,4 +1,4 @@
-import { observer } from "@formily/react";
+import { observer } from "@formily/reactive-react";
 import { Button, Radio, Space } from "antd";
 import { useEffect } from "react";
 

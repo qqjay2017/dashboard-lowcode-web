@@ -1,9 +1,9 @@
-import { css } from '@emotion/css'
-import { observer } from '@formily/react'
-import { InputNumber } from 'antd'
-import type { FormItemComponentProps } from '@/types'
+import { css } from "@emotion/css";
+import { observer } from "@formily/reactive-react";
+import { InputNumber } from "antd";
+import type { FormItemComponentProps } from "@/types";
 
-const width = '100px'
+const width = "100px";
 
 export const DecoratorPaddingFormItem = observer(
   ({ value, onChange }: FormItemComponentProps) => {
@@ -28,8 +28,7 @@ export const DecoratorPaddingFormItem = observer(
             background-color: #4aa7be;
             border: 1px dashed #ccc;
           `}
-        >
-        </div>
+        ></div>
         <div
           className={css`
             position: absolute;
@@ -44,7 +43,7 @@ export const DecoratorPaddingFormItem = observer(
             size="small"
             value={value[0]}
             onBlur={(e) => {
-              value[0] = Number(e.target.value || 0)
+              value[0] = Number(e.target.value || 0);
             }}
           />
         </div>
@@ -62,7 +61,7 @@ export const DecoratorPaddingFormItem = observer(
             size="small"
             value={value[1]}
             onBlur={(e) => {
-              value[1] = Number(e.target.value || 0)
+              value[1] = Number(e.target.value || 0);
             }}
           />
         </div>
@@ -80,7 +79,7 @@ export const DecoratorPaddingFormItem = observer(
             size="small"
             value={value[2]}
             onBlur={(e) => {
-              value[2] = Number(e.target.value || 0)
+              value[2] = Number(e.target.value || 0);
             }}
           />
         </div>
@@ -98,11 +97,11 @@ export const DecoratorPaddingFormItem = observer(
             size="small"
             value={value[3]}
             onBlur={(e) => {
-              value[3] = Number(e.target.value || 0)
+              value[3] = Number(e.target.value || 0);
             }}
           />
         </div>
       </div>
-    )
-  },
-)
+    );
+  }
+);

@@ -1,6 +1,11 @@
 import { useEffect, useMemo } from "react";
 import { Actions, Logo } from "./Logo";
-import { Header1, Header5, HeaderMenu, Root } from "@/schema-component";
+import {
+  Header1,
+  FormilyHeader5 as Header5,
+  HeaderMenu,
+  Root,
+} from "@/schema-component";
 import {
   ComponentTreeWidget,
   CompositePanel,

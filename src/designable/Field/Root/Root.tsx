@@ -1,7 +1,8 @@
 import { css, cx } from "@emotion/css";
 import { useEffect, useState } from "react";
 import { ConfigProvider } from "antd";
-import { Schema, observer } from "@formily/react";
+import { Schema } from "@formily/react";
+import { observer } from "@formily/reactive-react";
 
 import { defaultBreakpoints, flexible } from "@/utils/utils";
 import {

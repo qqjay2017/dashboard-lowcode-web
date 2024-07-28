@@ -1,4 +1,4 @@
-import { observer } from "@formily/react";
+import { observer } from "@formily/reactive-react";
 import { Tooltip, type TooltipProps } from "antd";
 import React from "react";
 import { CgComponents } from "react-icons/cg";

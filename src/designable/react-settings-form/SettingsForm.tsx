@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { createForm } from "@formily/core";
 import { Form } from "@formily/antd-v5";
-import { observer } from "@formily/react";
+import { observer } from "@formily/reactive-react";
 import { requestIdle, cancelIdle } from "@/designable/shared";
 import {
   usePrefix,
@@ -9,7 +9,6 @@ import {
   useOperation,
   useSelectedNode,
   useWorkbench,
-  IconWidget,
   NodePathWidget,
 } from "@/designable/react";
 import { SchemaField } from "./SchemaField";
@@ -41,6 +40,8 @@ export const SettingsForm: React.FC<ISettingFormProps> = observer(
       selected.length === 1
     );
     const form: any = useMemo(() => {
+      console.log(node, node?.props, " node?.props");
+
       return createForm({
         initialValues: node?.designerProps?.defaultProps,
         values: node?.props,

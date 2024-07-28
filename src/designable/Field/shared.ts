@@ -55,7 +55,7 @@ const CSSStyle: ISchema = {
 function createComponentSchema(component: ISchema, decorator: ISchema) {
     return {
         'component-group': component && {
-            'title': '组件属性',
+            // 'title': '组件属性',
             'type': 'void',
             'x-component': 'CollapseItem',
             'x-reactions': {

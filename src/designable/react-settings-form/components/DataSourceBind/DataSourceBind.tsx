@@ -5,12 +5,12 @@ import { css } from "@emotion/css";
 import { get } from "lodash-es";
 import { IoIosRefresh, IoMdAdd } from "react-icons/io";
 
-import { observer } from "@formily/react";
-import { CardItem } from "../../../../schema-component/components/CardItem";
-import { useRequest } from "../../../../api-client";
+import { observer } from "@formily/reactive-react";
 import type { FormItemComponentProps } from "../../../../types";
-import { MonacoEditor } from "../../../../schema-component/components/MonacoEditor";
 import { FuncText } from "./FuncText";
+import { MonacoEditor } from "@/schema-component/components/MonacoEditor";
+import { useRequest } from "@/api-client";
+import { CardItem } from "@/schema-component/components/CardItem";
 import { apiBase } from "@/utils";
 
 interface DataSourceBindProps extends FormItemComponentProps {}

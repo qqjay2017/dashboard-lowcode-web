@@ -1,5 +1,5 @@
 import { type PropsWithChildren, useMemo } from "react";
-import { observer } from "@formily/react";
+import { observer } from "@formily/reactive-react";
 import { css } from "@emotion/css";
 import { useDesigner, useViewport } from "../react";
 import type { PositionDecoratorOptions } from "@/schema-component/components/PositionDecorator/types";

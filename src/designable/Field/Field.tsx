@@ -9,12 +9,16 @@ import {
 } from "@formily/react";
 import { FormPath } from "@formily/core";
 import { toJS } from "@formily/reactive";
+import type { PropsWithChildren } from "react";
 import type { DnFC } from "../react";
 import { useComponents, useDesigner, useTreeNode } from "../react";
 import { createBehavior } from "../core";
 import { each, isArr, isStr, reduce } from "../shared";
 import { PositionDecorator } from "./PositionDecorator";
 
+const ObjectContainer: React.FC<PropsWithChildren> = observer((props) => {
+  return <>{props.children}</>;
+});
 Schema.silent(true);
 
 const SchemaStateMap = {
@@ -138,11 +142,11 @@ export const Field: DnFC<{
 
   if (props.type === "object") {
     return (
-      <div>
+      <ObjectContainer>
         <ObjectField {...fieldProps} name={node.id}>
           {props.children}
         </ObjectField>
-      </div>
+      </ObjectContainer>
     );
   } else if (props.type === "array") {
     return <ArrayField {...fieldProps} name={node.id} />;
