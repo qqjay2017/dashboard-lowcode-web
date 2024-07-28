@@ -9,7 +9,8 @@ import {
 } from "@formily/react";
 import { FormPath } from "@formily/core";
 import { toJS } from "@formily/reactive";
-import type { PropsWithChildren } from "react";
+import { type PropsWithChildren, useState } from "react";
+import { Button } from "antd";
 import type { DnFC } from "../react";
 import { useComponents, useDesigner, useTreeNode } from "../react";
 import { createBehavior } from "../core";
@@ -96,6 +97,7 @@ function toDesignableFieldProps(
       results[fieldKey] = filterExpression(value);
     }
   });
+  // debugger;
   if (!components.PositionDecorator) {
     components.PositionDecorator = PositionDecorator;
   }
@@ -123,6 +125,7 @@ function toDesignableFieldProps(
   results.description = results.description && (
     <span data-content-editable="description">{results.description}</span>
   );
+
   return results;
 }
 export const Field: DnFC<{
@@ -132,6 +135,7 @@ export const Field: DnFC<{
   const designer = useDesigner();
   const components = useComponents();
   const node = useTreeNode();
+
   if (!node) return null;
   const fieldProps = toDesignableFieldProps(
     props,

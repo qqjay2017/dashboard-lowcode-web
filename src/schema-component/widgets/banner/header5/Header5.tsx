@@ -33,7 +33,7 @@ interface Header5Props extends PropsWithChildren {
 
 export const Header5: DnFC<Header5Props> = (props) => {
   const field = useField();
-  console.log(props, field, "Header5  fieldprops");
+
   const { title, dataSource, subTitle } = props;
   const { reportId } = useReportId();
   const { isPc } = useDashboardRoot();

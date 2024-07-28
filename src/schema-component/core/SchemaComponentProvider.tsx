@@ -64,8 +64,12 @@ export const SchemaComponentProvider: React.FC<ISchemaComponentProvider> = (
   const [formId, setFormId] = useState(uid());
 
   const form: any = useMemo(
-    () => props.form || createForm(),
-    [formId, pathname, breakpoint, width]
+    () =>
+      props.form ||
+      createForm({
+        designable,
+      }),
+    [formId, pathname, breakpoint, width, designable]
   );
 
   const scope = useMemo(() => {

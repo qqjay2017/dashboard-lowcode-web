@@ -14,9 +14,21 @@ FormilyHeader5.Resource = createResource({
     {
       componentName: "Field",
       props: {
-        type: "void",
+        type: "string",
         "x-decorator": "PositionDecorator",
         "x-component": "Header5",
+        "x-component-props": {
+          title: "{{dashboardDt.name}}",
+        },
+        "x-reactions": {
+          dependencies: {},
+          when: true,
+          fulfill: {
+            schema: {
+              "x-component-props.query": "{{$deps}}",
+            },
+          },
+        },
       },
     },
   ],
@@ -27,23 +39,12 @@ FormilyHeader5.Behavior = createBehavior({
   selector: (node) =>
     node.componentName === "Field" && node.props["x-component"] === "Header5",
   designerProps: {
-    title: "头部5",
+    title1: "头部5",
     draggable: true,
     droppable: false,
     resizable: {},
     translatable: {},
-    defaultProps: {
-      // title: "{{dashboardDt.name}}",
-      // "x-reactions": {
-      //   dependencies: {},
-      //   when: true,
-      //   fulfill: {
-      //     schema: {
-      //       "x-component-props.query": "{{$deps}}",
-      //     },
-      //   },
-      // },
-    },
+    defaultProps: {},
     propsSchema: createFieldSchema({
       type: "object",
       properties: {
@@ -55,6 +56,5 @@ FormilyHeader5.Behavior = createBehavior({
         },
       },
     }),
-    //  createFieldSchema(),
   },
 });

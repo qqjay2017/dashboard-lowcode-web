@@ -28,7 +28,13 @@ function WithoutForm(props) {
   const expressionScope = useContext(SchemaExpressionScopeContext);
   const scope = { ...options?.scope, ...expressionScope };
   const components = { ...options?.components };
-  const form: any = useMemo(() => createForm(), []);
+  const form: any = useMemo(
+    () =>
+      createForm({
+        designable: true,
+      }),
+    []
+  );
   return (
     <FormilyFormProvider {...others} form={form}>
       <SchemaComponentOptions components={components} scope={scope}>
