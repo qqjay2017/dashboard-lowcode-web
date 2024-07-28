@@ -1,9 +1,6 @@
-import React from "react";
 import { css } from "@emotion/css";
 import { get } from "lodash-es";
-import { getSchemeWrap } from "./getSchemeWrap";
-import { menuItem } from "./menuItem";
-import { settingSchema } from "./settingSchema";
+
 import type { UnprocessedWarningItem } from "./types";
 import { WarnListItem } from "./WarnListItem";
 import type { SchemComponentWithDataSourceProps } from "@/types";
@@ -63,8 +60,3 @@ export function UnprocessedWarningList({
     </div>
   );
 }
-
-UnprocessedWarningList.displayName = "UnprocessedWarningList";
-UnprocessedWarningList.schemaFn = getSchemeWrap;
-UnprocessedWarningList.menuItem = menuItem;
-UnprocessedWarningList.settingSchema = settingSchema;

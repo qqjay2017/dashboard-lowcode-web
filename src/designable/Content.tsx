@@ -48,7 +48,7 @@ Card.Resource = createResource({
         "x-decorator-props": {
           w: 3,
           h: 3,
-          padding: [0, 0, 0, 0],
+          padding: "0px 0px 0px 0px",
         },
         "x-component": "Card",
       },

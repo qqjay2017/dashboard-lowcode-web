@@ -18,7 +18,7 @@ FormilyHeaderMenu.Resource = createResource({
         "x-component": "HeaderMenu",
         "x-decorator": "PositionDecorator",
         "x-decorator-props": {
-          padding: [0, 0, 0, 0],
+          padding: "0px 0px 0px 0px",
           w: 12,
           h: 0.75,
         },

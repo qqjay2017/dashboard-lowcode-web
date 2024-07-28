@@ -195,7 +195,7 @@ export function useDragDropEffect(engine: Engine) {
                     node.props["x-decorator-props"] = {
                       w: 3,
                       h: 3,
-                      padding: [0, 0, 0, 0],
+                      padding: "0px 0px 0px 0px",
 
                       ...node.props["x-decorator-props"],
                       ...decoratorProps,

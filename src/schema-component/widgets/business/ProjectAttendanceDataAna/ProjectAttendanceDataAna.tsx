@@ -2,10 +2,9 @@ import { css } from "@emotion/css";
 import { get } from "lodash-es";
 import { ZjxmsRightItem } from "./ZjxmsRightItem";
 
-import { getPercent } from "@/schema-component/utils";
 import { useToken } from "@/schema-component/antd/style";
 
-import { rs } from "@/utils";
+import { getPercent, rs } from "@/utils";
 import type { SchemComponentWithDataSourceProps } from "@/types";
 import {
   useDataBindFetch,

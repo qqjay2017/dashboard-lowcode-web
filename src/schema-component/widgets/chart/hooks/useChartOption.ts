@@ -6,11 +6,11 @@ import Decimal from "decimal.js";
 import {
   chartListDataFormat,
   findItemByName,
+  getPercent,
   getTotalNum,
   percentToDisplay,
 } from "@/utils";
 import { useToken } from "@/schema-component/antd/style";
-import { getPercent } from "@/schema-component/utils";
 
 export function useChartOption(chartDataTemplate = "", busData) {
   const { token } = useToken();

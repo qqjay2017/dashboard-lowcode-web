@@ -22,7 +22,7 @@ FormilyEmploymentCreditMng.Resource = createResource({
         "x-component": "EmploymentCreditMng",
         "x-decorator": "PositionDecorator",
         "x-decorator-props": {
-          padding: [0, 0, 0, 0],
+          padding: "0px 0px 0px 0px",
           w: 3,
           h: 3,
         },

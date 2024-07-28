@@ -1,28 +1,25 @@
 import { connect } from "@formily/react";
-import { UnprocessedWarningList } from "./UnprocessedWarningList";
+import { ChartTemplate } from "./ChartTemplate";
 import type { DnFC } from "@/designable/react";
 import { createBehavior, createResource } from "@/designable/core";
 import { rs } from "@/utils";
 import { createFieldSchema } from "@/designable/Field";
 
-export const FormilyUnprocessedWarningList: DnFC<any> = connect(
-  UnprocessedWarningList
-);
+export const FormilyChartTemplate: DnFC<any> = connect(ChartTemplate);
 
-FormilyUnprocessedWarningList.Resource = createResource({
-  title: "未处理预警列表",
-  icon: rs(
-    "/assets/schema-component/UnprocessedWarningList/WX20240721-143705@2x.png"
-  ),
+FormilyChartTemplate.Resource = createResource({
+  title: "通用图表模版",
+
+  icon: rs("/assets/schema-component/ChartTemplate/WX20240723-152828.png"),
   elements: [
     {
       componentName: "Field",
       props: {
         type: "void",
-        "x-component": "UnprocessedWarningList",
+        "x-component": "ChartTemplate",
         "x-decorator": "PositionDecorator",
         "x-decorator-props": {
-          padding: "24px 24px 24px 24px",
+          padding: "4px 4px 4px 4px",
           w: 3,
           h: 3,
         },
@@ -43,13 +40,13 @@ FormilyUnprocessedWarningList.Resource = createResource({
     },
   ],
 });
-FormilyUnprocessedWarningList.Behavior = createBehavior({
-  name: "UnprocessedWarningList",
+FormilyChartTemplate.Behavior = createBehavior({
+  name: "ChartTemplate",
   selector: (node) =>
     node.componentName === "Field" &&
-    node.props["x-component"] === "UnprocessedWarningList",
+    node.props["x-component"] === "ChartTemplate",
   designerProps: {
-    title: "项目简介",
+    title: "通用图表模版",
     draggable: true,
     droppable: false,
     resizable: {},

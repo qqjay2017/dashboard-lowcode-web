@@ -19,13 +19,13 @@ import {
   apiBase,
   chartListDataFormat,
   findItemByName,
+  getPercent,
   getTotalNum,
   percentToDisplay,
 } from "@/utils";
 import { useApp } from "@/application";
 import { useCustomThemeToken } from "@/dashboard-themes";
 import { useToken } from "@/schema-component/antd/style";
-import { getPercent } from "@/schema-component/utils";
 
 function ChartEditPage() {
   const { token: antdToken } = useToken();

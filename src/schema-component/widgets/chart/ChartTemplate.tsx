@@ -1,27 +1,19 @@
-import { memo } from 'react'
+import { memo } from "react";
 
-import { getSchemeWrap } from './getSchemeWrap'
-import { settingSchema } from './settingSchema'
-import { ChartTemplateWithDataSource } from './ChartTemplateWithDataSource'
-import { ChartTemplateWithOutData } from './ChartTemplateWithOutData'
+import { ChartTemplateWithDataSource } from "./ChartTemplateWithDataSource";
+import { ChartTemplateWithOutData } from "./ChartTemplateWithOutData";
 
-import type { SchemComponentWithDataSourceProps } from '@/types'
+import type { SchemComponentWithDataSourceProps } from "@/types";
 
 interface ChartTemplateProps extends SchemComponentWithDataSourceProps {
-  chartId?: string
+  chartId?: string;
 }
 
 export const ChartTemplate = memo((props: ChartTemplateProps) => {
-  const { dataSource } = props
+  const { dataSource } = props;
   if (dataSource && dataSource.dataSourceId) {
-    return <ChartTemplateWithDataSource {...props} />
+    return <ChartTemplateWithDataSource {...props} />;
+  } else {
+    <ChartTemplateWithOutData {...props} />;
   }
-  else {
-    <ChartTemplateWithOutData {...props} />
-  }
-})
-
-// @ts-expect-error
-ChartTemplate.schemaFn = getSchemeWrap
-// @ts-expect-error
-ChartTemplate.settingSchema = settingSchema
+});

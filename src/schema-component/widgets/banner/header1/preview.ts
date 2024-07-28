@@ -20,7 +20,7 @@ FormilyHeader1.Resource = createResource({
         "x-decorator-props": {
           w: 12,
           h: 1.3,
-          padding: [0, 0, 0, 0],
+          padding: "0px 0px 0px 0px",
         },
         "x-component": "Header1",
         "x-component-props": {

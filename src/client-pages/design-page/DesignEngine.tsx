@@ -2,6 +2,7 @@ import { useEffect, useMemo } from "react";
 import { Actions, Logo } from "./Logo";
 import {
   FormilyAiotMonitorBlock as AiotMonitorBlock,
+  FormilyChartTemplate as ChartTemplate,
   FormilyClassicFrame as ClassicFrame,
   FormilyClassicFrame5 as ClassicFrame5,
   FormilyEmploymentCreditMng as EmploymentCreditMng,
@@ -18,6 +19,7 @@ import {
   FormilyQuarterSelect as QuarterSelect,
   Root,
   FormilySmartHelmet as SmartHelmet,
+  FormilyUnprocessedWarningList as UnprocessedWarningList,
 } from "@/schema-component";
 import {
   ComponentTreeWidget,
@@ -86,6 +88,7 @@ export function DesignEngine({
                   ProjectAttendanceAnaTable,
                   ProjectAttendanceDataAna,
                   SmartHelmet,
+                  UnprocessedWarningList,
                 ]}
               />
               <ResourceWidget title="业务-项目信息" sources={[ProjectDesc]} />
@@ -125,6 +128,8 @@ export function DesignEngine({
                       ClassicFrame5,
                       ProjectSelect,
                       QuarterSelect,
+                      ChartTemplate,
+                      UnprocessedWarningList,
                     }}
                   />
                 )}
