@@ -22,8 +22,6 @@ import {
 } from "@/schema-component";
 import type { DataSourceBindType } from "@/schema-component/types";
 import type { DnFC } from "@/designable/react";
-import { createBehavior, createResource } from "@/designable/core";
-import { createFieldSchema } from "@/designable/Field";
 
 interface Header5Props extends PropsWithChildren {
   title?: string;
@@ -31,9 +29,7 @@ interface Header5Props extends PropsWithChildren {
   dataSource?: DataSourceBindType;
 }
 
-export const Header5: DnFC<Header5Props> = (props) => {
-  const field = useField();
-
+export function Header5(props: Header5Props) {
   const { title, dataSource, subTitle } = props;
   const { reportId } = useReportId();
   const { isPc } = useDashboardRoot();
@@ -61,6 +57,7 @@ export const Header5: DnFC<Header5Props> = (props) => {
       return s.shareURL === reportId;
     });
   }, [subMenuList.length, reportId]);
+
   return (
     <div
       className={css`
@@ -209,4 +206,4 @@ export const Header5: DnFC<Header5Props> = (props) => {
       )}
     </div>
   );
-};
+}

@@ -39,7 +39,7 @@ FormilyHeader5.Behavior = createBehavior({
   selector: (node) =>
     node.componentName === "Field" && node.props["x-component"] === "Header5",
   designerProps: {
-    title1: "头部5",
+    title: "头部5",
     draggable: true,
     droppable: false,
     resizable: {},
