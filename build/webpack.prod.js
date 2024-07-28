@@ -135,40 +135,16 @@ module.exports = {
   optimization: {
     splitChunks: {
       chunks: "all",
-
+      minSize: 30000,
+      minChunks: 3,
+      automaticNameDelimiter: ".",
       cacheGroups: {
-        lodash: {
-          test: /[\\/]node_modules[\\/](lodash-es)[\\/]/,
-          name: "lodash-es",
-          chunks: "all",
-          reuseExistingChunk: true,
-          enforce: true,
-        },
-
-        antd: {
-          test: /[\\/]node_modules[\\/]_?antd(.*)/,
-          priority: 20,
-          name: "chunk-antd",
-        },
-        formily: {
-          test: /[\\/]node_modules[\\/]_?@formily(.*)/,
-          name: "chunk-formily",
-          chunks: "all",
-        },
-
-        commons: {
-          name: "chunk-designable",
-          test: resolve("../src/designable"), // can customize your rules
-          minChunks: 1, //  minimum common number
-          priority: 5,
-          reuseExistingChunk: true,
-        },
-        libs: {
-          minChunks: 3,
-          name: "chunk-libs",
-          test: /[\\/]node_modules[\\/]/,
+        vendor: {
+          name: "vendors",
+          test({ resource }) {
+            return /[\\/]node_modules[\\/]/.test(resource);
+          },
           priority: 10,
-          chunks: "initial", // only package third parties that are initially dependent
         },
       },
     },

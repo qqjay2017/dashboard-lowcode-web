@@ -3,10 +3,10 @@ import { useContext } from "react";
 import { RecursionField, SchemaOptionsContext } from "@formily/react";
 import { get } from "lodash-es";
 import { Helmet } from "react-helmet";
-import type { APiWrap } from "../../api-client";
-import { useRequest } from "../../api-client";
 import type { DashboardItem } from "../dashboard/types";
-import { RecursionSchemaComponentWrap } from "../../schema-component/core";
+import type { APiWrap } from "@/api-client";
+import { useRequest } from "@/api-client";
+import { RecursionSchemaComponentWrap } from "@/schema-component/core";
 import { useAppSpin } from "@/application";
 import {
   useAsyncProjectDataSource,
