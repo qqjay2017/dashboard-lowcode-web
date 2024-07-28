@@ -125,7 +125,7 @@ export class TreeNode {
     this.id = node.id || uid();
 
     this.componentDisplayName = node.componentDisplayName;
-    console.log(node, "nodenode");
+
     if (parent) {
       this.parent = parent;
       this.depth = parent.depth + 1;

@@ -36,7 +36,6 @@ textNumGreen: "#59FFCD"
 高亮数字(红色)
 textNumRed: "#FF7777"
 
-
 高亮文字
 textLight
 
@@ -48,10 +47,8 @@ textNoselect
 选中颜色
 textSelect
 
-
 滚动条颜色
 thumbColor
-
 
 边框背景色
 nodeContentBg
@@ -62,7 +59,8 @@ nodeContentForeground
 
 TODO
 
-模版字符串
+发布逻辑，
+全屏逻辑
 
 ## webpack
 

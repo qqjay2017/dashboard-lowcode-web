@@ -176,7 +176,7 @@ export function DesignEngine({
                   <ComponentTreeWidget
                     components={{
                       Root,
-
+                      LaborAttendance,
                       Field,
                       Header1,
                       Header5,

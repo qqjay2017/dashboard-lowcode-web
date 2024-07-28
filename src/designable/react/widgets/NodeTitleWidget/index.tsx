@@ -19,11 +19,6 @@ export const NodeTitleWidget: React.FC<INodeTitleWidgetProps> = observer(
     };
     const node = takeNode();
 
-    console.log(
-      GlobalRegistry.getDesignerBehaviors(node),
-      node,
-      "GlobalRegistry"
-    );
     const { scope } = useSchemaOptionsContext();
 
     const title = get(node, "designerProps.title");

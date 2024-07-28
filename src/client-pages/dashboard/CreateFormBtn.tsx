@@ -43,27 +43,28 @@ export function CreateFormBtn() {
                     userId: "123",
                     name,
                     description,
-                    content: JSON.stringify(
-                      {}
-                      // dashboardRootWrap({
-                      //   "x-component-props": {
-                      //     designWidthEnum,
-                      //     cols: 12,
-                      //     rows: 12,
-                      //     rowheight: 80,
-                      //     designWidth,
-                      //     designHeight,
-                      //     breakpoints: {
-                      //       showroom: 2600,
-                      //       desktop: 1300,
-                      //       tablet: 500,
-                      //       mobile: 0,
-                      //     },
-                      //     themeProvider,
-                      //     isDarkTheme,
-                      //   },
-                      // })
-                    ),
+                    content: JSON.stringify({
+                      root: {
+                        designWidthEnum,
+                        cols: 12,
+                        rows: 12,
+                        rowheight: 80,
+                        designWidth,
+                        designHeight,
+                        breakpoints: {
+                          showroom: 2600,
+                          desktop: 1300,
+                          tablet: 500,
+                          mobile: 0,
+                        },
+                        themeProvider,
+                        isDarkTheme,
+                      },
+                      schema: {
+                        type: "object",
+                        properties: {},
+                      },
+                    }),
                   },
                 }
               );

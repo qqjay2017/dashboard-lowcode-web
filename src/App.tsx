@@ -100,6 +100,22 @@ const application = new Application({
         path: "/plugin/main",
         Component: PluginMain,
       },
+      template: {
+        path: "/template",
+        Component: DashboardLayout,
+      },
+      "template.main": {
+        path: "/template/main",
+        Component: PluginMain,
+      },
+      gis: {
+        path: "/gis",
+        Component: DashboardLayout,
+      },
+      "gis.main": {
+        path: "/gis/main",
+        Component: PluginMain,
+      },
 
       dashboarddesign: {
         path: "/dashboard-design/:id",

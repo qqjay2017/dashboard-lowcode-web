@@ -24,9 +24,6 @@
         "x-decorator": "PositionDecorator",
         "x-component-props": {
           "title": "{{ dashboardDt.name }}",
-          "query": {},
-          "formId": "syd2nub78ad",
-
           "dataSource": {
             "dataSourceId": "65ae965c-1cdc-4b17-afe1-926ab28ee776",
             "dataSourceName": "项目驾驶舱菜单"
@@ -55,13 +52,10 @@
       "2ja1l4antpj": {
         "type": "void",
         "x-component": "ClassicFrame5",
-
+        "x-settings": "settings:block",
         "x-decorator": "PositionDecorator",
         "x-component-props": {
-          "title": "项目考勤数据分析",
-          "formId": "leop6ffe48p",
-
-          "query": {}
+          "title": "项目考勤数据分析"
         },
         "x-decorator-props": {
           "padding": [0, 0, 0, 0],
@@ -85,11 +79,10 @@
       },
       "quarterSelect": {
         "type": "object",
+        "x-settings": "settings:block",
         "x-decorator": "PositionDecorator",
         "x-component-props": {
-          "defaultCurrentQuarter": true,
-          "formId": "cnyaeyi6nri",
-          "query": {}
+          "defaultCurrentQuarter": true
         },
         "x-reactions": ["{{useAsyncQuarterDataSource(currentQuarter)}}"],
         "x-designable-id": "quarterSelect",
@@ -107,11 +100,10 @@
       "2ncrau6hirc": {
         "type": "void",
         "x-component": "ClassicFrame5",
-
+        "x-settings": "settings:block",
         "x-decorator": "PositionDecorator",
         "x-component-props": {
-          "title": "参建人员分布统计",
-          "formId": "ao74b8ypd7r"
+          "title": "参建人员分布统计"
         },
         "x-decorator-props": {
           "padding": [0, 0, 0, 0],
@@ -136,13 +128,10 @@
       "6vj3ef73fml": {
         "type": "void",
         "x-component": "ClassicFrame5",
-
+        "x-settings": "settings:block",
         "x-decorator": "PositionDecorator",
         "x-component-props": {
-          "title": "合规风险预警分析",
-          "formId": "91movp4q7gn",
-
-          "query": {}
+          "title": "合规风险预警分析"
         },
         "x-decorator-props": {
           "padding": [0, 0, 0, 0],
@@ -167,11 +156,10 @@
       "y1d58tqvfik": {
         "type": "void",
         "x-component": "ChartTemplate",
-
+        "x-settings": "settings:block",
         "x-decorator": "PositionDecorator",
         "x-component-props": {
           "chartId": 3,
-
           "dataSource": {
             "dataSourceId": "81fa5e46-5eae-4d54-a318-c1dfa90ccf1d",
             "dataSourceName": "mock系列参建人员分布统计mock"
@@ -202,16 +190,14 @@
       "x45ci4o57dc": {
         "type": "void",
         "x-component": "ChartTemplate",
-
+        "x-settings": "settings:block",
         "x-decorator": "PositionDecorator",
         "x-component-props": {
           "chartId": 4,
-
           "dataSource": {
             "dataSourceId": "c91334f6-a710-4a98-ae21-84ebd1f6697e",
             "dataSourceName": "mock系列 合规风险预警分析玫瑰图"
-          },
-          "query": {}
+          }
         },
         "x-decorator-props": {
           "padding": [0, 0, 0, 0],
@@ -237,52 +223,9 @@
       },
       "n39g3wxxo3s": {
         "type": "void",
-
+        "x-settings": "settings:block",
         "x-decorator": "PositionDecorator",
         "x-component-props": {
-          "query": {
-            "projectSelect": {
-              "id": "210937344256196614",
-              "code": "IOT001",
-              "x-designable-id": "IOT上线",
-              "bizNum": 0,
-              "chainNum": 0,
-              "createdDatetime": 1661513427061,
-              "address": "火车站",
-              "province": "130000_PROVINCE",
-              "provinceName": "河北省",
-              "city": "130200_CITY",
-              "cityName": "唐山市",
-              "county": "130203_COUNTY",
-              "countyName": "路北区",
-              "approveState": 3,
-              "ownerType": 2,
-              "ownerCompId": "92654250739380303",
-              "createdCompanyName": "福建旻源工贸有限公司",
-              "confirmCompId": "91281541560283155",
-              "confirmCompName": "福建旻源工贸有限公司",
-              "chainStatus": 2,
-              "type": 2,
-              "stageId": "90193827540795416",
-              "stageName": "施工阶段",
-              "statusId": "90910289595236385",
-              "statusName": "竣工",
-              "planStartDate": 1660060800000,
-              "planFinishDate": 1692374399999,
-              "projectCost": 666,
-              "categoryType": "A01",
-              "companyRole": 2,
-              "createdId": "121650389689831460",
-              "linkHash": "70ceb44b05325d522a0bac55db0607d85883d199613d144ac5c09863f8b9d29a",
-              "picUrl": "https://uat-minio.kxgcc.com/course/course1020/30c63b7edcb94c8988fede37c2096c00.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=minio%2F20240721%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240721T004739Z&X-Amz-Expires=1800&X-Amz-SignedHeaders=host&X-Amz-Signature=a2a9304e5da4b3a9a2d1e684884bb8607a63429b2b000c0d141b41d4bf4930a4",
-              "enterFlag": 1,
-              "enterType": 0,
-              "enterWay": 3,
-              "modelId": "234866771931271220",
-              "dataOrigin": "0"
-            }
-          },
-
           "dataSource": {
             "dataSourceId": "617bd9be-ca7c-4a55-b5ab-7f3a301b0560",
             "dataSourceName": "mock系列项目考勤数据分析mock"
@@ -314,13 +257,10 @@
       "t5ifhbq9cdf": {
         "type": "void",
         "x-component": "ClassicFrame5",
-
+        "x-settings": "settings:block",
         "x-decorator": "PositionDecorator",
         "x-component-props": {
-          "formId": "yqyrj055xng",
-
-          "title": " 项目出勤情况分析",
-          "query": {}
+          "title": " 项目出勤情况分析"
         },
         "x-decorator-props": {
           "padding": [0, 0, 0, 0],
@@ -344,75 +284,9 @@
       },
       "yduvr5se39t": {
         "type": "void",
-
+        "x-settings": "settings:block",
         "x-decorator": "PositionDecorator",
         "x-component-props": {
-          "query": {
-            "projectSelect": {
-              "id": "210937344256196614",
-              "code": "IOT001",
-              "x-designable-id": "IOT上线",
-              "bizNum": 0,
-              "chainNum": 0,
-              "createdDatetime": 1661513427061,
-              "address": "火车站",
-              "province": "130000_PROVINCE",
-              "provinceName": "河北省",
-              "city": "130200_CITY",
-              "cityName": "唐山市",
-              "county": "130203_COUNTY",
-              "countyName": "路北区",
-              "approveState": 3,
-              "ownerType": 2,
-              "ownerCompId": "92654250739380303",
-              "createdCompanyName": "福建旻源工贸有限公司",
-              "confirmCompId": "91281541560283155",
-              "confirmCompName": "福建旻源工贸有限公司",
-              "chainStatus": 2,
-              "type": 2,
-              "stageId": "90193827540795416",
-              "stageName": "施工阶段",
-              "statusId": "90910289595236385",
-              "statusName": "竣工",
-              "planStartDate": 1660060800000,
-              "planFinishDate": 1692374399999,
-              "projectCost": 666,
-              "categoryType": "A01",
-              "companyRole": 2,
-              "createdId": "121650389689831460",
-              "linkHash": "70ceb44b05325d522a0bac55db0607d85883d199613d144ac5c09863f8b9d29a",
-              "picUrl": "https://uat-minio.kxgcc.com/course/course1020/30c63b7edcb94c8988fede37c2096c00.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=minio%2F20240721%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240721T010016Z&X-Amz-Expires=1800&X-Amz-SignedHeaders=host&X-Amz-Signature=d0d93dbece9a9f5740c464a8523ed1a517baf406b71243d6d2017cb3b5819be4",
-              "enterFlag": 1,
-              "enterType": 0,
-              "enterWay": 3,
-              "modelId": "234866771931271220",
-              "authorityModel": {
-                "edit": false,
-                "delete": false,
-                "audit": false,
-                "bim": true,
-                "back": false,
-                "reject": false,
-                "receive": false,
-                "reReceive": false,
-                "record": false,
-                "enterWay": false,
-                "formDetail": false,
-                "stageConfig": true,
-                "companyOrg": true,
-                "companyUnit": true,
-                "chain": false,
-                "changeApply": true,
-                "divide": true,
-                "reStart": false,
-                "adjust": false
-              },
-              "dataOrigin": "0"
-            }
-          },
-          "formId": "i7ie1f1wlzp",
-          "componentType": "ProjectAttendanceAnaTable",
-          "componentAddress": "dashboardRoot.yduvr5se39t",
           "dataSource": {
             "dataSourceId": "3dfdd700-ac8f-4342-be3b-d60a11260adb",
             "dataSourceName": "mock系列项目出勤情况分析MOCK"
@@ -444,13 +318,10 @@
       "cwjwabd1f0j": {
         "type": "void",
         "x-component": "ClassicFrame5",
-
+        "x-settings": "settings:block",
         "x-decorator": "PositionDecorator",
         "x-component-props": {
-          "formId": "oj919zqacvm",
-
-          "title": "关键人员今日到岗",
-          "query": {}
+          "title": "关键人员今日到岗"
         },
         "x-decorator-props": {
           "padding": [0, 0, 0, 0],
@@ -475,11 +346,9 @@
       "kbrz6u9url7": {
         "type": "void",
         "x-component": "ClassicFrame5",
-
+        "x-settings": "settings:block",
         "x-decorator": "PositionDecorator",
         "x-component-props": {
-          "formId": "r70xmahfyse",
-
           "title": "智能安全帽"
         },
         "x-decorator-props": {
@@ -505,11 +374,10 @@
       "xzsx1ds97e8": {
         "type": "void",
         "x-component": "ClassicFrame5",
-
+        "x-settings": "settings:block",
         "x-decorator": "PositionDecorator",
         "x-component-props": {
-          "title": "用工信用管理",
-          "formId": "vzwnbrreccz"
+          "title": "用工信用管理"
         },
         "x-decorator-props": {
           "padding": [0, 0, 0, 0],
@@ -533,78 +401,9 @@
       },
       "1hscq8fzv4d": {
         "type": "void",
-
+        "x-settings": "settings:block",
         "x-decorator": "PositionDecorator",
         "x-component-props": {
-          "query": {
-            "projectSelect": {
-              "id": "210937344256196614",
-              "code": "IOT001",
-              "x-designable-id": "IOT上线",
-              "bizNum": 0,
-              "chainNum": 0,
-              "createdDatetime": 1661513427061,
-              "address": "火车站",
-              "province": "130000_PROVINCE",
-              "provinceName": "河北省",
-              "city": "130200_CITY",
-              "cityName": "唐山市",
-              "county": "130203_COUNTY",
-              "countyName": "路北区",
-              "approveState": 3,
-              "ownerType": 2,
-              "ownerCompId": "92654250739380303",
-              "createdCompanyName": "福建旻源工贸有限公司",
-              "confirmCompId": "91281541560283155",
-              "confirmCompName": "福建旻源工贸有限公司",
-              "chainStatus": 2,
-              "type": 2,
-              "stageId": "90193827540795416",
-              "stageName": "施工阶段",
-              "statusId": "90910289595236385",
-              "statusName": "竣工",
-              "planStartDate": 1660060800000,
-              "planFinishDate": 1692374399999,
-              "projectCost": 666,
-              "categoryType": "A01",
-              "companyRole": 2,
-              "createdId": "121650389689831460",
-              "linkHash": "70ceb44b05325d522a0bac55db0607d85883d199613d144ac5c09863f8b9d29a",
-              "picUrl": "https://uat-minio.kxgcc.com/course/course1020/30c63b7edcb94c8988fede37c2096c00.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=minio%2F20240721%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240721T062002Z&X-Amz-Expires=1800&X-Amz-SignedHeaders=host&X-Amz-Signature=046faccbdb2b4f34c61ebbdcc923f8e866c6268b425667462888ba39958d9e17",
-              "enterFlag": 1,
-              "enterType": 0,
-              "enterWay": 3,
-              "modelId": "234866771931271220",
-              "authorityModel": {
-                "edit": false,
-                "delete": false,
-                "audit": false,
-                "bim": true,
-                "back": false,
-                "reject": false,
-                "receive": false,
-                "reReceive": false,
-                "record": false,
-                "enterWay": false,
-                "formDetail": false,
-                "stageConfig": true,
-                "companyOrg": true,
-                "companyUnit": true,
-                "chain": false,
-                "changeApply": true,
-                "divide": true,
-                "reStart": false,
-                "adjust": false
-              },
-              "dataOrigin": "0"
-            },
-            "quarterSelect": {
-              "quarterId": "20243",
-              "quarterName": "2024年3季度"
-            }
-          },
-          "formId": "8czojgkeozz",
-
           "dataSource": {
             "dataSourceId": "8648f7e2-8dbd-4958-86b4-3f5b0b676c94",
             "dataSourceName": "mock系列未处理预警"
@@ -636,78 +435,9 @@
       },
       "85z2v5ngs6c": {
         "type": "void",
-
+        "x-settings": "settings:block",
         "x-decorator": "PositionDecorator",
         "x-component-props": {
-          "query": {
-            "projectSelect": {
-              "id": "210937344256196614",
-              "code": "IOT001",
-              "x-designable-id": "IOT上线",
-              "bizNum": 0,
-              "chainNum": 0,
-              "createdDatetime": 1661513427061,
-              "address": "火车站",
-              "province": "130000_PROVINCE",
-              "provinceName": "河北省",
-              "city": "130200_CITY",
-              "cityName": "唐山市",
-              "county": "130203_COUNTY",
-              "countyName": "路北区",
-              "approveState": 3,
-              "ownerType": 2,
-              "ownerCompId": "92654250739380303",
-              "createdCompanyName": "福建旻源工贸有限公司",
-              "confirmCompId": "91281541560283155",
-              "confirmCompName": "福建旻源工贸有限公司",
-              "chainStatus": 2,
-              "type": 2,
-              "stageId": "90193827540795416",
-              "stageName": "施工阶段",
-              "statusId": "90910289595236385",
-              "statusName": "竣工",
-              "planStartDate": 1660060800000,
-              "planFinishDate": 1692374399999,
-              "projectCost": 666,
-              "categoryType": "A01",
-              "companyRole": 2,
-              "createdId": "121650389689831460",
-              "linkHash": "70ceb44b05325d522a0bac55db0607d85883d199613d144ac5c09863f8b9d29a",
-              "picUrl": "https://uat-minio.kxgcc.com/course/course1020/30c63b7edcb94c8988fede37c2096c00.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=minio%2F20240721%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240721T064203Z&X-Amz-Expires=1800&X-Amz-SignedHeaders=host&X-Amz-Signature=b73050b672feaf5bd5fd3f1da04d2d0e5d065111c0c6d8be2c2521d078026ed5",
-              "enterFlag": 1,
-              "enterType": 0,
-              "enterWay": 3,
-              "modelId": "234866771931271220",
-              "authorityModel": {
-                "edit": false,
-                "delete": false,
-                "audit": false,
-                "bim": true,
-                "back": false,
-                "reject": false,
-                "receive": false,
-                "reReceive": false,
-                "record": false,
-                "enterWay": false,
-                "formDetail": false,
-                "stageConfig": true,
-                "companyOrg": true,
-                "companyUnit": true,
-                "chain": false,
-                "changeApply": true,
-                "divide": true,
-                "reStart": false,
-                "adjust": false
-              },
-              "dataOrigin": "0"
-            },
-            "quarterSelect": {
-              "quarterId": "20243",
-              "quarterName": "2024年3季度"
-            }
-          },
-          "formId": "97lur8vltss",
-
           "dataSource": {
             "dataSourceId": "ae060448-a558-411b-a87e-ca60b21a9ecb",
             "dataSourceName": "mock系列关键人员今日到岗MOCK"
@@ -739,79 +469,9 @@
       },
       "okcnjmg7mni": {
         "type": "void",
-
+        "x-settings": "settings:block",
         "x-decorator": "PositionDecorator",
         "x-component-props": {
-          "query": {
-            "projectSelect": {
-              "id": "210937344256196614",
-              "code": "IOT001",
-              "x-designable-id": "IOT上线",
-              "bizNum": 0,
-              "chainNum": 0,
-              "createdDatetime": 1661513427061,
-              "address": "火车站",
-              "province": "130000_PROVINCE",
-              "provinceName": "河北省",
-              "city": "130200_CITY",
-              "cityName": "唐山市",
-              "county": "130203_COUNTY",
-              "countyName": "路北区",
-              "approveState": 3,
-              "ownerType": 2,
-              "ownerCompId": "92654250739380303",
-              "createdCompanyName": "福建旻源工贸有限公司",
-              "confirmCompId": "91281541560283155",
-              "confirmCompName": "福建旻源工贸有限公司",
-              "chainStatus": 2,
-              "type": 2,
-              "stageId": "90193827540795416",
-              "stageName": "施工阶段",
-              "statusId": "90910289595236385",
-              "statusName": "竣工",
-              "planStartDate": 1660060800000,
-              "planFinishDate": 1692374399999,
-              "projectCost": 666,
-              "categoryType": "A01",
-              "companyRole": 2,
-              "createdId": "121650389689831460",
-              "linkHash": "70ceb44b05325d522a0bac55db0607d85883d199613d144ac5c09863f8b9d29a",
-              "picUrl": "https://uat-minio.kxgcc.com/course/course1020/30c63b7edcb94c8988fede37c2096c00.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=minio%2F20240721%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240721T070933Z&X-Amz-Expires=1800&X-Amz-SignedHeaders=host&X-Amz-Signature=c473b98a74c2c35e7ff9119ec799b51eafa522fd7e1bbd894e6e4e3dcadf092b",
-              "enterFlag": 1,
-              "enterType": 0,
-              "enterWay": 3,
-              "modelId": "234866771931271220",
-              "authorityModel": {
-                "edit": false,
-                "delete": false,
-                "audit": false,
-                "bim": true,
-                "back": false,
-                "reject": false,
-                "receive": false,
-                "reReceive": false,
-                "record": false,
-                "enterWay": false,
-                "formDetail": false,
-                "stageConfig": true,
-                "companyOrg": true,
-                "companyUnit": true,
-                "chain": false,
-                "changeApply": true,
-                "divide": true,
-                "reStart": false,
-                "adjust": false
-              },
-              "dataOrigin": "0"
-            },
-            "quarterSelect": {
-              "quarterId": "20243",
-              "quarterName": "2024年3季度"
-            }
-          },
-          "formId": "y4f4ollyab4",
-          "componentType": "SmartHelmet",
-          "componentAddress": "dashboardRoot.okcnjmg7mni",
           "dataSource": {
             "dataSourceId": "86445281-fc02-4451-957f-f0d582ab28fa",
             "dataSourceName": "mock系列智能安全帽MOCK"
@@ -843,79 +503,9 @@
       },
       "cj7lcm4d437": {
         "type": "void",
-
+        "x-settings": "settings:block",
         "x-decorator": "PositionDecorator",
         "x-component-props": {
-          "query": {
-            "projectSelect": {
-              "id": "210937344256196614",
-              "code": "IOT001",
-              "x-designable-id": "IOT上线",
-              "bizNum": 0,
-              "chainNum": 0,
-              "createdDatetime": 1661513427061,
-              "address": "火车站",
-              "province": "130000_PROVINCE",
-              "provinceName": "河北省",
-              "city": "130200_CITY",
-              "cityName": "唐山市",
-              "county": "130203_COUNTY",
-              "countyName": "路北区",
-              "approveState": 3,
-              "ownerType": 2,
-              "ownerCompId": "92654250739380303",
-              "createdCompanyName": "福建旻源工贸有限公司",
-              "confirmCompId": "91281541560283155",
-              "confirmCompName": "福建旻源工贸有限公司",
-              "chainStatus": 2,
-              "type": 2,
-              "stageId": "90193827540795416",
-              "stageName": "施工阶段",
-              "statusId": "90910289595236385",
-              "statusName": "竣工",
-              "planStartDate": 1660060800000,
-              "planFinishDate": 1692374399999,
-              "projectCost": 666,
-              "categoryType": "A01",
-              "companyRole": 2,
-              "createdId": "121650389689831460",
-              "linkHash": "70ceb44b05325d522a0bac55db0607d85883d199613d144ac5c09863f8b9d29a",
-              "picUrl": "https://uat-minio.kxgcc.com/course/course1020/30c63b7edcb94c8988fede37c2096c00.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=minio%2F20240721%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240721T145357Z&X-Amz-Expires=1800&X-Amz-SignedHeaders=host&X-Amz-Signature=6b9a706b1bdcace27595b04e5fbcaed05e948399a251b8a743a070057a6bf0ae",
-              "enterFlag": 1,
-              "enterType": 0,
-              "enterWay": 3,
-              "modelId": "234866771931271220",
-              "authorityModel": {
-                "edit": false,
-                "delete": false,
-                "audit": false,
-                "bim": true,
-                "back": false,
-                "reject": false,
-                "receive": false,
-                "reReceive": false,
-                "record": false,
-                "enterWay": false,
-                "formDetail": false,
-                "stageConfig": true,
-                "companyOrg": true,
-                "companyUnit": true,
-                "chain": false,
-                "changeApply": true,
-                "divide": true,
-                "reStart": false,
-                "adjust": false
-              },
-              "dataOrigin": "0"
-            },
-            "quarterSelect": {
-              "quarterId": "20243",
-              "quarterName": "2024年3季度"
-            }
-          },
-          "formId": "8bm9t1qqoyu",
-          "componentType": "EmploymentCreditMng",
-          "componentAddress": "dashboardRoot.cj7lcm4d437",
           "dataSource": {
             "dataSourceId": "ae9a44fa-b634-44aa-bba8-873fed9275c3",
             "dataSourceName": "mock系列用工信用管理MOCK"
@@ -945,39 +535,8 @@
         },
         "x-designable-id": "cj7lcm4d437",
         "x-index": 16
-      },
-      "6jpbs1ufyyc": {
-        "type": "void",
-        "x-component": "ChartTemplate",
-        "x-component-props": {
-          "chartId": "2",
-          "dataSource": {}
-        },
-        "x-decorator": "PositionDecorator",
-        "x-decorator-props": {
-          "w": 3,
-          "h": 3,
-          "padding": "4px 4px 4px 4px",
-          "zIndex": 20,
-          "x": 1.51,
-          "y": 1.5
-        },
-        "x-reactions": {
-          "dependencies": {
-            "projectSelect": "projectSelect",
-            "quarterSelect": "quarterSelect"
-          },
-          "when": true,
-          "fulfill": {
-            "schema": {
-              "x-component-props.query": "{{$deps}}"
-            }
-          }
-        },
-        "x-designable-id": "6jpbs1ufyyc",
-        "x-index": 17
       }
     },
-    "x-designable-id": "l5foixui2dm"
+    "x-designable-id": "xeah38wseli"
   }
 }
