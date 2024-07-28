@@ -1,8 +1,6 @@
 import { css } from "@emotion/css";
 import { get } from "lodash-es";
-import { getSchemeWrap } from "./getSchemeWrap";
-import { menuItem } from "./menuItem";
-import { settingSchema } from "./settingSchema";
+
 import { DataTable } from "@/themes/style-components/ui";
 import type { SchemComponentWithDataSourceProps } from "@/types";
 import {
@@ -72,6 +70,3 @@ export function ProjectAttendanceAnaTable({
 }
 
 ProjectAttendanceAnaTable.displayName = "ProjectAttendanceAnaTable";
-ProjectAttendanceAnaTable.schemaFn = getSchemeWrap;
-ProjectAttendanceAnaTable.menuItem = menuItem;
-ProjectAttendanceAnaTable.settingSchema = settingSchema;

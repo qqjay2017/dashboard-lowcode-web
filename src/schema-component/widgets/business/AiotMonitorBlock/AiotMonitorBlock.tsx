@@ -1,13 +1,11 @@
-import React from 'react'
-import { css } from '@emotion/css'
-import { menuItem } from './menuItem'
-import { getSchemeWrap } from './getSchemeWrap'
-import { settingSchema } from './settingSchema'
-import { AiotTypeChange } from './AiotTypeChange'
-import { useFrameSizeStyle } from '@/schema-component'
+import React from "react";
+import { css } from "@emotion/css";
+
+import { AiotTypeChange } from "./AiotTypeChange";
+import { useFrameSizeStyle } from "@/schema-component";
 
 export function AiotMonitorBlock() {
-  const { headStyle, bodyStyle } = useFrameSizeStyle()
+  const { headStyle, bodyStyle } = useFrameSizeStyle();
   return (
     <>
       <div
@@ -16,7 +14,7 @@ export function AiotMonitorBlock() {
           display: flex;
           align-items: center;
           justify-content: flex-end;
-          padding-right:0.16rem;
+          padding-right: 0.16rem;
         `}
       >
         <AiotTypeChange />
@@ -32,10 +30,7 @@ export function AiotMonitorBlock() {
         234
       </div>
     </>
-  )
+  );
 }
 
-AiotMonitorBlock.displayName = 'AiotMonitorBlock'
-AiotMonitorBlock.schemaFn = getSchemeWrap
-AiotMonitorBlock.menuItem = menuItem
-AiotMonitorBlock.settingSchema = settingSchema
+AiotMonitorBlock.displayName = "AiotMonitorBlock";

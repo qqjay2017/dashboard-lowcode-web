@@ -1,8 +1,6 @@
 import { get } from "lodash-es";
 import { css } from "@emotion/css";
-import { menuItem } from "./menuItem";
-import { getSchemeWrap } from "./getSchemeWrap";
-import { settingSchema } from "./settingSchema";
+
 import type { KeyPersonItemType } from "./types";
 import { KeyPersonnelItem } from "./KeyPersonnelItem";
 import type { SchemComponentWithDataSourceProps } from "@/types";
@@ -37,8 +35,3 @@ export function KeyPersonArrived({
     </EmptyKit>
   );
 }
-
-KeyPersonArrived.displayName = "KeyPersonArrived";
-KeyPersonArrived.schemaFn = getSchemeWrap;
-KeyPersonArrived.menuItem = menuItem;
-KeyPersonArrived.settingSchema = settingSchema;

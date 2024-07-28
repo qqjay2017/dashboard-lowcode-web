@@ -1,9 +1,6 @@
-import React from "react";
 import { get } from "lodash-es";
 import { useFetchProjectDt } from "./useFetchProjectDt";
-import { getSchemeWrap } from "./getSchemeWrap";
-import { menuItem } from "./menuItem";
-import { settingSchema } from "./settingSchema";
+
 import {
   AutoScrollWrap,
   FitCoverImg,
@@ -37,8 +34,3 @@ export function ProjectDesc({ query }: SchemComponentWithDataSourceProps) {
     </EmptyKit>
   );
 }
-
-ProjectDesc.displayName = "ProjectDesc";
-ProjectDesc.schemaFn = getSchemeWrap;
-ProjectDesc.menuItem = menuItem;
-ProjectDesc.settingSchema = settingSchema;

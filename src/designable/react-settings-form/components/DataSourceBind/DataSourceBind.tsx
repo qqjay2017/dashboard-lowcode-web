@@ -34,6 +34,7 @@ export const DataSourceBind = observer((props: DataSourceBindProps) => {
   return (
     <>
       <Button
+        block
         icon={<DatabaseOutlined />}
         onClick={() => {
           setOpen(true);

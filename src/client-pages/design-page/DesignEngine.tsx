@@ -1,11 +1,19 @@
 import { useEffect, useMemo } from "react";
 import { Actions, Logo } from "./Logo";
 import {
+  FormilyAiotMonitorBlock as AiotMonitorBlock,
+  FormilyEmploymentCreditMng as EmploymentCreditMng,
   FormilyHeader1 as Header1,
   FormilyHeader5 as Header5,
   FormilyHeaderMenu as HeaderMenu,
+  FormilyKeyPersonArrived as KeyPersonArrived,
   FormilyLaborAttendance as LaborAttendance,
+  FormilyProjectAttendanceAnaTable as ProjectAttendanceAnaTable,
+  FormilyProjectAttendanceDataAna as ProjectAttendanceDataAna,
+  FormilyProjectBudget as ProjectBudget,
+  FormilyProjectDesc as ProjectDesc,
   Root,
+  FormilySmartHelmet as SmartHelmet,
 } from "@/schema-component";
 import {
   ComponentTreeWidget,
@@ -58,8 +66,20 @@ export function DesignEngine({
                 sources={[Header1, Header5, HeaderMenu]}
               />
               <ResourceWidget
-                title="业务-人员管理"
-                sources={[LaborAttendance]}
+                title="业务-人员信息"
+                sources={[
+                  LaborAttendance,
+                  EmploymentCreditMng,
+                  KeyPersonArrived,
+                  ProjectAttendanceAnaTable,
+                  ProjectAttendanceDataAna,
+                  SmartHelmet,
+                ]}
+              />
+              <ResourceWidget title="业务-项目信息" sources={[ProjectDesc]} />
+              <ResourceWidget
+                title="业务-企业级驾驶舱"
+                sources={[AiotMonitorBlock, ProjectBudget]}
               />
             </CompositePanel.Item>
             <CompositePanel.Item title="大纲树" icon="Outline">
@@ -81,6 +101,14 @@ export function DesignEngine({
                       Header1,
                       Header5,
                       HeaderMenu,
+                      ProjectDesc,
+                      AiotMonitorBlock,
+                      EmploymentCreditMng,
+                      KeyPersonArrived,
+                      ProjectAttendanceAnaTable,
+                      ProjectAttendanceDataAna,
+                      ProjectBudget,
+                      SmartHelmet,
                     }}
                   />
                 )}

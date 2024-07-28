@@ -5,9 +5,6 @@ import { css } from "@emotion/css";
 
 import type { FeeListItem } from "./getPieOption";
 
-import { ProjectBudgetSchemeWrap } from "./ProjectBudgetSchemeWrap";
-import { ProjectBudgetMenuItem } from "./ProjectBudgetMenuItem";
-import { ProjectBudgetSettingSchema } from "./ProjectBudgetSettingSchema";
 import { useProjectBudgetOption } from "./useProjectBudgetOption";
 import { ConetentSpin, CountTo } from "@/schema-component/components";
 import { useToken } from "@/schema-component/antd/style";
@@ -76,9 +73,3 @@ export function ProjectBudget({ query }) {
     </ConetentSpin>
   );
 }
-
-ProjectBudget.displayName = "ProjectBudget";
-
-ProjectBudget.schemaFn = ProjectBudgetSchemeWrap;
-ProjectBudget.menuItem = ProjectBudgetMenuItem;
-ProjectBudget.settingSchema = ProjectBudgetSettingSchema;

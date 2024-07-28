@@ -1,9 +1,7 @@
 import { css } from "@emotion/css";
 import { get } from "lodash-es";
 import { ZjxmsRightItem } from "./ZjxmsRightItem";
-import { getSchemeWrap } from "./getSchemeWrap";
-import { menuItem } from "./menuItem";
-import { settingSchema } from "./settingSchema";
+
 import { getPercent } from "@/schema-component/utils";
 import { useToken } from "@/schema-component/antd/style";
 
@@ -172,8 +170,3 @@ export function ProjectAttendanceDataAna({
     </div>
   );
 }
-
-ProjectAttendanceDataAna.displayName = "ProjectAttendanceDataAna";
-ProjectAttendanceDataAna.schemaFn = getSchemeWrap;
-ProjectAttendanceDataAna.menuItem = menuItem;
-ProjectAttendanceDataAna.settingSchema = settingSchema;

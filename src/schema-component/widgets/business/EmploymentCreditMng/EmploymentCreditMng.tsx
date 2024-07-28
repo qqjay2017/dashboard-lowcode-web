@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { css } from "@emotion/css";
 import { get } from "lodash-es";
-import { getSchemeWrap } from "./getSchemeWrap";
-import { menuItem } from "./menuItem";
-import { settingSchema } from "./settingSchema";
+
 import { EmpTypeSelect } from "./EmpTypeSelect";
 import type { EmploymentType } from "./types";
 import { EmploymentItem } from "./EmploymentItem";
@@ -68,8 +66,3 @@ export function EmploymentCreditMng({
     </>
   );
 }
-
-EmploymentCreditMng.displayName = "EmploymentCreditMng";
-EmploymentCreditMng.schemaFn = getSchemeWrap;
-EmploymentCreditMng.menuItem = menuItem;
-EmploymentCreditMng.settingSchema = settingSchema;
