@@ -62,6 +62,7 @@ export const Cover = observer(() => {
   const cursor = useCursor();
   const renderDropCover = () => {
     if (
+      !viewportMoveHelper.touchNode ||
       !viewportMoveHelper.closestNode ||
       !viewportMoveHelper.closestNode?.allowAppend(
         viewportMoveHelper.dragNodes
@@ -72,12 +73,16 @@ export const Cover = observer(() => {
     }
     return <CoverRect node={viewportMoveHelper.closestNode} dropping />;
   };
-  if (cursor.status !== CursorStatus.Dragging) return null;
 
+  if (cursor.status !== CursorStatus.Dragging) return null;
+  if (!viewportMoveHelper.touchNode) {
+    return null;
+  }
   return (
     <>
       {viewportMoveHelper.dragNodes.map((node) => {
         if (!node) return null;
+
         if (!viewport.findElementById(node.id)) return null;
         return <CoverRect key={node.id} node={node} dragging />;
       })}
