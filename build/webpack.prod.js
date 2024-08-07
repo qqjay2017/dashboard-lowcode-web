@@ -243,7 +243,12 @@ module.exports = {
   ].filter(Boolean),
   devServer: {
     client: { overlay: false },
-    historyApiFallback: true,
+    historyApiFallback: {
+      rewrites: [
+        { from: /^\/$/, to: "/index.html" },
+        { from: /^\/dashboard-report/, to: "/report/index.html" },
+      ],
+    },
     port: 9522,
     open: false,
     hot: !isProduct,
