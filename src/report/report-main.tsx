@@ -11,7 +11,7 @@ import KxgcFrameAuthPlugin from "@/plugins/KxgcFrameAuthPlugin";
 
 export const application = new Application({
   providers: [],
-  plugins: [KxgcFrameAuthPlugin, AdminLayoutPlugin],
+  plugins: [KxgcFrameAuthPlugin],
   designable: false,
   components: {},
 
