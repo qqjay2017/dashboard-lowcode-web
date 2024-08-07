@@ -40,7 +40,10 @@ const _target = "http://qzjg.kxgcc.com:30251";
 module.exports = {
   mode: NODE_ENV,
   devtool: isProduct ? false : "inline-source-map",
-  entry: resolve("../src/main.tsx"),
+  entry: {
+    main: resolve("../src/main.tsx"),
+    report: resolve("../src/report/report-main.tsx"),
+  },
   output: {
     clean: true,
     filename: isProduct ? "[name].[contenthash].js" : "[name].js",
@@ -207,11 +210,19 @@ module.exports = {
   plugins: [
     !isProduct && new ReactRefreshPlugin(),
     new ForkTsCheckerWebpackPlugin(),
-
     new HtmlWebpackPlugin({
       template: resolve("index.html"),
       filename: "index.html",
       inject: "body",
+      chunks: ["main"],
+
+      CDN_LIST,
+    }),
+    new HtmlWebpackPlugin({
+      template: resolve("../src/report/index.html"),
+      filename: "report/index.html",
+      inject: "body",
+      chunks: ["report"],
 
       CDN_LIST,
     }),

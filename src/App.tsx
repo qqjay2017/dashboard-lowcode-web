@@ -20,8 +20,8 @@ import {
   PreviewPage,
   SystemLayout,
 } from "./client-pages/pages";
+import KxgcAuthPlugin from "./plugins/KxgcAuthPlugin";
 import Application from "@/application/Application";
-import { KxgcAuthPlugin } from "@/plugins";
 
 const application = new Application({
   providers: [],

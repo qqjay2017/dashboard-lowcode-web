@@ -1,7 +1,7 @@
 import { AuthContextProvider } from "./AuthContextProvider";
 import { Plugin } from "@/application";
 
-export class KxgcAuthPlugin extends Plugin {
+class KxgcAuthPlugin extends Plugin {
   async afterAdd(): Promise<void> {
     try {
       const res = await fetch(`/component-shared-center/env.json`);
@@ -21,3 +21,5 @@ export class KxgcAuthPlugin extends Plugin {
     this.app.use(AuthContextProvider);
   }
 }
+
+export default KxgcAuthPlugin;

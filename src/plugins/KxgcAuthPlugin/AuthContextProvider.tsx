@@ -57,6 +57,19 @@ export function AuthContextProvider({
     }
   }, [manual, authing, Authing, setUserInfoFromSession]);
 
+  useEffect(() => {
+    function receiveMessage(e) {
+      if (e.data) {
+        console.log(e.data, "e.data接收");
+      }
+    }
+
+    window.addEventListener("message", receiveMessage);
+    return () => {
+      window.removeEventListener("message", receiveMessage);
+    };
+  }, []);
+
   return (
     <AuthContext.Provider
       value={{
