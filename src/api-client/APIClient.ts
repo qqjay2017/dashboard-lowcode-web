@@ -50,7 +50,7 @@ export class APIClient extends APIClientSdk {
     this.axios.interceptors.response.use(
       (res) => {
         const code = get(res, "data.code", "");
-        if (code === 401) {
+        if (code === 401 && !this.app.isInFrame) {
           sessionStorage.clear();
           window.location.reload();
         }

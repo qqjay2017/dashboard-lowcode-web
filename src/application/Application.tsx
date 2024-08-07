@@ -71,6 +71,7 @@ class Application {
   maintained = false;
   maintaining = false;
   error = null;
+  isInFrame = false;
 
   get pm() {
     return this.pluginManager;
@@ -82,6 +83,7 @@ class Application {
       loading: observable.ref,
       maintaining: observable.ref,
       error: observable.ref,
+      isInFrame: observable.ref,
     });
     this.scopes = merge(this.scopes, options.scopes);
     this.components = merge(this.components, options.components, {});
@@ -143,6 +145,10 @@ class Application {
 
   getName() {
     return this.name;
+  }
+
+  setIsInFrame(flag = false) {
+    this.isInFrame = flag;
   }
 
   getPublicPath() {

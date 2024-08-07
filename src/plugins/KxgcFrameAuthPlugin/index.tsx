@@ -8,6 +8,7 @@ class KxgcFrameAuthPlugin extends Plugin {
   }
 
   async beforeLoad(): Promise<void> {
+    this.app.setIsInFrame(true);
     window.addEventListener(
       "message",
       (e) => {
