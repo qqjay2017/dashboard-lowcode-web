@@ -268,10 +268,10 @@ module.exports = {
       },
       {
         context: ["/dashboard-api/"],
-        // target: "http://localhost:3001",
-        target: "http://dev.kxgcc.com:30872",
+        target: "http://localhost:3001",
+        // target: "http://dev.kxgcc.com:30872",
         changeOrigin: true,
-        // pathRewrite: (path) => path.replace(/^\/dashboard-api/, ""),
+        pathRewrite: (path) => path.replace(/^\/dashboard-api/, ""),
       },
     ],
   },

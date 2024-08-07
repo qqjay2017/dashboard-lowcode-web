@@ -25,7 +25,7 @@ const fields: ComponentProps<typeof Field>[] = [
     decorator: [
       FormItem,
       {
-        gridSpan: 6,
+        gridSpan: 7,
       },
     ],
     component: [
@@ -66,7 +66,7 @@ const fields: ComponentProps<typeof Field>[] = [
     decorator: [
       FormItem,
       {
-        gridSpan: 6,
+        gridSpan: 5,
       },
     ],
     component: [],
