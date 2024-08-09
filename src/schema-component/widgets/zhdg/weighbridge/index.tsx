@@ -4,7 +4,7 @@ import CollapsibleForm from "./CollapsibleForm";
 import { fields } from "./fields";
 import SummaryStatistics from "./SummaryStatistics";
 import WeighbridgeItem from "./WeighbridgeItem";
-import { useFrameSizeStyle } from "@/schema-component/hooks";
+import { useDashboardRoot, useFrameSizeStyle } from "@/schema-component/hooks";
 import { ExportButton } from "@/dashboard-themes/ui";
 
 async function handleExport() {}
@@ -12,6 +12,7 @@ async function handleExport() {}
 export default function Weighbridge() {
   const { headStyle, bodyStyle } = useFrameSizeStyle();
   const [searchValues, setSearchValues] = useState({});
+  const { isPc } = useDashboardRoot();
 
   return (
     <div
@@ -29,7 +30,7 @@ export default function Weighbridge() {
         `}
         style={headStyle}
       >
-        <ExportButton onClick={handleExport}>导出</ExportButton>
+        {isPc && <ExportButton onClick={handleExport}>导出</ExportButton>}
       </div>
       <div
         className={css`
