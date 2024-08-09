@@ -1,10 +1,13 @@
 import { css } from "@emotion/css";
 import { HiMiniChevronDoubleRight } from "react-icons/hi2";
+import Decimal from "decimal.js";
 import StatisticsItem from "./StatisticsItem";
 
 import WeighbridgeItemTag from "./WeighbridgeItemPropsTag";
+import type { wagonBalanceRow } from "./types";
 import { alignCenterStyle, cx, flex1Style } from "@/utils";
 import { useDashboardRoot } from "@/schema-component/hooks";
+import { timeFormat } from "@/utils/format";
 
 export interface WeighbridgeItemProps {
   date?: string;
@@ -18,9 +21,12 @@ const lineItemStyle = css`
   justify-content: space-between;
 `;
 
-export default function WeighbridgeItem(props: { date?: string }) {
+export default function WeighbridgeItem(props: {
+  date?: string;
+  row?: Partial<wagonBalanceRow>;
+}) {
   const { isPc } = useDashboardRoot();
-  const { date = "2024-07-25 18：23：56" } = props;
+  const { row = {} } = props;
   if (!isPc) {
     return <WeighbridgeItemMobile {...props} />;
   }
@@ -48,34 +54,46 @@ export default function WeighbridgeItem(props: { date?: string }) {
             align-items: center;
           `}
         >
-          抗渗混凝土
-          <WeighbridgeItemTag />
+          {row.goodsName}
+          <WeighbridgeItemTag weightFlag={row.weightFlag} />
         </div>
         <div
           className={css`
             margin-right: 0.48rem;
           `}
         >
-          {date}
+          {timeFormat(row.reportTime)}
         </div>
         <div
           className={css`
             margin-right: 0.48rem;
           `}
         >
-          漳州黄杰园艺工程有限公司
+          {row.goodsDevCompany}
         </div>
-        <div>闽D2345</div>
+        <div>{row.carNo}</div>
       </div>
       <div className={cx(lineItemStyle)}>
-        <StatisticsItem label="规格型号" value="C30" />
-        <StatisticsItem label="送货单重量" value="26" unit="吨" />
-        <StatisticsItem label="实际重量" value="34" unit="吨" />
+        <StatisticsItem label="规格型号" value={row.goodsSpec || ""} />
+        <StatisticsItem
+          label="送货单重量"
+          value={row.deliveryActualWeight || 0}
+          unit="吨"
+        />
+        <StatisticsItem
+          label="实际重量"
+          value={row.trueWeight || 0}
+          unit="吨"
+        />
         <StatisticsItem
           label="重量偏差"
-          value="-1.2"
+          value={row.weightDeviation || 0}
           unit="吨"
-          color="#FE9292"
+          color={
+            new Decimal(row.weightDeviation || 0).lessThan(0)
+              ? "#FE9292"
+              : undefined
+          }
         />
         <DtBtn />
       </div>
@@ -83,8 +101,8 @@ export default function WeighbridgeItem(props: { date?: string }) {
   );
 }
 
-function WeighbridgeItemMobile(props: { date?: string }) {
-  const { date = "2024-07-25 18：23：56" } = props;
+function WeighbridgeItemMobile(props: { row?: Partial<wagonBalanceRow> }) {
+  const { row = {} } = props;
   return (
     <div
       className={css`
@@ -120,8 +138,9 @@ function WeighbridgeItemMobile(props: { date?: string }) {
             align-items: center;
           `}
         >
-          抗渗混凝土
+          {row.goodsName}
           <WeighbridgeItemTag
+            weightFlag={row.weightFlag}
             className={css`
               width: 0.64rem;
               height: 0.28rem;
@@ -135,7 +154,7 @@ function WeighbridgeItemMobile(props: { date?: string }) {
           `}
         />
       </div>
-      <div className={css``}>{date}</div>
+      <div className={css``}> {timeFormat(row.reportTime)}</div>
       <div
         className={css`
           display: flex;
@@ -147,16 +166,20 @@ function WeighbridgeItemMobile(props: { date?: string }) {
             margin-right: 0.48rem;
           `}
         >
-          漳州黄杰园艺工程有限公司
+          {timeFormat(row.reportTime)}
         </div>
-        <div>闽D2345</div>
+        <div>{row.carNo}</div>
       </div>
       <div className={cx(alignCenterStyle)}>
-        <StatisticsItem className={flex1Style} label="规格型号" value="C30" />
+        <StatisticsItem
+          className={flex1Style}
+          label="规格型号"
+          value={row.goodsSpec || ""}
+        />
         <StatisticsItem
           className={flex1Style}
           label="送货单重量"
-          value="26"
+          value={row.deliveryActualWeight || 0}
           unit="吨"
         />
       </div>
@@ -164,15 +187,19 @@ function WeighbridgeItemMobile(props: { date?: string }) {
         <StatisticsItem
           className={flex1Style}
           label="实际重量"
-          value="2342"
+          value={row.trueWeight || 0}
           unit="吨"
         />
         <StatisticsItem
           className={flex1Style}
           label="重量偏差"
-          value="26"
+          value={row.weightDeviation || 0}
           unit="吨"
-          color="#FE9292"
+          color={
+            new Decimal(row.weightDeviation || 0).lessThan(0)
+              ? "#FE9292"
+              : undefined
+          }
         />
       </div>
     </div>

@@ -4,23 +4,52 @@ import CollapsibleForm from "./CollapsibleForm";
 import { fields } from "./fields";
 import SummaryStatistics from "./SummaryStatistics";
 import WeighbridgeItem from "./WeighbridgeItem";
-import { useDashboardRoot, useFrameSizeStyle } from "@/schema-component/hooks";
+import type { wagonBalanceRow } from "./types";
+import {
+  useDashboardRoot,
+  useFrameSizeStyle,
+  useQueryToBusParams,
+} from "@/schema-component/hooks";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   ExportButton,
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationPrevious,
 } from "@/dashboard-themes/ui";
 import { EmptyKit } from "@/dashboard-themes/style-components";
+import { useRequest } from "@/api-client";
 
 async function handleExport() {}
 
 export default function Weighbridge() {
+  const busParams = useQueryToBusParams();
   const [dialogOpen, setDialogOpen] = useState(false);
   const { headStyle, bodyStyle } = useFrameSizeStyle();
   const [searchValues, setSearchValues] = useState({});
   const { isPc } = useDashboardRoot();
+  const { data: wagonBalanceRes, isLoading } = useRequest(
+    "/api/iot/v1/iot/wagon-balance/search",
+    {
+      data: {
+        ...busParams,
+        pageNum: 1,
+        pageSize: 5,
+      },
+      method: "POST",
+      headers: {
+        "system-id": "237718173535821884",
+      },
+    }
+  );
+
+  const wagonBalanceTotal = wagonBalanceRes?.total || 0;
+  const wagonBalanceRows: wagonBalanceRow[] = wagonBalanceRes?.rows || [];
 
   return (
     <>
@@ -49,19 +78,21 @@ export default function Weighbridge() {
           style={bodyStyle}
         >
           <CollapsibleForm onChange={setSearchValues} fields={fields} />
-          <EmptyKit>
+          <EmptyKit loading={isLoading} empty={wagonBalanceRows.length === 0}>
             <SummaryStatistics />
-            <WeighbridgeItem />
-            <WeighbridgeItem />
-            <WeighbridgeItem />
-            <WeighbridgeItem />
-            <WeighbridgeItem />
-            <WeighbridgeItem />
-            <WeighbridgeItem />
-            <WeighbridgeItem />
-            <WeighbridgeItem />
-            <WeighbridgeItem />
-            <WeighbridgeItem />
+            {wagonBalanceRows.map((row, index) => {
+              return <WeighbridgeItem key={row.id + index} row={row} />;
+            })}
+            <Pagination>
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious href="#" />
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationLink href="#">1</PaginationLink>
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
           </EmptyKit>
         </div>
       </div>

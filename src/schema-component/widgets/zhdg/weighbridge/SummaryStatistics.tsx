@@ -1,44 +1,14 @@
 import { css } from "@emotion/css";
 import type { StatisticsItemProps } from "./StatisticsItem";
 import StatisticsItem from "./StatisticsItem";
-import { useDashboardRoot } from "@/schema-component/hooks";
+import {
+  useDashboardRoot,
+  useQueryToBusParams,
+} from "@/schema-component/hooks";
 import { cx } from "@/utils";
+import { useRequest } from "@/api-client";
 
 const askIcon = `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAjJJREFUWEfNl89V20AQxr9ZWSI58J7pwFQQ6MCuIKECcAcYwSGnwCkHYkwHqIOYCuwOIBVEHcANLGENb1cICcmSd2XFjq7a2fnNN380Imz4oQ37hxnAObexPTsCWl9AvAdwOw6AfDAeAb5FYE/xnXzdwPQALsMuLPwAc1frYqIp5rjAmT1ddr4aQEX8cgPwt2UXLX4vPATWRZUi5QA/nzpwrAmATj3n71Y+ArtXBrEYoDnnCUUpRBGgeecphLD3MaDHrKJFgF8zD0SHK8peYk5juPZBOYCsdsEy7xqPbDnnWB10gmuAvmoYARH1st3xUYGrcKLdahAe3FZfOTVRTbboid1LYFOAOPd/taKIh88YQWtgrIA0EPZOUgspwDA4AnCjD7DCySga4OzTtQrj/ZrhbKydxxV8x6Zp+lIAo/wrdB8s4lFLURdsMLAI9zhx9nMKBDL/BlOvZhHGEvhwnd3/DOAquANjTz+9KyjANMVp3IppDZj0cq6QjOaAsuVbuFvqC5sCXD4fQ4jRWhQA+nAd7yPAiNuIwoe1AIj5Lgaf1da0/lGcyX8RwOhjVHMUV36MJNIw/F1/BVuWwEznvB0t7gOyFjiULWkwlJY5fpucNO8luU8sFq9ko6cO2Jo0BiHH9gLnxRrIBtIURIXzagD5VkLMxXn9FY3GEK1+fg/Mxvlvfkxkq3ETPyb52pKKRFZX7Q2ENpjjQpW/ZSTugZc/EFteVcT5K/UU0Cjyukc2DvAKPAroISzv/nkAAAAASUVORK5CYII=`;
-
-const statisticsItems: StatisticsItemProps[] = [
-  {
-    label: "送货单重量",
-    value: "99",
-    unit: "吨",
-  },
-  {
-    label: "扣量",
-    value: "99",
-    unit: "吨",
-  },
-  {
-    label: "重量偏差",
-    value: "-5",
-    unit: "吨",
-    color: "#FE9292",
-  },
-  {
-    label: "净重",
-    value: "99",
-    unit: "吨",
-  },
-  {
-    label: "实际重量",
-    value: "99",
-    unit: "吨",
-  },
-  {
-    label: "过磅车次",
-    value: "99",
-    unit: "吨",
-  },
-];
 
 function renderStatisticsItems(statisticsItems: StatisticsItemProps[] = []) {
   return (
@@ -51,9 +21,56 @@ function renderStatisticsItems(statisticsItems: StatisticsItemProps[] = []) {
 }
 
 export default function SummaryStatistics() {
+  const busParams = useQueryToBusParams();
   const { isPc } = useDashboardRoot();
+  const { data = {} } = useRequest("/api/iot/v1/iot/wagon-balance/summary", {
+    data: {
+      ...busParams,
+      pageSize: 5,
+      pageNum: 1,
+    },
+    method: "POST",
+    headers: {
+      "system-id": "237718173535821884",
+    },
+  });
+
+  const statisticsItems: StatisticsItemProps[] = [
+    {
+      label: "送货单重量",
+      value: data.deliveryActualWeight || 0,
+      unit: "吨",
+    },
+    {
+      label: "扣量",
+      value: data.deductWeight || 0,
+      unit: "吨",
+    },
+    {
+      label: "重量偏差",
+      value: data.weightDeviation || 0,
+      unit: "吨",
+      color: data.weightDeviation < 0 ? "#FE9292" : undefined,
+    },
+    {
+      label: "净重",
+      value: data.netWeight || 0,
+      unit: "吨",
+    },
+    {
+      label: "实际重量",
+      value: data.trueWeight || 0,
+      unit: "吨",
+    },
+    {
+      label: "过磅车次",
+      value: data.count,
+      unit: "吨",
+    },
+  ];
+
   if (!isPc) {
-    return <SummaryStatisticsMobile />;
+    return <SummaryStatisticsMobile statisticsItems={statisticsItems} />;
   }
   return (
     <div
@@ -90,7 +107,11 @@ export default function SummaryStatistics() {
   );
 }
 
-function SummaryStatisticsMobile() {
+function SummaryStatisticsMobile({
+  statisticsItems = [],
+}: {
+  statisticsItems: StatisticsItemProps[];
+}) {
   const statisticsItemWrapStyle = css`
     display: grid;
     grid-template-columns: 1fr 1fr;
