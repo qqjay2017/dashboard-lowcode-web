@@ -1,7 +1,7 @@
 import { css } from "@emotion/css";
 
 import SelectValueArrow from "../../query/ProjectSelect/SelectValueArrow";
-import type { SelectValueProps } from "@/dashboard-themes/ui";
+import type { IBusSelectProps, SelectValueProps } from "@/dashboard-themes/ui";
 import { BusSelect } from "@/dashboard-themes/ui";
 import type { FormItemComponentProps } from "@/types";
 import { cx, ellipTextStyle } from "@/utils";
@@ -61,24 +61,21 @@ function CargoSelectValue({
   );
 }
 
+interface CargoTypeSelectProps
+  extends FormItemComponentProps,
+    IBusSelectProps {}
+
 export default function CargoTypeSelect({
   value,
   onChange,
-}: FormItemComponentProps) {
+  options,
+}: CargoTypeSelectProps) {
   return (
     <BusSelect
       width="1.8rem"
-      value="123"
-      options={[
-        {
-          label: "123",
-          value: "123",
-        },
-        {
-          label: "456",
-          value: "456",
-        },
-      ]}
+      value={value}
+      onChange={onChange}
+      options={options}
       renderSelctValue={CargoSelectValue}
     />
   );

@@ -20,7 +20,7 @@ interface IBusSelectOption {
 function defaultRenderSelctValue({ label, placeholder }: SelectValueProps) {
   return label || placeholder;
 }
-interface IBusSelectProps extends FormItemComponentProps {
+export interface IBusSelectProps extends FormItemComponentProps {
   options?: IBusSelectOption[];
   width?: string;
   height?: string;

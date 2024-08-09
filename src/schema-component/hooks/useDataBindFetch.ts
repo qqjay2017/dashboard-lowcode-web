@@ -1,32 +1,45 @@
-import { get } from 'lodash-es'
-import { useMemo } from 'react'
-import type { DataSourceBindType } from '../types'
-import { takeFirstApiInfo } from '../shared'
-import { useQuery, useReqApiProxy } from '@/api-client'
+import { get } from "lodash-es";
+import { useMemo } from "react";
+import type { DataSourceBindType } from "../types";
+import { takeFirstApiInfo } from "../shared";
+import { useQuery, useReqApiProxy } from "@/api-client";
 
 /**
  * TODO  数据源执行处理
  * @param dataSource
  * @returns
  */
-export function useDataBindFetch(apiInfo: DataSourceBindType | (DataSourceBindType[]), requestData?: any) {
-  const dataSource = takeFirstApiInfo(apiInfo)
-  const { request } = useReqApiProxy()
+export function useDataBindFetch(
+  apiInfo: DataSourceBindType | DataSourceBindType[],
+  requestData?: any,
+  callback?: Function
+) {
+  const dataSource = takeFirstApiInfo(apiInfo);
+  const { request } = useReqApiProxy();
   const { data, ...rest } = useQuery({
     queryKey: [
-      'dataSourceQuery',
+      "dataSourceQuery",
       JSON.stringify(requestData || {}),
       JSON.stringify(dataSource),
     ],
 
     enabled: !!dataSource?.dataSourceId,
-    queryFn: () =>
-      request
-      && request({
-        data: requestData,
-        apiId: dataSource?.dataSourceId,
-      }),
-  })
+    queryFn: async () => {
+      let apiRes;
+      if (request) {
+        apiRes = await request({
+          data: requestData,
+          apiId: dataSource?.dataSourceId,
+        });
+      }
+      try {
+        callback && callback(apiRes);
+      } catch (error) {
+        return apiRes;
+      }
+      return apiRes;
+    },
+  });
 
   // const dataMemo = useMemo(() => {
 
@@ -56,5 +69,5 @@ export function useDataBindFetch(apiInfo: DataSourceBindType | (DataSourceBindTy
   return {
     ...rest,
     data,
-  }
+  };
 }

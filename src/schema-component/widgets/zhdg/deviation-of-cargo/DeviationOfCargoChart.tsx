@@ -1,6 +1,7 @@
 import EChartsReact from "echarts-for-react";
 import type { EChartsOption } from "echarts";
 
+import { get } from "lodash-es";
 import { useToken } from "@/schema-component/antd";
 import {
   getBottomCenterLegendConfig,
@@ -8,9 +9,35 @@ import {
   getPieSeriesConfig,
 } from "@/utils/chartCommonOption";
 import { getEChartsReactTheme } from "@/utils/chartCommonOption/theme";
+import {
+  useDataBindFetch,
+  useQueryToBusParams,
+} from "@/schema-component/hooks";
+import { percentFixed } from "@/utils";
 
-export default function DeviationOfCargoChart() {
+export default function DeviationOfCargoChart({
+  goodsName,
+}: {
+  goodsName: string;
+}) {
+  const busParams = useQueryToBusParams(["projectSelect"]);
+  const { data } = useDataBindFetch(
+    {
+      dataSourceId: "149ba909-3673-4933-af46-114d3a93bf0d",
+    },
+    {
+      ...busParams,
+      goodsName,
+    }
+  );
+  console.log(data, "data333");
   const { token } = useToken();
+  const ratioList = get(data, "ratioList", []) || [];
+
+  const findCountByWeightFlag = (weightFlag) => {
+    const item = ratioList.find((r) => r.weightFlag === weightFlag);
+    return item?.count || 0;
+  };
   const option: EChartsOption = {
     color: ["#64E3FF", "#F7BA5F", "#F487E2", "#A195EF"],
     tooltip: getCommonTooltipOption({
@@ -23,7 +50,7 @@ export default function DeviationOfCargoChart() {
       data: ["超量", "正常", "缺量", "未填报"],
     },
     title: {
-      text: "10000",
+      text: data?.count,
       subtext: "过磅总车次",
       textStyle: {
         color: "#fff",
@@ -50,7 +77,7 @@ export default function DeviationOfCargoChart() {
           position: "inside",
           color: "#fff",
           formatter: ({ percent }) => {
-            return `${percent}%`;
+            return `${percentFixed(percent)}%`;
           },
         },
         center: ["50%", "45%"],
@@ -59,20 +86,20 @@ export default function DeviationOfCargoChart() {
         },
         data: [
           {
-            value: 50,
+            value: findCountByWeightFlag(1),
             name: "超量",
           },
           {
-            value: 10,
+            value: findCountByWeightFlag(0),
             name: "正常",
           },
           {
-            value: 20,
+            value: findCountByWeightFlag(2),
             name: "缺量",
           },
 
           {
-            value: 5,
+            value: findCountByWeightFlag(-1),
             name: "未填报",
           },
         ],
