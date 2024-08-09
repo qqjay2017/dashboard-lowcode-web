@@ -15,7 +15,7 @@ class KxgcFrameAuthPlugin extends Plugin {
         if (e?.data?.type === "initReport") {
           const dataStr = e?.data?.data || "{}";
           const data = JSON.parse(dataStr);
-          console.log(data, "顶级e");
+
           if (data.sessionStorage) {
             Object.keys(data.sessionStorage).forEach((key) => {
               sessionStorage.setItem(key, data.sessionStorage[key]);

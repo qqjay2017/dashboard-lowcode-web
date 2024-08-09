@@ -27,7 +27,7 @@ function ProjectAttendanceDataAnaMain({
 }: SchemComponentWithDataSourceProps) {
   const { token } = useToken();
 
-  const clocking: ClockingData = get(busDataRes, "data.data", {}) || {};
+  const clocking: ClockingData = busDataRes?.data || {};
 
   return (
     <div

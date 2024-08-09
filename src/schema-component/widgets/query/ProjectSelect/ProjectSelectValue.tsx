@@ -2,7 +2,7 @@ import { css } from "@emotion/css";
 import { forwardRef } from "react";
 import SelectValueArrow from "./SelectValueArrow";
 import { useToken } from "@/schema-component/antd/style";
-import { cn, ellipTextStyle } from "@/utils";
+import { cn, cx, ellipTextStyle } from "@/utils";
 import type { SelectValueProps } from "@/dashboard-themes/ui";
 
 export interface IProjectSelectValueProps {
@@ -40,20 +40,20 @@ export function ProjectSelectValue({
       )}
     >
       <div
-        className={css`
-          height: 100%;
-          width: calc(100% - 0.4rem);
-          font-weight: 500;
-          font-size: 0.22rem;
-          color: #c3f4ff;
-          line-height: 0.22rem;
-          margin-right: 8px;
+        className={cx(
+          css`
+            height: 100%;
+            width: calc(100% - 0.7rem);
+            font-weight: 500;
+            font-size: 0.22rem;
+            color: #c3f4ff;
+            line-height: 0.22rem;
+            margin-right: 8px;
 
-          display: flex;
-          align-items: center;
-          user-select: none;
-          ${ellipTextStyle}
-        `}
+            user-select: none;
+          `,
+          ellipTextStyle
+        )}
       >
         {label || placeholder}
       </div>

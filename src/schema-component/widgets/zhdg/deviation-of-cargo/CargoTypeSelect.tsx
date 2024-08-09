@@ -35,15 +35,16 @@ function CargoSelectValue({
       )}
     >
       <div
-        className={css`
-          width: calc(100% - 0.3rem);
-          padding: 0 0.1rem;
-          color: #008dfa;
-          font-size: 0.14rem;
-          line-height: 0.14rem;
-
-          ${ellipTextStyle};
-        `}
+        className={cx(
+          css`
+            width: calc(100% - 0.3rem);
+            padding: 0 0.1rem;
+            color: #008dfa;
+            font-size: 0.14rem;
+            line-height: 0.14rem;
+          `,
+          ellipTextStyle
+        )}
       >
         {placeholder || value}
       </div>

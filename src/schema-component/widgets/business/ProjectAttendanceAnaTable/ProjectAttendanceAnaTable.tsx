@@ -21,7 +21,7 @@ function ProjectAttendanceAnaTableMain({
   busDataRes,
 }: SchemComponentWithDataSourceProps) {
   const projectAttendance: ProjectAttendanceItem[] = (
-    get(busDataRes, "data.data", []) || []
+    get(busDataRes, "data", []) || []
   ).map((d, index) => {
     return {
       ...d,

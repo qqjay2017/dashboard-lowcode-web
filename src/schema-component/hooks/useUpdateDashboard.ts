@@ -9,11 +9,15 @@ export function useUpdateDashboard() {
 
   return {
     id,
-    updateDashboard: (data, _id?: string) =>
-      apiClient.request({
-        url: `${apiBase}/designer/${_id || id}`,
-        method: "put",
+    updateDashboard: async (data, _id: string = "") => {
+      const submitId = _id || id;
+      return apiClient.request({
+        url: submitId
+          ? `${apiBase}/designer/${submitId}`
+          : `${apiBase}/designer`,
+        method: submitId ? "put" : "post",
         data,
-      }),
+      });
+    },
   };
 }

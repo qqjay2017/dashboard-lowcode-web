@@ -6,7 +6,7 @@ import { apiBase } from "@/utils";
 export function useUpdateDesignerApi() {
   const { updateDashboard } = useUpdateDashboard();
 
-  return (dto?: Partial<DashboardItem>) => {
-    return updateDashboard(dto, dto.id);
+  return async (dto?: Partial<DashboardItem>) => {
+    return await updateDashboard(dto, dto.id);
   };
 }

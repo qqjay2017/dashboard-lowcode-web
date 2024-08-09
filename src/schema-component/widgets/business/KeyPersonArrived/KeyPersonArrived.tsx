@@ -4,10 +4,7 @@ import { css } from "@emotion/css";
 import type { KeyPersonItemType } from "./types";
 import { KeyPersonnelItem } from "./KeyPersonnelItem";
 import type { SchemComponentWithDataSourceProps } from "@/types";
-import {
-  useDataBindFetch,
-  useQueryToBusParams,
-} from "@/schema-component/hooks";
+
 import { EmptyKit } from "@/dashboard-themes/style-components";
 import injectApiInfo from "@/schema-component/hoc/injectApiInfo";
 
@@ -15,7 +12,7 @@ function KeyPersonArrivedMain({
   busDataRes,
   isBusDataLoading,
 }: SchemComponentWithDataSourceProps) {
-  const list: KeyPersonItemType[] = get(busDataRes, "data.data", []) || [];
+  const list: KeyPersonItemType[] = get(busDataRes, "data", []) || [];
 
   return (
     <EmptyKit loading={isBusDataLoading} empty={!list.length}>

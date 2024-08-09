@@ -20,7 +20,7 @@ function EmploymentCreditMngMain({
 }: SchemComponentWithDataSourceProps) {
   const { headStyle, bodyStyle } = useFrameSizeStyle();
   const [tabValue, setTabValue] = useState<string>("1");
-  const list: EmploymentType[] = get(busDataRes, "data.data", []) || [];
+  const list: EmploymentType[] = get(busDataRes, "data", []) || [];
 
   const curWorkList = list.filter((w) => {
     if (tabValue === "1") {

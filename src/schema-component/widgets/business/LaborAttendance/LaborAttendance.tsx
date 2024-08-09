@@ -50,7 +50,7 @@ function LaborAttendanceMain({
           `}
         >
           <ChartTemplateWithOutData
-            chartId="38"
+            chartId="0wctg2p84uc"
             apiInfo={null}
             queryKeys={[]}
             busData={busData}

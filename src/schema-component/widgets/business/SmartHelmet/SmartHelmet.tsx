@@ -4,21 +4,18 @@ import { css } from "@emotion/css";
 import { HelmetLeft } from "./HelmetLeft";
 import { HelmetRight } from "./HelmetRight";
 import type { ApplicationAnalysiItem, SafetyProjectType } from "./types";
-import {
-  useDataBindFetch,
-  useQueryToBusParams,
-} from "@/schema-component/hooks";
+
 import type { SchemComponentWithDataSourceProps } from "@/types";
 import injectApiInfo from "@/schema-component/hoc/injectApiInfo";
 
 function SmartHelmetMain({ busDataRes }: SchemComponentWithDataSourceProps) {
   const safetyProject: SafetyProjectType = get(
     busDataRes,
-    "data.data.safetyProject",
+    "data.safetyProject",
     {}
   );
   const applicationAnalysis: ApplicationAnalysiItem[] =
-    get(busDataRes, "data.data.applicationAnalysis", []) || [];
+    get(busDataRes, "data.applicationAnalysis", []) || [];
 
   return (
     <div

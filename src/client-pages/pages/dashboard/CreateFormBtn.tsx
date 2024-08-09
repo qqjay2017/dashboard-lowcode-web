@@ -80,13 +80,13 @@ export function CreateFormBtn({ refetch }: { refetch: Function }) {
                 },
               }),
             });
-            refetch();
+            await refetch();
 
             // const id = res?.id;
             // if (id) {
             //   navigate(`/dashboard-design/${id}`);
             // }
-            next(payload);
+            await next(payload);
           })
           .open({});
       }}
