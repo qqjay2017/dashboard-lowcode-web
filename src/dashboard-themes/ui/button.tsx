@@ -3,6 +3,18 @@ import { css } from "@emotion/css";
 import type { ButtonHTMLAttributes, PropsWithChildren } from "react";
 
 import { cx } from "@/utils";
+import { useDashboardRoot } from "@/schema-component/hooks";
+
+const buttonBaseStyle = css`
+  all: unset;
+  height: 0.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 400;
+  cursor: pointer;
+  line-height: 0.3rem;
+`;
 
 interface IExportButtonProps
   extends PropsWithChildren,
@@ -13,22 +25,20 @@ export function ExportButton({
   className,
   ...props
 }: IExportButtonProps) {
+  const { isPc } = useDashboardRoot();
   return (
     <button
       type="button"
       className={cx(
+        buttonBaseStyle,
         css`
-          all: unset;
           border-radius: 2px 2px 2px 2px;
           border: 1px solid #008dfa;
           height: 0.3rem;
           padding: 0 0.24rem;
 
-          font-weight: 400;
-          font-size: 0.14rem;
+          font-size: ${isPc ? "0.14rem" : "0.2rem"};
           color: #008dfa;
-          line-height: 0.3rem;
-          cursor: pointer;
         `,
         className
       )}
@@ -44,23 +54,23 @@ export function ResetButton({
   className,
   ...props
 }: IExportButtonProps) {
+  const { isPc } = useDashboardRoot();
   return (
     <button
       type="button"
       className={cx(
+        buttonBaseStyle,
         css`
-          all: unset;
           border: 1px solid #008dfa;
-          height: 0.3rem;
+
           padding: 0 0.24rem;
           font-weight: 400;
-          font-size: 0.14rem;
+          font-size: ${isPc ? "0.14rem" : "0.2rem"};
           line-height: 0.3rem;
           background: #12233e;
           border-radius: 2px 2px 2px 2px;
           border: 1px solid #3d5478;
           color: #c3cadb;
-          cursor: pointer;
         `,
         className
       )}
@@ -76,19 +86,16 @@ export function SubmitButton({
   className,
   ...props
 }: IExportButtonProps) {
+  const { isPc } = useDashboardRoot();
   return (
     <button
       type="button"
       className={cx(
+        buttonBaseStyle,
         css`
-          all: unset;
-
-          height: 0.3rem;
           padding: 0 0.24rem;
-          font-weight: 400;
-          font-size: 0.14rem;
+          font-size: ${isPc ? "0.14rem" : "0.2rem"};
           line-height: 0.3rem;
-
           border-radius: 2px 2px 2px 2px;
           border: 1px solid #3d5478;
           color: #fff;
@@ -96,7 +103,6 @@ export function SubmitButton({
 
           background: #008dfa;
           border-radius: 2px 2px 2px 2px;
-          cursor: pointer;
         `,
         className
       )}

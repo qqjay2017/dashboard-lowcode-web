@@ -1,6 +1,9 @@
 import { css } from "@emotion/css";
 import { useState } from "react";
 import CollapsibleForm from "./CollapsibleForm";
+import { fields } from "./fields";
+import SummaryStatistics from "./SummaryStatistics";
+import WeighbridgeItem from "./WeighbridgeItem";
 import { useFrameSizeStyle } from "@/schema-component/hooks";
 import { ExportButton } from "@/dashboard-themes/ui";
 
@@ -28,9 +31,26 @@ export default function Weighbridge() {
       >
         <ExportButton onClick={handleExport}>导出</ExportButton>
       </div>
-      <div style={bodyStyle}>
-        <CollapsibleForm onChange={setSearchValues} />
-        <div>{JSON.stringify(searchValues)}</div>
+      <div
+        className={css`
+          overflow: hidden auto;
+          padding: 0 0.24rem;
+        `}
+        style={bodyStyle}
+      >
+        <CollapsibleForm onChange={setSearchValues} fields={fields} />
+        <SummaryStatistics />
+        <WeighbridgeItem />
+        <WeighbridgeItem />
+        <WeighbridgeItem />
+        <WeighbridgeItem />
+        <WeighbridgeItem />
+        <WeighbridgeItem />
+        <WeighbridgeItem />
+        <WeighbridgeItem />
+        <WeighbridgeItem />
+        <WeighbridgeItem />
+        <WeighbridgeItem />
       </div>
     </div>
   );

@@ -73,7 +73,7 @@ function DashboardRootPreview({ children, ...props }: DashboardRootProps) {
     if (isPc) {
       flexible(designWidth);
     } else if (breakpoint === "mobile") {
-      flexible(550);
+      flexible(750);
     } else if (breakpoint === "tablet") {
       flexible(1300);
     }

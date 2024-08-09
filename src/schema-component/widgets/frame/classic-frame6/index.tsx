@@ -1,13 +1,14 @@
 import { css } from "@emotion/css";
 
 import type { ClassicFrameProps } from "../classic-frame/ClassicFrame";
-import { useFrameSizeStyle } from "@/schema-component/hooks";
+import { useDashboardRoot, useFrameSizeStyle } from "@/schema-component/hooks";
 import { cx } from "@/utils";
 import { useComponentToken, useToken } from "@/schema-component/antd";
 
 export interface IClassicFrame6Props extends ClassicFrameProps {}
 
 function ClassicFrame6({ children, title }: IClassicFrame6Props) {
+  const { isPc } = useDashboardRoot();
   const { headStyle, bodyStyle } = useFrameSizeStyle();
 
   const { border, nodeContentBg, nodeContentForeground } =
@@ -23,7 +24,7 @@ function ClassicFrame6({ children, title }: IClassicFrame6Props) {
     >
       <div
         className={cx(css`
-          font-size: 0.16rem;
+          font-size: ${isPc ? "0.16rem" : "0.28rem"};
           padding-left: 0.24rem;
           padding-top: 0.16rem;
           color: ${nodeContentForeground};
