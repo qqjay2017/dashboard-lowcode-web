@@ -45,8 +45,6 @@ export function ApiTest({ apiId, type }: { apiId?: string; type?: IApiType }) {
       }),
   });
 
-  console.log(data, "data");
-
   // const headers: AxiosHeaders = data?.headers as any as AxiosHeaders;
   if (!data || isLoading) {
     return null;

@@ -83,7 +83,7 @@ export class APIClient extends APIClientSdk {
             : res.data?.data;
       },
       (error) => {
-        console.log(error, "error");
+        console.error(error, "error");
         handleErrorMessage(error, this.notification);
         return Promise.reject(error);
       }

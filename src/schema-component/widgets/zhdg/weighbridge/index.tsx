@@ -1,5 +1,6 @@
 import { css } from "@emotion/css";
 import { useState } from "react";
+import { Pagination } from "antd";
 import CollapsibleForm from "./CollapsibleForm";
 import { fields } from "./fields";
 import SummaryStatistics from "./SummaryStatistics";
@@ -16,11 +17,6 @@ import {
   DialogHeader,
   DialogTitle,
   ExportButton,
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationPrevious,
 } from "@/dashboard-themes/ui";
 import { EmptyKit } from "@/dashboard-themes/style-components";
 import { useRequest } from "@/api-client";
@@ -83,16 +79,23 @@ export default function Weighbridge() {
             {wagonBalanceRows.map((row, index) => {
               return <WeighbridgeItem key={row.id + index} row={row} />;
             })}
-            <Pagination>
-              <PaginationContent>
-                <PaginationItem>
-                  <PaginationPrevious href="#" />
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink href="#">1</PaginationLink>
-                </PaginationItem>
-              </PaginationContent>
-            </Pagination>
+            <Pagination
+              className={css`
+                align-items: center;
+                .ant-pagination-total-text {
+                  flex: 1;
+                }
+              `}
+              current={1}
+              pageSize={5}
+              showQuickJumper
+              simple={!isPc}
+              total={wagonBalanceTotal}
+              onChange={() => {}}
+              showTotal={(total) => {
+                return `共${total}条记录`;
+              }}
+            />
           </EmptyKit>
         </div>
       </div>

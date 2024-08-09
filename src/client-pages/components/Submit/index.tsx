@@ -38,7 +38,7 @@ export default function Submit({
             onSubmitSuccess && onSubmitSuccess(values);
           }
         } catch (error) {
-          console.log(error, "Submit error");
+          console.error(error, "Submit error");
         }
       }}
     >

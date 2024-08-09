@@ -1,5 +1,4 @@
 export function flexible(designWidth = 1920) {
-  console.log(designWidth, "designWidth");
   const docEl = document.documentElement;
   const dpr = window.devicePixelRatio || 1;
 

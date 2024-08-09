@@ -33,7 +33,7 @@ export default function WeighbridgeItemTag({
           return qlImg;
       }
     }
-    console.log(weightFlag, "weightFlag");
+
     switch (weightFlag) {
       case 0:
         return zcMoboleImg;

@@ -30,7 +30,7 @@ export default function DeviationOfCargoChart({
       goodsName,
     }
   );
-  console.log(data, "data333");
+
   const { token } = useToken();
   const ratioList = get(data, "ratioList", []) || [];
 
