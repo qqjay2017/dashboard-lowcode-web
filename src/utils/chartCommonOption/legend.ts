@@ -24,7 +24,7 @@ export function getBottomCenterLegendConfig(
     },
     pageButtonItemGap: 15,
     pageIconSize: 10,
-    width: "90%",
+    width: "85%",
     type: isScroll ? "scroll" : undefined,
 
     right: isScroll ? 30 : undefined,

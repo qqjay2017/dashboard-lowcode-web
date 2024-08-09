@@ -66,6 +66,7 @@ function PreviewPageProvider({
               max-height: 100%;
               min-height: 650px;
               overflow-x: hidden;
+
               overflow-y: ${isPc ? "hidden" : "auto"};
             `
           )}

@@ -39,26 +39,22 @@ export const useDashboardRootStyle = createStyles(
         return css`
           background-color: ${backgroundColor};
           background-image: ${backgroundImage};
-          color: ${darkColor};
         `;
       }
       return css`
         background-color: ${backgroundColor};
         background-image: ${darkImg};
-        color: ${darkColor};
       `;
     } else {
       if (!showBg) {
         return css`
           background-color: ${backgroundColor};
           background-image: ${backgroundImage};
-          color: #000;
         `;
       }
       return css`
         background-color: ${backgroundColor};
         background-image: ${lightImg};
-        color: #000;
       `;
     }
   }

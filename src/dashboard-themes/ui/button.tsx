@@ -16,6 +16,11 @@ const buttonBaseStyle = css`
   line-height: 0.3rem;
 `;
 
+const buttonMobileStyle = css`
+  height: 0.64rem;
+  font-size: 0.28rem;
+`;
+
 interface IExportButtonProps
   extends PropsWithChildren,
     ButtonHTMLAttributes<HTMLButtonElement> {}
@@ -40,6 +45,7 @@ export function ExportButton({
           font-size: ${isPc ? "0.14rem" : "0.2rem"};
           color: #008dfa;
         `,
+        !isPc && buttonMobileStyle,
         className
       )}
       {...props}
@@ -72,6 +78,7 @@ export function ResetButton({
           border: 1px solid #3d5478;
           color: #c3cadb;
         `,
+        !isPc && buttonMobileStyle,
         className
       )}
       {...props}
@@ -104,6 +111,7 @@ export function SubmitButton({
           background: #008dfa;
           border-radius: 2px 2px 2px 2px;
         `,
+        !isPc && buttonMobileStyle,
         className
       )}
       {...props}

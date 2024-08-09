@@ -5,6 +5,7 @@ import type { SelectValueProps } from "@/dashboard-themes/ui";
 import { BusSelect } from "@/dashboard-themes/ui";
 import type { FormItemComponentProps } from "@/types";
 import { cx, ellipTextStyle } from "@/utils";
+import { useDashboardRoot } from "@/schema-component/hooks";
 
 function CargoSelectValue({
   children,
@@ -16,6 +17,7 @@ function CargoSelectValue({
   setOpen,
   ...other
 }: SelectValueProps) {
+  const { isPc } = useDashboardRoot();
   return (
     <div
       className={cx(
@@ -40,8 +42,7 @@ function CargoSelectValue({
             width: calc(100% - 0.3rem);
             padding: 0 0.1rem;
             color: #008dfa;
-            font-size: 0.14rem;
-            line-height: 0.14rem;
+            font-size: ${isPc ? "0.14rem" : "0.28rem"};
           `,
           ellipTextStyle
         )}
@@ -51,7 +52,7 @@ function CargoSelectValue({
       <SelectValueArrow
         open={open}
         className={css`
-          width: 0.1rem;
+          width: ${isPc ? " 0.1rem" : " 0.2rem"};
           margin-top: -0.06rem;
           cursor: pointer;
         `}

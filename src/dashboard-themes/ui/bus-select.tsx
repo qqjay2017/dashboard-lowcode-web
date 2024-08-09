@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { css } from "@emotion/css";
 import { Select, SelectContent, SelectItem, SelectTrigger } from "./select";
 import type { FormItemComponentProps } from "@/types";
+import { useDashboardRoot } from "@/schema-component/hooks";
 
 export type SelectValueProps = IBusSelectOption & {
   open?: boolean;
@@ -38,6 +39,7 @@ export function BusSelect({
   height = "0.32rem",
   renderSelctValue = defaultRenderSelctValue,
 }: IBusSelectProps) {
+  const { isPc } = useDashboardRoot();
   const [open, setOpen] = useState(false);
   return (
     <Select
@@ -52,7 +54,7 @@ export function BusSelect({
         className={css`
           all: unset;
           width: ${width};
-          height: ${height};
+          height: ${isPc ? height : "0.64rem"};
           border: none;
           cursor: pointer;
         `}

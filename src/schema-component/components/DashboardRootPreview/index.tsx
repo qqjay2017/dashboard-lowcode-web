@@ -113,9 +113,9 @@ function DashboardRootPreview({ children, ...props }: DashboardRootProps) {
                 background-size: cover;
                 background-position: center;
                 background-repeat: ${isPc ? "no-repeat" : "repeat"};
-                font-size: 0.14rem;
+                font-size: ${isPc ? "0.14rem" : "0.28rem"};
                 line-height: 1;
-                color: #ccc;
+                color: ${customThemeToken?.token?.textCommon};
                 width: 100%;
                 height: ${dheight};
                 position: relative;

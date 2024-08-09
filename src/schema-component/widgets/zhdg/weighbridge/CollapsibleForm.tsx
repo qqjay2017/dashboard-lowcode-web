@@ -88,19 +88,20 @@ export default function CollapsibleForm({
               查询
             </SubmitButton>
 
-            <a
+            <div
               className={css`
                 color: #008dfa;
                 font-size: 14px;
                 margin-left: 8px;
+                cursor: pointer;
               `}
               onClick={() => {
                 setExpand(!expand);
               }}
             >
-              <DownOutlined rotate={expand ? 180 : 0} />{" "}
+              <DownOutlined rotate={expand ? 180 : 0} />
               {expand ? "收起" : "展开"}
-            </a>
+            </div>
           </Space>
         </div>
       </Form>

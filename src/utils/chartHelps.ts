@@ -6,7 +6,7 @@ import {
   getTotalNum,
   percentToDisplay,
 } from "./chartListDataFormat";
-import { getPercent } from "./getPercent";
+import { getPercent, percentFixed } from "./getPercent";
 import {
   getBarLineTooltipOption,
   getBottomCenterLegendConfig,
@@ -20,6 +20,7 @@ import {
 } from "./chartCommonOption";
 
 export const chartHelps = {
+  percentFixed,
   Decimal,
   get,
   getTotalNum,

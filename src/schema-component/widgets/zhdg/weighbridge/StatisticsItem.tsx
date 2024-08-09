@@ -32,7 +32,7 @@ export default function StatisticsItem({
     >
       <div
         className={css`
-          color: ${color};
+          color: rgba(202, 208, 224, 0.7);
         `}
       >
         {label}：
