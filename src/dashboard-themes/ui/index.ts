@@ -6,3 +6,4 @@ export * from "./tabs";
 export * from "./bus-select";
 export * from "./button";
 export * from "./collapsible";
+export * from "./dialog";
