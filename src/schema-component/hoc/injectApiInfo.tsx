@@ -15,7 +15,8 @@ export default function injectApiInfo(WrapComponent) {
 
     const firstApiInfo = takeFirstApiInfo(apiInfo);
     if (firstApiInfo && firstApiInfo.dataSourceId) {
-      const busData = get(busDataRes, "data");
+      const busData = busDataRes;
+
       return (
         <WrapComponent
           {...props}

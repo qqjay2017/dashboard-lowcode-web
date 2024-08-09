@@ -294,3 +294,17 @@ export function ClassicFrame6({ children, title }: IClassicFrame6Props) {
   );
 }
 ```
+
+```json
+{
+  "state": {
+    "quarter": { "quarterId": "20243", "quarterName": "2024年3季度" },
+    "projectId": "131085537133215781",
+
+    "project": {
+      "id": "131085537133215781"
+    }
+  },
+  "version": 0
+}
+```

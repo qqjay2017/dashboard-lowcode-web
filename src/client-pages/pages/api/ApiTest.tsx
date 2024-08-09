@@ -1,6 +1,5 @@
 import type { PropsWithChildren } from "react";
 
-import { get } from "lodash-es";
 import { css } from "@emotion/css";
 
 import { Tabs } from "antd";
@@ -40,11 +39,13 @@ export function ApiTest({ apiId, type }: { apiId?: string; type?: IApiType }) {
     queryKey: ["apiTest", apiId],
     queryFn: () =>
       request({
-        dataPath: "data",
+        dataPath: type === "json" ? "data" : "data",
         apiId,
         headers: {},
       }),
   });
+
+  console.log(data, "data");
 
   // const headers: AxiosHeaders = data?.headers as any as AxiosHeaders;
   if (!data || isLoading) {

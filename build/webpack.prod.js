@@ -36,7 +36,8 @@ function resolve(name) {
   return path.join(__dirname, name);
 }
 const isAna = false;
-const _target = "http://qzjg.kxgcc.com:30251";
+const _target = "http://dev.kxgcc.com:30872";
+// "http://qzjg.kxgcc.com:30251"
 module.exports = {
   mode: NODE_ENV,
   devtool: isProduct ? false : "inline-source-map",
@@ -268,10 +269,10 @@ module.exports = {
       },
       {
         context: ["/dashboard-api/"],
-        // target: "http://localhost:3001",
-        target: "http://dev.kxgcc.com:30872",
+        target: "http://localhost:3001",
+        // target: "http://dev.kxgcc.com:30872",
         changeOrigin: true,
-        // pathRewrite: (path) => path.replace(/^\/dashboard-api/, ""),
+        pathRewrite: (path) => path.replace(/^\/dashboard-api/, ""),
       },
     ],
   },

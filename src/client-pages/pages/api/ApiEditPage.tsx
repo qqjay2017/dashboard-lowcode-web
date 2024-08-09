@@ -3,8 +3,7 @@ import { FormProvider } from "@formily/react";
 
 import { createForm } from "@formily/core";
 
-import { get } from "lodash-es";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import { message } from "antd";
 import {
@@ -30,6 +29,7 @@ import { defaultMessage } from "@/utils/defaultMessage";
  * @returns
  */
 function ApiEditPage() {
+  const [, setSearchParams] = useSearchParams();
   const { typeParam } = useTypeParam();
   const id = useEditId();
   const apiClient = useAPIClient();
@@ -77,13 +77,19 @@ function ApiEditPage() {
   const onSubmit = async (values) => {
     await handleSunmit(values);
     message.success(defaultMessage.submit);
-    navigate(-1);
+    navigate(`/dapi/main?pageNum=1&type=${typeParam}`);
   };
 
   const onTest = async (values) => {
     const res = await handleSunmit(values);
     const resId = res.id;
-    openApiTestDialog(resId, typeParam);
+
+    resId &&
+      setSearchParams({
+        type: typeParam,
+        id: resId,
+      });
+    openApiTestDialog(resId || id, typeParam);
   };
 
   return (

@@ -4,7 +4,7 @@ import { apiBase } from "@/utils";
 
 export function useReqApiProxy() {
   const apiClient = useAPIClient();
-  const request = ({
+  const request = async ({
     apiId,
     data = {},
     headers = {},

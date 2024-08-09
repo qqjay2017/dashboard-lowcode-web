@@ -62,7 +62,6 @@ function ChartEditPage() {
         "chartListData",
         "token",
         "busData",
-
         "chartHelps",
         `option=null;${handlebarsStr};return option||{};`
       );
@@ -76,7 +75,6 @@ function ChartEditPage() {
             ...customThemeToken,
           },
           {},
-
           {
             ...chartHelps,
             totalNum,

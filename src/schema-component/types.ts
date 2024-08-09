@@ -42,7 +42,7 @@ export interface ISchemaComponentOptionsProps extends PropsWithChildren {
 
 export type DataSourceBindType = {
   dataSourceId?: string;
-
+  dataSourceType?: string;
   dataSourceName?: string;
   afterScript?: string;
   beforeScript?: string;

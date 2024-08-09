@@ -25,6 +25,7 @@ import {
 import {
   FormilyDeviationOfCargo as DeviationOfCargo,
   FormilyWeighbridge as Weighbridge,
+  FormilyWeightDeviationTrend as WeightDeviationTrend,
 } from "@/schema-component/widgets/zhdg";
 
 import {
@@ -138,7 +139,7 @@ export function DesignEngine({
               <ResourceWidget
                 defaultExpand={false}
                 title="智慧工地"
-                sources={[Weighbridge, DeviationOfCargo]}
+                sources={[Weighbridge, DeviationOfCargo, WeightDeviationTrend]}
               />
               <ResourceWidget
                 defaultExpand={false}
@@ -205,6 +206,7 @@ export function DesignEngine({
                       Weighbridge,
                       DeviationOfCargo,
                       ClassicFrame6,
+                      WeightDeviationTrend,
                     }}
                   />
                 )}
