@@ -44,7 +44,6 @@ export function useTranslateEffect(engine: Engine) {
         rowHeight: root?.props?.designHeight / 12,
       });
 
-      console.log("拖拽结束++");
       helper.dragEnd();
     }
   });
@@ -67,8 +66,6 @@ export function setNewPosition(
     const element = node.getElement();
     const transform = calcElementTranslate(element);
 
-    console.log(element.getBoundingClientRect(), "www");
-
     if (!transform) {
       return;
     }
@@ -79,7 +76,7 @@ export function setNewPosition(
       y: sizeFormat(transform.y / rowHeight, 2),
     };
     const { width, height } = calcElementStyleSize(element);
-    console.log(width, height, "width, height ");
+
     if (width) {
       newPosition.w = sizeFormat(width / colWidth, 2);
     }

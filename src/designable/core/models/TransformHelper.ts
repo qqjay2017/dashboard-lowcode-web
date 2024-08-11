@@ -276,15 +276,42 @@ export class TransformHelper {
     return [];
   }
 
-  calcBaseTranslate(node: TreeNode) {
+  /**
+   * 返回的是缩放前的,
+   * @param node
+   * @returns
+   */
+  calcBaseTranslate(
+    node: TreeNode,
+    {
+      maxX,
+      maxY,
+    }: {
+      maxX?: number;
+      maxY?: number;
+    }
+  ) {
     // this.operation.workspace.viewport.designScale
     const dragStartTranslate = this.dragStartTranslateStore[node.id] ?? {
       x: 0,
       y: 0,
     };
 
-    const x = dragStartTranslate.x + this.deltaX;
-    const y = dragStartTranslate.y + this.deltaY;
+    let x = dragStartTranslate.x + this.deltaX;
+    let y = dragStartTranslate.y + this.deltaY;
+    if (x < 0) {
+      x = 0;
+    }
+    if (y < 0) {
+      y = 0;
+    }
+    if (maxX && x > maxX) {
+      x = maxX;
+    }
+    if (maxY && y > maxY) {
+      y = maxY;
+    }
+
     return { x, y };
   }
 
@@ -447,9 +474,18 @@ export class TransformHelper {
     }
   }
 
+  calcParentRectTranslate() {}
+
   translate(node: TreeNode, handler: (translate: IPoint) => void) {
     if (!this.dragging) return;
-    const translate = this.calcBaseTranslate(node);
+
+    const translate = this.calcBaseTranslate(node, {
+      maxX:
+        node.parent.getElement().offsetWidth - node.getElement().offsetWidth,
+      maxY:
+        node.parent.getElement().offsetHeight - node.getElement().offsetHeight,
+    });
+
     this.snapped = false;
     this.snapping = false;
     for (const line of this.closestSnapLines) {
