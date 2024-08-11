@@ -10,7 +10,7 @@ import {
 } from "../../hooks";
 import { Helpers } from "./Helpers";
 import { ResizeHandler } from "./ResizeHandler";
-import { TranslateHandler } from "./TranslateHandler";
+
 import type { TreeNode } from "@/designable/core";
 import { cn } from "@/utils";
 
@@ -73,7 +73,7 @@ export const SelectionBox: React.FC<ISelectionBoxProps> = (props) => {
         )}
       ></div>
       <ResizeHandler node={props.node} />
-      <TranslateHandler node={props.node} />
+
       {props.showHelpers && (
         <Helpers {...props} node={props.node} nodeRect={nodeRect} />
       )}

@@ -218,6 +218,30 @@ export class TreeNode {
     return this.viewport?.getValidNodeLayout(this);
   }
 
+  getElement(area: "viewport" | "outline" = "viewport") {
+    return this[area]?.findElementById(this.id);
+  }
+
+  getValidElement(area: "viewport" | "outline" = "viewport") {
+    return this[area]?.getValidNodeElement(this);
+  }
+
+  getElementRect(area: "viewport" | "outline" = "viewport") {
+    return this[area]?.getElementRect(this.getElement(area));
+  }
+
+  getValidElementRect(area: "viewport" | "outline" = "viewport") {
+    return this[area]?.getValidNodeRect(this);
+  }
+
+  getElementOffsetRect(area: "viewport" | "outline" = "viewport") {
+    return this[area]?.getElementOffsetRect(this.getElement(area));
+  }
+
+  getValidElementOffsetRect(area: "viewport" | "outline" = "viewport") {
+    return this[area]?.getValidNodeOffsetRect(this);
+  }
+
   remove() {
     return this.triggerMutation(
       new RemoveNodeEvent({
@@ -500,6 +524,23 @@ export class TreeNode {
     return this.designerProps.deletable ?? true;
   }
 
+  eachTree(callback?: (node: TreeNode) => void | boolean) {
+    if (isFn(callback)) {
+      callback(this.root);
+      this.root?.eachChildren(callback);
+    }
+  }
+
+  eachChildren(callback?: (node: TreeNode) => void | boolean) {
+    if (isFn(callback)) {
+      for (let i = 0; i < this.children.length; i++) {
+        const node = this.children[i];
+        if (callback(node) === false) return;
+        node.eachChildren(callback);
+      }
+    }
+  }
+
   static findById(id) {
     return TreeNodes.get(id);
   }
@@ -583,7 +624,7 @@ export class TreeNode {
           node.operation?.selection.has(node) &&
           insertPoint.parent.allowAppend([cloned])
         ) {
-          debugger;
+          // debugger;
           // insertPoint.insertAfter(cloned);
           // insertPoint = insertPoint.next;
         } else if (node.operation.selection.length === 1) {

@@ -62,7 +62,7 @@ export class Engine extends Event {
     screenResizeHandlerAttrName: "data-designer-screen-resize-handler",
     nodeResizeHandlerAttrName: "data-designer-node-resize-handler",
 
-    nodeTranslateAttrName: "data-designer-node-translate-handler",
+    // nodeTranslateAttrName: "data-designer-node-translate-handler",
     // defaultScreenType: ScreenType.PC,
   };
 

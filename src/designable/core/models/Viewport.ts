@@ -2,7 +2,7 @@ import { action, define, observable } from "@formily/reactive";
 import type { Engine } from "./Engine";
 import type { TreeNode } from "./TreeNode";
 import type { Workspace } from "./Workspace";
-import type { IPoint } from "@/designable/shared";
+import type { IPoint, IRect } from "@/designable/shared";
 import {
   Rect,
   calcBoundingRect,
@@ -10,6 +10,7 @@ import {
   globalThisPolyfill,
   isHTMLElement,
   isPointInRect,
+  isRectInRect,
   requestIdle,
 } from "@/designable/shared";
 
@@ -191,6 +192,22 @@ export class Viewport {
 
   get viewportRowHeight() {
     return this.rect.height ? this.rect.height / this.rows : 0;
+  }
+
+  getOffsetPoint(topPoint: IPoint) {
+    const data = this.getCurrentData();
+    return {
+      x: topPoint.x - this.offsetX + data.scrollX,
+      y: topPoint.y - this.offsetY + data.scrollY,
+    };
+  }
+
+  isRectInViewport(rect: IRect) {
+    if (!this.rect) return false;
+    if (!this.containsElement(document.elementFromPoint(rect.x, rect.y))) {
+      return false;
+    }
+    return isRectInRect(rect, this.rect);
   }
 
   findElementById(id: string): HTMLElement {
@@ -420,5 +437,42 @@ export class Viewport {
     } else {
       return this.getChildrenOffsetRect(node);
     }
+  }
+
+  // 相对于视口
+  getElementOffsetRect(element: HTMLElement | Element) {
+    const elementRect = element.getBoundingClientRect();
+    if (elementRect) {
+      if (this.isIframe) {
+        return new Rect(
+          elementRect.x + this.contentWindow.scrollX,
+          elementRect.y + this.contentWindow.scrollY,
+          elementRect.width,
+          elementRect.height
+        );
+      } else {
+        return new Rect(
+          (elementRect.x - this.offsetX + this.viewportElement.scrollLeft) /
+            this.scale,
+          (elementRect.y - this.offsetY + this.viewportElement.scrollTop) /
+            this.scale,
+          elementRect.width,
+          elementRect.height
+        );
+      }
+    }
+  }
+
+  getValidNodeElement(node: TreeNode): Element {
+    const getNodeElement = (node: TreeNode) => {
+      if (!node) return;
+      const ele = this.findElementById(node.id);
+      if (ele) {
+        return ele;
+      } else {
+        return getNodeElement(node.parent);
+      }
+    };
+    return getNodeElement(node);
   }
 }

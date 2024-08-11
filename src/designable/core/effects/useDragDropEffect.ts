@@ -28,7 +28,27 @@ export function useDragDropEffect(engine: Engine) {
       `);
     if (!el?.getAttribute) return;
     const sourceId = el?.getAttribute(engine.props.sourceIdAttrName);
-    if (sourceId) {
+    const nodeId = el?.getAttribute(engine.props.nodeIdAttrName);
+    if (nodeId) {
+      const node = engine.findNodeById(nodeId);
+
+      if (node) {
+        if (!node.allowDrag()) return;
+        if (node === node.root) return;
+
+        const transformHelper =
+          engine.workbench?.currentWorkspace?.operation?.transformHelper;
+
+        if (!transformHelper) {
+          return;
+        }
+
+        transformHelper.dragStart({
+          dragNodes: [node],
+          type: "translate",
+        });
+      }
+    } else if (sourceId) {
       const operation = engine.workbench?.currentWorkspace?.operation;
       if (!operation) {
         return;
@@ -59,10 +79,14 @@ export function useDragDropEffect(engine: Engine) {
     }
     const operation = currentWorkspace.operation;
     const moveHelper = operation.moveHelper;
+
+    if (!moveHelper) {
+      return false;
+    }
     const dragNodes = moveHelper.dragNodes;
     const tree = operation.tree;
 
-    if (!dragNodes.length) return;
+    if (!dragNodes || !dragNodes.length) return;
 
     const touchNode = tree.findById(nodeId);
     moveHelper.dragMove({

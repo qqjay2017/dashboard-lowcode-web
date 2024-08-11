@@ -21,6 +21,7 @@ import {
   useCursorEffect,
   useDragDropEffect,
   useSelectionEffect,
+  useTranslateEffect,
   useViewportEffect,
 } from "./effects";
 
@@ -29,6 +30,7 @@ export const DEFAULT_EFFECTS = [
   useViewportEffect,
   useCursorEffect,
   useSelectionEffect,
+  useTranslateEffect,
 ];
 
 export const DEFAULT_DRIVERS = [

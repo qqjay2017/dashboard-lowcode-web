@@ -6,6 +6,7 @@ import { TreeNode } from "./TreeNode";
 import { MoveHelper } from "./MoveHelper";
 import { Selection } from "./Selection";
 import { Hover } from "./Hover";
+import { TransformHelper } from "./TransformHelper";
 import type { ICustomEvent } from "@/designable/shared";
 import { cancelIdle, isFn, requestIdle } from "@/designable/shared";
 
@@ -25,7 +26,7 @@ export class Operation {
 
   hover: Hover;
 
-  // transformHelper: TransformHelper
+  transformHelper: TransformHelper;
 
   moveHelper: MoveHelper;
 
@@ -52,9 +53,9 @@ export class Operation {
     this.moveHelper = new MoveHelper({
       operation: this,
     });
-    // this.transformHelper = new TransformHelper({
-    //     operation: this,
-    // })
+    this.transformHelper = new TransformHelper({
+      operation: this,
+    });
     this.selection.select(this.tree);
   }
 
