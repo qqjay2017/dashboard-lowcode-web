@@ -4,7 +4,7 @@ import DeviationOfCargo from ".";
 import type { DnFC } from "@/designable/react";
 import { createBehavior, createResource } from "@/designable/core";
 import { getAllQueryKeys } from "@/schema-component/shared";
-import { createFieldSchema } from "@/designable/Field";
+import { createFieldSchema } from "@/schema-component/core";
 import { rs } from "@/utils";
 
 export const FormilyDeviationOfCargo: DnFC<any> = connect(DeviationOfCargo);

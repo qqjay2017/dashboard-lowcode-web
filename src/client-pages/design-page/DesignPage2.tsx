@@ -1,7 +1,5 @@
 import { get } from "lodash-es";
 
-import { FormProvider } from "@formily/react";
-
 import { useMemo } from "react";
 import { createForm } from "@formily/core";
 import { useDashboardDt } from "../pages/dashboard/useDashboardDt";
@@ -13,8 +11,7 @@ import {
   useProjectSelectScope,
 } from "@/schema-component/widgets";
 
-import { Field, PositionDecorator } from "@/designable/Field";
-import SchemaComponentOptions from "@/schema-component/components/SchemaComponentOptions";
+import SchemaComponentOptions from "@/schema-component/core/SchemaComponentOptions";
 
 function DesignPage2() {
   const { data, isLoading, id } = useDashboardDt();
@@ -41,30 +38,24 @@ function DesignPage2() {
   }
 
   return (
-    <FormProvider form={form}>
-      <SchemaComponentOptions
-        components={{
-          Field,
-          PositionDecorator,
-        }}
-        scope={{
-          dashboardDt: data || {},
-          chartIdMap: (chartAll || []).reduce((memo, cur) => {
-            memo[cur.id] = {
-              ...cur,
-            };
-            return memo;
-          }, {}),
-        }}
-      >
-        <DesignEngine
-          schema={schema}
-          name={name}
-          shareURL={shareURL}
-          chartAll={chartAll}
-        />
-      </SchemaComponentOptions>
-    </FormProvider>
+    <SchemaComponentOptions
+      scope={{
+        dashboardDt: data || {},
+        chartIdMap: (chartAll || []).reduce((memo, cur) => {
+          memo[cur.id] = {
+            ...cur,
+          };
+          return memo;
+        }, {}),
+      }}
+    >
+      <DesignEngine
+        schema={schema}
+        name={name}
+        shareURL={shareURL}
+        chartAll={chartAll}
+      />
+    </SchemaComponentOptions>
   );
 }
 

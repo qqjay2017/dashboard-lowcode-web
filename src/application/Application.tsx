@@ -35,7 +35,7 @@ import {
 } from "@/dashboard-themes/global-theme";
 
 import { CSSVariableProvider } from "@/dashboard-themes/css-variable";
-import SchemaComponentOptions from "@/schema-component/components/SchemaComponentOptions";
+import SchemaComponentOptions from "@/schema-component/core/SchemaComponentOptions";
 
 setValidateLanguage("zh-CN");
 export type ComponentAndProps<T = any> = [ComponentType, T];

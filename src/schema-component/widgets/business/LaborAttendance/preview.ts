@@ -3,7 +3,7 @@ import { LaborAttendance } from "./LaborAttendance";
 import type { DnFC } from "@/designable/react";
 import { createBehavior, createResource } from "@/designable/core";
 import { rs } from "@/utils";
-import { createFieldSchema } from "@/designable/Field";
+import { createFieldSchema } from "@/schema-component/core";
 
 export const FormilyLaborAttendance: DnFC<any> = connect(LaborAttendance);
 

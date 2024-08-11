@@ -3,8 +3,9 @@ import Weighbridge from ".";
 import type { DnFC } from "@/designable/react";
 import { createBehavior, createResource } from "@/designable/core";
 import { getAllQueryKeys } from "@/schema-component/shared";
-import { createFieldSchema } from "@/designable/Field";
+
 import { rs } from "@/utils";
+import { createFieldSchema } from "@/schema-component/core";
 
 export const FormilyWeighbridge: DnFC<any> = connect(Weighbridge);
 

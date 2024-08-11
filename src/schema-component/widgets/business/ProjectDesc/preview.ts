@@ -3,7 +3,7 @@ import { ProjectDesc } from "./ProjectDesc";
 import type { DnFC } from "@/designable/react";
 import { createBehavior, createResource } from "@/designable/core";
 import { rs } from "@/utils";
-import { createFieldSchema } from "@/designable/Field";
+import { createFieldSchema } from "@/schema-component/core";
 import mapGlobalProps from "@/schema-component/shared/mapGlobalProps";
 import { getAllQueryKeys } from "@/schema-component/shared";
 

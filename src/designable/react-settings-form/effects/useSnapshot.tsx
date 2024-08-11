@@ -7,7 +7,7 @@ export function useSnapshot(operation: Operation) {
   onFieldInputValueChange("*", (field) => {
     clearTimeout(timeRequest);
     timeRequest = setTimeout(() => {
-      operation.snapshot("update:node:props");
+      // operation.snapshot("update:node:props");
     }, 1000);
   });
 }

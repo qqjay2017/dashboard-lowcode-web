@@ -1,6 +1,3 @@
-import type { ISchemaComponentOptionsProps } from "@/schema-component/components/SchemaComponentOptions";
-import SchemaComponentOptions from "@/schema-component/components/SchemaComponentOptions";
-
 import {
   AiotMonitorBlock,
   ChartTemplate,
@@ -27,6 +24,8 @@ import DeviationOfCargo from "@/schema-component/widgets/zhdg/deviation-of-cargo
 import ClassicFrame6 from "@/schema-component/widgets/frame/classic-frame6";
 import ProjectSelect from "@/schema-component/widgets/query/ProjectSelect";
 import WeightDeviationTrend from "@/schema-component/widgets/zhdg/weight-deviation-trend";
+import type { ISchemaComponentOptionsProps } from "@/schema-component/types";
+import SchemaComponentOptions from "@/schema-component/core/SchemaComponentOptions";
 
 interface IPreviewSchemaComponentProps extends ISchemaComponentOptionsProps {}
 

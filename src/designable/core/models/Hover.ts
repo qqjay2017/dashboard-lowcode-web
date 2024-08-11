@@ -1,32 +1,31 @@
-import { action, define, observable } from '@formily/reactive'
-import { HoverNodeEvent } from '../events'
-import type { Operation } from './Operation'
-import type { TreeNode } from './TreeNode'
+import { action, define, observable } from "@formily/reactive";
+import { HoverNodeEvent } from "../events";
+import type { Operation } from "./Operation";
+import type { TreeNode } from "./TreeNode";
 
 export interface IHoverProps {
-  operation: Operation
+  operation: Operation;
 }
 
 export class Hover {
-  node: TreeNode = null
-  operation: Operation
+  node: TreeNode = null;
+  operation: Operation;
   constructor(props?: IHoverProps) {
-    this.operation = props?.operation
-    this.makeObservable()
+    this.operation = props?.operation;
+    this.makeObservable();
   }
 
   setHover(node?: TreeNode) {
     if (node) {
-      this.node = node
+      this.node = node;
+    } else {
+      this.node = null;
     }
-    else {
-      this.node = null
-    }
-    this.trigger()
+    this.trigger();
   }
 
   clear() {
-    this.node = null
+    this.node = null;
   }
 
   trigger() {
@@ -35,8 +34,8 @@ export class Hover {
         new HoverNodeEvent({
           target: this.operation.tree,
           source: this.node,
-        }),
-      )
+        })
+      );
     }
   }
 
@@ -45,6 +44,6 @@ export class Hover {
       node: observable.ref,
       setHover: action,
       clear: action,
-    })
+    });
   }
 }

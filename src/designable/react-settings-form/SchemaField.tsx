@@ -27,7 +27,6 @@ import {
   BackgroundImageInput,
   BackgroundStyleSetter,
   BorderRadiusStyleSetter,
-  BorderStyleSetter,
   BoxShadowStyleSetter,
   BoxStyleSetter,
   CollapseItem,
@@ -37,7 +36,6 @@ import {
   CornerInput,
   DecoratorPaddingFormItem,
   DepFieldSetFormItem,
-  DisplayStyleSetter,
   DrawerSetter,
   FlexStyleSetter,
   FontStyleSetter,
@@ -67,9 +65,9 @@ const SchemaField2: FC<any> = createSchemaField({
     BackgroundImageInput,
     BackgroundStyleSetter,
     BoxStyleSetter,
-    BorderStyleSetter,
+
     BorderRadiusStyleSetter,
-    DisplayStyleSetter,
+
     BoxShadowStyleSetter,
     FlexStyleSetter,
     FontStyleSetter,

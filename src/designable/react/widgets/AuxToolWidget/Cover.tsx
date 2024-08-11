@@ -1,16 +1,14 @@
-import React, { Fragment } from "react";
-import { observer } from "@formily/reactive-react";
-import cls from "classnames";
-import { css } from "@emotion/css";
+import React from "react";
+import { observer } from "@formily/react";
+import { css, cx } from "@emotion/css";
 import {
   useCursor,
   useMoveHelper,
   useValidNodeOffsetRect,
   useViewport,
 } from "../../hooks";
-import { ClosestPosition, CursorStatus } from "@/designable/core";
 import type { TreeNode } from "@/designable/core";
-import { cx } from "@/utils";
+import { CursorStatus } from "@/designable/core";
 
 interface ICoverRectProps {
   node: TreeNode;
@@ -18,16 +16,7 @@ interface ICoverRectProps {
   dropping?: boolean;
 }
 
-const dragStyle = css`
-  background-color: var(--dn-aux-cover-rect-dragging-color);
-`;
-
-const dropStyle = css`
-  background-color: var(--dn-aux-cover-rect-dropping-color);
-`;
-
 const CoverRect: React.FC<ICoverRectProps> = (props) => {
-  const prefix = "aux-cover-rect";
   const rect = useValidNodeOffsetRect(props.node);
   const createCoverStyle = () => {
     const baseStyle: React.CSSProperties = {
@@ -47,9 +36,20 @@ const CoverRect: React.FC<ICoverRectProps> = (props) => {
   return (
     <div
       className={cx(
-        prefix,
-        props.dragging && dragStyle,
-        props.dropping && dropStyle
+        props.dragging &&
+          css`
+            background-color: var(
+              --dn-aux-cover-rect-dragging-color,
+              rgba(24, 144, 255, 0.26)
+            );
+          `,
+        props.dropping &&
+          css`
+            background-color: var(
+              --dn-aux-cover-rect-dropping-color,
+              rgba(24, 144, 255, 0.34)
+            );
+          `
       )}
       style={createCoverStyle()}
     ></div>
@@ -64,10 +64,7 @@ export const Cover = observer(() => {
     if (
       !viewportMoveHelper.touchNode ||
       !viewportMoveHelper.closestNode ||
-      !viewportMoveHelper.closestNode?.allowAppend(
-        viewportMoveHelper.dragNodes
-      ) ||
-      viewportMoveHelper.viewportClosestDirection !== ClosestPosition.Inner
+      !viewportMoveHelper.closestNode?.allowAppend(viewportMoveHelper.dragNodes)
     ) {
       return null;
     }
@@ -90,5 +87,3 @@ export const Cover = observer(() => {
     </>
   );
 });
-
-Cover.displayName = "Cover";

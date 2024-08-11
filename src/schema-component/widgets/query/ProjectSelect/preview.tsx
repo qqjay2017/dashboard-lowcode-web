@@ -4,7 +4,7 @@ import ProjectSelect from "./index";
 import type { DnFC } from "@/designable/react";
 import { createBehavior, createResource } from "@/designable/core";
 import { rs } from "@/utils";
-import { createFieldSchema } from "@/designable/Field";
+import { createFieldSchema } from "@/schema-component/core";
 
 export const FormilyProjectSelect: DnFC<any> = connect(ProjectSelect);
 

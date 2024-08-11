@@ -3,7 +3,7 @@ import { ChartTemplate } from "./ChartTemplate";
 import type { DnFC } from "@/designable/react";
 import { createBehavior, createResource } from "@/designable/core";
 
-import { createFieldSchema } from "@/designable/Field";
+import { createFieldSchema } from "@/schema-component/core";
 import { getAllQueryKeys } from "@/schema-component/shared";
 
 export const FormilyChartTemplate: DnFC<any> = connect(ChartTemplate);

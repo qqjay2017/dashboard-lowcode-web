@@ -8,12 +8,12 @@ export * from "./ValueInput";
 
 export * from "./DrawerSetter";
 export * from "./BoxStyleSetter";
-export * from "./BorderStyleSetter";
+
 export * from "./BorderRadiusStyleSetter";
 export * from "./BackgroundStyleSetter";
 export * from "./BoxShadowStyleSetter";
 export * from "./FontStyleSetter";
-export * from "./DisplayStyleSetter";
+
 export * from "./FlexStyleSetter";
 export * from "./FoldItem";
 export * from "./CollapseItem";

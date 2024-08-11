@@ -3,7 +3,7 @@ import { Header5 } from "./Header5";
 import { createBehavior, createResource } from "@/designable/core";
 import type { DnFC } from "@/designable/react";
 import { rs } from "@/utils";
-import { createFieldSchema } from "@/designable/Field";
+import { createFieldSchema } from "@/schema-component/core";
 
 export const FormilyHeader5: DnFC<any> = connect(Header5);
 

@@ -1,6 +1,6 @@
-import { AbstractCursorEvent } from './AbstractCursorEvent'
-import type { ICustomEvent } from '@/designable/shared'
+import { AbstractCursorEvent } from "./AbstractCursorEvent";
+import type { ICustomEvent } from "@/designable/shared";
 
 export class DragStopEvent extends AbstractCursorEvent implements ICustomEvent {
-  type = 'drag:stop'
+  type = "drag:stop";
 }

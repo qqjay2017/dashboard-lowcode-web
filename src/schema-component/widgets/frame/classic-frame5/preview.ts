@@ -3,7 +3,7 @@ import { ClassicFrame5 } from "./ClassicFrame5";
 import type { DnFC } from "@/designable/react";
 import { createBehavior, createResource } from "@/designable/core";
 import { rs } from "@/utils";
-import { createFieldSchema } from "@/designable/Field";
+import { createFieldSchema } from "@/schema-component/core";
 
 export const FormilyClassicFrame5: DnFC<any> = connect(ClassicFrame5);
 

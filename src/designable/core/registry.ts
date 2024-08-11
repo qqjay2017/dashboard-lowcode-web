@@ -1,18 +1,14 @@
-import { Path } from '@formily/path'
 import { observable } from '@formily/reactive'
-import { each } from '../shared'
 import type {
   IBehavior,
   IBehaviorLike,
   IDesignerBehaviorStore,
   IDesignerBehaviors,
-  IDesignerIcons,
-  IDesignerIconsStore,
-
 } from './types'
 
 import { isBehaviorHost, isBehaviorList } from './externals'
 import type { TreeNode } from './models'
+import { each } from '@/designable/shared'
 
 function reSortBehaviors(target: IBehavior[], sources: IDesignerBehaviors) {
   const findTargetBehavior = (behavior: IBehavior) => target.includes(behavior)
@@ -50,10 +46,8 @@ function reSortBehaviors(target: IBehavior[], sources: IDesignerBehaviors) {
 
 const DESIGNER_BEHAVIORS_STORE: IDesignerBehaviorStore = observable.ref([])
 
-const DESIGNER_ICONS_STORE: IDesignerIconsStore = observable.ref({})
-
 const DESIGNER_GlobalRegistry = {
-  // observable
+
   setDesignerBehaviors: (behaviors: IBehaviorLike[]) => {
     DESIGNER_BEHAVIORS_STORE.value = behaviors.reduce<IBehavior[]>(
       (buf, behavior) => {
@@ -75,12 +69,8 @@ const DESIGNER_GlobalRegistry = {
     )
   },
 
-  getDesignerIcon: (name: string) => {
-    return DESIGNER_ICONS_STORE[name]
-  },
-
-  registerDesignerIcons: (map: IDesignerIcons) => {
-    Object.assign(DESIGNER_ICONS_STORE, map)
+  getDesignerMessage: (token: string) => {
+    return token
   },
 
   registerDesignerBehaviors: (...packages: IDesignerBehaviors[]) => {

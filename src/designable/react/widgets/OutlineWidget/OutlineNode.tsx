@@ -12,11 +12,7 @@ import {
 import { NodeTitleWidget } from "../NodeTitleWidget";
 import { NodeContext } from "./context";
 import IconWidget from "@/designable/react/widgets/IconWidget";
-import {
-  ClosestPosition,
-  CursorStatus,
-  DragMoveEvent,
-} from "@/designable/core";
+import { CursorStatus, DragMoveEvent } from "@/designable/core";
 import type { TreeNode } from "@/designable/core";
 import { isFn } from "@/designable/shared";
 import { cn } from "@/utils";
@@ -43,13 +39,10 @@ export const OutlineTreeNode: React.FC<IOutlineTreeNodeProps> = observer(
     useEffect(() => {
       return engine.subscribeTo(DragMoveEvent, () => {
         const closestNodeId = moveHelper?.closestNode?.id;
-        const closestDirection = moveHelper?.outlineClosestDirection;
+
         const id = node.id;
         if (!ref.current) return;
-        if (
-          closestNodeId === id &&
-          closestDirection === ClosestPosition.Inner
-        ) {
+        if (closestNodeId === id) {
           if (!ref.current.classList.contains("droppable")) {
             ref.current.classList.add("droppable");
           }
@@ -76,17 +69,10 @@ export const OutlineTreeNode: React.FC<IOutlineTreeNodeProps> = observer(
 
     useEffect(() => {
       return autorun(() => {
-        const selectedIds = selection?.selected || [];
         const id = node.id;
         if (!ref.current) return;
-        if (selectedIds.includes(id)) {
-          if (!ref.current.classList.contains("selected")) {
-            ref.current.classList.add("selected");
-          }
-        } else {
-          if (ref.current.classList.contains("selected")) {
-            ref.current.classList.remove("selected");
-          }
+        if (ref.current.classList.contains("selected")) {
+          ref.current.classList.remove("selected");
         }
         if (
           cursor.status === CursorStatus.Dragging &&

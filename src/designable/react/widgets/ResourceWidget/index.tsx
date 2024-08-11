@@ -41,9 +41,7 @@ export const ResourceWidget: React.FC<IResourceWidgetProps> = observer(
           ></div>
 
           <span className={`${prefix}-item-text`}>
-            <TextWidget>
-              {title || node.children[0]?.getMessage("title")}
-            </TextWidget>
+            <TextWidget>{title}</TextWidget>
           </span>
         </div>
       );

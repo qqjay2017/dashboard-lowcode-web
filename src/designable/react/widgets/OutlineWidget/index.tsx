@@ -2,9 +2,9 @@ import React, { useLayoutEffect, useRef } from "react";
 
 import { observer } from "@formily/reactive-react";
 import { css } from "@emotion/css";
-import { useOutline, useTree, useWorkbench } from "../../hooks";
+import { useTree, useWorkbench } from "../../hooks";
 import { OutlineTreeNode } from "./OutlineNode";
-import { Insertion } from "./Insertion";
+
 import { NodeContext } from "./context";
 import type { TreeNode, Viewport } from "@/designable/core";
 import { globalThisPolyfill } from "@/designable/shared";
@@ -26,23 +26,10 @@ export const OutlineTreeWidget: React.FC<IOutlineTreeWidgetProps> = observer(
     const current = workbench?.activeWorkspace || workbench?.currentWorkspace;
     const workspaceId = current?.id;
     const tree = useTree(workspaceId);
-    const outline = useOutline(workspaceId);
-    const outlineRef = useRef<Viewport>();
-    useLayoutEffect(() => {
-      if (!workspaceId) return;
-      if (outlineRef.current && outlineRef.current !== outline) {
-        outlineRef.current.onUnmount();
-      }
-      if (ref.current && outline) {
-        outline.onMount(ref.current, globalThisPolyfill);
-      }
-      outlineRef.current = outline;
-      return () => {
-        outline.onUnmount();
-      };
-    }, [workspaceId, outline]);
 
-    if (!outline || !workspaceId) return null;
+    const outlineRef = useRef<Viewport>();
+
+    if (!workspaceId) return null;
     return (
       <NodeContext.Provider value={{ renderActions, renderTitle }}>
         <div
