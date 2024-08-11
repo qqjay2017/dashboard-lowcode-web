@@ -70,6 +70,7 @@ export const Viewport = observer(
             padding-bottom: 0;
             scrollbar-color: rgba(144, 146, 152, 0.3) transparent;
             scrollbar-width: thin;
+            transition: opacity 1s;
           `
         )}
         style={{
