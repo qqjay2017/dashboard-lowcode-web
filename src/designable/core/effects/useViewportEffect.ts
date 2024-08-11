@@ -8,7 +8,6 @@ export function useViewportEffect(engine: Engine) {
     const viewport = currentWorkspace.viewport;
 
     if (viewport.matchViewport(event.data.target)) {
-      console.log("digestViewportdigestViewport");
       viewport.digestViewport();
     }
   });

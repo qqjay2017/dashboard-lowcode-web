@@ -169,16 +169,9 @@ export function useDragDropEffect(engine: Engine) {
           return node;
         }
       );
-      console.log(newNodes, event, "newNodes");
-
-      console.log(clientX - rect.left, "left", clientY - rect.top, "top");
-      closestNode.append(...newNodes);
-      // TODO  放置后选择
-      // selection.batchSafeSelect(
-      //     closestNode.append(
-      //         ...TreeNode.filterDroppable(dragNodes, closestNode)
-      //     )
-      // )
+      const selection = operation.selection;
+      const appendedItem = closestNode.append(...newNodes);
+      selection && selection.batchSafeSelect(appendedItem);
       moveHelper.dragDrop({ dropNode: closestNode });
     }
 

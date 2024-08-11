@@ -52,6 +52,8 @@ export const Viewport = observer(
       scrollContainer.current.scrollLeft =
         scrollContainer.current.scrollWidth / 2 -
         scrollContainer.current.clientWidth / 2;
+
+      viewport.digestViewport();
     }, [viewport, viewport.designScale]);
 
     return (
