@@ -13,6 +13,8 @@ import { Engine, TreeNode } from "./models";
 import {
   DragDropDriver,
   MouseClickDriver,
+  MouseMoveDriver,
+  ViewportResizeDriver,
   ViewportScrollDriver,
 } from "./drivers";
 import {
@@ -32,7 +34,9 @@ export const DEFAULT_EFFECTS = [
 export const DEFAULT_DRIVERS = [
   DragDropDriver,
   ViewportScrollDriver,
+  ViewportResizeDriver,
   MouseClickDriver,
+  MouseMoveDriver,
 ];
 
 export function createDesigner(props: IEngineProps<Engine> = {}) {
