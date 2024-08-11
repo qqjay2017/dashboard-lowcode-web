@@ -3,7 +3,7 @@ import { Button, InputNumber, Select } from "antd";
 import { observer } from "@formily/reactive-react";
 import cls from "classnames";
 
-import { useViewport } from "../../hooks";
+import { useViewport, useWorkbench } from "../../hooks";
 import IconWidget from "@/designable/react/widgets/IconWidget";
 
 import "./styles.less";
@@ -19,6 +19,10 @@ export interface IDesignerToolsWidgetProps {
 export const DesignerToolsWidget: React.FC<IDesignerToolsWidgetProps> =
   observer((props) => {
     const viewport = useViewport();
+    const workbench = useWorkbench();
+    //   if (workbench.type === "DESIGNABLE") {
+    //   return render();
+    // }
     const use = props.use || ["HISTORY", "CURSOR", "SCREEN_TYPE"];
 
     const prefix = "dn-designer-tools";
@@ -49,6 +53,9 @@ export const DesignerToolsWidget: React.FC<IDesignerToolsWidgetProps> =
     };
 
     const renderScaleController = () => {
+      if (workbench.type !== "DESIGNABLE") {
+        return null;
+      }
       return (
         <Select
           style={{
@@ -61,40 +68,26 @@ export const DesignerToolsWidget: React.FC<IDesignerToolsWidgetProps> =
           size="small"
           options={[
             {
-              label: "40%",
-              value: 0.4,
+              label: "25%",
+              value: 0.25,
             },
             {
               label: "50%",
               value: 0.5,
             },
             {
-              label: "60%",
-              value: 0.6,
+              label: "75%",
+              value: 0.75,
             },
-            {
-              label: "70%",
-              value: 0.7,
-            },
-            {
-              label: "80%",
-              value: 0.8,
-            },
-            {
-              label: "90%",
-              value: 0.9,
-            },
+
             {
               label: "100%",
               value: 1,
             },
+
             {
-              label: "110%",
-              value: 1.1,
-            },
-            {
-              label: "120%",
-              value: 1.2,
+              label: "125%",
+              value: 1.25,
             },
           ]}
         />

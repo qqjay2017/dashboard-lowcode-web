@@ -1,6 +1,7 @@
 import { useEffect, useMemo } from "react";
 import { FormProvider } from "@formily/react";
 import { createForm } from "@formily/core";
+
 import { Actions, Logo } from "./Logo";
 import {
   FormilyAiotMonitorBlock as AiotMonitorBlock,
@@ -32,12 +33,15 @@ import {
 
 import {
   CompositePanel,
+  CompositePanelItem,
   Designer,
   DesignerToolsWidget,
   ResourceWidget,
+  SchemaEditorWidget,
   SettingsPanel,
   StudioPanel,
   ToolbarPanel,
+  ViewPanel,
   Workbench,
   WorkspacePanel,
 } from "@/designable/react";
@@ -93,7 +97,7 @@ export function DesignEngine({
             actions={<Actions shareURL={shareURL} />}
           >
             <CompositePanel>
-              <CompositePanel.Item title="组件" icon="Component">
+              <CompositePanelItem title="组件" icon="Component">
                 <ResourceWidget
                   title="导航菜单"
                   sources={[Header1, Header5, HeaderMenu]}
@@ -117,7 +121,6 @@ export function DesignEngine({
                       elements: [
                         {
                           componentName: "Field",
-
                           componentDisplayName: chart.name,
                           props: {
                             type: "void",
@@ -171,44 +174,53 @@ export function DesignEngine({
                   title="业务-企业级驾驶舱"
                   sources={[AiotMonitorBlock, ProjectBudget]}
                 />
-              </CompositePanel.Item>
+              </CompositePanelItem>
             </CompositePanel>
             <WorkspacePanel>
               <ToolbarPanel>
                 <DesignerToolsWidget />
                 <ViewToolsWidget use={["DESIGNABLE", "JSONTREE"]} />
               </ToolbarPanel>
-              <DesignerViewportPanel>
-                <ComponentTreeWidget
-                  components={{
-                    Root,
-                    LaborAttendance,
-                    Field,
-                    Header1,
-                    Header5,
-                    HeaderMenu,
-                    ProjectDesc,
-                    AiotMonitorBlock,
-                    EmploymentCreditMng,
-                    KeyPersonArrived,
-                    ProjectAttendanceAnaTable,
-                    ProjectAttendanceDataAna,
-                    ProjectBudget,
-                    SmartHelmet,
-                    ClassicFrame,
-                    ClassicFrame5,
-                    ProjectSelect,
-                    QuarterSelect,
-                    ChartTemplate,
-                    UnprocessedWarningList,
-                    PositionDecorator,
-                    Weighbridge,
-                    DeviationOfCargo,
-                    ClassicFrame6,
-                    WeightDeviationTrend,
-                  }}
-                />
-              </DesignerViewportPanel>
+              <ViewPanel type="DESIGNABLE">
+                {() => (
+                  <DesignerViewportPanel>
+                    <ComponentTreeWidget
+                      components={{
+                        Root,
+                        LaborAttendance,
+                        Field,
+                        Header1,
+                        Header5,
+                        HeaderMenu,
+                        ProjectDesc,
+                        AiotMonitorBlock,
+                        EmploymentCreditMng,
+                        KeyPersonArrived,
+                        ProjectAttendanceAnaTable,
+                        ProjectAttendanceDataAna,
+                        ProjectBudget,
+                        SmartHelmet,
+                        ClassicFrame,
+                        ClassicFrame5,
+                        ProjectSelect,
+                        QuarterSelect,
+                        ChartTemplate,
+                        UnprocessedWarningList,
+                        PositionDecorator,
+                        Weighbridge,
+                        DeviationOfCargo,
+                        ClassicFrame6,
+                        WeightDeviationTrend,
+                      }}
+                    />
+                  </DesignerViewportPanel>
+                )}
+              </ViewPanel>
+              <ViewPanel type="JSONTREE" scrollable={false}>
+                {(tree, onChange) => (
+                  <SchemaEditorWidget tree={tree} onChange={onChange} />
+                )}
+              </ViewPanel>
             </WorkspacePanel>
             <SettingsPanel title="属性配置">
               <SettingsForm />

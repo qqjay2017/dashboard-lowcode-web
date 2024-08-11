@@ -3,6 +3,7 @@ import { Button } from "antd";
 import { observer } from "@formily/reactive-react";
 import cls from "classnames";
 
+import { css } from "@emotion/css";
 import { usePrefix, useWorkbench } from "../../hooks";
 
 import IconWidget from "../IconWidget";
@@ -28,7 +29,15 @@ const ViewToolsWidget: React.FC<IViewToolsWidget> = observer(
             }}
             size="small"
           >
-            <IconWidget infer="HTML" />
+            <IconWidget
+              infer="HTML"
+              className={
+                workbench.type === "DESIGNABLE" &&
+                css`
+                  color: #fff;
+                `
+              }
+            />
           </Button>
         )}
         {use.includes("JSONTREE") && (
@@ -39,7 +48,15 @@ const ViewToolsWidget: React.FC<IViewToolsWidget> = observer(
             }}
             size="small"
           >
-            <IconWidget infer="JSON" />
+            <IconWidget
+              infer="JSON"
+              className={
+                workbench.type === "JSONTREE" &&
+                css`
+                  color: #fff;
+                `
+              }
+            />
           </Button>
         )}
         {use.includes("MARKUP") && (

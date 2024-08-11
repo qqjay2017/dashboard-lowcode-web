@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { observer } from "@formily/reactive-react";
 import { css } from "@emotion/css";
 import { useTree, useWorkbench } from "../hooks";
-import { Viewport } from "../container";
+
 import { requestIdle } from "@/designable/shared";
 import type { ITreeNode, TreeNode, WorkbenchTypes } from "@/designable/core";
 
@@ -40,11 +40,7 @@ export const ViewPanel: React.FC<IViewPanelProps> = observer((props) => {
     });
   };
   if (workbench.type === "DESIGNABLE") {
-    return (
-      <Viewport dragTipsDirection={props.dragTipsDirection}>
-        {render()}
-      </Viewport>
-    );
+    return render();
   }
   return (
     <div

@@ -1,6 +1,7 @@
 import { css } from "@emotion/css";
 import { useState } from "react";
 
+import { message } from "antd";
 import IconWidget from "../IconWidget";
 import type { ITreeNode, TreeNode } from "@/designable/core";
 
@@ -34,6 +35,7 @@ export const SchemaEditorWidget: React.FC<ISchemaEditorWidgetProps> = (
         onClick={() => {
           try {
             props?.onChange?.(transformToTreeNode(JSON.parse(value)));
+            message.success("修改成功");
           } catch (error) {
             console.error(error, "保存json失败");
           }
@@ -47,8 +49,8 @@ export const SchemaEditorWidget: React.FC<ISchemaEditorWidgetProps> = (
             cursor: pointer;
             pointer-events: all;
             position: fixed;
-            right: 20px;
-            bottom: 20px;
+            right: 30px;
+            top: 90px;
             z-index: 999;
             border-radius: 50%;
             width: 34px;
