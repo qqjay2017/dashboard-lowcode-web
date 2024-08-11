@@ -9,3 +9,5 @@ export * from "./Workbench";
 export * from "./Workspace";
 
 export * from "./Hover";
+
+export * from "./SnapLine";

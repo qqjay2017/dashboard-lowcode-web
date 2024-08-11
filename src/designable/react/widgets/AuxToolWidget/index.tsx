@@ -5,6 +5,7 @@ import { Selection } from "./Selection";
 
 import { Cover } from "./Cover";
 import { DashedBox } from "./DashedBox";
+import { SnapLine } from "./SnapLine";
 
 function AuxToolWidget() {
   // const engine = useDesigner();
@@ -27,7 +28,8 @@ function AuxToolWidget() {
         z-index: 9998;
       `}
     >
-      {/* <SnapLine /> */}
+      {/* 吸边的线 */}
+      <SnapLine />
       <DashedBox />
       {/* Selection 是选中后的 */}
       <Selection />

@@ -2,9 +2,9 @@ import { action, define, observable } from "@formily/reactive";
 
 import type { Operation } from "./Operation";
 import { TreeNode } from "./TreeNode";
-// import type { ISnapLine } from "./SnapLine";
-// import { SnapLine } from "./SnapLine";
+
 import { CursorDragType } from "./Cursor";
+import { SnapLine } from "./SnapLine";
 import {
   Point,
   Rect,
@@ -14,8 +14,6 @@ import {
   calcDistanceOfSnapLineToEdges,
   calcEdgeLinesOfRect,
   calcElementTranslate,
-  calcSpaceBlockOfRect,
-  isEqualRect,
   isLineSegment,
 } from "@/designable/shared";
 import type { ILineSegment, IPoint, IRect, ISize } from "@/designable/shared";
@@ -56,12 +54,10 @@ export class TransformHelper {
   direction: ResizeDirection;
 
   dragNodes: TreeNode[] = [];
-  /**
-   * TODO 吸边
-   */
-  // rulerSnapLines: SnapLine[] = [];
 
-  // aroundSnapLines: SnapLine[] = [];
+  rulerSnapLines: SnapLine[] = [];
+
+  aroundSnapLines: SnapLine[] = [];
 
   viewportRectsStore: Record<string, Rect> = {};
 
@@ -230,50 +226,41 @@ export class TransformHelper {
 
   get closestSnapLines() {
     if (!this.dragging) return [];
-    // const results: SnapLine[] = [];
-    // const cursorDragNodesEdgeLines = this.cursorDragNodesEdgeLines;
-    // this.thresholdSnapLines.forEach((line) => {
-    //   const distance = calcDistanceOfSnapLineToEdges(
-    //     line,
-    //     cursorDragNodesEdgeLines
-    //   );
-    //   if (distance < TransformHelper.threshold) {
-    //     const existed = results.findIndex(
-    //       (l) =>
-    //         l.distance > distance &&
-    //         l.distance > 0 &&
-    //         l.direction === line.direction
-    //     );
-    //     if (existed > -1) {
-    //       results.splice(existed, 1);
-    //     }
-    //     results.push(line);
-    //   }
-    // });
-    // return results;
-    return [];
+    const results: SnapLine[] = [];
+    const cursorDragNodesEdgeLines = this.cursorDragNodesEdgeLines;
+
+    this.thresholdSnapLines.forEach((line) => {
+      const distance = calcDistanceOfSnapLineToEdges(
+        line,
+        cursorDragNodesEdgeLines
+      );
+
+      if (distance < TransformHelper.threshold) {
+        const existed = results.findIndex(
+          (l) =>
+            l.distance > distance &&
+            l.distance > 0 &&
+            l.direction === line.direction
+        );
+        if (existed > -1) {
+          results.splice(existed, 1);
+        }
+        results.push(line);
+      }
+    });
+
+    return results;
   }
 
   get thresholdSnapLines(): any[] {
-    // if (!this.dragging) return [];
-    // const lines: SnapLine[] = [];
-    // this.aroundSnapLines.forEach((line) => {
-    //   lines.push(line);
-    // });
-    // this.rulerSnapLines.forEach((line) => {
-    //   if (line.closest) {
-    //     lines.push(line);
-    //   }
-    // });
-    // for (const type in this.aroundSpaceBlocks) {
-    //   const block = this.aroundSpaceBlocks[type];
-    //   const line = block.snapLine;
-    //   if (line) {
-    //     lines.push(line);
-    //   }
-    // }
-    // return lines;
-    return [];
+    if (!this.dragging) return [];
+    const lines: SnapLine[] = [];
+
+    this.aroundSnapLines.forEach((line) => {
+      lines.push(line);
+    });
+
+    return lines;
   }
 
   /**
@@ -291,7 +278,6 @@ export class TransformHelper {
       maxY?: number;
     }
   ) {
-    // this.operation.workspace.viewport.designScale
     const dragStartTranslate = this.dragStartTranslateStore[node.id] ?? {
       x: 0,
       y: 0,
@@ -404,60 +390,53 @@ export class TransformHelper {
     });
   }
 
-  /**
-   * TODO
-   * @param dragNodesRect
-   */
-  calcRulerSnapLines(dragNodesRect: IRect): any[] {
-    // const edgeLines = calcEdgeLinesOfRect(dragNodesRect);
-    // return this.rulerSnapLines.map((line) => {
-    //   line.distance = calcDistanceOfSnapLineToEdges(line, edgeLines);
-    //   return line;
-    // });
-    return [];
+  calcRulerSnapLines(dragNodesRect: IRect): SnapLine[] {
+    // 算出自身的边缘线(缩放后的尺寸)
+    const edgeLines = calcEdgeLinesOfRect(dragNodesRect);
+
+    return this.rulerSnapLines.map((line) => {
+      line.distance = calcDistanceOfSnapLineToEdges(line, edgeLines);
+      return line;
+    });
   }
 
-  /**
-   * TODO
-   * @param dragNodesRect
-   * @returns
-   */
+  calcAroundSnapLines(dragNodesRect: Rect): SnapLine[] {
+    const results = [];
+    const edgeLines = calcEdgeLinesOfRect(dragNodesRect);
+    this.eachViewportNodes((refer, referRect) => {
+      if (this.dragNodes.includes(refer)) return;
+      const referLines = calcEdgeLinesOfRect(referRect);
+      const add = (line: ILineSegment) => {
+        const [distance, edge] = calcClosestEdges(line, edgeLines);
+        const combined = calcCombineSnapLineSegment(line, edge);
+        if (distance < TransformHelper.threshold) {
+          if (this.snapping && distance !== 0) return;
+          const snapLine = new SnapLine(this, {
+            ...combined,
+            distance,
+          });
+          const edge = snapLine.snapEdge(dragNodesRect);
+          if (this.type === "translate") {
+            results.push(snapLine);
+          } else if (edge !== "hc" && edge !== "vc") {
+            results.push(snapLine);
+          }
+        }
+      };
+      referLines.h.forEach(add);
+      referLines.v.forEach(add);
+    });
 
-  calcAroundSnapLines(dragNodesRect: Rect): any[] {
-    return [];
-    // const results = [];
-    // const edgeLines = calcEdgeLinesOfRect(dragNodesRect);
-    // this.eachViewportNodes((refer, referRect) => {
-    //   if (this.dragNodes.includes(refer)) return;
-    //   const referLines = calcEdgeLinesOfRect(referRect);
-    //   const add = (line: ILineSegment) => {
-    //     const [distance, edge] = calcClosestEdges(line, edgeLines);
-    //     const combined = calcCombineSnapLineSegment(line, edge);
-    //     if (distance < TransformHelper.threshold) {
-    //       if (this.snapping && distance !== 0) return;
-    //       const snapLine = new SnapLine(this, {
-    //         ...combined,
-    //         distance,
-    //       });
-    //       const edge = snapLine.snapEdge(dragNodesRect);
-    //       if (this.type === "translate") {
-    //         results.push(snapLine);
-    //       } else if (edge !== "hc" && edge !== "vc") {
-    //         results.push(snapLine);
-    //       }
-    //     }
-    //   };
-    //   referLines.h.forEach(add);
-    //   referLines.v.forEach(add);
-    // });
-    // return results;
+    return results;
   }
 
   calcViewportNodes() {
     this.tree.eachTree((node) => {
       const topRect = node.getValidElementRect();
       const offsetRect = node.getValidElementOffsetRect();
+
       if (this.dragNodes.includes(node)) return;
+
       if (this.viewport.isRectInViewport(topRect)) {
         this.viewportRectsStore[node.id] = offsetRect;
       }
@@ -488,11 +467,14 @@ export class TransformHelper {
 
     this.snapped = false;
     this.snapping = false;
-    for (const line of this.closestSnapLines) {
-      line.translate(node, translate);
-      this.snapping = true;
-      this.snapped = true;
+    if (this.viewport.designScale === 1) {
+      for (const line of this.closestSnapLines) {
+        line.translate(node, translate);
+        this.snapping = true;
+        this.snapped = true;
+      }
     }
+
     handler(translate);
     if (this.snapping) {
       this.dragMove();
@@ -506,11 +488,11 @@ export class TransformHelper {
 
     this.snapped = false;
     this.snapping = false;
-    // for (const line of this.closestSnapLines) {
-    //   line.resize(node, rect);
-    //   this.snapping = true;
-    //   this.snapped = true;
-    // }
+    for (const line of this.closestSnapLines) {
+      line.resize(node, rect);
+      this.snapping = true;
+      this.snapped = true;
+    }
     handler(rect);
     if (this.snapping) {
       this.dragMove();
@@ -518,39 +500,24 @@ export class TransformHelper {
     }
   }
 
-  // rotate(node: TreeNode, handler: (rotate: number) => void) {}
-
-  // scale(node: TreeNode, handler: (scale: number) => void) {}
-
-  // round(node: TreeNode, handler: (round: number) => void) {}
-
   findRulerSnapLine(id: string) {
-    return null;
-    // return this.rulerSnapLines.find((item) => item.id === id);
+    return this.rulerSnapLines.find((item) => item.id === id);
   }
 
-  /**
-   * TODO
-   * @param line
-   */
-  addRulerSnapLine(line: any) {
-    // if (!isLineSegment(line)) return;
-    // if (!this.findRulerSnapLine(line.id)) {
-    //   this.rulerSnapLines.push(new SnapLine(this, { ...line, type: "ruler" }));
-    // }
+  addRulerSnapLine(line: SnapLine) {
+    if (!isLineSegment(line)) return;
+    if (!this.findRulerSnapLine(line.id)) {
+      this.rulerSnapLines.push(new SnapLine(this, { ...line, type: "ruler" }));
+    }
   }
 
-  /**
-   * TODO
-   * @param id
-   */
   removeRulerSnapLine(id: string) {
-    // const matchedLineIndex = this.rulerSnapLines.findIndex(
-    //   (item) => item.id === id
-    // );
-    // if (matchedLineIndex > -1) {
-    //   this.rulerSnapLines.splice(matchedLineIndex, 1);
-    // }
+    const matchedLineIndex = this.rulerSnapLines.findIndex(
+      (item) => item.id === id
+    );
+    if (matchedLineIndex > -1) {
+      this.rulerSnapLines.splice(matchedLineIndex, 1);
+    }
   }
 
   dragStart(props: ITransformHelperDragStartProps) {
@@ -578,6 +545,7 @@ export class TransformHelper {
         this.cursor.setDragType(CursorDragType.Translate);
       }
     }
+
     if (this.dragging) {
       this.calcViewportNodes();
     }
@@ -587,15 +555,19 @@ export class TransformHelper {
     if (!this.dragging) return;
     this.draggingNodesRect = null;
     this.draggingNodesRect = this.dragNodesRect;
-    // this.rulerSnapLines = this.calcRulerSnapLines(this.dragNodesRect);
-    // this.aroundSnapLines = this.calcAroundSnapLines(this.dragNodesRect);
+    if (this.viewport.designScale === 1) {
+      this.aroundSnapLines = this.calcAroundSnapLines(this.dragNodesRect);
+    } else {
+      this.aroundSnapLines = [];
+    }
   }
 
   dragEnd() {
     this.dragging = false;
     this.viewportRectsStore = {};
     this.dragStartTranslateStore = {};
-    // this.aroundSnapLines = [];
+    this.aroundSnapLines = [];
+    this.rulerSnapLines = [];
     this.draggingNodesRect = null;
 
     this.dragStartNodesRect = null;
@@ -609,12 +581,10 @@ export class TransformHelper {
       dragging: observable.ref,
       snapping: observable.ref,
       dragNodes: observable.ref,
-      // aroundSnapLines: observable.ref,
-
-      // rulerSnapLines: observable.shallow,
+      aroundSnapLines: observable.ref,
+      rulerSnapLines: observable.shallow,
       closestSnapLines: observable.computed,
       thresholdSnapLines: observable.computed,
-
       cursor: observable.computed,
       cursorPosition: observable.computed,
       cursorOffset: observable.computed,

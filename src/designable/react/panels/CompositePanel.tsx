@@ -179,9 +179,7 @@ export const CompositePanel = observer(
             flex-shrink: 0;
             display: flex;
             position: relative;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
+
             user-select: none;
             z-index: 2;
           `

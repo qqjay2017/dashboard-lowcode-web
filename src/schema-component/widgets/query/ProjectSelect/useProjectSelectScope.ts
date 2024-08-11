@@ -24,10 +24,6 @@ export function useProjectSelectScope() {
     firstProject = get(data, "table.rows[0]", null);
   }
 
-  /**
-   * TODO
-   * 这个effect待测试
-   */
   useEffect(() => {
     if (isFetched) {
       if (firstProject && firstProject.id) {

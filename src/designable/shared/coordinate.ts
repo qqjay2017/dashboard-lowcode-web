@@ -151,6 +151,7 @@ export function getRectPoints(source: IRect) {
 
 export function isRectInRect(target: IRect, source: IRect) {
   const [p1, p2, p3, p4] = getRectPoints(target);
+
   return (
     isPointInRect(p1, source, false) &&
     isPointInRect(p2, source, false) &&
@@ -566,19 +567,29 @@ export function calcOffsetOfSnapLineSegmentToEdge(
   return { x: 0, y: calcMinDistanceValue(edges.y, line.start.y) - current.y };
 }
 
+/**
+ *
+ * @param line 别人的边缘rect
+ * @param edges 自身的边缘rect
+ * @returns
+ */
+
 export function calcDistanceOfSnapLineToEdges(
   line: ILineSegment,
   edges: IRectEdgeLines
 ) {
   let distance = Infinity;
   if (line?.start?.y === line?.end?.y) {
+    // h
     edges.h.forEach((target) => {
       const _distance = Math.abs(target.start.y - line.start.y);
+
       if (_distance < distance) {
         distance = _distance;
       }
     });
   } else if (line?.start?.x === line?.end?.x) {
+    // v
     edges.v.forEach((target) => {
       const _distance = Math.abs(target.start.x - line.start.x);
       if (_distance < distance) {
@@ -595,6 +606,9 @@ export function calcCombineSnapLineSegment(
   target: ILineSegment,
   source: ILineSegment
 ): ILineSegment {
+  if (!target || !source) {
+    return null;
+  }
   if (target.start.x === target.end.x) {
     return new LineSegment(
       new Point(
@@ -620,16 +634,80 @@ export function calcCombineSnapLineSegment(
   );
 }
 
+function isXClosed(startX, endX, lineStartX, lineEndX) {
+  if (
+    startX === undefined ||
+    endX === undefined ||
+    lineStartX === undefined ||
+    lineEndX === undefined
+  ) {
+    return false;
+  }
+  const min = Math.min(
+    Math.abs(startX - lineStartX),
+    Math.abs(endX - lineEndX)
+  );
+
+  if (min <= 6) {
+    console.log(
+      startX,
+      endX,
+      lineStartX,
+      lineEndX,
+      "startX, endX, lineStartX, lineEndX"
+    );
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function isYClosed(startX, endX, lineStartX, lineEndX) {
+  if (
+    startX === undefined ||
+    endX === undefined ||
+    lineStartX === undefined ||
+    lineEndX === undefined
+  ) {
+    return false;
+  }
+  const min = Math.min(
+    Math.abs(startX - lineStartX),
+    Math.abs(endX - lineEndX)
+  );
+
+  if (min <= 6) {
+    console.log(min, "minminmin");
+    console.log(
+      startX,
+      endX,
+      lineStartX,
+      lineEndX,
+      "startY, endY, lineStartY, lineEndY"
+    );
+    return true;
+  } else {
+    return false;
+  }
+}
+
 export function calcClosestEdges(
   line: ILineSegment,
   edges: IRectEdgeLines
 ): [number, ILineSegment] {
   let result: ILineSegment;
-  let distance = Infinity;
+  let distance = 30;
   if (line?.start?.y === line?.end?.y) {
     edges.h.forEach((target) => {
       const _distance = Math.abs(target.start.y - line.start.y);
       if (_distance < distance) {
+        console.log(
+          target.start.y - line.start.y,
+          target.start.y,
+          line.start.y,
+          "target.start.y - line.start.y"
+        );
+        console.log(_distance, "_distance1");
         distance = _distance;
         result = target;
       }
@@ -638,6 +716,7 @@ export function calcClosestEdges(
     edges.v.forEach((target) => {
       const _distance = Math.abs(target.start.x - line.start.x);
       if (_distance < distance) {
+        console.log(_distance, "_distance2");
         distance = _distance;
         result = target;
       }

@@ -204,10 +204,12 @@ export class Viewport {
 
   isRectInViewport(rect: IRect) {
     if (!this.rect) return false;
-    if (!this.containsElement(document.elementFromPoint(rect.x, rect.y))) {
-      return false;
-    }
-    return isRectInRect(rect, this.rect);
+    return true;
+    // if (!this.containsElement(document.elementFromPoint(rect.x, rect.y))) {
+    //   console.log("!containsElement");
+    //   return false;
+    // }
+    // return isRectInRect(rect, this.rect);
   }
 
   findElementById(id: string): HTMLElement {
@@ -343,7 +345,7 @@ export class Viewport {
     );
   }
 
-  // 相对于页面
+  // 相对于画布
   getElementRectById(id: string) {
     const elements = this.findElementsById(id);
     const rect = calcBoundingRect(
