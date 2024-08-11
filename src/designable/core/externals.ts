@@ -1,17 +1,43 @@
-import { untracked } from '@formily/reactive'
-import { isArr } from '../shared'
-import type { IBehavior, IBehaviorCreator, IBehaviorHost, IEngineProps, IResource, IResourceCreator, IResourceHost } from './types'
-import { Engine, TreeNode } from './models'
-import { DragDropDriver, ViewportScrollDriver } from './drivers'
-import { useCursorEffect, useDragDropEffect, useViewportEffect } from './effects'
+import { untracked } from "@formily/reactive";
+import { isArr } from "../shared";
+import type {
+  IBehavior,
+  IBehaviorCreator,
+  IBehaviorHost,
+  IEngineProps,
+  IResource,
+  IResourceCreator,
+  IResourceHost,
+} from "./types";
+import { Engine, TreeNode } from "./models";
+import {
+  DragDropDriver,
+  MouseClickDriver,
+  ViewportScrollDriver,
+} from "./drivers";
+import {
+  useCursorEffect,
+  useDragDropEffect,
+  useSelectionEffect,
+  useViewportEffect,
+} from "./effects";
 
-export const DEFAULT_EFFECTS = [useDragDropEffect, useViewportEffect, useCursorEffect]
+export const DEFAULT_EFFECTS = [
+  useDragDropEffect,
+  useViewportEffect,
+  useCursorEffect,
+  useSelectionEffect,
+];
 
-export const DEFAULT_DRIVERS = [DragDropDriver, ViewportScrollDriver]
+export const DEFAULT_DRIVERS = [
+  DragDropDriver,
+  ViewportScrollDriver,
+  MouseClickDriver,
+];
 
 export function createDesigner(props: IEngineProps<Engine> = {}) {
-  const drivers = props.drivers || []
-  const effects = props.effects || []
+  const drivers = props.drivers || [];
+  const effects = props.effects || [];
   //   const shortcuts = props.shortcuts || [];
   return untracked(
     () =>
@@ -20,18 +46,18 @@ export function createDesigner(props: IEngineProps<Engine> = {}) {
         effects: [...effects, ...DEFAULT_EFFECTS],
         drivers: [...drivers, ...DEFAULT_DRIVERS],
         // shortcuts: [...shortcuts, ...DEFAULT_SHORTCUTS],
-      }),
-  )
+      })
+  );
 }
 export function isResourceHost(val: any): val is IResourceHost {
-  return val?.Resource && isResourceList(val.Resource)
+  return val?.Resource && isResourceList(val.Resource);
 }
 export function isResource(val: any): val is IResource {
-  return val?.node && !!val.node.isSourceNode && val.node instanceof TreeNode
+  return val?.node && !!val.node.isSourceNode && val.node instanceof TreeNode;
 }
 
 export function isResourceList(val: any): val is IResource[] {
-  return Array.isArray(val) && val.every(isResource)
+  return Array.isArray(val) && val.every(isResource);
 }
 
 export function createResource(...sources: IResourceCreator[]): IResource[] {
@@ -39,38 +65,40 @@ export function createResource(...sources: IResourceCreator[]): IResource[] {
     return buf.concat({
       ...source,
       node: new TreeNode({
-        componentName: '$$ResourceNode$$',
+        componentName: "$$ResourceNode$$",
         isSourceNode: true,
         children: source.elements || [],
       }),
-    })
-  }, [])
+    });
+  }, []);
 }
 
-export function createBehavior(...behaviors: Array<IBehaviorCreator | IBehaviorCreator[]>): IBehavior[] {
+export function createBehavior(
+  ...behaviors: Array<IBehaviorCreator | IBehaviorCreator[]>
+): IBehavior[] {
   return behaviors.reduce((buf: any[], behavior) => {
-    if (isArr(behavior))
-      return buf.concat(createBehavior(...behavior))
-    const { selector } = behavior || {}
-    if (!selector)
-      return buf
-    if (typeof selector === 'string') {
-      behavior.selector = node => node.componentName === selector
+    if (isArr(behavior)) return buf.concat(createBehavior(...behavior));
+    const { selector } = behavior || {};
+    if (!selector) return buf;
+    if (typeof selector === "string") {
+      behavior.selector = (node) => node.componentName === selector;
     }
-    return buf.concat(behavior)
-  }, [])
+    return buf.concat(behavior);
+  }, []);
 }
 
 export function isBehaviorHost(val: any): val is IBehaviorHost {
-  return val?.Behavior && isBehaviorList(val.Behavior)
+  return val?.Behavior && isBehaviorList(val.Behavior);
 }
 export function isBehavior(val: any): val is IBehavior {
-  return val?.name
-    || val?.selector
-    || val?.extends
-    || val?.designerProps
-    || val?.designerLocales
+  return (
+    val?.name ||
+    val?.selector ||
+    val?.extends ||
+    val?.designerProps ||
+    val?.designerLocales
+  );
 }
 export function isBehaviorList(val: any): val is IBehavior[] {
-  return Array.isArray(val) && val.every(isBehavior)
+  return Array.isArray(val) && val.every(isBehavior);
 }

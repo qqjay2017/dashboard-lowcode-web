@@ -61,14 +61,6 @@ export const DesignerToolsWidget: React.FC<IDesignerToolsWidgetProps> =
           size="small"
           options={[
             {
-              label: "20%",
-              value: 0.2,
-            },
-            {
-              label: "30%",
-              value: 0.3,
-            },
-            {
               label: "40%",
               value: 0.4,
             },

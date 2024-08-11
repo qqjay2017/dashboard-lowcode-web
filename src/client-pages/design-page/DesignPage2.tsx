@@ -41,12 +41,6 @@ function DesignPage2() {
     <SchemaComponentOptions
       scope={{
         dashboardDt: data || {},
-        chartIdMap: (chartAll || []).reduce((memo, cur) => {
-          memo[cur.id] = {
-            ...cur,
-          };
-          return memo;
-        }, {}),
       }}
     >
       <DesignEngine

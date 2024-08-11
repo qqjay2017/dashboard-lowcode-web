@@ -29,7 +29,9 @@ function AuxToolWidget() {
     >
       {/* <SnapLine /> */}
       <DashedBox />
+      {/* Selection 是选中后的 */}
       <Selection />
+      {/* Cover 是hoverNode的蓝色遮罩 */}
       <Cover />
     </div>
   );
