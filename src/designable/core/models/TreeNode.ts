@@ -1,8 +1,10 @@
 import { action, define, observable, toJS } from "@formily/reactive";
+import { get, set } from "lodash-es";
 import {
   AppendNodeEvent,
   CloneNodeEvent,
   FromNodeEvent,
+  InsertAfterEvent,
   RemoveNodeEvent,
   UpdateChildrenEvent,
   UpdateNodePropsEvent,
@@ -542,6 +544,36 @@ export class TreeNode {
     }
   }
 
+  insertAfter(...nodes: TreeNode[]) {
+    const parent = this.parent;
+    if (nodes.some((node) => node.contains(this))) return [];
+    if (parent?.children?.length) {
+      const originSourceParents = nodes.map((node) => node.parent);
+      const newNodes = this.resetNodesParent(nodes, parent);
+      if (!newNodes.length) return [];
+
+      return this.triggerMutation(
+        new InsertAfterEvent({
+          originSourceParents,
+          target: this,
+          source: newNodes,
+        }),
+        () => {
+          parent.children = parent.children.reduce((buf, node) => {
+            if (node === this) {
+              return buf.concat([node]).concat(newNodes);
+            } else {
+              return buf.concat([node]);
+            }
+          }, []);
+          return newNodes;
+        },
+        []
+      );
+    }
+    return [];
+  }
+
   static findById(id) {
     return TreeNodes.get(id);
   }
@@ -617,17 +649,27 @@ export class TreeNode {
     const parents = new Map<TreeNode, TreeNode[]>();
     each(groups, (nodes, parentId) => {
       const lastNode = lastGroupNode[parentId];
-      const insertPoint = lastNode;
+      let insertPoint = lastNode;
       each(nodes, (node) => {
         const cloned = node.clone();
+
         if (!cloned) return;
+        const decorator = get(cloned, "props.x-decorator-props", {}) || {};
+        set(
+          cloned,
+          "props.x-decorator-props.zIndex",
+          (decorator.zIndex || 1) + 1
+        );
+        set(cloned, "props.x-decorator-props.x", (decorator.x || 0) + 0.15);
+        set(cloned, "props.x-decorator-props.y", (decorator.y || 0) + 0.15);
+
         if (
           node.operation?.selection.has(node) &&
           insertPoint.parent.allowAppend([cloned])
         ) {
           // debugger;
-          // insertPoint.insertAfter(cloned);
-          // insertPoint = insertPoint.next;
+          insertPoint.insertAfter(cloned);
+          insertPoint = insertPoint.next;
         } else if (node.operation.selection.length === 1) {
           const targetNode = node.operation?.tree.findById(
             node.operation.selection.first

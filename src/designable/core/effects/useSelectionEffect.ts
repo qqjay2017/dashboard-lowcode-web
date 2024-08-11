@@ -19,7 +19,6 @@ export function useSelectionEffect(engine: Engine) {
     if (!currentWorkspace) return;
 
     if (!el?.getAttribute) {
-      console.log("!getAttribute");
       return;
     }
 
