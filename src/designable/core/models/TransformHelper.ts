@@ -299,62 +299,67 @@ export class TransformHelper {
       width: 0,
       height: 0,
     };
+    // 缩放的情况下
+    const dragStartWidth =
+      dragStartSize.width / this.operation.workspace.viewport.designScale;
+    const dragStartHeight =
+      dragStartSize.height / this.operation.workspace.viewport.designScale;
     switch (this.direction) {
       case "left-top":
         return new Rect(
           dragStartTranslate.x + deltaX,
           dragStartTranslate.y + deltaY,
-          dragStartSize.width - deltaX,
-          dragStartSize.height - deltaY
+          dragStartWidth - deltaX,
+          dragStartHeight - deltaY
         );
       case "left-center":
         return new Rect(
           dragStartTranslate.x + deltaX,
           dragStartTranslate.y,
-          dragStartSize.width - deltaX,
-          dragStartSize.height
+          dragStartWidth - deltaX,
+          dragStartHeight
         );
       case "left-bottom":
         return new Rect(
           dragStartTranslate.x + deltaX,
           dragStartTranslate.y,
-          dragStartSize.width - deltaX,
-          dragStartSize.height + deltaY
+          dragStartWidth - deltaX,
+          dragStartHeight + deltaY
         );
       case "center-bottom":
         return new Rect(
           dragStartTranslate.x,
           dragStartTranslate.y,
-          dragStartSize.width,
-          dragStartSize.height + deltaY
+          dragStartWidth,
+          dragStartHeight + deltaY
         );
       case "center-top":
         return new Rect(
           dragStartTranslate.x,
           dragStartTranslate.y + deltaY,
-          dragStartSize.width,
-          dragStartSize.height - deltaY
+          dragStartWidth,
+          dragStartHeight - deltaY
         );
       case "right-top":
         return new Rect(
           dragStartTranslate.x,
           dragStartTranslate.y + deltaY,
-          dragStartSize.width + deltaX,
-          dragStartSize.height - deltaY
+          dragStartWidth + deltaX,
+          dragStartHeight - deltaY
         );
       case "right-bottom":
         return new Rect(
           dragStartTranslate.x,
           dragStartTranslate.y,
-          dragStartSize.width + deltaX,
-          dragStartSize.height + deltaY
+          dragStartWidth + deltaX,
+          dragStartHeight + deltaY
         );
       case "right-center":
         return new Rect(
           dragStartTranslate.x,
           dragStartTranslate.y,
-          dragStartSize.width + deltaX,
-          dragStartSize.height
+          dragStartWidth + deltaX,
+          dragStartHeight
         );
     }
   }
@@ -462,13 +467,14 @@ export class TransformHelper {
   resize(node: TreeNode, handler: (resize: IRect) => void) {
     if (!this.dragging) return;
     const rect = this.calcBaseResize(node);
+
+    this.snapped = false;
     this.snapping = false;
-    this.snapping = false;
-    for (const line of this.closestSnapLines) {
-      line.resize(node, rect);
-      this.snapping = true;
-      this.snapped = true;
-    }
+    // for (const line of this.closestSnapLines) {
+    //   line.resize(node, rect);
+    //   this.snapping = true;
+    //   this.snapped = true;
+    // }
     handler(rect);
     if (this.snapping) {
       this.dragMove();

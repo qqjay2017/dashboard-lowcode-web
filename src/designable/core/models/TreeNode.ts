@@ -431,10 +431,11 @@ export class TreeNode {
   allowResize(): false | Array<"x" | "y"> {
     if (this === this.root && !this.isSourceNode) return false;
     const { resizable } = this.designerProps;
-    if (!resizable) return false;
-    if (resizable.width && resizable.height) return ["x", "y"];
-    if (resizable.width) return ["x"];
-    return ["y"];
+    if (!resizable) {
+      return false;
+    }
+
+    return ["x", "y"];
   }
 
   append(...nodes: TreeNode[]) {

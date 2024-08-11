@@ -3,7 +3,10 @@ import type { Engine, TreeNode } from "../models";
 import { CursorDragType } from "../models";
 import { DragMoveEvent, DragStopEvent } from "../events";
 import { sizeFormat } from "@/utils";
-import { calcElementTranslate } from "@/designable/shared";
+import {
+  calcElementStyleSize,
+  calcElementTranslate,
+} from "@/designable/shared";
 
 export function useTranslateEffect(engine: Engine) {
   engine.subscribeTo(DragMoveEvent, (event) => {
@@ -47,7 +50,7 @@ export function useTranslateEffect(engine: Engine) {
   });
 }
 
-function setNewPosition(
+export function setNewPosition(
   dragNodes: TreeNode[] = [],
   {
     colWidth,
@@ -64,6 +67,8 @@ function setNewPosition(
     const element = node.getElement();
     const transform = calcElementTranslate(element);
 
+    console.log(element.getBoundingClientRect(), "www");
+
     if (!transform) {
       return;
     }
@@ -72,9 +77,15 @@ function setNewPosition(
       ...node.props?.["x-decorator-props"],
       x: sizeFormat(transform.x / colWidth, 2),
       y: sizeFormat(transform.y / rowHeight, 2),
-      // w: sizeFormat(rect.width / colWidth, 2),
-      // h: sizeFormat(rect.height / rowHeight, 2),
     };
+    const { width, height } = calcElementStyleSize(element);
+    console.log(width, height, "width, height ");
+    if (width) {
+      newPosition.w = sizeFormat(width / colWidth, 2);
+    }
+    if (height) {
+      newPosition.h = sizeFormat(height / rowHeight, 2);
+    }
     set(node, "props.x-decorator-props", newPosition);
   });
 }
