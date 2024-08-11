@@ -66,6 +66,7 @@ export class Viewport {
 
   nodeElementsStore: Record<string, HTMLElement[]> = {};
 
+  designScale = 0.5;
   cols = 12;
   rows = 12;
 
@@ -91,6 +92,9 @@ export class Viewport {
       digestViewport: action,
       viewportElement: observable.ref,
       contentWindow: observable.ref,
+      designScale: observable.ref,
+      cols: observable.ref,
+      rows: observable.ref,
     });
   }
 
