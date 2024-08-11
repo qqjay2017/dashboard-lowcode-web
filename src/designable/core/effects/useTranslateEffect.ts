@@ -1,6 +1,9 @@
-import type { Engine } from "../models";
+import { set } from "lodash-es";
+import type { Engine, TreeNode } from "../models";
 import { CursorDragType } from "../models";
-import { DragMoveEvent, DragStartEvent, DragStopEvent } from "../events";
+import { DragMoveEvent, DragStopEvent } from "../events";
+import { sizeFormat } from "@/utils";
+import { calcElementTranslate } from "@/designable/shared";
 
 export function useTranslateEffect(engine: Engine) {
   engine.subscribeTo(DragMoveEvent, (event) => {
@@ -17,7 +20,6 @@ export function useTranslateEffect(engine: Engine) {
     dragNodes.forEach((node) => {
       const element = node.getElement();
       helper.translate(node, (translate) => {
-        console.log(translate, "translate");
         element.style.position = "absolute";
         element.style.left = "0px";
         element.style.top = "0px";
@@ -28,12 +30,51 @@ export function useTranslateEffect(engine: Engine) {
   engine.subscribeTo(DragStopEvent, (event) => {
     if (engine.cursor.dragType !== CursorDragType.Translate) return;
     const currentWorkspace =
-      event.context?.workspace ?? engine.workbench.activeWorkspace;
-    const helper = currentWorkspace?.operation.transformHelper;
-    if (helper) {
-      //
+      engine.workbench.currentWorkspace || engine.workbench.activeWorkspace;
+    const helper = currentWorkspace?.operation?.transformHelper;
+    const root = currentWorkspace?.operation.tree.root;
+    if (helper && root) {
+      const dragNodes = helper.dragNodes;
+      // 讲style反算回props
+      setNewPosition(dragNodes, {
+        colWidth: root?.props?.designWidth / 12,
+        rowHeight: root?.props?.designHeight / 12,
+      });
+
       console.log("拖拽结束++");
       helper.dragEnd();
     }
+  });
+}
+
+function setNewPosition(
+  dragNodes: TreeNode[] = [],
+  {
+    colWidth,
+    rowHeight,
+  }: {
+    colWidth: number;
+    rowHeight: number;
+  }
+) {
+  dragNodes.forEach((node) => {
+    if (!node || !node.getElement) {
+      return;
+    }
+    const element = node.getElement();
+    const transform = calcElementTranslate(element);
+
+    if (!transform) {
+      return;
+    }
+
+    const newPosition = {
+      ...node.props?.["x-decorator-props"],
+      x: sizeFormat(transform.x / colWidth, 2),
+      y: sizeFormat(transform.y / rowHeight, 2),
+      // w: sizeFormat(rect.width / colWidth, 2),
+      // h: sizeFormat(rect.height / rowHeight, 2),
+    };
+    set(node, "props.x-decorator-props", newPosition);
   });
 }
