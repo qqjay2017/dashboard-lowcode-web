@@ -5,7 +5,8 @@ import CollapsibleForm from "./CollapsibleForm";
 import { fields } from "./fields";
 import SummaryStatistics from "./SummaryStatistics";
 import WeighbridgeItem from "./WeighbridgeItem";
-import type { wagonBalanceRow } from "./types";
+import type { WagonBalanceRow } from "./types";
+import WeighbridgeDtDialog from "./WeighbridgeDtDialog";
 import {
   useDashboardRoot,
   useFrameSizeStyle,
@@ -31,6 +32,7 @@ export default function Weighbridge() {
   const { pageNum, pageSize, paginationProps } = usePageParams({});
   const [searchValues, setSearchValues] = useState({});
   const { isPc } = useDashboardRoot();
+  const [weighbridgeDtId, setWeighbridgeDtId] = useState("");
   const { data: wagonBalanceRes, isLoading } = useRequest(
     `${apiConfig.apiIot}${apiUrlMap.wagonBalanceSearch}`,
     {
@@ -49,7 +51,7 @@ export default function Weighbridge() {
   );
 
   const wagonBalanceTotal = wagonBalanceRes?.total || 0;
-  const wagonBalanceRows: wagonBalanceRow[] = wagonBalanceRes?.rows || [];
+  const wagonBalanceRows: WagonBalanceRow[] = wagonBalanceRes?.rows || [];
 
   const handleExport = async () => {
     try {
@@ -68,6 +70,11 @@ export default function Weighbridge() {
       });
       console.log(res, "res");
     } catch (error) {}
+  };
+
+  const handleOpenWeighbridgeDtDialog = (id?: string) => {
+    setWeighbridgeDtId(id);
+    setDialogOpen(true);
   };
 
   return (
@@ -90,44 +97,54 @@ export default function Weighbridge() {
           {isPc && <ExportButton onClick={handleExport}>导出</ExportButton>}
         </div>
         <div
-          className={css`
-            overflow: hidden auto;
-            padding: 0 0.24rem 0.24rem 0.24rem;
-            padding-bottom: ${isPc ? "0.24rem" : "0"};
-          `}
           style={bodyStyle}
+          className={css`
+            width: 100%;
+            padding-bottom: ${isPc ? "0.24rem" : "0"};
+            overflow: hidden;
+          `}
         >
-          <CollapsibleForm onChange={setSearchValues} fields={fields} />
-          <EmptyKit loading={isLoading} empty={wagonBalanceRows.length === 0}>
-            <SummaryStatistics
-              pageNum={pageNum}
-              pageSize={pageSize}
-              searchValues={searchValues}
-            />
-            {wagonBalanceRows.map((row, index) => {
-              return <WeighbridgeItem key={row.id + index} row={row} />;
-            })}
-            <Pagination
-              {...paginationProps}
-              simple={!isPc}
-              total={wagonBalanceTotal}
-            />
-          </EmptyKit>
+          <div
+            className={css`
+              width: 100%;
+              height: 100%;
+              max-height: 100%;
+              overflow: hidden auto;
+              padding: 0 0.24rem 0 0.24rem;
+            `}
+          >
+            <CollapsibleForm onChange={setSearchValues} fields={fields} />
+            <EmptyKit loading={isLoading} empty={wagonBalanceRows.length === 0}>
+              <SummaryStatistics
+                pageNum={pageNum}
+                pageSize={pageSize}
+                searchValues={searchValues}
+              />
+              {wagonBalanceRows.map((row, index) => {
+                return (
+                  <WeighbridgeItem
+                    key={row.id + index}
+                    row={row}
+                    handleOpenWeighbridgeDtDialog={
+                      handleOpenWeighbridgeDtDialog
+                    }
+                  />
+                );
+              })}
+              <Pagination
+                {...paginationProps}
+                simple={!isPc}
+                total={wagonBalanceTotal}
+              />
+            </EmptyKit>
+          </div>
         </div>
       </div>
-      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent
-          className={css`
-            width: 1200px;
-            height: 859px;
-          `}
-        >
-          <DialogHeader>
-            <DialogTitle>设备信息</DialogTitle>
-          </DialogHeader>
-          <div>123</div>
-        </DialogContent>
-      </Dialog>
+      <WeighbridgeDtDialog
+        id={weighbridgeDtId}
+        dialogOpen={dialogOpen}
+        setDialogOpen={setDialogOpen}
+      />
     </>
   );
 }

@@ -1,10 +1,11 @@
 import { css } from "@emotion/css";
 import { HiMiniChevronDoubleRight } from "react-icons/hi2";
 import Decimal from "decimal.js";
+import type { HTMLAttributes } from "react";
 import StatisticsItem from "./StatisticsItem";
 
 import WeighbridgeItemTag from "./WeighbridgeItemPropsTag";
-import type { wagonBalanceRow } from "./types";
+import type { WagonBalanceRow } from "./types";
 import { alignCenterStyle, cx, flex1Style } from "@/utils";
 import { useDashboardRoot } from "@/schema-component/hooks";
 import { timeFormat } from "@/utils/format";
@@ -23,10 +24,11 @@ const lineItemStyle = css`
 
 export default function WeighbridgeItem(props: {
   date?: string;
-  row?: Partial<wagonBalanceRow>;
+  row?: Partial<WagonBalanceRow>;
+  handleOpenWeighbridgeDtDialog?: Function;
 }) {
   const { isPc } = useDashboardRoot();
-  const { row = {} } = props;
+  const { row = {}, handleOpenWeighbridgeDtDialog } = props;
   if (!isPc) {
     return <WeighbridgeItemMobile {...props} />;
   }
@@ -95,13 +97,18 @@ export default function WeighbridgeItem(props: {
               : undefined
           }
         />
-        <DtBtn />
+        <DtBtn
+          onClick={() => {
+            handleOpenWeighbridgeDtDialog &&
+              handleOpenWeighbridgeDtDialog(row.id);
+          }}
+        />
       </div>
     </div>
   );
 }
 
-function WeighbridgeItemMobile(props: { row?: Partial<wagonBalanceRow> }) {
+function WeighbridgeItemMobile(props: { row?: Partial<WagonBalanceRow> }) {
   const { row = {} } = props;
   return (
     <div
@@ -206,9 +213,10 @@ function WeighbridgeItemMobile(props: { row?: Partial<wagonBalanceRow> }) {
   );
 }
 
-function DtBtn({ className }: { className?: string }) {
+function DtBtn({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
+      {...props}
       className={cx(
         css`
           color: #008dfa;
@@ -216,6 +224,7 @@ function DtBtn({ className }: { className?: string }) {
           line-height: 0.16rem;
           display: flex;
           align-items: center;
+          cursor: pointer;
         `,
         className
       )}

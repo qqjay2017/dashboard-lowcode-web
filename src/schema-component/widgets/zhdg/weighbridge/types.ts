@@ -1,4 +1,4 @@
-export interface wagonBalanceRow {
+export interface WagonBalanceRow {
   id: string;
   carNo: string;
   carNumberImg?: any;
@@ -16,8 +16,8 @@ export interface wagonBalanceRow {
   tareTime: number;
   reportTime: number;
   deliveryNo: string;
-  grossWeightImgList?: any;
-  tareImgList?: any;
+  grossWeightImgList?: string[];
+  tareImgList?: string[];
   weightDeviation?: any;
   deviationRatio?: any;
   /**

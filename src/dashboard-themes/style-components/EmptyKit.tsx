@@ -2,6 +2,7 @@ import { css } from "@emotion/css";
 import type { PropsWithChildren } from "react";
 import { LuLoader2 } from "react-icons/lu";
 import { useToken } from "@/schema-component/antd/style/useToken";
+import { cx } from "@/utils";
 
 interface EmptyKitProps extends PropsWithChildren {
   loading?: boolean;
@@ -21,14 +22,17 @@ export function EmptyKit({
   if (loading || empty) {
     return (
       <div
-        className={css`
-          width: 100%;
-          height: 100%;
-          position: relative;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        `}
+        className={cx(
+          css`
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          `,
+          className
+        )}
       >
         {loading && (
           <LuLoader2

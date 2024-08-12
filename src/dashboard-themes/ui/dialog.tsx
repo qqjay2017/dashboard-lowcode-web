@@ -66,6 +66,7 @@ const DialogContent = React.forwardRef<
       className={cx(
         css`
           max-width: 90vw;
+          max-height: 90vh;
           position: fixed;
           left: 50%;
           top: 50%;
@@ -175,6 +176,58 @@ const DialogDescription = React.forwardRef<
 ));
 DialogDescription.displayName = DialogPrimitive.Description.displayName;
 
+interface DialogContentItemProps extends React.HTMLAttributes<HTMLDivElement> {
+  header?: React.ReactNode;
+}
+function DialogContentItem({
+  className,
+  children,
+  header,
+  ...props
+}: DialogContentItemProps) {
+  return (
+    <div
+      {...props}
+      className={cx(
+        css`
+          padding: 0 0.24rem;
+        `,
+        className
+      )}
+    >
+      {header && (
+        <div
+          className={cx(
+            css`
+              width: 100%;
+              height: 0.6rem;
+              border-radius: 0px 0px 0px 0px;
+              border-bottom: 1px solid rgba(211, 226, 247, 0.2);
+              display: flex;
+              align-items: center;
+
+              font-weight: 500;
+              font-size: 0.16rem;
+              color: #ffffff;
+              line-height: 0.22rem;
+            `,
+            className
+          )}
+        >
+          {header}
+        </div>
+      )}
+      <div
+        className={css`
+          padding: 0.24rem 0;
+        `}
+      >
+        {children}
+      </div>
+    </div>
+  );
+}
+
 export {
   Dialog,
   DialogPortal,
@@ -186,4 +239,5 @@ export {
   DialogFooter,
   DialogTitle,
   DialogDescription,
+  DialogContentItem,
 };
