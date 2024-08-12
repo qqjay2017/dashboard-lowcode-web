@@ -29,7 +29,7 @@ export default function SummaryStatistics({
 }: FormItemComponentProps) {
   const busParams = useQueryToBusParams();
   const { isPc } = useDashboardRoot();
-  const { data = {} } = useRequest(
+  const { data } = useRequest(
     `${apiConfig.apiIot}${apiUrlMap.wagonBalanceSummary}`,
     {
       data: {
@@ -45,6 +45,9 @@ export default function SummaryStatistics({
       },
     }
   );
+  if (!data) {
+    return null;
+  }
 
   const statisticsItems: StatisticsItemProps[] = [
     {
