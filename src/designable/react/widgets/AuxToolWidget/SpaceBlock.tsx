@@ -91,6 +91,24 @@ export const SpaceBlock = observer(() => {
           );
         }
       )}
+      {transformHelper.thresholdSpaceBlocks.map(({ rect }, key) => {
+        return (
+          <div
+            key={key}
+            className={prefix}
+            style={{
+              top: 0,
+              left: 0,
+              height: rect.height,
+              width: rect.width,
+              transform: `perspective(1px) translate3d(${rect.x}px,${rect.y}px,0)`,
+              position: "absolute",
+              background: "rgba(255, 0, 0, 0.2)",
+              zIndex: 1,
+            }}
+          ></div>
+        );
+      })}
     </>
   );
 });

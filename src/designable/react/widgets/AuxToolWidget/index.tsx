@@ -32,7 +32,7 @@ function AuxToolWidget() {
       `}
     >
       {/* 边距计算 */}
-      {/* <SpaceBlock /> */}
+      <SpaceBlock />
       {/* 吸边的线 */}
       <SnapLine />
       <DashedBox />

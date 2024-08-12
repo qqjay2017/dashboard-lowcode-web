@@ -102,6 +102,21 @@ export class TransformHelper {
     return results;
   }
 
+  get thresholdSpaceBlocks(): SpaceBlock[] {
+    const results = [];
+    if (!this.dragging) return [];
+    for (const type in this.aroundSpaceBlocks) {
+      const block = this.aroundSpaceBlocks[type];
+      if (!block.snapLine) return [];
+      if (block.snapLine.distance !== 0) return [];
+      if (block.isometrics.length) {
+        results.push(block);
+        results.push(...block.isometrics);
+      }
+    }
+    return results;
+  }
+
   get tree() {
     return this.operation.tree;
   }
@@ -614,9 +629,9 @@ export class TransformHelper {
     this.draggingNodesRect = null;
     this.draggingNodesRect = this.dragNodesRect;
 
+    this.rulerSnapLines = this.calcRulerSnapLines(this.dragNodesRect);
     this.aroundSnapLines = this.calcAroundSnapLines(this.dragNodesRect);
-    console.log(this.aroundSnapLines, "aroundSnapLines");
-    // this.aroundSpaceBlocks = this.calcAroundSpaceBlocks(this.dragNodesRect);
+    this.aroundSpaceBlocks = this.calcAroundSpaceBlocks(this.dragNodesRect);
   }
 
   dragEnd() {
@@ -644,6 +659,7 @@ export class TransformHelper {
       rulerSnapLines: observable.shallow,
       closestSnapLines: observable.computed,
       thresholdSnapLines: observable.computed,
+      thresholdSpaceBlocks: observable.computed,
       cursor: observable.computed,
       cursorPosition: observable.computed,
       cursorOffset: observable.computed,
