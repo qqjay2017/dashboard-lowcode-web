@@ -40,6 +40,19 @@ class KxgcFrameAuthPlugin extends Plugin {
                 },
               })
             );
+          } else {
+            sessionStorage.setItem(
+              "jf-project-storage",
+              JSON.stringify({
+                version: 0,
+                state: {
+                  projectId: "",
+                  project: {
+                    id: "",
+                  },
+                },
+              })
+            );
           }
         }
       },
