@@ -2,6 +2,7 @@ import React from "react";
 import { css } from "@emotion/css";
 import type { WagonBalanceRow } from "./types";
 import { EmptyKit } from "@/dashboard-themes/style-components";
+import { timeFormat } from "@/utils/format";
 
 export default function WeightImg({
   imgSrc = "",
@@ -43,7 +44,7 @@ export default function WeightImg({
         `}
       >
         <div>{type}</div>
-        <div>{time}</div>
+        {time && <div>{timeFormat(time)}</div>}
       </div>
     </div>
   );
