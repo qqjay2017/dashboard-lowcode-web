@@ -23,7 +23,7 @@ import Weighbridge from "@/schema-component/widgets/zhdg/weighbridge";
 import DeviationOfCargo from "@/schema-component/widgets/zhdg/deviation-of-cargo";
 import ClassicFrame6 from "@/schema-component/widgets/frame/classic-frame6";
 import ProjectSelect from "@/schema-component/widgets/query/ProjectSelect";
-import WeightDeviationTrend from "@/schema-component/widgets/zhdg/weight-deviation-trend";
+
 import type { ISchemaComponentOptionsProps } from "@/schema-component/types";
 import SchemaComponentOptions from "@/schema-component/core/SchemaComponentOptions";
 
@@ -67,7 +67,7 @@ export default function PreviewSchemaComponent({
         Weighbridge,
         DeviationOfCargo,
         ClassicFrame6,
-        WeightDeviationTrend,
+
         ...components,
       }}
     >

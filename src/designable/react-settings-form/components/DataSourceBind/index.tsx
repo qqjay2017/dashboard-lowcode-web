@@ -1,22 +1,17 @@
-import { Button, Modal, Select } from "antd";
+import { Button, Modal } from "antd";
 import { DatabaseOutlined } from "@ant-design/icons";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { css } from "@emotion/css";
-import { get } from "lodash-es";
-import { IoIosRefresh, IoMdAdd } from "react-icons/io";
 
 import { observer } from "@formily/reactive-react";
 
 import { createForm } from "@formily/core";
 import { clone } from "@formily/shared";
 
-import { Form, FormItem } from "@formily/antd-v5";
+import { Form, FormCollapse, FormItem } from "@formily/antd-v5";
 import { createSchemaField } from "@formily/react";
+import JsonInput from "../JsonInput";
 import { ApiInfoSelectAll } from "./ApiInfoSelect";
-import { useRequest } from "@/api-client";
-
-import { apiBase } from "@/utils";
-import CardItem from "@/schema-component/components/CardItem";
 
 import type { FormItemComponentProps } from "@/types";
 import { useInnerVisible } from "@/designable/react/hooks";
@@ -27,6 +22,8 @@ const SchemaField = createSchemaField({
   components: {
     ApiInfoSelectAll,
     FormItem,
+    FormCollapse,
+    JsonInput,
   },
 });
 
@@ -43,9 +40,11 @@ const DataSourceBind = observer((props: DataSourceBindProps) => {
   } = useInnerVisible();
 
   const form = useMemo(() => {
+    console.log(props.value, "props.value");
     return createForm({
       values: {
         apiInfo: clone(props.value),
+        busData: clone(props.value?.busData || ""),
       },
     });
   }, [modalVisible, props.value, innerVisible]);
@@ -61,7 +60,10 @@ const DataSourceBind = observer((props: DataSourceBindProps) => {
           width="70%"
           onOk={() => {
             form.submit((values) => {
-              props.onChange?.(values.apiInfo);
+              props.onChange?.({
+                ...values.apiInfo,
+                busData: values.busData,
+              });
             });
             closeModal();
           }}
@@ -77,11 +79,55 @@ const DataSourceBind = observer((props: DataSourceBindProps) => {
             {innerVisible && (
               <Form form={form}>
                 <SchemaField>
-                  <SchemaField.Object
-                    name="apiInfo"
-                    x-decorator="FormItem"
-                    x-component="ApiInfoSelectAll"
-                  />
+                  <SchemaField.Void
+                    x-component="FormCollapse"
+                    x-component-props={{
+                      defaultActiveKey: ["apis"],
+                      style: { marginBottom: 10 },
+                    }}
+                  >
+                    <SchemaField.Void
+                      x-component="FormCollapse.CollapsePanel"
+                      x-component-props={{
+                        key: "apis",
+                        header: "选择接口",
+                      }}
+                    >
+                      <SchemaField.Object
+                        name="apiInfo"
+                        x-decorator="FormItem"
+                        x-component="ApiInfoSelectAll"
+                      />
+                    </SchemaField.Void>
+                    <SchemaField.Void
+                      x-component="FormCollapse.CollapsePanel"
+                      x-component-props={{
+                        key: "busData",
+                        header: "自定义查询参数",
+                      }}
+                    >
+                      <SchemaField.String
+                        name="busData"
+                        x-decorator="FormItem"
+                        x-component="JsonInput"
+                        x-decorator-props={{
+                          tooltip: `
+            支持函数: dayjs 
+            `,
+                          feedbackText: `
+             option = {
+          startTime: dayjs().subtract(11, "month").startOf("month").valueOf(),
+          endTime: dayjs().endOf("month").valueOf()
+             }
+            `,
+                        }}
+                        x-component-props={{
+                          height: "300px",
+                          language: "javascript",
+                        }}
+                      />
+                    </SchemaField.Void>
+                  </SchemaField.Void>
                 </SchemaField>
               </Form>
             )}

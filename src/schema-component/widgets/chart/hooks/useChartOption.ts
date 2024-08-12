@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import Handlebars from "handlebars";
 import * as echarts from "echarts";
 
+import dayjs from "dayjs";
 import { chartListDataFormat } from "@/utils";
 import { useToken } from "@/schema-component/antd/style";
 import { chartHelps } from "@/utils/chartHelps";
@@ -26,25 +27,59 @@ export function useChartOption(chartDataTemplate = "", busData) {
       const handlebarsStr = handlebarsTemplate({
         chartListData,
       });
-      // eslint-disable-next-line no-new-func
-      const funCode = new Function(
-        "echarts",
-        "chartListData",
-        "token",
-        "busData",
 
-        "chartHelps",
-        `option=null;${handlebarsStr};return option||{}`
-      );
-      const c =
-        funCode(echarts, chartListData, token, busData, {
-          ...chartHelps,
-          totalNum,
-        }) || {};
-      return c;
+      return functionTemplateHandle(handlebarsStr, {
+        chartListData,
+        token,
+        busData,
+        totalNum,
+      });
     } catch (error) {
       console.log("编译错误", error);
       return {};
     }
   }, [chartDataTemplate, busData, token]);
+}
+
+export function functionTemplateHandle(
+  handlebarsStr = "",
+  {
+    chartListData = [],
+    token = {},
+    busData,
+    totalNum = 0,
+  }: {
+    chartListData?: any[];
+    token?: any;
+    busData?: any;
+    totalNum?: number;
+  }
+) {
+  try {
+    // eslint-disable-next-line no-new-func
+    const funCode = new Function(
+      "echarts",
+      "chartListData",
+      "token",
+      "busData",
+      "chartHelps",
+      "dayjs",
+      `option=null;${handlebarsStr};return option||{}`
+    );
+    const c =
+      funCode(
+        echarts,
+        chartListData,
+        token,
+        busData,
+        {
+          ...chartHelps,
+          totalNum,
+        },
+        dayjs
+      ) || {};
+    return c;
+  } catch (error) {
+    return {};
+  }
 }

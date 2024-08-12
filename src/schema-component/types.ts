@@ -46,6 +46,7 @@ export type DataSourceBindType = {
   dataSourceName?: string;
   afterScript?: string;
   beforeScript?: string;
+  busData?: string;
 } | null;
 
 export type JSXComponent =

@@ -14,9 +14,9 @@ export default function JsonInput({
       `}
     >
       <MonacoEditor
+        language="json"
         {...props}
         theme="vs-dark"
-        language="json"
         value={value || ""}
         onChange={(e) => {
           onChange && onChange(e);

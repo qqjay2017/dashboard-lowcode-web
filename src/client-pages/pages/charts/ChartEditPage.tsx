@@ -6,6 +6,7 @@ import { Select, Spin, Switch, message } from "antd";
 import Handlebars from "handlebars";
 import * as echarts from "echarts";
 
+import dayjs from "dayjs";
 import { defaultChartTemplate } from "./consts";
 
 import { chartMockData, chartMockDataOptions } from "./chartMockData";
@@ -63,6 +64,7 @@ function ChartEditPage() {
         "token",
         "busData",
         "chartHelps",
+        "dayjs",
         `option=null;${handlebarsStr};return option||{};`
       );
       // 注入变量
@@ -78,7 +80,8 @@ function ChartEditPage() {
           {
             ...chartHelps,
             totalNum,
-          }
+          },
+          dayjs
         ) || {};
       setChartOption(c);
       setChartOptionStr(JSON.stringify(c));

@@ -8,6 +8,7 @@ export interface FormItemComponentProps<V = any> {
   apiInfo?: any[];
   dataSource?: any[];
   children?: ReactNode;
+  [field: string]: any;
 }
 
 export interface ApiGroupItem {

@@ -85,14 +85,41 @@ export const editApiFormSchema: ISchema = {
             },
           ],
         },
+        busData: {
+          type: "string",
+          title: "自定义查询参数",
+          required: false,
+          "x-decorator": "FormItem",
+          "x-decorator-props": {
+            tooltip: `
+            支持函数: dayjs 
+            `,
+            feedbackText: `
+             option = {
+          startTime: dayjs().subtract(11, "month").startOf("month").valueOf(),
+          endTime: dayjs().endOf("month").valueOf()
+             }
+            `,
+          },
+          "x-component": "JsonInput",
+          "x-component-props": {
+            height: "300px",
+            language: "javascript",
+          },
+        },
         headers: {
           type: "string",
           title: "自定义请求头",
           required: false,
           "x-decorator": "FormItem",
+          "x-decorator-props": {
+            feedbackText: `
+            {"system-id":"237718173535821884"}
+            `,
+          },
           "x-component": "JsonInput",
           "x-component-props": {
-            height: "500px",
+            height: "200px",
           },
         },
       },

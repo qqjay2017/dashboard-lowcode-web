@@ -131,6 +131,7 @@ const ReactionsSetter: React.FC<IReactionsSetterProps> = (props) => {
   } = useInnerVisible();
 
   const prefix = usePrefix("reactions-setter");
+
   const form = useMemo(() => {
     return createForm({
       values: {
@@ -142,7 +143,7 @@ const ReactionsSetter: React.FC<IReactionsSetterProps> = (props) => {
   return (
     <>
       <Button block onClick={openModal}>
-        <TextWidget token="配置查询项" />
+        <TextWidget token="全局查询项" />
       </Button>
       <Modal
         title="配置查询项"
@@ -170,7 +171,7 @@ const ReactionsSetter: React.FC<IReactionsSetterProps> = (props) => {
             <Form form={form}>
               <SchemaField>
                 <SchemaField.Array
-                  name="queryKeys"
+                  name="query"
                   x-decorator="FormItem"
                   x-component="Checkbox.Group"
                   enum={[

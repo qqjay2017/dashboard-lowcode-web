@@ -2,6 +2,7 @@ import { get } from "lodash-es";
 import { useMemo } from "react";
 import type { DataSourceBindType } from "../types";
 import { takeFirstApiInfo } from "../shared";
+import { functionTemplateHandle } from "../widgets";
 import { useQuery, useReqApiProxy } from "@/api-client";
 
 /**
@@ -16,10 +17,14 @@ export function useDataBindFetch(
 ) {
   const dataSource = takeFirstApiInfo(apiInfo);
   const { request } = useReqApiProxy();
+  const _requestData = {
+    ...functionTemplateHandle(dataSource.busData, {}),
+    ...requestData,
+  };
   const { data, ...rest } = useQuery({
     queryKey: [
       "dataSourceQuery",
-      JSON.stringify(requestData || {}),
+      JSON.stringify(_requestData || {}),
       JSON.stringify(dataSource),
     ],
 
@@ -28,7 +33,7 @@ export function useDataBindFetch(
       let apiRes;
       if (request) {
         apiRes = await request({
-          data: requestData,
+          data: _requestData,
           apiId: dataSource?.dataSourceId,
         });
       }

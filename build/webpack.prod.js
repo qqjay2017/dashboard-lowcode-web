@@ -36,8 +36,8 @@ function resolve(name) {
   return path.join(__dirname, name);
 }
 const isAna = false;
-// const _target = "http://dev.kxgcc.com:30872";
-const _target = "http://qzjg.kxgcc.com:30251";
+const _target = "http://dev.kxgcc.com:30872";
+// const _target = "http://qzjg.kxgcc.com:30251";
 module.exports = {
   mode: NODE_ENV,
   devtool: isProduct ? false : "inline-source-map",
