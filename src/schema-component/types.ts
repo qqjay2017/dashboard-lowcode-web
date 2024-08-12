@@ -1,10 +1,12 @@
 import type { Form } from "@formily/core";
 import type {
+  Field,
   IRecursionFieldProps,
   ISchemaFieldProps,
   SchemaReactComponents,
 } from "@formily/react";
-import type { PropsWithChildren } from "react";
+import type { ColProps } from "antd";
+import type { ComponentProps, PropsWithChildren } from "react";
 import type React from "react";
 
 export interface ISchemaComponentContext {
@@ -129,3 +131,7 @@ export interface DashboardRootProps {
 export type BreakpointKey = "showroom" | "desktop" | "tablet" | "mobile";
 
 export type Breakpoints = Record<BreakpointKey, number>;
+
+export interface IFieldItem extends ComponentProps<typeof Field> {
+  gridCol?: ColProps;
+}

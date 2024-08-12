@@ -1,16 +1,17 @@
-import { useRequest } from '@/api-client'
+import { useRequest } from "@/api-client";
+import { apiConfig, systemIds } from "@/schema-component/shared";
 
-export function useFetchProjectDt(projectId = '') {
+export function useFetchProjectDt(projectId = "") {
   return useRequest(
-    `/api/project-system/v1/project/${projectId}/3
+    `${apiConfig.apiProjectSystem}/v1/project/${projectId}/3
 `,
     {
-      method: 'GET',
+      method: "GET",
       refreshDeps: [projectId],
       enabled: !!projectId,
       headers: {
-        'system-id': '82522199059099734',
+        "system-id": systemIds.project,
       },
-    },
-  )
+    }
+  );
 }

@@ -1,14 +1,10 @@
 import { css } from "@emotion/css";
 
-import { get } from "lodash-es";
 import { useState } from "react";
 import CargoTypeSelect from "./CargoTypeSelect";
 import DeviationOfCargoChart from "./DeviationOfCargoChart";
-import {
-  useDataBindFetch,
-  useFrameSizeStyle,
-  useQueryToBusParams,
-} from "@/schema-component/hooks";
+
+import { useFrameSizeStyle, useWagonQuery } from "@/schema-component/hooks";
 import { EmptyKit } from "@/dashboard-themes/style-components";
 import type { SchemComponentWithDataSourceProps } from "@/types";
 
@@ -17,22 +13,13 @@ export default function DeviationOfCargo({
 }: SchemComponentWithDataSourceProps) {
   const { headStyle, bodyStyle } = useFrameSizeStyle();
   const [goodsName, setGoodsName] = useState("");
-  const busParams = useQueryToBusParams(queryKeys);
 
-  const { data, isLoading } = useDataBindFetch(
-    {
-      dataSourceId: "5fa837fa-1234-4b53-85e3-74d4a903eacd",
-    },
-    {
-      ...busParams,
-    },
-    (res) => {
-      const firstGoodsName = get(res, "ratioList[0].goodsName", "") || "";
-      setGoodsName(firstGoodsName);
-    }
-  );
+  const { data, isLoading } = useWagonQuery({ type: 0 }, (res) => {
+    const firstGoodsName = (res?.rows || []).find((row) => row.name)?.name;
+    setGoodsName(firstGoodsName || "");
+  });
 
-  const ratioList = get(data, "ratioList", []) || [];
+  const rows = data?.rows || [];
 
   return (
     <div
@@ -41,10 +28,7 @@ export default function DeviationOfCargo({
         height: 100%;
       `}
     >
-      <EmptyKit
-        loading={isLoading}
-        empty={!goodsName || ratioList.length === 0}
-      >
+      <EmptyKit loading={isLoading} empty={!goodsName || rows.length === 0}>
         <div
           className={css`
             display: flex;
@@ -58,13 +42,15 @@ export default function DeviationOfCargo({
           <CargoTypeSelect
             value={goodsName}
             onChange={setGoodsName}
-            options={ratioList.map((ratio) => {
-              return {
-                ...ratio,
-                label: ratio.goodsName,
-                value: ratio.goodsName,
-              };
-            })}
+            options={rows
+              .filter((row) => !!row.name)
+              .map((row) => {
+                return {
+                  ...row,
+                  label: row.name,
+                  value: row.name,
+                };
+              })}
           />
         </div>
         <div

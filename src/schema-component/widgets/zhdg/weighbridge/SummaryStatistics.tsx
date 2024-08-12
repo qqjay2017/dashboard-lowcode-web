@@ -7,6 +7,8 @@ import {
 } from "@/schema-component/hooks";
 import { cx } from "@/utils";
 import { useRequest } from "@/api-client";
+import type { FormItemComponentProps } from "@/types";
+import { apiConfig, apiUrlMap, systemIds } from "@/schema-component/shared";
 
 const askIcon = `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAjJJREFUWEfNl89V20AQxr9ZWSI58J7pwFQQ6MCuIKECcAcYwSGnwCkHYkwHqIOYCuwOIBVEHcANLGENb1cICcmSd2XFjq7a2fnNN380Imz4oQ37hxnAObexPTsCWl9AvAdwOw6AfDAeAb5FYE/xnXzdwPQALsMuLPwAc1frYqIp5rjAmT1ddr4aQEX8cgPwt2UXLX4vPATWRZUi5QA/nzpwrAmATj3n71Y+ArtXBrEYoDnnCUUpRBGgeecphLD3MaDHrKJFgF8zD0SHK8peYk5juPZBOYCsdsEy7xqPbDnnWB10gmuAvmoYARH1st3xUYGrcKLdahAe3FZfOTVRTbboid1LYFOAOPd/taKIh88YQWtgrIA0EPZOUgspwDA4AnCjD7DCySga4OzTtQrj/ZrhbKydxxV8x6Zp+lIAo/wrdB8s4lFLURdsMLAI9zhx9nMKBDL/BlOvZhHGEvhwnd3/DOAquANjTz+9KyjANMVp3IppDZj0cq6QjOaAsuVbuFvqC5sCXD4fQ4jRWhQA+nAd7yPAiNuIwoe1AIj5Lgaf1da0/lGcyX8RwOhjVHMUV36MJNIw/F1/BVuWwEznvB0t7gOyFjiULWkwlJY5fpucNO8luU8sFq9ko6cO2Jo0BiHH9gLnxRrIBtIURIXzagD5VkLMxXn9FY3GEK1+fg/Mxvlvfkxkq3ETPyb52pKKRFZX7Q2ENpjjQpW/ZSTugZc/EFteVcT5K/UU0Cjyukc2DvAKPAroISzv/nkAAAAASUVORK5CYII=`;
 
@@ -20,20 +22,29 @@ function renderStatisticsItems(statisticsItems: StatisticsItemProps[] = []) {
   );
 }
 
-export default function SummaryStatistics() {
+export default function SummaryStatistics({
+  pageNum,
+  pageSize,
+  searchValues = {},
+}: FormItemComponentProps) {
   const busParams = useQueryToBusParams();
   const { isPc } = useDashboardRoot();
-  const { data = {} } = useRequest("/api/iot/v1/iot/wagon-balance/summary", {
-    data: {
-      ...busParams,
-      pageSize: 5,
-      pageNum: 1,
-    },
-    method: "POST",
-    headers: {
-      "system-id": "237718173535821884",
-    },
-  });
+  const { data = {} } = useRequest(
+    `${apiConfig.apiIot}${apiUrlMap.wagonBalanceSummary}`,
+    {
+      data: {
+        ...busParams,
+        ...searchValues,
+        pageSize,
+        pageNum,
+      },
+      refreshDeps: [busParams, searchValues, pageSize, pageNum],
+      method: "POST",
+      headers: {
+        "system-id": systemIds.zhgd,
+      },
+    }
+  );
 
   const statisticsItems: StatisticsItemProps[] = [
     {

@@ -9,6 +9,7 @@ import type { wagonBalanceRow } from "./types";
 import {
   useDashboardRoot,
   useFrameSizeStyle,
+  usePageParams,
   useQueryToBusParams,
 } from "@/schema-component/hooks";
 import {
@@ -19,33 +20,55 @@ import {
   ExportButton,
 } from "@/dashboard-themes/ui";
 import { EmptyKit } from "@/dashboard-themes/style-components";
-import { useRequest } from "@/api-client";
-
-async function handleExport() {}
+import { useAPIClient, useRequest } from "@/api-client";
+import { apiConfig, apiUrlMap, systemIds } from "@/schema-component/shared";
 
 export default function Weighbridge() {
   const busParams = useQueryToBusParams();
+  const aPIClient = useAPIClient();
   const [dialogOpen, setDialogOpen] = useState(false);
   const { headStyle, bodyStyle } = useFrameSizeStyle();
+  const { pageNum, pageSize, paginationProps } = usePageParams({});
   const [searchValues, setSearchValues] = useState({});
   const { isPc } = useDashboardRoot();
   const { data: wagonBalanceRes, isLoading } = useRequest(
-    "/api/iot/v1/iot/wagon-balance/search",
+    `${apiConfig.apiIot}${apiUrlMap.wagonBalanceSearch}`,
     {
       data: {
         ...busParams,
-        pageNum: 1,
-        pageSize: 5,
+        ...searchValues,
+        pageNum,
+        pageSize,
       },
+      refreshDeps: [pageNum, pageSize, busParams, searchValues],
       method: "POST",
       headers: {
-        "system-id": "237718173535821884",
+        "system-id": systemIds.zhgd,
       },
     }
   );
 
   const wagonBalanceTotal = wagonBalanceRes?.total || 0;
   const wagonBalanceRows: wagonBalanceRow[] = wagonBalanceRes?.rows || [];
+
+  const handleExport = async () => {
+    try {
+      const res = await aPIClient.request({
+        url: `${apiConfig.apiIot}${apiUrlMap.wagonBalanceExport}`,
+        method: "post",
+        data: {
+          ...busParams,
+          ...searchValues,
+          pageNum,
+          pageSize,
+        },
+        headers: {
+          "system-id": systemIds.zhgd,
+        },
+      });
+      console.log(res, "res");
+    } catch (error) {}
+  };
 
   return (
     <>
@@ -69,32 +92,25 @@ export default function Weighbridge() {
         <div
           className={css`
             overflow: hidden auto;
-            padding: 0 0.24rem;
+            padding: 0 0.24rem 0.24rem 0.24rem;
+            padding-bottom: ${isPc ? "0.24rem" : "0"};
           `}
           style={bodyStyle}
         >
           <CollapsibleForm onChange={setSearchValues} fields={fields} />
           <EmptyKit loading={isLoading} empty={wagonBalanceRows.length === 0}>
-            <SummaryStatistics />
+            <SummaryStatistics
+              pageNum={pageNum}
+              pageSize={pageSize}
+              searchValues={searchValues}
+            />
             {wagonBalanceRows.map((row, index) => {
               return <WeighbridgeItem key={row.id + index} row={row} />;
             })}
             <Pagination
-              className={css`
-                align-items: center;
-                .ant-pagination-total-text {
-                  flex: 1;
-                }
-              `}
-              current={1}
-              pageSize={5}
-              showQuickJumper
+              {...paginationProps}
               simple={!isPc}
               total={wagonBalanceTotal}
-              onChange={() => {}}
-              showTotal={(total) => {
-                return `共${total}条记录`;
-              }}
             />
           </EmptyKit>
         </div>

@@ -24,7 +24,8 @@ export type APiWrap<T> = T;
 
 export function useRequest<D = any>(
   url?: string,
-  options: UseRequestOptions = { method: "GET" }
+  options: UseRequestOptions = { method: "GET" },
+  callback?: Function
 ) {
   const app = useApp();
   const {
@@ -42,15 +43,22 @@ export function useRequest<D = any>(
     queryKey: [url, method, ...refreshDeps],
     enabled,
     staleTime,
-    queryFn: () =>
-      app.apiClient.request<any, D>({
-        url,
-        method,
-        params,
-        data,
-        headers,
+    queryFn: async () => {
+      try {
+        const res = await app.apiClient.request<any, D>({
+          url,
+          method,
+          params,
+          data,
+          headers,
 
-        ...other,
-      }),
+          ...other,
+        });
+        callback && callback(res);
+        return res;
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
   });
 }

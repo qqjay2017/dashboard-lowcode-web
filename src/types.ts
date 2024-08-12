@@ -8,6 +8,9 @@ export interface FormItemComponentProps<V = any> {
   apiInfo?: any[];
   dataSource?: any[];
   children?: ReactNode;
+  pageSize?: number;
+  pageNum?: number;
+  searchValues?: any;
   [field: string]: any;
 }
 

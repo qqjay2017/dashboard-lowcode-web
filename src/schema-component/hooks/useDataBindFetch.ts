@@ -27,7 +27,7 @@ export function useDataBindFetch(
       JSON.stringify(_requestData || {}),
       JSON.stringify(dataSource),
     ],
-
+    staleTime: 5 * 6000,
     enabled: !!dataSource?.dataSourceId,
     queryFn: async () => {
       let apiRes;

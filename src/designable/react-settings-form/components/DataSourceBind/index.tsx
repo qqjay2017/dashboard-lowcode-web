@@ -131,33 +131,6 @@ const DataSourceBind = observer((props: DataSourceBindProps) => {
                 </SchemaField>
               </Form>
             )}
-            {/* <CardItem title="绑定API">
-              <Select
-                value={value?.dataSourceId}
-                onChange={(e, option: any) => {
-                  value.dataSourceId = e;
-                  value.dataSourceName = option?.label || "";
-                }}
-                className={css`
-                  width: 400px;
-                `}
-                options={dataSourceApiOptions}
-              />
-              <Button
-                icon={<IoMdAdd />}
-                type="link"
-                onClick={() => {
-                  window.open("/dashboard/api/edit");
-                }}
-              />
-              <Button
-                icon={<IoIosRefresh />}
-                type="link"
-                onClick={() => {
-                  refetch();
-                }}
-              />
-            </CardItem> */}
           </div>
         </Modal>
       )}

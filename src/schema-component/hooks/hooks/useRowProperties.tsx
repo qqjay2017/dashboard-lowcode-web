@@ -180,6 +180,7 @@ export function useRowProperties(props?: {
               childrenStartY + (disOffsetHeaderSize ? 0 : 0.5111),
               2
             );
+
             child["x-decorator-props"] = {
               ...childecoratorProps,
               h: hasSetMobileH

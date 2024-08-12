@@ -36,14 +36,16 @@ export function getCommonTooltipOption(
 }
 
 export function getTooltipWithPercentFormatter() {
-  return "{a} <br/>{b} : {c} ({d}%)";
-  // return ({ percent, name, value, seriesName, marker }: any) => {
-  //   if (!name) {
-  //     return "";
-  //   }
-  //   return "{a} <br/>{b} : {c} ({d}%)";
-  //   // return `${marker} ${name} : ${value}\n` + `(${percent}%)`;
-  // };
+  // return "{a} <br/>{b} : {c} ({d}%)";
+  return ({ percent, name, value, seriesName, marker }: any) => {
+    if (!name) {
+      return "";
+    }
+    // return "{a} <br/>{b} : {c} ({d}%)";
+    return `
+     ${seriesName}<br />
+     ${marker} ${name} : ${value}\n (${percent}%)`;
+  };
 }
 
 export function getBarLineTooltipOption(

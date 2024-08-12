@@ -14,6 +14,7 @@ import {
   useQueryToBusParams,
 } from "@/schema-component/hooks";
 import { percentFixed } from "@/utils";
+import { dataSourceIdMap } from "@/schema-component/shared";
 
 export default function DeviationOfCargoChart({
   goodsName,
@@ -23,7 +24,7 @@ export default function DeviationOfCargoChart({
   const busParams = useQueryToBusParams(["projectSelect"]);
   const { data } = useDataBindFetch(
     {
-      dataSourceId: "149ba909-3673-4933-af46-114d3a93bf0d",
+      dataSourceId: dataSourceIdMap.deviationOfCargo,
     },
     {
       ...busParams,

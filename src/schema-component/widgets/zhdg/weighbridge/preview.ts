@@ -29,7 +29,7 @@ FormilyWeighbridge.Resource = createResource({
           padding: "0px 0px 0px 0px",
           w: 3,
           h: 5,
-          mobileH: 8.2,
+          mobileH: 8.5,
         },
       },
     },

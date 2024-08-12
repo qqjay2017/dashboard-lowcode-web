@@ -1,17 +1,17 @@
-import type { ComponentProps } from "react";
 import { Checkbox, DatePicker, FormItem, Input, Radio } from "@formily/antd-v5";
-import type { Field } from "@formily/react";
 
-export const fields: ComponentProps<typeof Field>[] = [
+import GoodsNameListSelect from "./GoodsNameListSelect";
+import GoodsDevCompanyListSelect from "./GoodsDevCompanyListSelect";
+import type { IFieldItem } from "@/schema-component/types";
+
+export const fields: IFieldItem[] = [
   {
-    name: "date",
+    name: "dateType",
     title: "",
-    decorator: [
-      FormItem,
-      {
-        gridSpan: 8,
-      },
-    ],
+    gridCol: {
+      span: 6,
+    },
+    decorator: [FormItem],
     component: [
       Radio.Group,
       {
@@ -22,84 +22,80 @@ export const fields: ComponentProps<typeof Field>[] = [
     dataSource: [
       {
         label: "本周",
-        value: 1,
+        value: "week",
       },
       {
         label: "本月",
-        value: 2,
+        value: "month",
       },
       {
         label: "本年度",
-        value: 3,
+        value: "year",
       },
     ],
   },
   {
-    name: "date1",
+    name: "times",
     title: "上报时间",
-    decorator: [
-      FormItem,
-      {
-        gridSpan: 16,
-      },
-    ],
-    component: [DatePicker.RangePicker],
+    gridCol: {
+      span: 14,
+    },
+    decorator: [FormItem],
+    component: [DatePicker.RangePicker, { showTime: true }],
   },
 
   {
-    name: "date2",
+    name: "goodsNameList",
     title: "货物名称",
-    decorator: [
-      FormItem,
-      {
-        gridSpan: 8,
-      },
-    ],
-    component: [Input],
+
+    gridCol: {
+      span: 8,
+    },
+    decorator: [FormItem],
+    component: [GoodsNameListSelect],
   },
   {
-    name: "date3",
+    name: "deliveryNo",
     title: "送货单单号",
-    decorator: [
-      FormItem,
-      {
-        gridSpan: 8,
-      },
-    ],
+    gridCol: {
+      span: 8,
+    },
+    decorator: [FormItem],
     component: [Input],
   },
   {
-    name: "date4",
+    name: "goodsDevCompanyList",
     title: "发货单位",
-    decorator: [
-      FormItem,
-      {
-        gridSpan: 8,
-      },
-    ],
-    component: [Input],
+    gridCol: {
+      span: 8,
+    },
+    decorator: [FormItem],
+    component: [GoodsDevCompanyListSelect],
   },
   {
-    name: "date5",
+    name: "carNumber",
     title: "车牌号",
-    decorator: [
-      FormItem,
-      {
-        gridSpan: 8,
-      },
-    ],
+    gridCol: {
+      span: 8,
+    },
+    decorator: [FormItem],
     component: [Input],
   },
   {
-    name: "date6",
+    name: "weightFlagList",
     title: "",
-    decorator: [
-      FormItem,
+    gridCol: {
+      span: 8,
+    },
+    decorator: [FormItem],
+    component: [
+      Checkbox.Group,
       {
-        gridSpan: 8,
+        style: {
+          marginLeft: 24,
+        },
       },
     ],
-    component: [Checkbox.Group],
     dataSource: [
       {
         label: "超量",
@@ -107,11 +103,11 @@ export const fields: ComponentProps<typeof Field>[] = [
       },
       {
         label: "正常",
-        value: 2,
+        value: 0,
       },
       {
         label: "缺量",
-        value: 3,
+        value: 2,
       },
     ],
   },

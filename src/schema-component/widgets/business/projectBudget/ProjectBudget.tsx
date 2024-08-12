@@ -11,13 +11,17 @@ import { useToken } from "@/schema-component/antd/style";
 import { useRequest } from "@/api-client";
 import CountTo from "@/schema-component/components/CountTo";
 import { EmptyKit } from "@/dashboard-themes/style-components";
+import { apiConfig, apiUrlMap } from "@/schema-component/shared";
 
 export function ProjectBudget({ query }) {
   const { token } = useToken();
 
-  const { data, isLoading } = useRequest(`/api/bg/v1/fee/budget`, {
-    method: "GET",
-  });
+  const { data, isLoading } = useRequest(
+    `${apiConfig.apiBg}${apiUrlMap.feeBudget}`,
+    {
+      method: "GET",
+    }
+  );
   const amount = get(data, "data.data.totalBudget", "0") || "0";
   const feeList: FeeListItem[] = get(data, "data.data.feeList", []) || [];
   const option = useProjectBudgetOption(feeList);
