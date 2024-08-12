@@ -5,6 +5,8 @@ import { TreeNode } from "./TreeNode";
 
 import { CursorDragType } from "./Cursor";
 import { SnapLine } from "./SnapLine";
+import type { AroundSpaceBlock } from "./SpaceBlock";
+import { SpaceBlock } from "./SpaceBlock";
 import {
   Point,
   Rect,
@@ -14,6 +16,9 @@ import {
   calcDistanceOfSnapLineToEdges,
   calcEdgeLinesOfRect,
   calcElementTranslate,
+  calcRectMinDistance,
+  calcSpaceBlockOfRect,
+  isEqualRect,
   isLineSegment,
 } from "@/designable/shared";
 import type { ILineSegment, IPoint, IRect, ISize } from "@/designable/shared";
@@ -54,7 +59,7 @@ export class TransformHelper {
   direction: ResizeDirection;
 
   dragNodes: TreeNode[] = [];
-
+  aroundSpaceBlocks: AroundSpaceBlock = null;
   rulerSnapLines: SnapLine[] = [];
 
   aroundSnapLines: SnapLine[] = [];
@@ -70,16 +75,31 @@ export class TransformHelper {
   cacheDragNodesReact: Rect;
 
   dragStartNodesRect: IRect = null;
-
+  /**
+   * 正在捕捉
+   */
   snapping = false;
-
-  dragging = false;
-
+  /**
+   *已经捕捉
+   */
   snapped = false;
+  dragging = false;
 
   constructor(props: ITransformHelperProps) {
     this.operation = props.operation;
     this.makeObservable();
+  }
+
+  get measurerSpaceBlocks(): SpaceBlock[] {
+    const results: SpaceBlock[] = [];
+
+    if (!this.dragging || !this.snapped) return [];
+    for (const type in this.aroundSpaceBlocks) {
+      if (this.aroundSpaceBlocks[type])
+        results.push(this.aroundSpaceBlocks[type]);
+    }
+
+    return results;
   }
 
   get tree() {
@@ -245,6 +265,7 @@ export class TransformHelper {
         if (existed > -1) {
           results.splice(existed, 1);
         }
+
         results.push(line);
       }
     });
@@ -407,15 +428,24 @@ export class TransformHelper {
       if (this.dragNodes.includes(refer)) return;
       const referLines = calcEdgeLinesOfRect(referRect);
       const add = (line: ILineSegment) => {
+        // 贴边距离
         const [distance, edge] = calcClosestEdges(line, edgeLines);
+
         const combined = calcCombineSnapLineSegment(line, edge);
-        if (distance < TransformHelper.threshold) {
+        // 另一边的间距
+        const distance2 = calcRectMinDistance(dragNodesRect, referRect);
+
+        if (
+          distance < TransformHelper.threshold * this.viewport.designScale &&
+          distance2 < TransformHelper.threshold2
+        ) {
           if (this.snapping && distance !== 0) return;
           const snapLine = new SnapLine(this, {
             ...combined,
             distance,
           });
           const edge = snapLine.snapEdge(dragNodesRect);
+
           if (this.type === "translate") {
             results.push(snapLine);
           } else if (edge !== "hc" && edge !== "vc") {
@@ -453,8 +483,34 @@ export class TransformHelper {
     }
   }
 
-  calcParentRectTranslate() {}
+  calcAroundSpaceBlocks(dragNodesRect: IRect): AroundSpaceBlock {
+    const closestSpaces = {};
+    this.eachViewportNodes((refer, referRect) => {
+      if (isEqualRect(dragNodesRect, referRect)) return;
 
+      const origin = calcSpaceBlockOfRect(dragNodesRect, referRect);
+
+      if (origin) {
+        const spaceBlock = new SpaceBlock(this, {
+          refer,
+          ...origin,
+        });
+        if (!closestSpaces[origin.type]) {
+          closestSpaces[origin.type] = spaceBlock;
+        } else if (spaceBlock.distance < closestSpaces[origin.type].distance) {
+          closestSpaces[origin.type] = spaceBlock;
+        }
+      }
+    });
+    return closestSpaces as any;
+  }
+
+  /**
+   * effct后执行
+   * @param node
+   * @param handler
+   *
+   */
   translate(node: TreeNode, handler: (translate: IPoint) => void) {
     if (!this.dragging) return;
 
@@ -467,12 +523,10 @@ export class TransformHelper {
 
     this.snapped = false;
     this.snapping = false;
-    if (this.viewport.designScale === 1) {
-      for (const line of this.closestSnapLines) {
-        line.translate(node, translate);
-        this.snapping = true;
-        this.snapped = true;
-      }
+    for (const line of this.closestSnapLines) {
+      line.translate(node, translate, this.viewport.designScale);
+      this.snapping = true;
+      this.snapped = true;
     }
 
     handler(translate);
@@ -551,15 +605,18 @@ export class TransformHelper {
     }
   }
 
+  /**
+   *    effct执行
+   *
+   */
   dragMove() {
     if (!this.dragging) return;
     this.draggingNodesRect = null;
     this.draggingNodesRect = this.dragNodesRect;
-    if (this.viewport.designScale === 1) {
-      this.aroundSnapLines = this.calcAroundSnapLines(this.dragNodesRect);
-    } else {
-      this.aroundSnapLines = [];
-    }
+
+    this.aroundSnapLines = this.calcAroundSnapLines(this.dragNodesRect);
+    console.log(this.aroundSnapLines, "aroundSnapLines");
+    // this.aroundSpaceBlocks = this.calcAroundSpaceBlocks(this.dragNodesRect);
   }
 
   dragEnd() {
@@ -580,8 +637,10 @@ export class TransformHelper {
       snapped: observable.ref,
       dragging: observable.ref,
       snapping: observable.ref,
+
       dragNodes: observable.ref,
       aroundSnapLines: observable.ref,
+      aroundSpaceBlocks: observable.ref,
       rulerSnapLines: observable.shallow,
       closestSnapLines: observable.computed,
       thresholdSnapLines: observable.computed,
@@ -589,6 +648,7 @@ export class TransformHelper {
       cursorPosition: observable.computed,
       cursorOffset: observable.computed,
       dragStartCursor: observable.computed,
+      measurerSpaceBlocks: observable.computed,
       translate: action,
       dragStart: action,
       dragMove: action,
@@ -597,4 +657,5 @@ export class TransformHelper {
   }
 
   static threshold = 6;
+  static threshold2 = 40;
 }

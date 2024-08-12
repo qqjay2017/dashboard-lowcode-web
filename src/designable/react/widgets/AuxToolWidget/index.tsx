@@ -6,6 +6,9 @@ import { Selection } from "./Selection";
 import { Cover } from "./Cover";
 import { DashedBox } from "./DashedBox";
 import { SnapLine } from "./SnapLine";
+import { SpaceBlock } from "./SpaceBlock";
+
+import "./styles.less";
 
 function AuxToolWidget() {
   // const engine = useDesigner();
@@ -28,6 +31,8 @@ function AuxToolWidget() {
         z-index: 9998;
       `}
     >
+      {/* 边距计算 */}
+      {/* <SpaceBlock /> */}
       {/* 吸边的线 */}
       <SnapLine />
       <DashedBox />

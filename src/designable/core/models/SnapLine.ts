@@ -6,7 +6,7 @@ import {
   calcRectOfAxisLineSegment,
 } from "@/designable/shared";
 
-export type ISnapLineType = "ruler" | "normal";
+export type ISnapLineType = "ruler" | "normal" | "space-block";
 
 export type ISnapLine = ILineSegment & {
   type?: ISnapLineType;
@@ -52,16 +52,17 @@ export class SnapLine {
     return calcRectOfAxisLineSegment(this);
   }
 
-  translate(node: TreeNode, translate: IPoint) {
+  translate(node: TreeNode, translate: IPoint, designScale = 1) {
     if (!node || !node?.parent) return;
+
     const parent = node.parent;
     const dragNodeRect = node.getValidElementOffsetRect();
     const parentRect = parent.getValidElementOffsetRect();
     const edgeOffset = calcOffsetOfSnapLineSegmentToEdge(this, dragNodeRect);
     if (this.direction === "h") {
-      translate.y = this.start.y - parentRect.y - edgeOffset.y;
+      translate.y = (this.start.y - parentRect.y - edgeOffset.y) / designScale;
     } else {
-      translate.x = this.start.x - parentRect.x - edgeOffset.x;
+      translate.x = (this.start.x - parentRect.x - edgeOffset.x) / designScale;
     }
   }
 

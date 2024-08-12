@@ -634,63 +634,6 @@ export function calcCombineSnapLineSegment(
   );
 }
 
-function isXClosed(startX, endX, lineStartX, lineEndX) {
-  if (
-    startX === undefined ||
-    endX === undefined ||
-    lineStartX === undefined ||
-    lineEndX === undefined
-  ) {
-    return false;
-  }
-  const min = Math.min(
-    Math.abs(startX - lineStartX),
-    Math.abs(endX - lineEndX)
-  );
-
-  if (min <= 6) {
-    console.log(
-      startX,
-      endX,
-      lineStartX,
-      lineEndX,
-      "startX, endX, lineStartX, lineEndX"
-    );
-    return true;
-  } else {
-    return false;
-  }
-}
-
-function isYClosed(startX, endX, lineStartX, lineEndX) {
-  if (
-    startX === undefined ||
-    endX === undefined ||
-    lineStartX === undefined ||
-    lineEndX === undefined
-  ) {
-    return false;
-  }
-  const min = Math.min(
-    Math.abs(startX - lineStartX),
-    Math.abs(endX - lineEndX)
-  );
-
-  if (min <= 6) {
-    console.log(min, "minminmin");
-    console.log(
-      startX,
-      endX,
-      lineStartX,
-      lineEndX,
-      "startY, endY, lineStartY, lineEndY"
-    );
-    return true;
-  } else {
-    return false;
-  }
-}
-
 export function calcClosestEdges(
   line: ILineSegment,
   edges: IRectEdgeLines
@@ -701,13 +644,6 @@ export function calcClosestEdges(
     edges.h.forEach((target) => {
       const _distance = Math.abs(target.start.y - line.start.y);
       if (_distance < distance) {
-        console.log(
-          target.start.y - line.start.y,
-          target.start.y,
-          line.start.y,
-          "target.start.y - line.start.y"
-        );
-        console.log(_distance, "_distance1");
         distance = _distance;
         result = target;
       }
@@ -716,7 +652,6 @@ export function calcClosestEdges(
     edges.v.forEach((target) => {
       const _distance = Math.abs(target.start.x - line.start.x);
       if (_distance < distance) {
-        console.log(_distance, "_distance2");
         distance = _distance;
         result = target;
       }
@@ -725,4 +660,51 @@ export function calcClosestEdges(
     throw new Error("can not calculate slash distance");
   }
   return [distance, result];
+}
+
+export function calcRectMinDistance(rect1: Rect, rect2: Rect) {
+  // 矩形1的边界
+  const x1 = rect1.x;
+  const y1 = rect1.y;
+  const width1 = rect1.width;
+  const height1 = rect1.height;
+  const right1 = x1 + width1;
+  const bottom1 = y1 + height1;
+
+  // 矩形2的边界
+  const x2 = rect2.x;
+  const y2 = rect2.y;
+  const width2 = rect2.width;
+  const height2 = rect2.height;
+
+  const right2 = x2 + width2;
+  const bottom2 = y2 + height2;
+
+  // 计算水平和垂直距离
+  let dx = 0;
+  let dy = 0;
+
+  if (right1 < x2) {
+    // 矩形1在矩形2的左侧
+    dx = x2 - right1;
+  } else if (right2 < x1) {
+    // 矩形1在矩形2的右侧
+    dx = x1 - right2;
+  }
+
+  if (bottom1 < y2) {
+    // 矩形1在矩形2的上方
+    dy = y2 - bottom1;
+  } else if (bottom2 < y1) {
+    // 矩形1在矩形2的下方
+    dy = y1 - bottom2;
+  }
+
+  // 如果dx和dy都小于0，表示重叠，返回0
+  if (dx < 0 && dy < 0) {
+    return 0;
+  }
+
+  // 计算最小距离
+  return Math.sqrt(dx * dx + dy * dy);
 }

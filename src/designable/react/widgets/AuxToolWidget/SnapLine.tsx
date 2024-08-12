@@ -16,7 +16,7 @@ export const SnapLine = observer(() => {
       transform: `perspective(1px) translate3d(${rect.x}px,${rect.y}px,0)`,
       background: `#b0b1f3`,
       position: "absolute",
-      zIndex: 2,
+      zIndex: 3,
     };
     return baseStyle;
   };
@@ -25,6 +25,7 @@ export const SnapLine = observer(() => {
     <>
       {transformHelper.closestSnapLines.map((line, key) => {
         if (line.type !== "normal") return null;
+
         return (
           <div
             key={key}
