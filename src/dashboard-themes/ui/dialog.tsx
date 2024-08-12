@@ -3,6 +3,7 @@ import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { css } from "@emotion/css";
 import { cn, cx } from "@/utils";
+import { designScrollBarStyle } from "@/designable/styles";
 
 const Dialog = DialogPrimitive.Root;
 
@@ -228,6 +229,28 @@ function DialogContentItem({
   );
 }
 
+function DialogContentInner({
+  className,
+  children,
+}: React.PropsWithChildren<{ className?: string }>) {
+  return (
+    <div
+      className={cx(
+        css`
+          height: calc(100% - 0.56rem);
+          max-height: calc(100% - 0.56rem);
+          width: 100%;
+          overflow: hidden auto;
+        `,
+        designScrollBarStyle,
+        className
+      )}
+    >
+      {children}
+    </div>
+  );
+}
+
 export {
   Dialog,
   DialogPortal,
@@ -240,4 +263,5 @@ export {
   DialogTitle,
   DialogDescription,
   DialogContentItem,
+  DialogContentInner,
 };
