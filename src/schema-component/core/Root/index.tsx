@@ -147,7 +147,10 @@ const Root: DnFC<IRootProps> = observer(
                         background-size: cover;
                         background-position: center;
                         background-repeat: ${isPc ? "no-repeat" : "repeat"};
-                        font-size: 0.14rem;
+
+                        font-size: ${isPc ? "0.14rem" : "0.28rem"};
+                        line-height: ${isPc ? "0.22rem" : "0.32rem"};
+
                         line-height: 1;
                         color: #ccc;
                         width: 100%;

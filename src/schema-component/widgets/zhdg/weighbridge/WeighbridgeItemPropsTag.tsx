@@ -1,7 +1,7 @@
 import { css } from "@emotion/css";
+import { useMemo } from "react";
 import { cx } from "@/utils";
 import { useDashboardRoot } from "@/schema-component/hooks";
-import { useMemo } from "react";
 
 const clImg = `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAAoCAYAAABdGbwdAAAAAXNSR0IArs4c6QAAA6tJREFUaEPtmj9TE0EYh5/3cnQyY5tUVtiq8AGwN2oLlc4wUCv08AGI1mChjdCioQd6UVtpdHQGSpkJHcmteXcvR5K7/IE7IcBtk5m7vcvus7/33d/urQC8+Gnu+T7vgQfAXb12m4vA1qnPqw9F+SUhnG85mJgkjus+D2Xut9lCeIZQ5ZQ3eNRutXoKFA3MYygDuzL3xxgFIkLZNDi6zXCivgeM47MDHEeACJjK4bQR8PhihdNSUA6oSx45oAHxkgPKAaVLqbmCcgWNpoJEjVaDKQJ2r7Xp/G8h5jEJrElA2eCMZwSt35gmAfWYR10tHA4phxKwTsD6kPV7V7tMQITQBjR6gYD9jjoO0BMCng7VYY/PwPYoAprEs2sXEO5gmEbYxXBir9WpROEmLCJMELCgtwyUxHWsF6AboaAzQIZic+E72ROQwjDsYagMCehGKOgsAhJyUFt4lPFY7lBLv/oFZjDMDBVerUrCJg02z/VMUuVLzUGtRG1YQzigwVLUJg3HAqsjtxbMFJDPBHXu2057FO3MI1SaIFwO8vlBwKpNUcKC3VZx6hi3SRhOCJiNoIWNS62CNDsUmQKKh0IJoYZxm28WimFFhJVoz8ljpWkHNF/VBCojtxeVKaDuoU6YbtUL9VNEIqCLKimNclqNzByQepbAGsMqSX7EY615T01kcknqlGtk3Pi5d9GyCrFJYEQBaaP3rUlzgL5aWM4HHeCz2gqndkIGppuhuJiYpBVQW6hGzwnjYf7qdNit6yMJSNhoOuaqnWIdILX9tthlh8s5RwT2t724qf/GK6jADobNNgV1Wn4XFhcBpCrp/JigTlyL4aALtua5UiaWIdMcpA1WBbkZadao3+leEykgFy6dJs4tS2aSOtUrsZuAiv0vianRccvi60ymgLSTPsvhiOrUrTnCqelsVjhvktbQU48UL70V5OoGbEf5r8ecMPBypoAKFk6JOkv4fAzzzzYeGzZBX6DYLRJ9Z1LRpC72hl3PdRcRDlOrKFNAmpQD3tlR049uBeuk29dQ8TyS1DMFrF92XULvVx6FKt3rWys+IQw/VBkDmhehGhs1XYjqcqIVEm0zW0JLa024ThFuHyh9SbNxlimg9F0ZvTfkgAaMSQ4oB5QubHMF5QrKTEF/7fG7Oo+v9Ye+dDg6ng5Nqt2J0PNBepJK10NVgfXUDjTDhl7Jq9TojvHaHsEzfMoPcfYeBXeIU+/rSdcxn7cGnl/JqI3Wnx4D3+s+L/UY8D8mvAEnvVaGMgAAAABJRU5ErkJggg==`;
 const zcImg = `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAAoCAYAAABdGbwdAAAAAXNSR0IArs4c6QAAAzlJREFUaEPtmj1QE0EUx/9v15LM2CaVNtQ62Iu9UVvGgdFCqBUbK6SKBWhrsNCOFsEe7WG0lUaxgFJnoHP2/WXvciEfd+GSO2cu5FLlkv14+7v3ubsCAI0fj67BuvdCuUHgqv9tkj8i3KKzT19c//BTPBwx+rUE060SAvyhmpvSOJzfAuS+iOzQyWsYnkyy9liwqiKLJOsQfpbG4QI9EAJ1gRxPMpz22lUqMLrrtagNCJBbJZxOAtzzTyWgRK0oAV1gMCWgElA2n1pqUKlBE6tBqqwbEwThnWwQBvXO28QE0yAqIwusctCXxQdjcg2QVQD752OzGX6Xpeg3D81aeUInD/OpBvIGhEDomVEBEbYu0JhMnk0RqZK4lwTIwlQdtAnyC0TWR5Whu1/egFQqNDIVJ5xAa/AAyeeUK98T2rTh+AX/VRdk9sawCsgiwA3VsBQygjkxMuUc3wXPVm6DnPVw1PE00C1j9+KBp8WXN6AB8zqnNWtlu2USHaYS36nlY1bSLiWunSpWjcnio8YAULLZJaOLXsbkAFKewri5VNqkdtPRVby2FheQYA3K405nOayJhc6edahZjxYM4gCC+L0qHz0F04HGBUB1uZUCXGjOyeD/m4kF0ewYkJfR5CMAasudsq8H2hzFJAsGKEmc5L2oNiDhOmgOYkcI86XlSwDoPFR3LnRQtGkBetsDpgbICdC9PUzYpWyhvXOWMTGxeJ3rz6RTOfGhGo0FIF2MX5O5KwKQ+in2f7Wb2cuNsQDkhew3JQCxJgZIBWAlH180JoDi85l4E4sy8BJQWBh3VfP+qbiAOrc6yGUYHoFmM/IPqqwZgxUMCtVh457EjnspNWgmmCMqWtXcKZoP2j6rtmtDBYm+xnIEdG5p+AYpAQnmfB4U+iv4F7ORTZZw7kBHo5PVLAeHhKlmF+gs9+7ZD/LjhqVD73H4WIf5PFAVYYwcNagIy8lfhhLQBUxLQCWgbGZXalA6DXp1uPA7uH6XS3KV7Z0VpXd4jOSCQ0lp/JrfBWXWX8FTmo389lOKstwh5VCpiHXPSKlD8bG8xJnAr32J0/8f3HS17g0pD4bkfemaB2DIb6B97K8B/wNQfV8nZnXy9QAAAABJRU5ErkJggg==`;
@@ -19,10 +19,10 @@ export default function WeighbridgeItemTag({
   className?: string;
 }) {
   const { isPc } = useDashboardRoot();
-  if (weightFlag === -1) {
-    return null;
-  }
   const imgSrcMemo = useMemo(() => {
+    if (weightFlag === -1) {
+      return null;
+    }
     if (isPc) {
       switch (weightFlag) {
         case 0:
@@ -43,6 +43,10 @@ export default function WeighbridgeItemTag({
         return qlMobileImg;
     }
   }, [isPc, weightFlag]);
+
+  if (!imgSrcMemo) {
+    return null;
+  }
 
   return (
     <img

@@ -5,6 +5,7 @@ import { css } from "@emotion/css";
 
 import { cn, cx } from "@/utils";
 import { useToken } from "@/schema-component/antd/style";
+import { useDashboardRoot } from "@/schema-component/hooks";
 
 const Select = SelectPrimitive.Root;
 
@@ -125,6 +126,7 @@ const SelectItem = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item>
 >(({ className, children, ...props }, ref) => {
   const { token } = useToken();
+  const { isPc } = useDashboardRoot();
   const menuItemActiveCss = css`
     background-color: ${token.popover?.accentBg}!important;
     color: ${token.popover?.accentForeground}!important;
@@ -148,8 +150,9 @@ const SelectItem = React.forwardRef<
           align-items: center;
           justify-content: flex-start;
           color: ${token.textCommon};
-          font-size: 0.14rem;
-          line-height: 0.22rem;
+          font-size: ${isPc ? "0.14rem" : "0.28rem"};
+          line-height: ${isPc ? "0.22rem" : "0.32rem"};
+
           padding: 0px;
           cursor: pointer;
 

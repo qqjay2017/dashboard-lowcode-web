@@ -9,13 +9,15 @@
         )}
  */
 
-import { css } from '@emotion/css'
-import { createStyles } from 'antd-style'
+import { createStyles } from "antd-style";
 
 export const useScrollBarStyle = createStyles(
-  ({ css }, { thumbColor }: { thumbColor: string }) => {
+  (
+    { css, token },
+    { thumbColor }: { thumbColor: string } = { thumbColor: "" }
+  ) => {
     return css`
-      scrollbar-color: ${thumbColor} transparent;
+      scrollbar-color: ${thumbColor || token.thumbColor} transparent;
       scrollbar-width: thin;
       ::-webkit-scrollbar,
       ::-webkit-scrollbar {
@@ -57,6 +59,6 @@ export const useScrollBarStyle = createStyles(
           background: transparent;
         }
       }
-    `
-  },
-)
+    `;
+  }
+);

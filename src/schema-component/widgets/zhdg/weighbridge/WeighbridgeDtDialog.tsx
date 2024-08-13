@@ -11,9 +11,11 @@ import {
   DialogContentItem,
   DialogHeader,
   DialogTitle,
+  FullScreenDialogContent,
   OneTable,
   OneTableBody,
   OneTableCell,
+  OneTableContainer,
   OneTableHead,
   OneTableHeader,
   OneTableRow,
@@ -26,11 +28,14 @@ export default function WeighbridgeDtDialog({
   dialogOpen,
   setDialogOpen,
   id,
+  isPc,
 }: {
   id?: string;
   dialogOpen?: boolean;
+  isPc?: boolean;
   setDialogOpen?: (flag?: boolean) => void;
 }) {
+  const Content = isPc ? DialogContent : FullScreenDialogContent;
   const { data, isLoading } = useRequest<WagonBalanceRow>(
     `${apiConfig.apiIot}/v1/iot/wagon-balance/${id}`,
     {
@@ -45,11 +50,17 @@ export default function WeighbridgeDtDialog({
 
   return (
     <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-      <DialogContent
-        className={css`
-          width: 1200px;
-          height: 859px;
-        `}
+      <Content
+        className={
+          isPc
+            ? css`
+                width: 1200px;
+                height: 859px;
+              `
+            : css`
+                padding-bottom: 0.44rem;
+              `
+        }
       >
         <DialogHeader>
           <DialogTitle>设备信息</DialogTitle>
@@ -66,7 +77,8 @@ export default function WeighbridgeDtDialog({
                   <div
                     className={css`
                       display: grid;
-                      grid-template-columns: repeat(4, 1fr);
+                      grid-template-columns: repeat(${isPc ? 4 : 1}, 1fr);
+                      row-gap: 0.16rem;
                     `}
                   >
                     <StatisticsItem
@@ -85,7 +97,8 @@ export default function WeighbridgeDtDialog({
                   <div
                     className={css`
                       display: grid;
-                      grid-template-columns: repeat(4, 1fr);
+                      grid-template-columns: repeat(${isPc ? 4 : 1}, 1fr);
+                      row-gap: 0.16rem;
                     `}
                   >
                     <StatisticsItem label="货物名称" value={data.goodsName} />
@@ -98,45 +111,52 @@ export default function WeighbridgeDtDialog({
                   </div>
                 </DialogContentItem>
                 <DialogContentItem header="过磅信息">
-                  <OneTable>
-                    <OneTableHeader>
-                      <OneTableRow>
-                        {[
-                          "毛重",
-                          "皮重",
-                          "净重",
-                          "扣量",
-                          "实量",
-                          "重量偏差",
-                          "偏差比例",
-                        ].map((h) => {
-                          return <OneTableHead key={h}>{h}</OneTableHead>;
-                        })}
-                      </OneTableRow>
-                    </OneTableHeader>
-                    <OneTableBody>
-                      <OneTableRow>
-                        {[
-                          `${data.grossWeight || 0}吨`,
-                          `${data.tare || 0}吨`,
-                          `${data.netWeight || 0}吨`,
-                          `${data.deductWeight || 0}吨`,
-                          `${data.trueWeight || 0}吨`,
-                          `${data.weightDeviation || 0}吨`,
-                          `${data.deviationRatio || 0}%`,
-                        ].map((row) => {
-                          return <OneTableCell key={row}>{row}</OneTableCell>;
-                        })}
-                      </OneTableRow>
-                    </OneTableBody>
-                  </OneTable>
+                  <OneTableContainer>
+                    <OneTable
+                      className={css`
+                        min-width: ${isPc ? "100%" : "1190px;"};
+                      `}
+                    >
+                      <OneTableHeader>
+                        <OneTableRow>
+                          {[
+                            "毛重",
+                            "皮重",
+                            "净重",
+                            "扣量",
+                            "实量",
+                            "重量偏差",
+                            "偏差比例",
+                          ].map((h) => {
+                            return <OneTableHead key={h}>{h}</OneTableHead>;
+                          })}
+                        </OneTableRow>
+                      </OneTableHeader>
+                      <OneTableBody>
+                        <OneTableRow>
+                          {[
+                            `${data.grossWeight || 0}吨`,
+                            `${data.tare || 0}吨`,
+                            `${data.netWeight || 0}吨`,
+                            `${data.deductWeight || 0}吨`,
+                            `${data.trueWeight || 0}吨`,
+                            `${data.weightDeviation || 0}吨`,
+                            `${data.deviationRatio || 0}%`,
+                          ].map((row) => {
+                            return <OneTableCell key={row}>{row}</OneTableCell>;
+                          })}
+                        </OneTableRow>
+                      </OneTableBody>
+                    </OneTable>
+                  </OneTableContainer>
                 </DialogContentItem>
                 <DialogContentItem header="过磅照片">
                   <div
                     className={css`
                       display: grid;
-                      grid-template-columns: repeat(3, 1fr);
+                      grid-template-columns: repeat(${isPc ? 3 : 1}, 1fr);
                       column-gap: 0.24rem;
+                      row-gap: 0.16rem;
                     `}
                   >
                     <WeightImg type="车牌照片" imgSrc={data.carNumberImg} />
@@ -156,7 +176,7 @@ export default function WeighbridgeDtDialog({
             ) : null}
           </EmptyKit>
         </DialogContentInner>
-      </DialogContent>
+      </Content>
     </Dialog>
   );
 }

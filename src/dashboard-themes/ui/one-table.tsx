@@ -1,6 +1,7 @@
 import type { TableHTMLAttributes } from "react";
 import { css } from "@emotion/css";
 import { cx } from "@/utils";
+import { useDashboardRoot, useScrollBarStyle } from "@/schema-component/hooks";
 
 export function OneTable({
   className,
@@ -16,6 +17,7 @@ export function OneTable({
           border-top: 1px solid rgba(125, 139, 160, 1);
           width: 100%;
           border-collapse: collapse; /* 合并边框 */
+          table-layout: fixed;
         `,
         className
       )}
@@ -54,17 +56,20 @@ export function OneTableHead({
   children,
   ...props
 }: TableHTMLAttributes<HTMLTableCellElement>) {
+  const { isPc } = useDashboardRoot();
   return (
     <th
       {...props}
       className={cx(
         css`
+          min-width: 150px;
           font-weight: 400;
-          font-size: 0.14rem;
+
           color: #ffffff;
-          line-height: 0.22rem;
-          padding: 0.1rem 0;
-          flex: 1;
+          font-size: ${isPc ? "0.14rem" : "0.28rem"};
+          line-height: ${isPc ? " 0.22rem" : " 0.32rem"};
+          padding: 0.1rem 0.32rem;
+
           text-align: center;
           border-bottom: 1px solid rgba(125, 139, 160, 1);
           border-right: 1px solid rgba(125, 139, 160, 1);
@@ -92,17 +97,19 @@ export function OneTableCell({
   children,
   ...props
 }: TableHTMLAttributes<HTMLTableCellElement>) {
+  const { isPc } = useDashboardRoot();
   return (
     <td
       {...props}
       className={cx(
         css`
+          min-width: 150px;
           font-weight: 400;
-          font-size: 0.14rem;
+          font-size: ${isPc ? " 0.14rem" : " 0.28rem"};
           color: #ffffff;
-          line-height: 0.22rem;
-          padding: 0.1rem 0;
-          flex: 1;
+          line-height: ${isPc ? " 0.22rem" : " 0.32rem"};
+          padding: 0.1rem 0.32rem;
+
           text-align: center;
           border-bottom: 1px solid rgba(125, 139, 160, 1);
           border-right: 1px solid rgba(125, 139, 160, 1);
@@ -112,5 +119,29 @@ export function OneTableCell({
     >
       {children}
     </td>
+  );
+}
+
+export function OneTableContainer({
+  className,
+  children,
+  ...props
+}: TableHTMLAttributes<HTMLDivElement>) {
+  const { styles } = useScrollBarStyle();
+  return (
+    <div
+      {...props}
+      className={cx(
+        css`
+          width: 100%;
+          overflow-x: auto;
+        `,
+        styles,
+
+        className
+      )}
+    >
+      {children}
+    </div>
   );
 }

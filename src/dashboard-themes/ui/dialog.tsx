@@ -1,9 +1,12 @@
 import * as React from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { Cross2Icon } from "@radix-ui/react-icons";
+
 import { css } from "@emotion/css";
+import { IoMdClose } from "react-icons/io";
+
 import { cn, cx } from "@/utils";
-import { designScrollBarStyle } from "@/designable/styles";
+
+import { useDashboardRoot, useScrollBarStyle } from "@/schema-component/hooks";
 
 const Dialog = DialogPrimitive.Root;
 
@@ -76,7 +79,6 @@ const DialogContent = React.forwardRef<
           transform: translate(-50%, -50%);
           transition-duration: 200ms;
           background: #12233e;
-          position: relativel;
         `,
         className
       )}
@@ -89,31 +91,97 @@ const DialogContent = React.forwardRef<
           position: absolute;
           right: 0.24rem;
           top: 0.2rem;
+
           cursor: pointer;
           color: #fff;
         `)}
       >
-        <Cross2Icon
+        <IoMdClose
           className={css`
             width: 0.2rem;
             height: 0.2rem;
+            font-size: 0.2rem;
+            line-height: 0.2rem;
           `}
         />
       </DialogPrimitive.Close>
     </DialogPrimitive.Content>
   </DialogPortal>
 ));
+
 DialogContent.displayName = DialogPrimitive.Content.displayName;
+
+const FullScreenDialogContent = React.forwardRef<
+  React.ElementRef<typeof DialogPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
+>(({ className, children, ...props }, ref) => (
+  <DialogPortal>
+    <DialogOverlay />
+    <DialogPrimitive.Content
+      ref={ref}
+      className={cx(
+        css`
+          max-width: 100vw;
+          width: 100vw;
+          height: 100vh;
+          max-height: 100vh;
+
+          left: 0;
+          top: 0;
+          z-index: 50;
+          transition-duration: 200ms;
+          background: #12233e;
+          position: fixed;
+        `,
+        className
+      )}
+      {...props}
+    >
+      <div
+        className={css`
+          width: 100%;
+          height: 100%;
+          position: relative;
+        `}
+      >
+        <DialogPrimitive.Close
+          className={cx(css`
+            all: unset;
+            position: absolute;
+            right: 0.2rem;
+            top: 0.2rem;
+            cursor: pointer;
+            color: #fff;
+            width: 0.44rem;
+            height: 0.44rem;
+            line-height: 0.44rem;
+          `)}
+        >
+          <IoMdClose
+            className={cx(css`
+              font-size: 0.44rem;
+              width: 0.44rem;
+              height: 0.44rem;
+              line-height: 0.44rem;
+            `)}
+          />
+        </DialogPrimitive.Close>
+        {children}
+      </div>
+    </DialogPrimitive.Content>
+  </DialogPortal>
+));
 
 function DialogHeader({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
+  const { isPc } = useDashboardRoot();
   return (
     <div
       className={cx(
         css`
-          height: 0.56rem;
+          height: ${isPc ? "0.56rem" : "0.86rem"};
           width: 100%;
           display: flex;
           align-items: center;
@@ -147,22 +215,25 @@ DialogFooter.displayName = "DialogFooter";
 const DialogTitle = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Title>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
->(({ className, ...props }, ref) => (
-  <DialogPrimitive.Title
-    ref={ref}
-    className={cx(
-      css`
-        font-weight: 500;
-        font-size: 0.16rem;
-        color: #ffffff;
-        line-height: 0.22rem;
-      `,
-      "text-lg font-semibold leading-none tracking-tight",
-      className
-    )}
-    {...props}
-  />
-));
+>(({ className, ...props }, ref) => {
+  const { isPc } = useDashboardRoot();
+  return (
+    <DialogPrimitive.Title
+      ref={ref}
+      className={cx(
+        css`
+          font-weight: 500;
+          font-size: ${isPc ? "0.16rem" : "0.3rem"};
+          color: #ffffff;
+          line-height: 0.22rem;
+        `,
+        "text-lg font-semibold leading-none tracking-tight",
+        className
+      )}
+      {...props}
+    />
+  );
+});
 DialogTitle.displayName = DialogPrimitive.Title.displayName;
 
 const DialogDescription = React.forwardRef<
@@ -186,6 +257,7 @@ function DialogContentItem({
   header,
   ...props
 }: DialogContentItemProps) {
+  const { isPc } = useDashboardRoot();
   return (
     <div
       {...props}
@@ -208,9 +280,9 @@ function DialogContentItem({
               align-items: center;
 
               font-weight: 500;
-              font-size: 0.16rem;
+              font-size: ${isPc ? " 0.16rem" : " 0.28rem"};
               color: #ffffff;
-              line-height: 0.22rem;
+              line-height: ${isPc ? " 0.22rem" : " 0.28rem"};
             `,
             className
           )}
@@ -233,6 +305,7 @@ function DialogContentInner({
   className,
   children,
 }: React.PropsWithChildren<{ className?: string }>) {
+  const { styles } = useScrollBarStyle();
   return (
     <div
       className={cx(
@@ -242,7 +315,8 @@ function DialogContentInner({
           width: 100%;
           overflow: hidden auto;
         `,
-        designScrollBarStyle,
+
+        styles,
         className
       )}
     >
@@ -264,4 +338,5 @@ export {
   DialogDescription,
   DialogContentItem,
   DialogContentInner,
+  FullScreenDialogContent,
 };

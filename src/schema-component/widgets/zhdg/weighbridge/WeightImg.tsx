@@ -3,6 +3,7 @@ import { css } from "@emotion/css";
 import type { WagonBalanceRow } from "./types";
 import { EmptyKit } from "@/dashboard-themes/style-components";
 import { timeFormat } from "@/utils/format";
+import { useDashboardRoot } from "@/schema-component/hooks";
 
 export default function WeightImg({
   imgSrc = "",
@@ -13,6 +14,7 @@ export default function WeightImg({
   type?: string;
   time?: number;
 }) {
+  const { isPc } = useDashboardRoot();
   return (
     <div>
       <EmptyKit
@@ -35,9 +37,10 @@ export default function WeightImg({
           margin: 0.08rem 0;
 
           font-weight: 400;
-          font-size: 0.14rem;
+          font-size: ${isPc ? " 0.14rem" : " 0.28rem"};
           color: rgba(202, 208, 224, 0.7);
-          line-height: 0.22rem;
+          line-height: ${isPc ? " 0.22rem" : " 0.32rem"};
+
           display: flex;
           align-items: center;
           justify-content: space-between;

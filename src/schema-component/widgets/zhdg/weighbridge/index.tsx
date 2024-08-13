@@ -13,13 +13,7 @@ import {
   usePageParams,
   useQueryToBusParams,
 } from "@/schema-component/hooks";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  ExportButton,
-} from "@/dashboard-themes/ui";
+import { ExportButton } from "@/dashboard-themes/ui";
 import { EmptyKit } from "@/dashboard-themes/style-components";
 import { useAPIClient, useRequest } from "@/api-client";
 import { apiConfig, apiUrlMap, systemIds } from "@/schema-component/shared";
@@ -141,6 +135,7 @@ export default function Weighbridge() {
         </div>
       </div>
       <WeighbridgeDtDialog
+        isPc={isPc}
         id={weighbridgeDtId}
         dialogOpen={dialogOpen}
         setDialogOpen={setDialogOpen}

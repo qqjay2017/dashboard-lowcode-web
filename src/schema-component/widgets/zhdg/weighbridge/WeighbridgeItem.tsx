@@ -99,6 +99,9 @@ export default function WeighbridgeItem(props: {
         />
         <DtBtn
           onClick={() => {
+            if (!row.id) {
+              return false;
+            }
             handleOpenWeighbridgeDtDialog &&
               handleOpenWeighbridgeDtDialog(row.id);
           }}
@@ -108,8 +111,11 @@ export default function WeighbridgeItem(props: {
   );
 }
 
-function WeighbridgeItemMobile(props: { row?: Partial<WagonBalanceRow> }) {
-  const { row = {} } = props;
+function WeighbridgeItemMobile(props: {
+  row?: Partial<WagonBalanceRow>;
+  handleOpenWeighbridgeDtDialog?: Function;
+}) {
+  const { row = {}, handleOpenWeighbridgeDtDialog } = props;
   return (
     <div
       className={css`
@@ -156,6 +162,13 @@ function WeighbridgeItemMobile(props: { row?: Partial<WagonBalanceRow> }) {
           />
         </div>
         <DtBtn
+          onClick={() => {
+            if (!row.id) {
+              return false;
+            }
+            handleOpenWeighbridgeDtDialog &&
+              handleOpenWeighbridgeDtDialog(row.id);
+          }}
           className={css`
             font-size: 0.24rem;
           `}
@@ -173,7 +186,7 @@ function WeighbridgeItemMobile(props: { row?: Partial<WagonBalanceRow> }) {
             margin-right: 0.48rem;
           `}
         >
-          {timeFormat(row.reportTime)}
+          {row.goodsDevCompany}
         </div>
         <div>{row.carNo}</div>
       </div>
