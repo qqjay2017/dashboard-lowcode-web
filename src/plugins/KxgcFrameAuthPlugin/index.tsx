@@ -1,4 +1,3 @@
-import { WaitInitReport } from "./WaitInitReport";
 import { Plugin } from "@/application";
 
 class KxgcFrameAuthPlugin extends Plugin {
