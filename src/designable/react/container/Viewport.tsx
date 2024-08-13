@@ -111,6 +111,7 @@ export const Viewport = observer(
               `}
             >
               <div
+                id="viewportContainer"
                 ref={viewportContainer}
                 className={css`
                   width: ${designWidth * viewport.designScale}px;
@@ -122,6 +123,7 @@ export const Viewport = observer(
                 `}
               >
                 <div
+                  id="scaleContainer"
                   className={css`
                     width: ${designWidth}px;
                     height: ${designHeight}px;

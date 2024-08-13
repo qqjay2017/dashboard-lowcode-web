@@ -1,6 +1,6 @@
 import { observer } from "@formily/reactive-react";
 import { Button, Radio, Space, message } from "antd";
-import { useDesigner } from "@/designable/react";
+import { useDesigner, useViewport } from "@/designable/react";
 
 import { useReportShare } from "@/application/hooks";
 import { useUpdateDashboard } from "@/schema-component/hooks";
@@ -10,6 +10,7 @@ import { transformToSchema } from "@/designable/transformer";
 
 export const Actions = observer(({ shareURL }: { shareURL?: string }) => {
   const designer = useDesigner();
+  const viewport = useViewport();
   const { updateDashboard } = useUpdateDashboard();
   const { reportShare } = useReportShare();
   const saveSchema = async () => {
@@ -24,7 +25,10 @@ export const Actions = observer(({ shareURL }: { shareURL?: string }) => {
   };
 
   const pubSchema = async () => {
-    const imgSrc = await htmlImgUtil({ element: "DashboardRoot" });
+    const imgSrc = await htmlImgUtil({
+      element: "scaleContainer",
+      scale: 1 / viewport.designScale,
+    });
 
     const tree = designer.getCurrentTree();
 

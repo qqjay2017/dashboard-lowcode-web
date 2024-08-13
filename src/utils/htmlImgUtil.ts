@@ -3,16 +3,23 @@ import html2canvas from "html2canvas";
 import minioSdk from "@/sdk/minio-sdk/MinioSdk";
 import type { ApiFileModel } from "@/sdk";
 
-export async function htmlImgUtil({ element }: { element: string }): Promise<{
+export async function htmlImgUtil({
+  element,
+  scale = 1,
+}: {
+  element: string;
+  scale?: number;
+}): Promise<{
   fileSrcUrl?: string;
 }> {
   const r = document.getElementById(element);
   if (!r) {
     return Promise.resolve({});
   }
+
   return new Promise<ApiFileModel | null>((resolve) => {
     html2canvas(r, {
-      scale: 1,
+      scale,
     })
       .then((canvas) => {
         canvas.toBlob((blob) => {
