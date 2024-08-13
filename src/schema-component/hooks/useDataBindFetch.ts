@@ -21,6 +21,7 @@ export function useDataBindFetch(
     ...functionTemplateHandle(dataSource.busData, {}),
     ...requestData,
   };
+
   const { data, ...rest } = useQuery({
     queryKey: [
       "dataSourceQuery",

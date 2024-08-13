@@ -20,14 +20,14 @@ interface ProjectAttendanceItem {
 function ProjectAttendanceAnaTableMain({
   busDataRes,
 }: SchemComponentWithDataSourceProps) {
-  const projectAttendance: ProjectAttendanceItem[] = (
-    get(busDataRes, "data", []) || []
-  ).map((d, index) => {
-    return {
-      ...d,
-      id: String(index),
-    };
-  });
+  const projectAttendance: ProjectAttendanceItem[] = (busDataRes || []).map(
+    (d, index) => {
+      return {
+        ...d,
+        id: String(index),
+      };
+    }
+  );
   return (
     <div
       className={css`

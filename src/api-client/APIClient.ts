@@ -77,16 +77,17 @@ export class APIClient extends APIClientSdk {
         const configDataPath = (res.config as any).dataPath;
 
         if (code === 500) {
-          console.log(res, "res");
           handleErrorMessage({ response: res }, this.notification);
           return Promise.reject(res.data);
         }
 
+        const defaultResolveData = res?.data?.data || res?.data || res;
+
         return configDataPath !== undefined
-          ? get(res, configDataPath, res)
+          ? get(res, configDataPath, defaultResolveData)
           : this.dataPath !== undefined
-            ? get(res, this.dataPath, res)
-            : res.data?.data;
+            ? get(res, this.dataPath, defaultResolveData)
+            : defaultResolveData;
       },
       (error) => {
         console.error(error, "error");

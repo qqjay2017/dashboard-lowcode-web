@@ -11,6 +11,7 @@ function UnprocessedWarningListMain({
   isBusDataLoading,
 }: SchemComponentWithDataSourceProps) {
   const warnList = busData || [];
+
   return (
     <div
       className={css`

@@ -40,7 +40,6 @@ const DataSourceBind = observer((props: DataSourceBindProps) => {
   } = useInnerVisible();
 
   const form = useMemo(() => {
-    console.log(props.value, "props.value");
     return createForm({
       values: {
         apiInfo: clone(props.value),

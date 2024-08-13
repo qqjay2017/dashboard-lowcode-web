@@ -9,13 +9,9 @@ import type { SchemComponentWithDataSourceProps } from "@/types";
 import injectApiInfo from "@/schema-component/hoc/injectApiInfo";
 
 function SmartHelmetMain({ busDataRes }: SchemComponentWithDataSourceProps) {
-  const safetyProject: SafetyProjectType = get(
-    busDataRes,
-    "data.safetyProject",
-    {}
-  );
+  const safetyProject: SafetyProjectType = get(busDataRes, "safetyProject", {});
   const applicationAnalysis: ApplicationAnalysiItem[] =
-    get(busDataRes, "data.applicationAnalysis", []) || [];
+    get(busDataRes, "applicationAnalysis", []) || [];
 
   return (
     <div

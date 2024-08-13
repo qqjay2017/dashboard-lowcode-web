@@ -12,7 +12,7 @@ function KeyPersonArrivedMain({
   busDataRes,
   isBusDataLoading,
 }: SchemComponentWithDataSourceProps) {
-  const list: KeyPersonItemType[] = get(busDataRes, "data", []) || [];
+  const list: KeyPersonItemType[] = busDataRes || [];
 
   return (
     <EmptyKit loading={isBusDataLoading} empty={!list.length}>

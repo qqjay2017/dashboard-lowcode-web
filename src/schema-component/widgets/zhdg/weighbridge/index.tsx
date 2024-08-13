@@ -62,7 +62,6 @@ export default function Weighbridge() {
           "system-id": systemIds.zhgd,
         },
       });
-      console.log(res, "res");
     } catch (error) {}
   };
 
