@@ -3,6 +3,7 @@ import { css } from "@emotion/css";
 import type { HeaderMenuItemType } from "../HeaderMenu/types";
 import { cx } from "@/utils";
 import { useReportShare } from "@/application/hooks";
+import { safeArraySelect } from "@/schema-component/shared";
 
 export function Level2SubMenu({
   subMenuList,
@@ -19,7 +20,7 @@ export function Level2SubMenu({
         display: flex;
       `}
     >
-      {subMenuList.map((s, index) => {
+      {safeArraySelect(subMenuList).map((s, index) => {
         return (
           <SubMenuItem
             reportId={reportId}

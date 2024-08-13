@@ -1,11 +1,12 @@
-import { css } from '@emotion/css'
-import { HelmetRightScrollWrap, HelmetRightWrap, RightLabel } from './style'
-import { AnaItem } from './AnaItem'
+import { css } from "@emotion/css";
+import { HelmetRightScrollWrap, HelmetRightWrap, RightLabel } from "./style";
+import { AnaItem } from "./AnaItem";
+import { safeArraySelect } from "@/schema-component/shared";
 
 export function HelmetRight({
   applicationAnalysis = [],
 }: {
-  applicationAnalysis?: any[]
+  applicationAnalysis?: any[];
 }) {
   return (
     <HelmetRightWrap>
@@ -17,11 +18,11 @@ export function HelmetRight({
             min-height: 100%;
           `}
         >
-          {applicationAnalysis.map((ana, index) => {
-            return <AnaItem key={index} {...ana} />
+          {safeArraySelect(applicationAnalysis).map((ana, index) => {
+            return <AnaItem key={index} {...ana} />;
           })}
         </div>
       </HelmetRightScrollWrap>
     </HelmetRightWrap>
-  )
+  );
 }

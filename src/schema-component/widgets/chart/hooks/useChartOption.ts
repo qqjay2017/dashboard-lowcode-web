@@ -55,6 +55,9 @@ export function functionTemplateHandle(
     totalNum?: number;
   }
 ) {
+  if (!handlebarsStr) {
+    return {};
+  }
   try {
     // eslint-disable-next-line no-new-func
     const funCode = new Function(

@@ -8,6 +8,7 @@ import {
 } from "@/schema-component/hooks";
 import { DataTable } from "@/dashboard-themes/ui";
 import injectApiInfo from "@/schema-component/hoc/injectApiInfo";
+import { safeArraySelect } from "@/schema-component/shared";
 
 interface ProjectAttendanceItem {
   projectName: string;
@@ -20,14 +21,14 @@ interface ProjectAttendanceItem {
 function ProjectAttendanceAnaTableMain({
   busDataRes,
 }: SchemComponentWithDataSourceProps) {
-  const projectAttendance: ProjectAttendanceItem[] = (busDataRes || []).map(
-    (d, index) => {
-      return {
-        ...d,
-        id: String(index),
-      };
-    }
-  );
+  const projectAttendance: ProjectAttendanceItem[] = safeArraySelect(
+    busDataRes
+  ).map((d, index) => {
+    return {
+      ...d,
+      id: String(index),
+    };
+  });
   return (
     <div
       className={css`

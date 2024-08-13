@@ -15,6 +15,8 @@ export interface UseRequestOptions {
   headers?: any;
   enabled?: boolean;
   staleTime?: number;
+  select?: any;
+  placeholderData?: any;
 }
 
 export type APiWrap<T> = T;
@@ -36,6 +38,8 @@ export function useRequest<D = any>(
     headers,
     enabled,
     staleTime,
+    select,
+    placeholderData,
     ...other
   } = options;
 
@@ -43,6 +47,8 @@ export function useRequest<D = any>(
     queryKey: [url, method, ...refreshDeps],
     enabled,
     staleTime,
+    select,
+    placeholderData: placeholderData || select,
     queryFn: async () => {
       try {
         const res = await app.apiClient.request<any, D>({

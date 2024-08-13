@@ -8,14 +8,20 @@ import {
 import { cx } from "@/utils";
 import { useRequest } from "@/api-client";
 import type { FormItemComponentProps } from "@/types";
-import { apiConfig, apiUrlMap, systemIds } from "@/schema-component/shared";
+import {
+  apiConfig,
+  apiUrlMap,
+  safeArraySelect,
+  safeObjectSelect,
+  systemIds,
+} from "@/schema-component/shared";
 
 const askIcon = `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAjJJREFUWEfNl89V20AQxr9ZWSI58J7pwFQQ6MCuIKECcAcYwSGnwCkHYkwHqIOYCuwOIBVEHcANLGENb1cICcmSd2XFjq7a2fnNN380Imz4oQ37hxnAObexPTsCWl9AvAdwOw6AfDAeAb5FYE/xnXzdwPQALsMuLPwAc1frYqIp5rjAmT1ddr4aQEX8cgPwt2UXLX4vPATWRZUi5QA/nzpwrAmATj3n71Y+ArtXBrEYoDnnCUUpRBGgeecphLD3MaDHrKJFgF8zD0SHK8peYk5juPZBOYCsdsEy7xqPbDnnWB10gmuAvmoYARH1st3xUYGrcKLdahAe3FZfOTVRTbboid1LYFOAOPd/taKIh88YQWtgrIA0EPZOUgspwDA4AnCjD7DCySga4OzTtQrj/ZrhbKydxxV8x6Zp+lIAo/wrdB8s4lFLURdsMLAI9zhx9nMKBDL/BlOvZhHGEvhwnd3/DOAquANjTz+9KyjANMVp3IppDZj0cq6QjOaAsuVbuFvqC5sCXD4fQ4jRWhQA+nAd7yPAiNuIwoe1AIj5Lgaf1da0/lGcyX8RwOhjVHMUV36MJNIw/F1/BVuWwEznvB0t7gOyFjiULWkwlJY5fpucNO8luU8sFq9ko6cO2Jo0BiHH9gLnxRrIBtIURIXzagD5VkLMxXn9FY3GEK1+fg/Mxvlvfkxkq3ETPyb52pKKRFZX7Q2ENpjjQpW/ZSTugZc/EFteVcT5K/UU0Cjyukc2DvAKPAroISzv/nkAAAAASUVORK5CYII=`;
 
 function renderStatisticsItems(statisticsItems: StatisticsItemProps[] = []) {
   return (
     <>
-      {statisticsItems.map((item, index) => {
+      {safeArraySelect(statisticsItems).map((item, index) => {
         return <StatisticsItem key={index} {...item} />;
       })}
     </>
@@ -38,6 +44,7 @@ export default function SummaryStatistics({
         pageSize,
         pageNum,
       },
+      select: safeObjectSelect,
       refreshDeps: [busParams, searchValues, pageSize, pageNum],
       method: "POST",
       headers: {
@@ -45,9 +52,6 @@ export default function SummaryStatistics({
       },
     }
   );
-  if (!data) {
-    return null;
-  }
 
   const statisticsItems: StatisticsItemProps[] = [
     {

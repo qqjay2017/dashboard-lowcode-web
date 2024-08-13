@@ -10,6 +10,7 @@ import {
   PrevButton,
   usePrevNextButtons,
 } from "@/dashboard-themes/ui";
+import { safeArraySelect } from "@/schema-component/shared";
 
 export const Level1Menu = memo(
   ({
@@ -90,7 +91,7 @@ export const Level1Menu = memo(
                 display: flex;
               `}
             >
-              {menuList.map((menu, index) => {
+              {safeArraySelect(menuList).map((menu, index) => {
                 return (
                   <div
                     key={index}

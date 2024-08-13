@@ -16,7 +16,12 @@ import {
 import { ExportButton } from "@/dashboard-themes/ui";
 import { EmptyKit } from "@/dashboard-themes/style-components";
 import { useAPIClient, useRequest } from "@/api-client";
-import { apiConfig, apiUrlMap, systemIds } from "@/schema-component/shared";
+import {
+  apiConfig,
+  apiUrlMap,
+  safeArraySelect,
+  systemIds,
+} from "@/schema-component/shared";
 
 export default function Weighbridge() {
   const busParams = useQueryToBusParams();
@@ -45,7 +50,9 @@ export default function Weighbridge() {
   );
 
   const wagonBalanceTotal = wagonBalanceRes?.total || 0;
-  const wagonBalanceRows: WagonBalanceRow[] = wagonBalanceRes?.rows || [];
+  const wagonBalanceRows: WagonBalanceRow[] = safeArraySelect(
+    wagonBalanceRes?.rows || []
+  );
 
   const handleExport = async () => {
     try {

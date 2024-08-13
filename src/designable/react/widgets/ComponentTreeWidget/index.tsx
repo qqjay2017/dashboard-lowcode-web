@@ -17,6 +17,8 @@ import { GlobalRegistry } from "@/designable/core";
 import type { TreeNode } from "@/designable/core";
 import { cn } from "@/utils";
 import SchemaComponentOptions from "@/schema-component/core/SchemaComponentOptions";
+import { AppError } from "@/application/components/defaultAppError";
+import { useApp } from "@/application/hooks";
 
 export interface IComponentTreeWidgetProps {
   style?: React.CSSProperties;
@@ -31,6 +33,7 @@ export interface ITreeNodeWidgetProps {
 
 export const TreeNodeWidget: React.FC<ITreeNodeWidgetProps> = observer(
   (props: ITreeNodeWidgetProps) => {
+    const app = useApp();
     const designer = useDesigner(props.node?.designerProps?.effects);
     const components = useComponents();
     const node = props.node;
@@ -80,7 +83,11 @@ export const TreeNodeWidget: React.FC<ITreeNodeWidgetProps> = observer(
     if (!node) return null;
     if (node.hidden) return null;
     return (
-      <ErrorBoundary FallbackComponent={null}>
+      <ErrorBoundary
+        FallbackComponent={(props) => (
+          <AppError app={app} error={app.error} {...props} />
+        )}
+      >
         {React.createElement(
           TreeNodeContext.Provider,
           { value: node },
@@ -93,6 +100,7 @@ export const TreeNodeWidget: React.FC<ITreeNodeWidgetProps> = observer(
 
 export const ComponentTreeWidgetInner: React.FC<IComponentTreeWidgetProps> =
   observer((props: IComponentTreeWidgetProps) => {
+    const app = useApp();
     const tree = useTree();
 
     const designer = useDesigner();
@@ -106,7 +114,11 @@ export const ComponentTreeWidgetInner: React.FC<IComponentTreeWidgetProps> =
       GlobalRegistry.registerDesignerBehaviors(props.components);
     }, []);
     return (
-      <ErrorBoundary FallbackComponent={null}>
+      <ErrorBoundary
+        FallbackComponent={(props) => (
+          <AppError app={app} error={app.error} {...props} />
+        )}
+      >
         <div
           style={{ ...props.style, ...tree?.props?.style }}
           className={cn(

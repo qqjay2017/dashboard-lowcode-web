@@ -7,6 +7,7 @@ import DeviationOfCargoChart from "./DeviationOfCargoChart";
 import { useFrameSizeStyle, useWagonQuery } from "@/schema-component/hooks";
 import { EmptyKit } from "@/dashboard-themes/style-components";
 import type { SchemComponentWithDataSourceProps } from "@/types";
+import { safeArraySelect } from "@/schema-component/shared";
 
 export default function DeviationOfCargo({
   queryKeys,
@@ -19,7 +20,7 @@ export default function DeviationOfCargo({
     setGoodsName(firstGoodsName || "");
   });
 
-  const rows = data?.rows || [];
+  const rows = safeArraySelect(data?.rows || []);
 
   return (
     <div

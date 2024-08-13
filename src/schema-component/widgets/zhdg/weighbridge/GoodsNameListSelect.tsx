@@ -5,11 +5,12 @@ import { observer } from "@formily/react";
 import { useWagonQuery } from "@/schema-component/hooks";
 
 import type { FormItemComponentProps } from "@/types";
+import { safeArraySelect } from "@/schema-component/shared";
 
 const GoodsNameListSelect = observer(
   ({ value, onChange, onBlur }: FormItemComponentProps) => {
     const { data } = useWagonQuery({ type: 0 });
-    const rows = data?.rows || [];
+    const rows = safeArraySelect(data?.rows || []);
 
     return (
       <Select

@@ -22,7 +22,7 @@ import {
 
 import type { SchemComponentWithDataSourceProps } from "@/types";
 
-import { takeFirstApiInfo } from "@/schema-component/shared";
+import { safeArraySelect, takeFirstApiInfo } from "@/schema-component/shared";
 import { EmptyKit } from "@/dashboard-themes/style-components";
 
 const emptyCss = css`
@@ -180,7 +180,7 @@ const MenuItem = forwardRef<
 });
 export function HeaderMenu({ apiInfo }: SchemComponentWithDataSourceProps) {
   const { data, isLoading } = useDataBindFetch(apiInfo);
-  const menuList: HeaderMenuItemType[] = get(data, "data.data", []) || [];
+  const menuList: HeaderMenuItemType[] = safeArraySelect(data || []);
   const { reportId } = useReportId();
   const { ref, width = 0 } = useResizeObserver<HTMLDivElement>();
   const menuInnerWidth = useMemo(() => {

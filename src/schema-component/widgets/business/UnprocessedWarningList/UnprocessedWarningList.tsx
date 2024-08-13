@@ -5,12 +5,13 @@ import type { SchemComponentWithDataSourceProps } from "@/types";
 
 import { EmptyKit } from "@/dashboard-themes/style-components";
 import injectApiInfo from "@/schema-component/hoc/injectApiInfo";
+import { safeArraySelect } from "@/schema-component/shared";
 
 function UnprocessedWarningListMain({
   busData,
   isBusDataLoading,
 }: SchemComponentWithDataSourceProps) {
-  const warnList = busData || [];
+  const warnList = safeArraySelect(busData || []);
 
   return (
     <div

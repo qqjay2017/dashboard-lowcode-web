@@ -12,13 +12,14 @@ import {
   useFetchProjectList,
   useJfGlobalProjectStore,
 } from "@/schema-component/hooks";
+import { safeArraySelect } from "@/schema-component/shared";
 
 export default function ProjectSelect(props: FormItemComponentProps) {
   const { data, isFetched } = useFetchProjectList({
     staleTime: true,
   });
 
-  const projectList = get(data, "table.rows", []) || [];
+  const projectList = safeArraySelect(get(data, "table.rows", []) || []);
   const { setProject, project } = useJfGlobalProjectStore();
 
   const { colWidth } = useDashboardRoot();

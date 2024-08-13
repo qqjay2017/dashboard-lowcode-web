@@ -18,6 +18,7 @@ import {
   getXAxisCategoryConfig,
   getyYAxisConfig,
 } from "./chartCommonOption";
+import { safeArraySelect, safeObjectSelect } from "@/schema-component/shared";
 
 export const chartHelps = {
   percentFixed,
@@ -37,4 +38,6 @@ export const chartHelps = {
   getBarLineTooltipOption,
   getBottomDataZoomConfig,
   getPieSeriesConfig,
+  safeArraySelect,
+  safeObjectSelect,
 };

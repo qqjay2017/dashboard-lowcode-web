@@ -18,7 +18,7 @@ export function useDataBindFetch(
   const dataSource = takeFirstApiInfo(apiInfo);
   const { request } = useReqApiProxy();
   const _requestData = {
-    ...functionTemplateHandle(dataSource.busData, {}),
+    ...functionTemplateHandle(dataSource?.busData, {}),
     ...requestData,
   };
 
@@ -34,6 +34,12 @@ export function useDataBindFetch(
       let apiRes;
       if (request) {
         apiRes = await request({
+          // 指定数据的层级
+          dataPath:
+            dataSource?.dataSourceType === "json" ||
+            dataSource?.dataSourceType === "js"
+              ? "data"
+              : "data.data",
           data: _requestData,
           apiId: dataSource?.dataSourceId,
         });
@@ -47,31 +53,6 @@ export function useDataBindFetch(
     },
   });
 
-  // const dataMemo = useMemo(() => {
-
-  //   if (!data || !dataSource?.dataSourceId || !dataSource?.afterScript) {
-
-  //   }
-
-  //   try {
-  //     // 请求后脚本
-  //     // eslint-disable-next-line no-new-func
-  //     const afterScriptHandle = new Function(
-  //       'apiRes',
-  //       'context',
-  //       dataSource.afterScript,
-  //     )
-  //     const r = afterScriptHandle(data, { get })
-  //     if (typeof r === 'object') {
-  //       return JSON.stringify(r)
-  //     }
-  //     return r
-  //   }
-  //   catch (error) {
-  //     console.error(error, '函数执行报错')
-  //     return data
-  //   }
-  // }, [data])
   return {
     ...rest,
     data,

@@ -3,11 +3,12 @@ import { observer } from "@formily/react";
 import { useWagonQuery } from "@/schema-component/hooks";
 
 import type { FormItemComponentProps } from "@/types";
+import { safeArraySelect } from "@/schema-component/shared";
 
 const GoodsDevCompanyListSelect = observer(
   ({ value, onChange, onBlur }: FormItemComponentProps) => {
     const { data } = useWagonQuery({ type: 1 });
-    const rows = data?.rows || [];
+    const rows = safeArraySelect(data?.rows || []);
     return (
       <Select
         onBlur={onBlur}
