@@ -72,6 +72,7 @@ class Application {
   maintaining = false;
   error = null;
   isInFrame = false;
+  initReportInFrame = false;
 
   get pm() {
     return this.pluginManager;
@@ -84,6 +85,7 @@ class Application {
       maintaining: observable.ref,
       error: observable.ref,
       isInFrame: observable.ref,
+      initReportInFrame: observable.ref,
     });
     this.scopes = merge(this.scopes, options.scopes);
     this.components = merge(this.components, options.components, {});

@@ -4,7 +4,7 @@ export function getDefaultBackgroundColor(
 ) {
   if (themeProvider === "technologyBlue") {
     if (isDarkTheme) {
-      return "#0C1A32";
+      return "rgba(0, 26, 58, 0.8)";
     }
   }
   return "";

@@ -1,10 +1,9 @@
+import { WaitInitReport } from "./WaitInitReport";
 import { Plugin } from "@/application";
 
 class KxgcFrameAuthPlugin extends Plugin {
   async load(): Promise<void> {
-    // this.app.use(() => {
-    //   return <div>123</div>;
-    // });
+    this.app.use(WaitInitReport);
   }
 
   async beforeLoad(): Promise<void> {
@@ -54,6 +53,7 @@ class KxgcFrameAuthPlugin extends Plugin {
               })
             );
           }
+          this.app.initReportInFrame = true;
         }
       },
       false
