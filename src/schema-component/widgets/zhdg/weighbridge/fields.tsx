@@ -9,7 +9,7 @@ export const fields: IFieldItem[] = [
     name: "dateType",
     title: "",
     gridCol: {
-      span: 6,
+      span: 8,
     },
     decorator: [FormItem],
     component: [
