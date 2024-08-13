@@ -37,7 +37,7 @@ export function useRequest<D = any>(
     refreshDeps = [],
     headers,
     enabled,
-    staleTime,
+    staleTime = 2000,
     select,
     placeholderData,
     ...other

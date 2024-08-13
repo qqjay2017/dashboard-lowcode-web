@@ -9,7 +9,6 @@ export default function InternalQueryClientProvider(props: PropsWithChildren) {
         new QueryClient({
           defaultOptions: {
             queries: {
-              staleTime: 1000 * 60 * 5,
               refetchOnWindowFocus: false,
               retry: false,
             },

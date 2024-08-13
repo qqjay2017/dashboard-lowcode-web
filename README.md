@@ -308,3 +308,5 @@ export function ClassicFrame6({ children, title }: IClassicFrame6Props) {
   "version": 0
 }
 ```
+
+## 图表编辑页面(优化方便编辑)

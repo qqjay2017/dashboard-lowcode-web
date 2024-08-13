@@ -5,6 +5,7 @@ import { apiConfig, apiUrlMap, systemIds } from "@/schema-component/shared";
 export function useWagonQuery(
   {
     type = 0,
+    ...other
   }: {
     /**
      *  搜索类型 0-货物 1-发货单位
@@ -19,9 +20,9 @@ export function useWagonQuery(
   }>(
     `${apiConfig.apiIot}${apiUrlMap.wagonQuery}`,
     {
-      staleTime: 5 * 6000,
+      staleTime: 2000,
       method: "POST",
-      refreshDeps: [type],
+      refreshDeps: [type, other],
       data: {
         ...busParams,
         type,

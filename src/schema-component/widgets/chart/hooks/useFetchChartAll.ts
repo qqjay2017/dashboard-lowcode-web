@@ -8,7 +8,7 @@ export function useFetchChartAll(type?: string) {
     params: {
       type,
     },
-    staleTime: 50 * 6000,
+    staleTime: 2000,
     refreshDeps: [type],
   });
 }

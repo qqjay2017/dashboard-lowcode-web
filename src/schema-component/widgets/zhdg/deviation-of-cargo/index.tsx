@@ -1,6 +1,7 @@
 import { css } from "@emotion/css";
 
 import { useState } from "react";
+import { get } from "lodash-es";
 import CargoTypeSelect from "./CargoTypeSelect";
 import DeviationOfCargoChart from "./DeviationOfCargoChart";
 
@@ -9,19 +10,26 @@ import { EmptyKit } from "@/dashboard-themes/style-components";
 import type { SchemComponentWithDataSourceProps } from "@/types";
 import { safeArraySelect } from "@/schema-component/shared";
 
+function firstGoodsNameCallback(setGoodsName) {
+  return (res) => {
+    const firstGoodsName = (res?.rows || []).find((row) => row.name)?.name;
+    setGoodsName(firstGoodsName || "");
+  };
+}
+
 export default function DeviationOfCargo({
   queryKeys,
 }: SchemComponentWithDataSourceProps) {
-  const { headStyle, bodyStyle } = useFrameSizeStyle();
   const [goodsName, setGoodsName] = useState("");
+  const { headStyle, bodyStyle } = useFrameSizeStyle();
 
-  const { data, isLoading } = useWagonQuery({ type: 0 }, (res) => {
-    const firstGoodsName = (res?.rows || []).find((row) => row.name)?.name;
-    setGoodsName(firstGoodsName || "");
-  });
+  const { data, isLoading } = useWagonQuery(
+    { type: 0 },
+    firstGoodsNameCallback(setGoodsName)
+  );
 
   const rows = safeArraySelect(data?.rows || []);
-
+  console.log(goodsName, "goodsName");
   return (
     <div
       className={css`

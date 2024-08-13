@@ -13,7 +13,7 @@ export function useFetchProjectList({
     headers: {
       "system-id": "1",
     },
-    staleTime: staleTime ? 1000 * 60 * 5 : undefined,
+    staleTime: staleTime ? 2000 : undefined,
 
     data: {
       authFlag: true,
