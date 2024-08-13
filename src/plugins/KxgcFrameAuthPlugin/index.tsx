@@ -2,9 +2,7 @@ import { WaitInitReport } from "./WaitInitReport";
 import { Plugin } from "@/application";
 
 class KxgcFrameAuthPlugin extends Plugin {
-  async load(): Promise<void> {
-    this.app.use(WaitInitReport);
-  }
+  async load(): Promise<void> {}
 
   async beforeLoad(): Promise<void> {
     this.app.setIsInFrame(true);
@@ -39,21 +37,7 @@ class KxgcFrameAuthPlugin extends Plugin {
                 },
               })
             );
-          } else {
-            sessionStorage.setItem(
-              "jf-project-storage",
-              JSON.stringify({
-                version: 0,
-                state: {
-                  projectId: "",
-                  project: {
-                    id: "",
-                  },
-                },
-              })
-            );
           }
-          this.app.initReportInFrame = true;
         }
       },
       false
