@@ -1,5 +1,9 @@
 import type { ISchema } from "@formily/react";
 
+export const jsTemplateTooltip = `
+支持函数: dayjs;
+支持变量: systemIds;
+`;
 const name = {
   type: "string",
   title: "API标题",
@@ -91,9 +95,7 @@ export const editApiFormSchema: ISchema = {
           required: false,
           "x-decorator": "FormItem",
           "x-decorator-props": {
-            tooltip: `
-            支持函数: dayjs 
-            `,
+            tooltip: jsTemplateTooltip,
             feedbackText: `
              option = {
           startTime: dayjs().subtract(11, "month").startOf("month").valueOf(),
@@ -113,13 +115,15 @@ export const editApiFormSchema: ISchema = {
           required: false,
           "x-decorator": "FormItem",
           "x-decorator-props": {
+            tooltip: jsTemplateTooltip,
             feedbackText: `
-            {"system-id":"237718173535821884"}
+            option = { "system-id": systemIds.zhgd }
             `,
           },
           "x-component": "JsonInput",
           "x-component-props": {
             height: "200px",
+            language: "javascript",
           },
         },
       },

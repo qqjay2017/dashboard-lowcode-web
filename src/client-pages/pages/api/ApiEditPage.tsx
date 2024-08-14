@@ -62,9 +62,7 @@ function ApiEditPage() {
         ...values,
         id,
         type: typeParam,
-        headers: values.headers
-          ? JSON.stringify(JSON.parse(values.headers || "{}"))
-          : "{}",
+
         url: (values.url || "").trim(),
         content: !values.content
           ? ""

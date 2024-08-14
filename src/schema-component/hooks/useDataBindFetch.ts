@@ -42,6 +42,9 @@ export function useDataBindFetch(
               : "data.data",
           data: _requestData,
           apiId: dataSource?.dataSourceId,
+          headers: {
+            ...functionTemplateHandle(dataSource?.headers, {}),
+          },
         });
       }
       try {

@@ -15,6 +15,7 @@ import { ApiInfoSelectAll } from "./ApiInfoSelect";
 
 import type { FormItemComponentProps } from "@/types";
 import { useInnerVisible } from "@/designable/react/hooks";
+import { jsTemplateTooltip } from "@/client-pages/pages/api/editApiFormSchema";
 
 interface DataSourceBindProps extends FormItemComponentProps {}
 
@@ -44,6 +45,7 @@ const DataSourceBind = observer((props: DataSourceBindProps) => {
       values: {
         apiInfo: clone(props.value),
         busData: clone(props.value?.busData || ""),
+        headers: clone(props.value?.headers || ""),
       },
     });
   }, [modalVisible, props.value, innerVisible]);
@@ -62,6 +64,7 @@ const DataSourceBind = observer((props: DataSourceBindProps) => {
               props.onChange?.({
                 ...values.apiInfo,
                 busData: values.busData,
+                headers: values.headers,
               });
             });
             closeModal();
@@ -122,6 +125,30 @@ const DataSourceBind = observer((props: DataSourceBindProps) => {
                         }}
                         x-component-props={{
                           height: "300px",
+                          language: "javascript",
+                        }}
+                      />
+                    </SchemaField.Void>
+
+                    <SchemaField.Void
+                      x-component="FormCollapse.CollapsePanel"
+                      x-component-props={{
+                        key: "headers",
+                        header: "自定义请求头",
+                      }}
+                    >
+                      <SchemaField.String
+                        name="headers"
+                        x-decorator="FormItem"
+                        x-component="JsonInput"
+                        x-decorator-props={{
+                          tooltip: jsTemplateTooltip,
+                          feedbackText: `
+                            option = { "system-id": systemIds.zhgd }
+            `,
+                        }}
+                        x-component-props={{
+                          height: "200px",
                           language: "javascript",
                         }}
                       />

@@ -7,6 +7,7 @@ import dayjs from "dayjs";
 import { chartListDataFormat } from "@/utils";
 import { useToken } from "@/schema-component/antd/style";
 import { chartHelps } from "@/utils/chartHelps";
+import { systemIds } from "@/schema-component/shared";
 
 export function useChartOption(chartDataTemplate = "", busData) {
   const { token } = useToken();
@@ -67,6 +68,7 @@ export function functionTemplateHandle(
       "busData",
       "chartHelps",
       "dayjs",
+      "systemIds",
       `option=null;${handlebarsStr};return option||{}`
     );
     const c =
@@ -79,7 +81,8 @@ export function functionTemplateHandle(
           ...chartHelps,
           totalNum,
         },
-        dayjs
+        dayjs,
+        systemIds
       ) || {};
     return c;
   } catch (error) {
