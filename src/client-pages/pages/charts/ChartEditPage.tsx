@@ -3,91 +3,55 @@ import { useParams } from "react-router-dom";
 import { css } from "@emotion/css";
 import React, { useEffect, useRef, useState } from "react";
 import { Select, Spin, Switch, message } from "antd";
-import Handlebars from "handlebars";
-import * as echarts from "echarts";
 
-import dayjs from "dayjs";
 import { defaultChartTemplate } from "./consts";
 
-import { chartMockData, chartMockDataOptions } from "./chartMockData";
 import { ChartEditRight } from "./ChartEditRight";
 
 import { useEditChartApi } from "./useEditChartApi";
 import { useAPIClient } from "@/api-client";
-import { apiBase, chartListDataFormat } from "@/utils";
+import { apiBase } from "@/utils";
 import { useApp } from "@/application/hooks";
-import { useCustomThemeToken } from "@/dashboard-themes";
-import { useToken } from "@/schema-component/antd/style";
 
 import { htmlImgUtil } from "@/utils/htmlImgUtil";
-import type { MonacoEditorHandles } from "@/schema-component/components/MonacoEditor";
+
 import MonacoEditor from "@/schema-component/components/MonacoEditor";
 import { defaultMessage } from "@/utils/defaultMessage";
-import { chartHelps } from "@/utils/chartHelps";
+
+import {
+  functionTemplateHandle,
+  useGetChartOption,
+} from "@/schema-component/widgets";
 
 function ChartEditPage() {
-  const { token: antdToken } = useToken();
-  const chartOptionEditorRef = useRef<MonacoEditorHandles>(null);
   const app = useApp();
   const editChartApi = useEditChartApi();
   const apiClient = useAPIClient();
   const { id } = useParams();
   const [spinning, setSpinning] = useState(false);
-  const [chartMockDataType, setChartMockDataType] = useState("standard");
+  const [busDataMock, setBusDataMock] = useState("{}");
+
   const [themeProvider, setThemeName] = useState("technologyBlue");
   const [isDarkTheme, setIsDarkTheme] = useState(true);
   const [content, setTemplate] = useState("");
   const [chartOption, setChartOption] = useState(null);
-  const [chartOptionStr, setChartOptionStr] = useState("");
-  const { token: customThemeToken } = useCustomThemeToken({
+  const getChartOption = useGetChartOption({
     isDarkTheme,
     themeProvider,
   });
-  const handleCompileTemplate = (content = "", mockDataType = "") => {
+
+  const handleCompileTemplate = (content = "", _busDataMock?: any) => {
     if (!content) {
       app.message.warning("图表模版内容为空,请输入");
       return false;
     }
     try {
-      const handlebarsTemplate = Handlebars.compile(content);
-      const { chartListData, totalNum } = chartListDataFormat(
-        chartMockData[mockDataType || chartMockDataType] || []
-      );
-
-      const handlebarsStr = handlebarsTemplate({
-        chartListData,
-      });
-      // eslint-disable-next-line no-new-func
-      const funCode = new Function(
-        "echarts",
-        "chartListData",
-        "token",
-        "busData",
-        "chartHelps",
-        "dayjs",
-        `option=null;${handlebarsStr};return option||{};`
-      );
-      // 注入变量
-      const c =
-        funCode(
-          echarts,
-          chartListData,
-          {
-            ...antdToken,
-            ...customThemeToken,
-          },
-          {},
-          {
-            ...chartHelps,
-            totalNum,
-          },
-          dayjs
-        ) || {};
+      const busData = functionTemplateHandle(_busDataMock ?? busDataMock, {});
+      console.log(busData, "_busDataMock");
+      const c = getChartOption(content, busData);
       setChartOption(c);
-      setChartOptionStr(JSON.stringify(c));
-      setTimeout(() => {
-        chartOptionEditorRef.current?.formatDocument();
-      }, 200);
+      app.message.success("代码执行成功");
+
       return content;
     } catch (error) {
       console.error(error);
@@ -108,6 +72,7 @@ function ChartEditPage() {
           id,
           coverThumbnail: imgSrc?.fileSrcUrl || undefined,
           content: newTemp,
+          busDataMock,
         },
       });
 
@@ -147,15 +112,16 @@ function ChartEditPage() {
       })
       .then((res) => {
         const chartDt = res || {};
-        const type = chartDt.type;
-        const isPie = type === "pie";
-        if (isPie) {
-          setChartMockDataType("pieData");
-        }
+        // const type = chartDt.type;
+        setBusDataMock(chartDt.busDataMock);
+        // const isPie = type === "pie";
+        // if (isPie) {
+        //   setChartMockDataType("pieData");
+        // }
 
         const content = chartDt.content || defaultChartTemplate;
         setTemplate(content);
-        handleCompileTemplate(content, isPie ? "pieData" : "");
+        handleCompileTemplate(content, chartDt.busDataMock);
       });
   }, [id]);
 
@@ -179,12 +145,13 @@ function ChartEditPage() {
           <div
             className={css`
               width: 100%;
-              height: 30px;
+              height: 40px;
               box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
               display: flex;
               align-items: center;
               justify-content: flex-end;
               column-gap: 12px;
+              padding-right: 16px;
 
               border-bottom: 1px solid #dcdfe6;
             `}
@@ -218,18 +185,7 @@ function ChartEditPage() {
                 setIsDarkTheme(e);
               }}
             ></Switch>
-            <Select
-              size="small"
-              value={chartMockDataType}
-              defaultValue="standard"
-              className={css`
-                width: 150px;
-              `}
-              options={chartMockDataOptions}
-              onChange={(e) => {
-                setChartMockDataType(e);
-              }}
-            />
+
             <RunBtn
               onClick={() => {
                 handleSaveTemplate(content);
@@ -248,7 +204,7 @@ function ChartEditPage() {
           <div
             className={css`
               width: 100%;
-              height: calc(100vh - 80px);
+              height: calc(100vh - 90px);
             `}
           >
             <MonacoEditor
@@ -265,9 +221,8 @@ function ChartEditPage() {
 
       <ChartEditRight
         chartOption={chartOption}
-        chartOptionStr={chartOptionStr}
-        setChartOptionStr={setChartOptionStr}
-        chartOptionEditorRef={chartOptionEditorRef}
+        busDataMock={busDataMock}
+        setBusDataMock={setBusDataMock}
         isDarkTheme={isDarkTheme}
         themeProvider={themeProvider}
       />
@@ -283,7 +238,7 @@ function RunBtn({ children, ...props }: React.HTMLAttributes<HTMLDivElement>) {
         color: #fff;
         background-color: #409eff;
         min-width: 70px;
-        height: 100%;
+        height: 28px;
         display: flex;
         align-items: center;
         justify-content: center;

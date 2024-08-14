@@ -8,10 +8,15 @@ import { chartListDataFormat } from "@/utils";
 import { useToken } from "@/schema-component/antd/style";
 import { chartHelps } from "@/utils/chartHelps";
 import { systemIds } from "@/schema-component/shared";
+import { useCustomThemeToken } from "@/dashboard-themes";
 
-export function useChartOption(chartDataTemplate = "", busData) {
+export function useGetChartOption({ isDarkTheme = true, themeProvider = "" }) {
+  const { token: customThemeToken } = useCustomThemeToken({
+    isDarkTheme,
+    themeProvider,
+  });
   const { token } = useToken();
-  return useMemo(() => {
+  return (chartDataTemplate = "", busData) => {
     if (!chartDataTemplate || !busData) {
       return {};
     }
@@ -31,7 +36,10 @@ export function useChartOption(chartDataTemplate = "", busData) {
 
       return functionTemplateHandle(handlebarsStr, {
         chartListData,
-        token,
+        token: {
+          ...customThemeToken,
+          ...token,
+        },
         busData,
         totalNum,
       });
@@ -39,7 +47,14 @@ export function useChartOption(chartDataTemplate = "", busData) {
       console.log("编译错误", error);
       return {};
     }
-  }, [chartDataTemplate, busData, token]);
+  };
+}
+
+export function useChartOption(chartDataTemplate = "", busData) {
+  const getChartOption = useGetChartOption({});
+  return useMemo(() => {
+    return getChartOption(chartDataTemplate, busData);
+  }, [chartDataTemplate, busData]);
 }
 
 export function functionTemplateHandle(
