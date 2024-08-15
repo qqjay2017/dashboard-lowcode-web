@@ -12,6 +12,7 @@ export function useDashboardDt() {
   const params = useRequest<APiWrap<DashboardItem>>(
     `${apiBase}/designer/${id}`,
     {
+      staleTime: 5 * 6000,
       method: "GET",
       refreshDeps: [id],
     }

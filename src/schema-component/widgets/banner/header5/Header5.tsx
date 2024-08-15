@@ -39,6 +39,7 @@ function Header5Main(props: Header5Props) {
     `/dashboard-assets/schema-component/header5/${token.themeAssetsPath}/bg.png`
   );
   const titleStr = useStrHandlebars(title);
+  console.log(titleStr, "titleStr");
   const subTitleStr = useStrHandlebars(subTitle);
 
   const menuList: HeaderMenuItemType[] = busData || [];

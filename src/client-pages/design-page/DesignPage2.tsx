@@ -38,11 +38,7 @@ function DesignPage2() {
   }
 
   return (
-    <SchemaComponentOptions
-      scope={{
-        dashboardDt: data || {},
-      }}
-    >
+    <SchemaComponentOptions>
       <DesignEngine
         schema={schema}
         name={name}

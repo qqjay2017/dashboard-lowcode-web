@@ -74,12 +74,7 @@ function PreviewPage() {
   };
 
   return (
-    <PreviewPageProvider
-      {...rootProps}
-      scope={{
-        dashboardDt: data,
-      }}
-    >
+    <PreviewPageProvider {...rootProps}>
       <RecursionField schema={renderShema} name="DashboardRootPreview" />
       <Helmet>
         <title>{name}</title>
