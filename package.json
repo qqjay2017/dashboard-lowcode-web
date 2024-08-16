@@ -36,7 +36,7 @@
     "@tanstack/react-table": "^8.19.2",
     "antd": "^5.20.1",
     "antd-style": "^3.6.2",
-    "axios": "^1.7.2",
+    "axios": "^1.7.4",
     "browser-fs-access": "^0.35.0",
     "clsx": "^2.1.1",
     "dateformat": "^5.0.3",
