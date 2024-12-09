@@ -1748,7 +1748,7 @@ __metadata:
     mini-css-extract-plugin: "npm:^2.9.0"
     monaco-editor: "npm:^0.50.0"
     monaco-editor-webpack-plugin: "npm:^7.1.0"
-    nanoid: "npm:4"
+    nanoid: "npm:5"
     node-polyfill-webpack-plugin: "npm:^4.0.0"
     prettier: "npm:^3.3.3"
     prettier-eslint: "npm:^16.3.0"
@@ -12137,12 +12137,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nanoid@npm:4":
-  version: 4.0.2
-  resolution: "nanoid@npm:4.0.2"
+"nanoid@npm:5":
+  version: 5.0.9
+  resolution: "nanoid@npm:5.0.9"
   bin:
     nanoid: bin/nanoid.js
-  checksum: 0e28bade6b10396bc0936980c7569e9710341b3dd8775bcd0645b7d23f59ff64e59c4413f48836bc336711ef1cc4f61f6453946a3bf69c4c235fab9d221f9216
+  checksum: 1c1109ce99d97117dcae0b2ec9c7b696760cf7cb3a2e9dbfff4c90f55c5d1a3a75ee938f3a1d9a5989e9ae743415c51cc67b79e6f1bab85efb6f111cdc983e87
   languageName: node
   linkType: hard
 
